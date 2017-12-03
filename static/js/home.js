@@ -1,10 +1,13 @@
-var urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search);
 
-if (!urlParams.has('jwt')) {
-  alert('DIEEEEEEEEEE');
+if (!urlParams.has('jwt') && localStorage.getItem('security.jwt') === null) {
+  window.location = config.portalUrl;
+} else if (urlParams.has('jwt')) {
+  localStorage.setItem('security.jwt', urlParams.get('jwt'));
+  window.location = '/';
 }
 
-const jwt = urlParams.get('jwt');
+const jwt = localStorage.getItem('security.jwt');
 
 var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 
