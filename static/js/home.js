@@ -14,6 +14,7 @@ var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 fetch('/api/me', {
     method: 'GET',
     headers: headers
-}).then(response => {
-    console.log(response);
-});
+}).then(response => response.json())
+  .then(data => {
+    document.querySelector("#player-data h3").innerText = data.pseudo
+  });
