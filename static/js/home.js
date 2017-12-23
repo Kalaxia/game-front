@@ -23,6 +23,6 @@ fetch('/api/me', {
     return response.json();
   }
 })
-  .then(data => {
-    document.querySelector("#player-data h3").innerText = data.pseudo
-  }).catch(error => console.log(error));
+.then(data => {
+  document.querySelector("#player-data h3").innerText = data.pseudo
+}).catch(error => console.log(error));
