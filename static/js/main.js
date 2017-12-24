@@ -8,7 +8,7 @@ if (!urlParams.has('jwt') && localStorage.getItem('security.jwt') === null) {
 }
 
 const jwt = localStorage.getItem('security.jwt');
-
+var dictionnary = '';
 var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 
 fetch('/api/me', {
@@ -26,3 +26,13 @@ fetch('/api/me', {
 .then(data => {
   document.querySelector("#player-data h3").innerText = data.pseudo
 }).catch(error => console.log(error));
+
+
+const createDictionnary = lang => {
+  fetch(`/static/translations/${lang}.json`)
+    .then(response => response.json())
+    .then(data => { dictionnary = data; })
+    .catch(error => console.log(error))
+  ;
+}
+createDictionnary('fr');
