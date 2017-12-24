@@ -28,6 +28,7 @@ const displaySystem = (map, data, scale) => {
   system.style.top = data.coord_y * scale + 'px';
   system.style.left = data.coord_x * scale + 'px';
   system.setAttribute('data-id', data.id);
+  system.ondblclick = redirectToSystem;
   map.appendChild(system);
 }
 
@@ -55,22 +56,26 @@ const startMapMove = e => {
   document.onmousemove = moveMap;
  }
 
- const moveMap = e => {
-     if (!drag) {
-       return;
-     }
-     if (!e) {
-       var e = window.event;
-     }
-     var map = document.querySelector("#map");
-     // move div element
-     map.style.left = coordX + e.clientX - offsetX + 'px';
-     map.style.top = coordY + e.clientY - offsetY + 'px';
-     return false;
+const moveMap = e => {
+   if (!drag) {
+     return;
+   }
+   if (!e) {
+     var e = window.event;
+   }
+   var map = document.querySelector("#map");
+   // move div element
+   map.style.left = coordX + e.clientX - offsetX + 'px';
+   map.style.top = coordY + e.clientY - offsetY + 'px';
+   return false;
  }
 
  const stopMapMove = () => {
      drag = false;
+ }
+
+ const redirectToSystem = event => {
+   window.location = `/views/map/system.html?id=${event.currentTarget.getAttribute('data-id')}`;
  }
 
  window.onload = () => {
