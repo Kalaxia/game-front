@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Electrolize');
+
 html {
-  background: #242424;
+  background: url('https://images.designtrends.com/wp-content/uploads/2015/12/17112023/outer-space-Texture.jpg') no-repeat;
+  background-size: cover;
   color: #EFEFEF;
   margin:0px;
+  font-family: 'Electrolize', serif;
 }
 
 body {
