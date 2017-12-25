@@ -1,7 +1,13 @@
 {
   "planet": {
     "type": {
-      "rocky": "Planète rocheuse"
+      "arctic": "Planète de glace",
+      "desert": "Planète désertique",
+      "oceanic": "Planète océanique",
+      "temperate": "Planète tempérée",
+      "tropical": "Planète tropicale",
+      "rocky": "Planète rocheuse",
+      "volcanic": "Planète volcanique"
     }
   }
 }

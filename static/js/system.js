@@ -27,10 +27,10 @@ const generateOrbits = (system, orbits) => {
     var data = orbits[key];
     var orbit = document.createElement("div");
     orbit.classList.add('orbit');
-    orbit.style.width = `${data.radius / 5}px`;
-    orbit.style.height = `${data.radius / 5}px`;
-    orbit.style.top = `calc(50% - ${(data.radius / 10) + 1}px)`;
-    orbit.style.left = `calc(50% - ${(data.radius / 10) + 1}px)`;
+    orbit.style.width = `${data.radius}px`;
+    orbit.style.height = `${data.radius}px`;
+    orbit.style.top = `calc(50% - ${(data.radius / 2) + 1}px)`;
+    orbit.style.left = `calc(50% - ${(data.radius / 2) + 1}px)`;
     orbit.setAttribute('data-id', data.id);
     system.appendChild(orbit);
   }
@@ -45,6 +45,7 @@ const generatePlanets = (system, planets) => {
     var planet = document.createElement("div");
     planet.classList.add('planet');
     planet.setAttribute('data-id', data.id);
+    planet.setAttribute('data-type', data.type);
     planet.style.top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius) - 10 + 'px';
     planet.style.left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius) - 10 + 'px';
     planet.ondblclick = redirectToPlanet;
