@@ -71,7 +71,7 @@
     z-index: 1; }
 
 #planet[data-type="arctic"] > .shape {
-  background: url('https://www.textures.com/system/gallery/photos/Rock/Sediment/50887/RockSediment0012_1_download600.jpg') no-repeat;
+  background: url('../images/planet_type_arctic.png') no-repeat;
 }
 #planet[data-type="desert"] > .shape {
   background: url('https://thumbs-prod.si-cdn.com/2bwj3CJjdzY5JWf8qQPqmQZTyT0=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/4e/86/4e86b49b-bfc0-442a-8bf2-47f386b53313/screen_shot_2014-01-08_at_125812_pm.png') no-repeat;
