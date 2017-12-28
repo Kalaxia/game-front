@@ -48,6 +48,7 @@
   position: absolute;
   border: 1px solid #565656;
   border-radius: 5000px;
+  z-index: 5;
 }
 
 #system > .planet {
@@ -55,6 +56,8 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 #system > .planet[data-type="arctic"] { background-color: #B0B0FF; }
