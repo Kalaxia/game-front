@@ -22,6 +22,25 @@
   padding-left: 20px;
 }
 
+#planet-data > ul {
+  list-style-type: none;
+  padding-left:0px;
+}
+
+#planet-data > ul > li > em {
+  display: inline-block;
+  width: 15px;
+}
+
+#planet-data > ul > li > strong {
+  display: inline-block;
+  width: 60px;
+}
+
+#planet-data > ul > li > span {
+  color: #00D000;
+}
+
 @media all and (max-width: 500px) {
   #planet-data {
     top: 50px;

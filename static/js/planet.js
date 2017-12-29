@@ -22,7 +22,21 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
     planet.style.top = `calc(50% - ${parseInt(planetStyle.height) / 2}px)`;
     planet.style.left = `calc(50% - ${parseInt(planetStyle.width) / 2}px)`;
     planet.style.display = "inline-block";
+
+    initPlanetResources(data.resources);
   }).catch(error => console.log(error))
 ;
+
+const initPlanetResources = data => {
+  var list = document.querySelector("#planet-data ul");
+  for (key in data) {
+    var resource = data[key];
+    var info = document.createElement('li');
+    info.innerHTML = `<em>${resource.name}</em> <strong>${getDensityVisualization(resource.density, resource.name)}</strong> <span>( +${resource.density * 1000} )</span>`;
+    list.appendChild(info);
+  }
+};
+
+const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
 
 window.onload = initPlanet;
