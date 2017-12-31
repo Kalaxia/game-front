@@ -9,30 +9,38 @@ if (!urlParams.has('jwt') && localStorage.getItem('security.jwt') === null) {
 
 const jwt = localStorage.getItem('security.jwt');
 var dictionnary = '';
+var player = null;
 var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 
-fetch('/api/me', {
-    method: 'GET',
-    headers: headers
-}).then(response => {
-  if (response.status === 401) {
-    window.location = `${config.portalUrl}/dashboard`;
-    return Promise.reject("unauthorized");
-  }
-  if (response.ok) {
-    return response.json();
-  }
-})
-.then(data => {
-  document.querySelector("#player-data h3").innerText = data.pseudo
-}).catch(error => console.log(error));
+const getPlayer = () =>
+  fetch('/api/me', {
+      method: 'GET',
+      headers: headers
+  }).then(response => {
+    if (response.status === 401) {
+      window.location = `${config.portalUrl}/dashboard`;
+      return Promise.reject("unauthorized");
+    }
+    if (response.ok) {
+      return response.json();
+    }
+  })
+  .then(data => {
+    player = data;
+  }).catch(error => console.log(error))
+;
 
 
-const createDictionnary = lang => {
-  fetch(`/static/translations/${lang}.json`)
-    .then(response => response.json())
-    .then(data => { dictionnary = data; })
-    .catch(error => console.log(error))
-  ;
-}
-createDictionnary('fr');
+const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
+  .then(response => response.json())
+  .then(data => { dictionnary = data; })
+  .catch(error => console.log(error))
+;
+createDictionnary('fr').then(() => document.querySelectorAll("[data-translate=true]").forEach(element => {
+  var keys = element.innerText.split('.');
+  var result = dictionnary;
+  keys.forEach(key => {
+    result = result[key];
+  });
+  element.innerText = result;
+}));

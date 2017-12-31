@@ -1,6 +1,10 @@
 var searchParams = new URLSearchParams(window.location.search);
 var id = searchParams.get('id');
 
+getPlayer().then(() => {
+  document.querySelector("#player-data h3").innerText = player.pseudo;
+});
+
 fetch(`/api/systems/${id}`, {
     method: 'GET',
     headers: headers

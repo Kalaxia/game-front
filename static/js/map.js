@@ -1,6 +1,10 @@
 const mapScale = 50;
 const minimapScale = 2;
 
+getPlayer().then(() => {
+  document.querySelector("#player-data h3").innerText = player.pseudo;
+})
+
 fetch('/api/map', {
     method: 'GET',
     headers: headers
