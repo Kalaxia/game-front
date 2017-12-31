@@ -1,3 +1,7 @@
+html {
+  background: url('https://images.designtrends.com/wp-content/uploads/2015/12/17112023/outer-space-Texture.jpg') no-repeat;
+}
+
 #map {
   position:absolute;
   top: 20px;
