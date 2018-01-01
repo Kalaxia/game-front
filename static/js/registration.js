@@ -110,9 +110,14 @@ const validate = () => {
 };
 
 window.addEventListener("load", () => {
-  if (document.querySelector('#registration-step').value === 'factions') {
-    getFactions();
-  } else {
-    getPlanets();
-  }
+  getPlayer().then(() => {
+    if (player.is_active == true) {
+      window.location = "/";
+    }
+    if (document.querySelector('#registration-step').value === 'factions') {
+      getFactions();
+    } else {
+      getPlanets();
+    }
+  });
 });
