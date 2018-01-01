@@ -8,15 +8,8 @@ getPlayer().then(() => {
 fetch('/api/map', {
     method: 'GET',
     headers: headers
-}).then(response => {
-  if (response.status === 401) {
-    window.location = `${config.portalUrl}/dashboard`;
-    return Promise.reject("unauthorized");
-  }
-  if (response.ok) {
-    return response.json();
-  }
 })
+.then(apiResponseMiddleware)
 .then(data => {
   var map = document.querySelector("#map");
   var minimap = document.querySelector("#minimap");

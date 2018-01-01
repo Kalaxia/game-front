@@ -8,15 +8,8 @@ getPlayer().then(() => {
 fetch(`/api/systems/${id}`, {
     method: 'GET',
     headers: headers
-}).then(response => {
-  if (response.status === 401) {
-    window.location = `${config.portalUrl}/dashboard`;
-    return Promise.reject("unauthorized");
-  }
-  if (response.ok) {
-    return response.json();
-  }
 })
+.then(apiResponseMiddleware)
 .then(data => {
   var system = document.querySelector("#system");
   var star = document.querySelector("#star");

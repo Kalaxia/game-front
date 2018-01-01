@@ -17,18 +17,26 @@ const getPlayer = () =>
       method: 'GET',
       headers: headers
   }).then(response => {
-    if (response.status === 401) {
-      window.location = `${config.portalUrl}/dashboard`;
-      return Promise.reject("unauthorized");
-    }
     if (response.ok) {
       return response.json();
     }
+    window.location = `${config.portalUrl}/dashboard`;
+    return Promise.reject("unauthorized");
   })
   .then(data => {
     player = data;
   }).catch(error => console.log(error))
 ;
+
+const apiResponseMiddleware = response => {
+  if (response.status === 401) {
+    window.location = `${config.portalUrl}/dashboard`;
+    return Promise.reject("unauthorized");
+  }
+  if (response.ok) {
+    return response.json();
+  }
+};
 
 
 const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
