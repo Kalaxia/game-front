@@ -2,7 +2,10 @@ var searchParams = new URLSearchParams(window.location.search);
 var id = searchParams.get('id');
 
 getPlayer().then(() => {
-  document.querySelector("#player-data h3").innerText = player.pseudo;
+  var profileLink = document.createElement('a');
+  profileLink.href = '/views/profile';
+  profileLink.innerText = player.pseudo;
+  document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
 fetch(`/api/systems/${id}`, {

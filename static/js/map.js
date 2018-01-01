@@ -2,8 +2,11 @@ const mapScale = 50;
 const minimapScale = 2;
 
 getPlayer().then(() => {
-  document.querySelector("#player-data h3").innerText = player.pseudo;
-})
+  var profileLink = document.createElement('a');
+  profileLink.href = '/views/profile';
+  profileLink.innerText = player.pseudo;
+  document.querySelector("#player-data h3").appendChild(profileLink);
+});
 
 fetch('/api/map', {
     method: 'GET',

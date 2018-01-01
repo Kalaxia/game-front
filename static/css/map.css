@@ -37,6 +37,7 @@ html {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: -1;
 }
 
 #star {
@@ -71,3 +72,13 @@ html {
 #system > .planet[data-type="tropical"] { background-color: #008000; }
 #system > .planet[data-type="rocky"] { background-color: #AA9a9a; }
 #system > .planet[data-type="volcanic"] { background-color: #C60000; }
+
+#map-link {
+  padding-top: 60px;
+  padding-left: 20px;
+}
+
+#map-link > a {
+  color: #8AF;
+  text-decoration: none;
+}

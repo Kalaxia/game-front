@@ -22,22 +22,31 @@
   padding-left: 20px;
 }
 
-#planet-data > ul {
+#planet-data > h4 {
+  margin: 0px;
+}
+
+#planet-data > .system > a {
+  color: #8AF;
+  text-decoration: none;
+}
+
+#planet-data > .resources {
   list-style-type: none;
   padding-left:0px;
 }
 
-#planet-data > ul > li > em {
+#planet-data > .resources > li > em {
   display: inline-block;
   width: 15px;
 }
 
-#planet-data > ul > li > strong {
+#planet-data > .resources > li > strong {
   display: inline-block;
   width: 60px;
 }
 
-#planet-data > ul > li > span {
+#planet-data > .resources > li > span {
   color: #00D000;
 }
 

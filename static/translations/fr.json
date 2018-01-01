@@ -1,5 +1,6 @@
 {
   "planet": {
+    "system": "Système",
     "type": {
       "arctic": "Planète de glace",
       "desert": "Planète désertique",
@@ -23,6 +24,11 @@
     },
     "planet": {
       "title": "Choisissez votre planète !"
+    }
+  },
+  "system": {
+    "links": {
+      "map": "Retour à la carte"
     }
   }
 }
