@@ -1,3 +1,9 @@
+## [0.1.3] - 2018-01-01
+- Planet resources vizualisation
+- Player profile
+- Links between map, system and planet views
+- Player faction and planet choice at first connection
+
 ## [0.1.2] - 2017-12-25
 - System view with orbits and planets
 - Planet view
