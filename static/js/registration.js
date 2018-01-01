@@ -112,7 +112,7 @@ const validate = () => {
 window.addEventListener("load", () => {
   getPlayer().then(() => {
     if (player.is_active == true) {
-      window.location = "/";
+      window.location = "/views/profile";
     }
     if (document.querySelector('#registration-step').value === 'factions') {
       getFactions();

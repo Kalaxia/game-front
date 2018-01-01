@@ -48,6 +48,10 @@ createDictionnary('fr').then(() => document.querySelectorAll("[data-translate=tr
   var keys = element.innerText.split('.');
   var result = dictionnary;
   keys.forEach(key => {
+    if (typeof result[key] === 'undefined') {
+      result = element.innerText;
+      return;
+    }
     result = result[key];
   });
   element.innerText = result;

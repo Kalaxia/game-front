@@ -1,0 +1,36 @@
+#player {
+  display: flex;
+}
+
+#profile {
+  width: 300px;
+}
+
+#profile > h1 {
+  margin-left: 20px;
+}
+
+#profile {
+
+}
+
+#planets {
+  margin-top: 50px;
+}
+
+#planets > section {
+  display:flex;
+  margin-top: 40px;
+  justify-content: space-around;
+}
+
+#planets > section > .planet {
+  text-align:center;
+}
+
+#planets > section > .planet > .shape {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  box-shadow: none;
+}

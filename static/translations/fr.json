@@ -10,6 +10,11 @@
       "volcanic": "Planète volcanique"
     }
   },
+  "profile": {
+    "planets": {
+      "title": "Planètes contrôlées"
+    }
+  },
   "registration": {
     "next_step": "Étape suivante",
     "validate": "Commencer la partie !",
