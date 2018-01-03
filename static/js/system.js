@@ -20,6 +20,7 @@ fetch(`/api/systems/${id}`, {
   var starStyle = window.getComputedStyle(star);
   star.style.top = `calc(50% - ${parseInt(starStyle.height) / 2}px)`;
   star.style.left = `calc(50% - ${parseInt(starStyle.width) / 2}px)`;
+  initTouchEvents('/views/map', '/views/map/planet.html?id={id}', 'planet');
 }).catch(error => console.log(error));
 
 const generateOrbit = (system, data) => {

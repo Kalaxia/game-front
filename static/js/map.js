@@ -20,6 +20,7 @@ fetch('/api/map', {
     displaySystem(map, data.systems[key], mapScale);
     displaySystem(minimap, data.systems[key], minimapScale);
   }
+  initTouchEvents(null, '/views/map/system.html?id={id}', 'system');
 }).catch(error => console.log(error));
 
 const displaySystem = (map, data, scale) => {

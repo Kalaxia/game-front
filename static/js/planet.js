@@ -8,6 +8,10 @@ getPlayer().then(() => {
   document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
+// Global vars to cache event state
+var evCache = new Array();
+var prevDiff = -1;
+
 const initPlanet = () => fetch(`/api/planets/${id}`, {
     method: 'GET',
     headers: headers
@@ -33,6 +37,7 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
     document.querySelector('#planet-data .system').appendChild(systemLink);
 
     initPlanetResources(document.querySelector("#planet-data .resources"), data.resources);
+    initTouchEvents(systemLink.href);
   }).catch(error => console.log(error))
 ;
 
