@@ -43,10 +43,10 @@ const startMapMove = e => {
 
   // assign default values for top and left properties
   if(!map.style.left) {
-    map.style.left = '0px';
+    map.style.left = '20px';
   }
   if (!map.style.top) {
-    map.style.top = '0px';
+    map.style.top = '20px';
   }
 
   // calculate integer values for top and left
