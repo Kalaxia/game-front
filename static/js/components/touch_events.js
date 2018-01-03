@@ -1,6 +1,7 @@
 var wheelNegativeTarget,
   wheelPositiveTarget,
-  wheelTargetClass;
+  wheelTargetClass,
+  mouseTimeout;
 
 const initTouchEvents = (negativeTarget, positiveTarget, targetClass) => {
   wheelNegativeTarget = negativeTarget || null;
@@ -22,3 +23,11 @@ const handleWheelMove = event => {
     }
   }
 };
+
+const handleMouseDown = (event, url) => {
+  mouseTimeout = setTimeout(() => {
+    window.location = url.replace('{id}', event.target.getAttribute('data-id'))
+  }, 500);
+};
+
+const handleMouseUp = event => clearTimeout(mouseTimeout);

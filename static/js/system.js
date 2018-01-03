@@ -47,7 +47,9 @@ const generatePlanets = (system, planets) => {
     planet.setAttribute('data-type', data.type);
     planet.style.top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius) - 10 + 'px';
     planet.style.left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius) - 10 + 'px';
-    planet.ondblclick = redirectToPlanet;
+    planet.addEventListener('dblclick', redirectToPlanet);
+    planet.addEventListener('mousedown', event => handleMouseDown(event, '/views/map/planet.html?id={id}'));
+    planet.addEventListener('mouseup', handleMouseUp);
     system.appendChild(planet);
   }
 };

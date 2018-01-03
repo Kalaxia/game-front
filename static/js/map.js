@@ -29,7 +29,9 @@ const displaySystem = (map, data, scale) => {
   system.style.top = data.coord_y * scale + 'px';
   system.style.left = data.coord_x * scale + 'px';
   system.setAttribute('data-id', data.id);
-  system.ondblclick = redirectToSystem;
+  system.addEventListener('dblclick', redirectToSystem);
+  system.addEventListener('mousedown', event => handleMouseDown(event, '/views/map/system.html?id={id}'));
+  system.addEventListener('mouseup', handleMouseUp);
   map.appendChild(system);
 }
 
