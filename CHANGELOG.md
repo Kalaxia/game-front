@@ -1,10 +1,21 @@
+## [0.1.4] - 2018-01-03
+### Added
+- Navigation through map views with mouse wheel and touchpad
+- Press&Hold to access systems and planets via mobile devices
+
+### Fixed
+- Map glitch at first click
+- Map wallpaper
+
 ## [0.1.3] - 2018-01-01
+### Added
 - Planet resources vizualisation
 - Player profile
 - Links between map, system and planet views
 - Player faction and planet choice at first connection
 
 ## [0.1.2] - 2017-12-25
+### Added
 - System view with orbits and planets
 - Planet view
 - Planet type textures
