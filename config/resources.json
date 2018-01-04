@@ -1,0 +1,26 @@
+{
+  "resources.a": {
+    "name": "A",
+    "picto": ""
+  },
+  "resources.b": {
+    "name": "ResMinerai",
+    "picto": "ore_a.png"
+  },
+  "resources.c": {
+    "name": "C",
+    "picto": ""
+  },
+  "resources.d": {
+    "name": "D",
+    "picto": ""
+  },
+  "resources.e": {
+    "name": "ResCristal",
+    "picto": "crystal_a.png"
+  },
+  "resources.f": {
+    "name": "ResMinerai2",
+    "picto": "ore_b.png"
+  }
+}
