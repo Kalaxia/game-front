@@ -89,3 +89,31 @@ body {
   width: 300px;
   height: 300px;
 }
+
+.resources {
+  margin-left: 20px;
+}
+
+.resources > h4 {
+  text-align:left;
+}
+
+.resources > ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.resources > ul > li {
+  display: flex;
+  align-items: center;
+}
+
+.resources > ul > li > em {
+  padding-right: 10px;
+}
+
+.resources > ul > li img {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+}

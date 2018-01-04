@@ -36,16 +36,26 @@
   padding-left:0px;
 }
 
+#planet-data > .resources > li {
+  display:flex;
+  align-items: center;
+}
+
 #planet-data > .resources > li > em {
   display: inline-block;
-  width: 15px;
+  min-width: 15px;
+  padding-right: 10px;
 }
 
-#planet-data > .resources > li > strong {
-  display: inline-block;
-  width: 60px;
+#planet-data > .resources > li > .density {
+  font-weight: bold;
 }
 
+#planet-data > .resources > li > .density > img {
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+}
 #planet-data > .resources > li > span {
   color: #00D000;
 }

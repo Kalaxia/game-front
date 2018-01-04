@@ -65,7 +65,7 @@ const getPlanets = () => fetch(`/api/factions/${sessionStorage.getItem('registra
       description.classList.add('description');
       description.innerHTML =
         `<header><h3>${planetData.name}</h3></header>
-        <section><div class="resources"><ul></ul></div></section>`
+        <section><div class="resources"><h4>${dictionnary.planet.resources}</h4><ul></ul></div></section>`
       ;
       descriptionsList.appendChild(description);
       initPlanetResources(
