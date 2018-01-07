@@ -13,15 +13,12 @@ const initPlanetRelations = (container, relations) => {
               display: false,
           },
           tooltips: {
-              filter: (item, data) => (data.datasets[item.datasetIndex].labels[item.index] !== ""),
+              filter: (item, data) => (typeof data.datasets[item.datasetIndex].labels[item.index] !== "undefined"),
               callbacks: {
                   label: (tooltipItem, data) => {
                       var dataset = data.datasets[tooltipItem.datasetIndex];
                       var index = tooltipItem.index;
-                      return (dataset.labels[index] !== "")
-                        ? dataset.labels[index] + ': ' + getRelationshipIndicator(dataset.data[index])
-                        : false
-                      ;
+                      return dataset.labels[index] + ': ' + getRelationshipIndicator(dataset.data[index], dataset.scoreType[index]);
                   }
               }
           }
@@ -32,46 +29,43 @@ const initPlanetRelations = (container, relations) => {
 };
 
 const getRelationDatasets = relations => {
-  var factionDataset = { data: [], labels: [], backgroundColor: [] };
-  var playerDataset = { data: [], labels: [], backgroundColor: [] };
+  var factionDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
+  var playerDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
   var labels = [];
   for (key in relations) {
     let relation = relations[key];
     if (relation.faction !== null) {
-      // Temporary
-      relation.faction.color = "#48C";
-      factionDataset.data.push(relation.score);
-      factionDataset.backgroundColor.push(
-        (relation.score > 0)
-        ? relation.faction.color
-        : shadeColor(relation.faction.color, -0.2)
-      )
-      factionDataset.labels.push(relation.faction.name);
-      continue;
+      var dataset = factionDataset;
+      var color = relation.faction.color;
+      var name = relation.faction.name;
+    } else {
+      var dataset = playerDataset;
+      var color = relation.player.faction.color;
+      var name = relation.player.pseudo;
     }
-    relation.player.faction.color = "#48C";
-    playerDataset.data.push(relation.score);
-    playerDataset.backgroundColor.push(
-      (relation.score > 0)
-      ? relation.player.faction.color
-      : shadeColor(relation.player.faction.color, -0.2)
-    );
-    playerDataset.labels.push(relation.player.pseudo);
+    dataset.data.push(Math.abs(relation.score));
+    if (relation.score > 0) {
+      dataset.backgroundColor.push(color);
+      dataset.scoreType.push(true);
+    } else {
+      dataset.backgroundColor.push(shadeColor(color, -0.2));
+      dataset.scoreType.push(false);
+    }
+    dataset.labels.push(name);
   }
+  // Fill the chart 
   factionDataset.data.push(
     (factionDataset.data.length > 0)
     ? (500 * (factionDataset.data.length - 1)) + 500
     : 500
   );
   factionDataset.backgroundColor.push("#242424");
-  factionDataset.labels.push("");
   playerDataset.data.push(
     (playerDataset.data.length > 0)
-    ? (500 * (playerDataset.data.length - 1)) + 500
+    ? (100 * (playerDataset.data.length - 1)) + 500
     : 500
   );
   playerDataset.backgroundColor.push("#242424");
-  playerDataset.labels.push("");
 
   return {
     datasets: [playerDataset, factionDataset],
@@ -79,7 +73,10 @@ const getRelationDatasets = relations => {
   };
 };
 
-const getRelationshipIndicator = score => {
+const getRelationshipIndicator = (score, isPositive) => {
+  if (isPositive === false) {
+    score *= -1;
+  }
   let indicators = dictionnary.diplomacy.relations.indicators;
   switch (true) {
     case (score >= 500): return indicators.philanthropic;
