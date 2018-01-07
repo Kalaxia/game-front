@@ -1,4 +1,20 @@
 {
+  "diplomacy": {
+    "relations": {
+      "indicators": {
+        "philanthropic": "Philanthropiques",
+        "excellent": "Excellentes",
+        "friendly": "Amicales",
+        "good": "Bonnes",
+        "cordial": "Cordiales",
+        "neutral": "Neutres",
+        "cold": "Tendues",
+        "hostile": "Hostiles",
+        "odious": "Odieuses",
+        "infamous": "Infâmes"
+      }
+    }
+  },
   "planet": {
     "system": "Système",
     "type": {
@@ -10,7 +26,8 @@
       "rocky": "Planète rocheuse",
       "volcanic": "Planète volcanique"
     },
-    "resources": "Ressources"
+    "resources": "Ressources",
+    "relations": "Relations diplomatiques"
   },
   "profile": {
     "planets": {

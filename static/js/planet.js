@@ -37,6 +37,7 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
     document.querySelector('#planet-data .system').appendChild(systemLink);
 
     initPlanetResources(document.querySelector("#planet-data .resources"), data.resources);
+    initPlanetRelations(document.querySelector("#planet-relations"), data.relations);
     initTouchEvents(systemLink.href);
   }).catch(error => console.log(error))
 ;

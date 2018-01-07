@@ -18,8 +18,8 @@
 
 #planet-data {
   position: absolute;
-  top: 200px;
-  padding-left: 20px;
+  top: 100px;
+  left: 20px;
 }
 
 #planet-data > h4 {
@@ -58,6 +58,14 @@
 }
 #planet-data > .resources > li > span {
   color: #00D000;
+}
+
+#planet-relations {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 400px;
+  left: 20px;
 }
 
 @media all and (max-width: 500px) {
