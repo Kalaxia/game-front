@@ -65,12 +65,24 @@ const getPlanets = () => fetch(`/api/factions/${sessionStorage.getItem('registra
       description.classList.add('description');
       description.innerHTML =
         `<header><h3>${planetData.name}</h3></header>
-        <section><div class="resources"><h4>${dictionnary.planet.resources}</h4><ul></ul></div></section>`
+        <section>
+          <div class="relations">
+            <h4>${dictionnary.planet.relations}</h4>
+            <div class="canvas-holder" style="width:100%">
+              <canvas class="chart-area" width="500" height="500" />
+            </div>
+          </div>
+          <div class="resources"><h4>${dictionnary.planet.resources}</h4><ul></ul></div>
+        </section>`
       ;
       descriptionsList.appendChild(description);
       initPlanetResources(
         document.querySelector(`#description-${planetData.id} > section > .resources > ul`),
         planetData.resources
+      );
+      initPlanetRelations(
+        document.querySelector(`#description-${planetData.id} > section > .relations`),
+        planetData.relations
       );
     }
   }).catch(error => console.log(error))
