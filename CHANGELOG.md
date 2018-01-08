@@ -1,3 +1,9 @@
+## [0.1.5] - 2018-01-08
+### Added
+- Planet diplomatic relations chart
+- ChartJS library
+- Planet resources configuration and pictograms
+
 ## [0.1.4] - 2018-01-03
 ### Added
 - Navigation through map views with mouse wheel and touchpad
