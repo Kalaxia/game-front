@@ -68,6 +68,26 @@
   left: 20px;
 }
 
+#planet-buildings {
+  display:flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 50px;
+  left: calc(50% - 150px);
+  width: 300px;
+  margin:auto;
+}
+
+#planet-buildings > .building {
+  background-color: #EFEFEF;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+#planet-buildings > .building.techno {
+  background-color: rgba(225, 150, 225, 0.8);
+}
+
 @media all and (max-width: 500px) {
   #planet-data {
     top: 50px;
@@ -123,7 +143,7 @@
   background: url('https://thumbs-prod.si-cdn.com/2bwj3CJjdzY5JWf8qQPqmQZTyT0=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/4e/86/4e86b49b-bfc0-442a-8bf2-47f386b53313/screen_shot_2014-01-08_at_125812_pm.png') no-repeat;
 }
 .shape[data-type="oceanic"] {
-  background: url('http://www.floorbros.com/media/catalog/Carpet_Tiles/Forbo_Carpet/Flotex_Calgary_20_x_20/Azure_T590015.jpg') no-repeat;
+  background: url('../images/planet_type_oceanic.png') no-repeat;
 }
 .shape[data-type="temperate"] {
   background: url('http://mississippiriverdelta.org/files/2016/07/Copy-of-IMG_6504-720x480.jpg') no-repeat;
