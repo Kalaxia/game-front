@@ -1,3 +1,11 @@
+## [0.1.6] - 2018-02-16
+### Added
+- Planet buildings view
+- Planet buildings construction
+
+### Changed
+- Oceanic planets texture
+
 ## [0.1.5] - 2018-01-08
 ### Added
 - Planet diplomatic relations chart
