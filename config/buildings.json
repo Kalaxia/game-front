@@ -1,0 +1,20 @@
+{
+  "bat.prod.a": {
+    "picture": "building.png"
+  },
+  "bat.prod.b": {
+    "picture": "building.png"
+  },
+  "bat.shipyard.a": {
+    "picture": "building.png"
+  },
+  "bat.shipyard.b": {
+    "picture": "building.png"
+  },
+  "bat.trade.a": {
+    "picture": "building.png"
+  },
+  "bat.techno.a": {
+    "picture": "building.png"
+  }
+}

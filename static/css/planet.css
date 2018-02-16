@@ -68,6 +68,117 @@
   left: 20px;
 }
 
+#planet-buildings {
+  display:flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 50px;
+  left: calc(50% - 150px);
+  width: 300px;
+  margin:auto;
+}
+
+#planet-buildings > .building {
+    width: 64px;
+    height: 64px;
+    border: 1px solid black;
+    background-color: #EFEFEF;
+    background-repeat: no-repeat;
+    background-size: 54px 54px;
+    background-position: 5px 5px;
+    cursor: pointer;
+}
+
+#planet-buildings > .building.techno {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#planet-buildings > .building.techno {
+  background-color: rgba(225, 150, 225, 0.8);
+}
+
+#planet-buildings > .building.area {
+    background-image: url('/static/images/buildings/area.png');
+}
+
+#buildings-modal {
+    position: absolute;
+    display: none;
+    top: 20%;
+    left: calc(50% - 200px);
+    width: 400px;
+    background-color: #222;
+    z-index: 2;
+    color: #222;
+}
+
+#buildings-modal.visible {
+    display: block;
+}
+
+#buildings-modal > section {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+#buildings-modal > section > .building {
+    width: 76px;
+    height: 76px;
+    margin: 20px;
+    background-color: #EFEFEF;
+}
+
+/* Tooltip container */
+#buildings-modal > section > .building > .tooltip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+#buildings-modal > section > .building > .tooltip .tooltiptext {
+    display: none;
+    background-color: black;
+    color: #fff;
+    padding-right: 20px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    left: 105%;
+    z-index: 1;
+}
+
+#buildings-modal > section > .building > .tooltip .tooltiptext li {
+    display: flex;
+    align-items: center;
+}
+
+#buildings-modal > section > .building > .tooltip .tooltiptext li > img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#buildings-modal > section > .building > .tooltip:hover .tooltiptext {
+    display: block;
+}
+
+#buildings-overlay {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1;
+}
+
+#buildings-overlay.visible {
+    display: block;
+}
+
 @media all and (max-width: 500px) {
   #planet-data {
     top: 50px;
@@ -123,7 +234,7 @@
   background: url('https://thumbs-prod.si-cdn.com/2bwj3CJjdzY5JWf8qQPqmQZTyT0=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/4e/86/4e86b49b-bfc0-442a-8bf2-47f386b53313/screen_shot_2014-01-08_at_125812_pm.png') no-repeat;
 }
 .shape[data-type="oceanic"] {
-  background: url('http://www.floorbros.com/media/catalog/Carpet_Tiles/Forbo_Carpet/Flotex_Calgary_20_x_20/Azure_T590015.jpg') no-repeat;
+  background: url('../images/planet_type_oceanic.png') no-repeat;
 }
 .shape[data-type="temperate"] {
   background: url('http://mississippiriverdelta.org/files/2016/07/Copy-of-IMG_6504-720x480.jpg') no-repeat;
