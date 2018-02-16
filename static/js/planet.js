@@ -38,7 +38,14 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
 
     initPlanetResources(document.querySelector("#planet-data .resources"), data.resources);
     initPlanetRelations(document.querySelector("#planet-relations"), data.relations);
+
+    if (data.player !== null && player.id === data.player.id) {
+        initPlanetBuildings(document.querySelector("#planet-buildings"), data.id, data.buildings, data.nb_buildings, data.available_buildings);
+    }
+
     initTouchEvents(systemLink.href);
+
+
   }).catch(error => console.log(error))
 ;
 
