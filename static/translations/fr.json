@@ -15,6 +15,11 @@
       }
     }
   },
+  "faction": {
+    "members": {
+        "title": "Membres"
+    }
+  },
   "planet": {
     "system": "Système",
     "type": {

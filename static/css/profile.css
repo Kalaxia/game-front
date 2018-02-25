@@ -4,14 +4,12 @@
 
 #profile {
   width: 300px;
-}
-
-#profile > h1 {
   margin-left: 20px;
 }
 
-#profile {
-
+#profile > h3 > a {
+    color: #8AF;
+    text-decoration: none;
 }
 
 #planets {

@@ -1,7 +1,7 @@
 var searchParams = new URLSearchParams(window.location.search);
 var id = searchParams.get('id');
 
-getPlayer().then(() => {
+getCurrentPlayer().then(() => {
   var profileLink = document.createElement('a');
   profileLink.href = '/views/profile';
   profileLink.innerText = player.pseudo;
