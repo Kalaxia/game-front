@@ -1,4 +1,10 @@
+var searchParams = new URLSearchParams(window.location.search);
+var id = searchParams.get('id');
 
+const getPlayerProfile = id => fetch(`/api/players/${id}`, {
+    method: 'GET',
+    headers: headers
+})
 
 const getPlayerPlanets = player => fetch(`/api/players/${player.id}/planets`, {
   method: 'GET',
@@ -27,9 +33,25 @@ const getPlayerPlanets = player => fetch(`/api/players/${player.id}/planets`, {
   .catch(error => console.log(error))
 ;
 
-window.addEventListener("load", () => {
-  getPlayer().then(() => {
+const setMyProfile = () => getCurrentPlayer().then(() => {
     document.querySelector('.player-name').innerText = player.pseudo;
+    document.querySelector('.faction-name').innerText = player.faction.name;
     getPlayerPlanets(player);
-  });
+});
+
+const setProfile = id => fetch(`/api/players/${id}`, {
+    method: 'GET',
+    headers: headers
+}).then(apiResponseMiddleware)
+.then(profile => {
+    document.querySelector('.player-name').innerText = profile.pseudo;
+    document.querySelector('.faction-name').innerText = profile.faction.name;
+    getPlayerPlanets(profile);
+});
+
+window.addEventListener("load", () => {
+    return (id !== null)
+        ? setProfile(id)
+        : setMyProfile()
+    ;
 });

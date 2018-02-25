@@ -12,7 +12,7 @@ var dictionnary = '';
 var player = null;
 var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 
-const getPlayer = () =>
+const getCurrentPlayer = () =>
   fetch('/api/me', {
       method: 'GET',
       headers: headers

@@ -122,7 +122,7 @@ const validate = () => {
 };
 
 window.addEventListener("load", () => {
-  getPlayer().then(() => {
+  getCurrentPlayer().then(() => {
     if (player.is_active == true) {
       window.location = "/views/profile";
     }

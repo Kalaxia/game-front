@@ -1,7 +1,7 @@
 var searchParams = new URLSearchParams(window.location.search);
 var id = searchParams.get('id');
 
-getPlayer().then(() => {
+getCurrentPlayer().then(() => {
   var profileLink = document.createElement('a');
   profileLink.href = '/views/profile';
   profileLink.innerText = player.pseudo;
@@ -28,7 +28,7 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
     planet.style.display = "inline-block";
 
     if (data.player !== null) {
-      document.querySelector("#planet-data .player").innerText = data.player.pseudo;
+      document.querySelector("#planet-data .player").innerHTML = `<a href="/views/profile/${(data.player.id != player.id) ? `?id=${data.player.id}` : ''}" >${data.player.pseudo}</a>`;
     }
 
     systemLink = document.createElement('a');
