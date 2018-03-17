@@ -1,7 +1,7 @@
 const mapScale = 50;
 const minimapScale = 2;
 
-getPlayer().then(() => {
+getCurrentPlayer().then(() => {
   var profileLink = document.createElement('a');
   profileLink.href = '/views/profile';
   profileLink.innerText = player.pseudo;
