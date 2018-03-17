@@ -33,21 +33,20 @@ const getPlayerPlanets = player => fetch(`/api/players/${player.id}/planets`, {
   .catch(error => console.log(error))
 ;
 
-const setMyProfile = () => getCurrentPlayer().then(() => {
-    document.querySelector('.player-name').innerText = player.pseudo;
-    document.querySelector('.faction-name').innerText = player.faction.name;
-    getPlayerPlanets(player);
-});
+const setMyProfile = () => getCurrentPlayer().then(() => displayProfile(player));
 
 const setProfile = id => fetch(`/api/players/${id}`, {
     method: 'GET',
     headers: headers
 }).then(apiResponseMiddleware)
-.then(profile => {
+.then(displayProfile);
+
+const displayProfile = profile => {
     document.querySelector('.player-name').innerText = profile.pseudo;
-    document.querySelector('.faction-name').innerText = profile.faction.name;
+    document.querySelector('.faction-name > a').append(profile.faction.name);
+    document.querySelector('.faction-flag').style.backgroundColor = profile.faction.color;
     getPlayerPlanets(profile);
-});
+};
 
 window.addEventListener("load", () => {
     return (id !== null)

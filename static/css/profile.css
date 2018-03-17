@@ -7,9 +7,19 @@
   margin-left: 20px;
 }
 
-#profile > h3 > a {
+#profile > .faction-name > a {
+    display: flex;
+    align-items: center;
     color: #8AF;
     text-decoration: none;
+}
+
+#profile > .faction-name > a > .faction-flag {
+    width: 64px;
+    height: 64px;
+    margin-right: 20px;
+    border-radius: 40px;
+    border: 2px solid #EFEFEF;
 }
 
 #planets {
