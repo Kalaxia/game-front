@@ -1,7 +1,7 @@
 {
   "resources.a": {
-    "name": "A",
-    "picto": ""
+    "name": "ResLiquid",
+    "picto": "liquid_a.png"
   },
   "resources.b": {
     "name": "ResMinerai",
