@@ -1,3 +1,10 @@
+## [0.1.7] - 2018-03-17
+### Added
+- Other players profile view
+- Faction view
+- Faction members list
+- Planet storage view
+
 ## [0.1.6] - 2018-02-16
 ### Added
 - Planet buildings view
