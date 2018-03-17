@@ -108,16 +108,16 @@ body {
   padding-left: 0px;
 }
 
-.resources > ul > li {
+.resources > ul > li > .info {
   display: flex;
   align-items: center;
 }
 
-.resources > ul > li > em {
+.resources > ul > li > .info > em {
   padding-right: 10px;
 }
 
-.resources > ul > li img {
+.resources > ul > li > .info img {
   width: 32px;
   height: 32px;
   margin-right: 5px;

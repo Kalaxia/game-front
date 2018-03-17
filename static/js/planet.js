@@ -8,10 +8,6 @@ getCurrentPlayer().then(() => {
   document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
-// Global vars to cache event state
-var evCache = new Array();
-var prevDiff = -1;
-
 const initPlanet = () => fetch(`/api/planets/${id}`, {
     method: 'GET',
     headers: headers
@@ -36,7 +32,7 @@ const initPlanet = () => fetch(`/api/planets/${id}`, {
     systemLink.innerText = `${dictionnary.planet.system} ${data.system.coord_x}:${data.system.coord_y}`;
     document.querySelector('#planet-data .system').appendChild(systemLink);
 
-    initPlanetResources(document.querySelector("#planet-data .resources"), data.resources);
+    initPlanetResources(document.querySelector("#planet-data .resources"), data.resources, data.storage);
     initPlanetRelations(document.querySelector("#planet-relations"), data.relations);
 
     if (data.player !== null && player.id === data.player.id) {

@@ -37,27 +37,30 @@
   padding-left:0px;
 }
 
-#planet-data > .resources > li {
+#planet-data > .resources > li > .info {
   display:flex;
   align-items: center;
+
 }
 
-#planet-data > .resources > li > em {
+#planet-data > .resources > li > .info > em {
   display: inline-block;
   min-width: 15px;
   padding-right: 10px;
 }
 
-#planet-data > .resources > li > .density {
+#planet-data > .resources > li > .info > .density {
   font-weight: bold;
 }
 
-#planet-data > .resources > li > .density > img {
+#planet-data > .resources > li > .info > .density > img {
   width: 32px;
   height: 32px;
   margin-right: 5px;
 }
-#planet-data > .resources > li > span {
+
+#planet-data > .resources > li > span,
+#planet-data > .resources > li > .storage {
   color: #00D000;
 }
 
@@ -65,7 +68,7 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  top: 400px;
+  top: 500px;
   left: 20px;
 }
 
