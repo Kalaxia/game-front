@@ -1,6 +1,6 @@
 {
   "resources.a": {
-    "name": "ResLiquid",
+    "name": "ResLiquide",
     "picto": "liquid_a.png"
   },
   "resources.b": {
@@ -8,8 +8,8 @@
     "picto": "ore_a.png"
   },
   "resources.c": {
-    "name": "C",
-    "picto": ""
+    "name": "ResMetal",
+    "picto": "metal_a.png"
   },
   "resources.d": {
     "name": "D",
