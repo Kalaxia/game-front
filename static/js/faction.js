@@ -17,7 +17,8 @@ const getFactionPlayers = id => fetch(`/api/factions/${id}/members`, {
 
 window.addEventListener("load", () => {
     getCurrentPlayer().then(() => {
-        document.querySelector('.faction-name').innerText = player.faction.name;
+        document.querySelector('.faction-name').append(player.faction.name);
+        document.querySelector('.faction-flag').style.backgroundColor = player.faction.color;
         getFactionPlayers(player.faction.id);
     });
 });
