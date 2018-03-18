@@ -130,7 +130,21 @@
     width: 76px;
     height: 76px;
     margin: 20px;
-    background-color: #EFEFEF;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#buildings-modal > section > .building.category-resource {
+    background-color: #08C;
+}
+#buildings-modal > section > .building.category-techno {
+    background-color: #F843B1;
+}
+#buildings-modal > section > .building.category-trade {
+    background-color: #FFC928;
+}
+#buildings-modal > section > .building.category-shipyard {
+    background-color: #FF2828;
 }
 
 /* Tooltip container */

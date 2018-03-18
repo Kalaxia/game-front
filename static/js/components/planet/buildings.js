@@ -7,13 +7,13 @@ fetch('/config/buildings.json', {cache: "no-store"})
 })
 
 const initPlanetBuildings = (container, planetId, buildings, nbBuildings, availableBuildings) => {
-    for (key in buildings) {
+    for (data of buildings) {
         let building = document.createElement('div');
-        building.classList.add('building');
+        building.classList.add('building', `category-${buildingsData[data.name].category}`);
         if (building.status === 'constructing') {
             building.classList.add('constructing');
         }
-        building.style["background-image"] = `url('/static/images/buildings/${buildingsData[buildings[key].name].picture}')`;
+        building.style["background-image"] = `url('/static/images/buildings/${buildingsData[data.name].picture}')`;
         container.appendChild(building);
         nbBuildings--;
     }
@@ -40,7 +40,7 @@ const generateModal = (planetId, availableBuildings) => {
     let modal = document.createElement('div');
     modal.id = 'buildings-modal';
     modal.innerHTML = `<header></header><section>${availableBuildings.map(plan => {
-        return `<div class="building" onclick="launchBuildingConstruction(${planetId}, '${plan.name}');" style="background-image:url('/static/images/buildings/${buildingsData[plan.name].picture}')">
+        return `<div class="building category-${buildingsData[plan.name].category}" onclick="launchBuildingConstruction(${planetId}, '${plan.name}');" style="background-image:url('/static/images/buildings/${buildingsData[plan.name].picture}')">
             <div class="tooltip">
               <div class="tooltiptext">
                 <ul>
