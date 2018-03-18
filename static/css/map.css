@@ -59,6 +59,16 @@ html {
   z-index: 5;
 }
 
+#system > .faction-flag {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 7;
+  opacity: 0.6;
+}
+
 #system > .planet {
   position: absolute;
   width: 20px;

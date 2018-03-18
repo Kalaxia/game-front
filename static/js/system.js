@@ -35,21 +35,31 @@ const generateOrbit = (system, data) => {
 };
 
 const generatePlanets = (system, planets) => {
-  for (key in planets) {
-    var data = planets[key];
+  for (data of planets) {
     generateOrbit(system, data.orbit);
     var orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${data.orbit.id}']`));
     var radius = parseInt(orbitStyle.width) / 2;
+    var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
+    var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
     var angle = Math.random() * (5 - 1) + 1;
     var planet = document.createElement("div");
     planet.classList.add('planet');
     planet.setAttribute('data-id', data.id);
     planet.setAttribute('data-type', data.type);
-    planet.style.top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius) - 10 + 'px';
-    planet.style.left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius) - 10 + 'px';
+    planet.style.top = top - 10 + 'px';
+    planet.style.left = left - 10 + 'px';
     planet.addEventListener('dblclick', redirectToPlanet);
     planet.addEventListener('mousedown', event => handleMouseDown(event, '/views/map/planet.html?id={id}'));
     planet.addEventListener('mouseup', handleMouseUp);
+    if (data.player !== null) {
+        var factionFlag = document.createElement('div');
+        factionFlag.classList.add('faction-flag');
+        factionFlag.style.top = top - 20 + 'px';
+        factionFlag.style.left = left - 20 + 'px';
+        factionFlag.style.backgroundColor = data.player.faction.color;
+        factionFlag.style.boxShadow = `0px 0px 10px ${data.player.faction.color}`;
+        system.appendChild(factionFlag);
+    }
     system.appendChild(planet);
   }
 };
