@@ -12,8 +12,8 @@
     "picto": "metal_a.png"
   },
   "resources.d": {
-    "name": "D",
-    "picto": ""
+    "name": "ResFood",
+    "picto": "food_a.png"
   },
   "resources.e": {
     "name": "ResCristal",

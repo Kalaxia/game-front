@@ -28,6 +28,17 @@ const getCurrentPlayer = () =>
   }).catch(error => console.log(error))
 ;
 
+const setCurrentPlanet = id => localStorage.setItem('current_planet', id);
+
+const getCurrentPlanet = () => {
+    let currentPlanet;
+    if (typeof (currentPlanet = localStorage.getItem('current_planet')) === 'undefined') {
+        window.location = '/views/profile';
+        return;
+    }
+    return currentPlanet;
+};
+
 const apiResponseMiddleware = response => {
   if (response.status === 401) {
     window.location = `${config.portalUrl}/dashboard`;
@@ -37,7 +48,6 @@ const apiResponseMiddleware = response => {
     return response.json();
   }
 };
-
 
 const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
   .then(response => response.json())
