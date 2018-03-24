@@ -28,7 +28,7 @@ const initBuildings = (buildings, maxBuildings) => {
         return;
     }
     let area = newBuilding({name: "area"});
-    area.addEventListener('click', event => showAvailableBuildings(event, availableBuildings));
+    area.addEventListener('click', showAvailableBuildings);
     list.appendChild(area);
 }
 
@@ -65,18 +65,14 @@ const newBuilding = data => {
     return building;
 };
 
-const showAvailableBuildings = (event, availableBuildings) => {
+const showAvailableBuildings = event => {
     if (event.currentTarget.classList.contains('selected')) {
         return;
     }
     event.currentTarget.classList.add('selected');
     document.querySelector('#planet-available-buildings').classList.add('visible');
+    document.querySelectorAll('#planet-available-buildings > section .building').forEach(e => e.remove());
     var list = document.querySelector('#planet-available-buildings > section');
-
-    if (list.querySelectorAll('.building').length > 0) {
-        return;
-    }
-
     for (building of availableBuildings) {
         list.appendChild(newBuilding(building));
     }
@@ -114,12 +110,15 @@ const launchBuildingConstruction = buildingName => fetch(`/api/planets/${planetI
     headers: headers
 }).then(response => response.json())
 .then(building => {
+    console.log(availableBuildings);
+    availableBuildings = building.planet.available_buildings;
+    console.log(availableBuildings);
     document.querySelector('.building.category-area.selected').remove();
     let list = document.querySelector('#planet-buildings > section');
     list.appendChild(newBuilding(building));
     if (building.planet.nb_buildings > document.querySelectorAll('#planet-buildings .building').length) {
         let area = newBuilding({name: "area"});
-        area.addEventListener('click', event => showAvailableBuildings(event, availableBuildings));
+        area.addEventListener('click', showAvailableBuildings);
         list.appendChild(area);
     }
     document.querySelector('#planet-available-buildings').classList.remove('visible');
