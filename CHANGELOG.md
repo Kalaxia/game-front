@@ -1,3 +1,13 @@
+## [0.1.8] - 2018-03-24
+### Added
+- Base buildings management view
+- Resources and building pictogram
+- Buildings construction timer
+
+### Changed
+- Construction is now handled in a dedicated view and not on the planet view
+- Planet buildings menu
+
 ## [0.1.7] - 2018-03-17
 ### Added
 - Other players profile view
