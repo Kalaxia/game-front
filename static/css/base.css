@@ -1,0 +1,112 @@
+.buildings-list {
+
+    margin-top: 100px;
+    margin-left: 40px;
+}
+
+.buildings-list > header {
+
+}
+
+.buildings-list > section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buildings-list > section > .building {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 20px;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #565656;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor:pointer;
+}
+.buildings-list > section > .building.selected {
+    box-shadow: 0px 0px 10px #FFF;
+}
+
+.buildings-list > section > .building.category-resource > header,
+.buildings-list > section > .building.category-resource > footer > .build-button:hover {
+    background-color: #08C;
+}
+.buildings-list > section > .building.category-techno > header,
+.buildings-list > section > .building.category-techno > footer > .build-button:hover {
+    background-color: #F843B1;
+}
+.buildings-list > section > .building.category-trade > header,
+.buildings-list > section > .building.category-trade > footer > .build-button:hover {
+    background-color: #FFC928;
+}
+.buildings-list > section > .building.category-shipyard > header,
+.buildings-list > section > .building.category-shipyard > footer > .build-button:hover {
+    background-color: #FF2828;
+}
+.buildings-list > section > .building.category-area > header,
+.buildings-list > section > .building.category-area > footer > .build-button:hover {
+    background-color: #EFEFEF;
+}
+
+.buildings-list > section > .building > header {
+    position: relative;
+}
+
+.buildings-list > section > .building > header > .construction-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    background-image: url('../images/buildings/constructing.svg');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: 56px 56px;
+}
+
+.buildings-list > section > .building > header > img {
+    width: 96px;
+    height: 96px;
+}
+
+.buildings-list > section > .building > section {
+    padding: 10px;
+    padding-right: 40px;
+}
+
+.buildings-list > section > .building > section > h5 {
+    margin: 0px;
+}
+
+.buildings-list > section > .building > section > .price {
+    display: flex;
+    margin-top: 5px;
+}
+.buildings-list > section > .building > section > .price > span {
+    width: 80px;
+}
+
+.buildings-list > section > .building > footer {
+    background-color: #222;
+    padding: 16px;
+}
+
+.buildings-list > section > .building > footer > .build-button {
+    width: 64px;
+    height: 64px;
+    background-image: url('../images/buildings/build.svg');
+    background-color: #EFEFEF;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 36px;
+    border: 2px solid #000;
+    cursor:hover;
+    transition: background-color 0.2s ease-out;
+}
+
+#planet-available-buildings {
+    display: none;
+}
+
+#planet-available-buildings.visible {
+    display: block;
+}
