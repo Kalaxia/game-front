@@ -1,3 +1,8 @@
+#planet-view > header {
+    display: flex;
+    justify-content: flex-end;
+}
+
 #planet {
   position: absolute;
   width: 300px;
@@ -72,129 +77,63 @@
   left: 20px;
 }
 
-#planet-buildings {
-  display:flex;
-  justify-content: space-around;
-  position: absolute;
-  bottom: 50px;
-  left: calc(50% - 150px);
-  width: 300px;
-  margin:auto;
+#planet-buildings > header {
+    width: 200px;
+    background-color: black;
+    border-left: 5px solid #565656;
+    border-bottom: 1px solid #565656;
+    border-bottom-left-radius: 20px;
 }
 
-#planet-buildings > .building {
+#planet-buildings > header > a {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #8AF;
+    font-size: 1.2em;
+}
+
+#planet-buildings > section {
+    width: 70px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 5px 10px;
+    margin-left: 110px;
+    background-color: black;
+    border-left: 5px solid #565656;
+    border-bottom: 1px solid #565656;
+    border-bottom-left-radius: 20px;
+}
+
+#planet-buildings > section > .building {
     width: 64px;
     height: 64px;
-    border: 1px solid black;
+    margin-top: 5px;
+    border: 1px solid #EFEFEF;
     background-color: #EFEFEF;
     background-repeat: no-repeat;
     background-size: 54px 54px;
     background-position: 5px 5px;
     cursor: pointer;
+    border-radius: 40px;
 }
 
-#planet-buildings > .building.techno {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-#planet-buildings > .building.techno {
-  background-color: rgba(225, 150, 225, 0.8);
-}
-
-#planet-buildings > .building.area {
+#planet-buildings > section > .building.area {
     background-image: url('/static/images/buildings/area.png');
 }
 
-#buildings-modal {
-    position: absolute;
-    display: none;
-    top: 20%;
-    left: calc(50% - 200px);
-    width: 400px;
-    background-color: #222;
-    z-index: 2;
-    color: #222;
-}
-
-#buildings-modal.visible {
-    display: block;
-}
-
-#buildings-modal > section {
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-}
-
-#buildings-modal > section > .building {
-    width: 76px;
-    height: 76px;
-    margin: 20px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#buildings-modal > section > .building.category-resource {
+#planet-buildings > section > .building.category-resource {
     background-color: #08C;
 }
-#buildings-modal > section > .building.category-techno {
+#planet-buildings > section > .building.category-techno {
     background-color: #F843B1;
 }
-#buildings-modal > section > .building.category-trade {
+#planet-buildings > section > .building.category-trade {
     background-color: #FFC928;
 }
-#buildings-modal > section > .building.category-shipyard {
+#planet-buildings > section > .building.category-shipyard {
     background-color: #FF2828;
-}
-
-/* Tooltip container */
-#buildings-modal > section > .building > .tooltip {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
-
-/* Tooltip text */
-#buildings-modal > section > .building > .tooltip .tooltiptext {
-    display: none;
-    background-color: black;
-    color: #fff;
-    padding-right: 20px;
-
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    left: 105%;
-    z-index: 1;
-}
-
-#buildings-modal > section > .building > .tooltip .tooltiptext li {
-    display: flex;
-    align-items: center;
-}
-
-#buildings-modal > section > .building > .tooltip .tooltiptext li > img {
-    width: 16px;
-    height: 16px;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-#buildings-modal > section > .building > .tooltip:hover .tooltiptext {
-    display: block;
-}
-
-#buildings-overlay {
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 1;
-}
-
-#buildings-overlay.visible {
-    display: block;
 }
 
 @media all and (max-width: 500px) {
