@@ -1,57 +1,68 @@
 {
-  "diplomacy": {
-    "relations": {
-      "indicators": {
-        "philanthropic": "Philanthropiques",
-        "excellent": "Excellentes",
-        "friendly": "Amicales",
-        "good": "Bonnes",
-        "cordial": "Cordiales",
-        "neutral": "Neutres",
-        "cold": "Tendues",
-        "hostile": "Hostiles",
-        "odious": "Odieuses",
-        "infamous": "Infâmes"
-      }
-    }
-  },
-  "faction": {
-    "members": {
-        "title": "Membres"
-    }
-  },
-  "planet": {
-    "system": "Système",
-    "type": {
-      "arctic": "Planète de glace",
-      "desert": "Planète désertique",
-      "oceanic": "Planète océanique",
-      "temperate": "Planète tempérée",
-      "tropical": "Planète tropicale",
-      "rocky": "Planète rocheuse",
-      "volcanic": "Planète volcanique"
+    "buildings": {
+        "area": "Emplacement disponible",
+        "bat.prod.a": "Mine de Lithium",
+        "bat.prod.b": "Ferme céréalière",
+        "bat.shipyard.a": "Usine de chasseurs",
+        "bat.shipyard.b": "Chantier naval",
+        "bat.techno.a": "Laboratoire expérimental",
+        "bat.trade.a": "Comptoir commercial"
     },
-    "resources": "Ressources",
-    "relations": "Relations diplomatiques"
-  },
-  "profile": {
-    "planets": {
-      "title": "Planètes contrôlées"
-    }
-  },
-  "registration": {
-    "next_step": "Étape suivante",
-    "validate": "Commencer la partie !",
+    "diplomacy": {
+        "relations": {
+            "indicators": {
+                "philanthropic": "Philanthropiques",
+                "excellent": "Excellentes",
+                "friendly": "Amicales",
+                "good": "Bonnes",
+                "cordial": "Cordiales",
+                "neutral": "Neutres",
+                "cold": "Tendues",
+                "hostile": "Hostiles",
+                "odious": "Odieuses",
+                "infamous": "Infâmes"
+            }
+        }
+    },
     "faction": {
-      "title": "Choisissez votre faction !"
+        "members": {
+            "title": "Membres"
+        }
     },
     "planet": {
-      "title": "Choisissez votre planète !"
+        "available_buildings": "Bâtiments disponibles",
+        "buildings": "Bâtiments",
+        "resources": "Ressources",
+        "relations": "Relations diplomatiques",
+        "system": "Système",
+        "type": {
+            "arctic": "Planète de glace",
+            "desert": "Planète désertique",
+            "oceanic": "Planète océanique",
+            "temperate": "Planète tempérée",
+            "tropical": "Planète tropicale",
+            "rocky": "Planète rocheuse",
+            "volcanic": "Planète volcanique"
+        }
+    },
+    "profile": {
+        "planets": {
+            "title": "Planètes contrôlées"
+        }
+    },
+    "registration": {
+        "next_step": "Étape suivante",
+        "validate": "Commencer la partie !",
+        "faction": {
+            "title": "Choisissez votre faction !"
+        },
+        "planet": {
+            "title": "Choisissez votre planète !"
+        }
+    },
+    "system": {
+        "links": {
+            "map": "Retour à la carte"
+        }
     }
-  },
-  "system": {
-    "links": {
-      "map": "Retour à la carte"
-    }
-  }
 }
