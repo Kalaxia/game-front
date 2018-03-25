@@ -15,9 +15,33 @@
     border: 2px solid #EFEFEF;
 }
 
-.member > a {
-    color: #8AF;
+#members > section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 10px 20px 10px 10px;
+    background-color: #2A2A2A;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    color: #EFEFEF;
     text-decoration: none;
+}
+
+.member > header > img {
+    width: 64px;
+    height: 64px;
+    background-color: #ABC;
+    border-radius: 35px;
+}
+
+.member > section {
+    margin-left: 20px;
 }
 
 #faction-relations {

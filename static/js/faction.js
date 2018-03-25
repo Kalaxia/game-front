@@ -20,10 +20,13 @@ const getFactionPlayers = id => fetch(`/api/factions/${id}/members`, {
     .then(members => {
         var list = document.querySelector("#members > section");
         for (member of members) {
-            let memberElement = document.createElement("div");
+            let memberElement = document.createElement("a");
             memberElement.classList.add('member');
-            memberElement.innerHTML = `<a href="/views/profile/${ (member.id != player.id) ? `?id=${member.id}` : '' }">${member.pseudo}</a>`;
-
+            memberElement.href = `/views/profile/${ (member.id !== player.id) ? `?id=${member.id}` : ''}`;
+            memberElement.innerHTML =
+                `<header><img src="/static/images/avatars/default.svg"/></header>
+                <section><em>${member.pseudo}</em></section>`
+            ;
             list.appendChild(memberElement);
         }
     })
