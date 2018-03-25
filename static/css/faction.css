@@ -19,3 +19,29 @@
     color: #8AF;
     text-decoration: none;
 }
+
+#faction-relations {
+
+}
+
+#faction-relations > section {
+    display: flex;
+}
+
+#faction-relations > section > .faction {
+    padding: 20px;
+    background-color: #2A2A2A;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+#faction-relations > section > .faction > header > .faction-flag {
+    display: inline-block;
+    width: 96px;
+    height: 96px;
+    border-radius: 50px;
+    margin: 0px;
+}
