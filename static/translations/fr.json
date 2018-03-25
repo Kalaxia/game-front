@@ -1,5 +1,6 @@
 {
     "buildings": {
+        "title": "Bâtiments de %planet%",
         "area": "Emplacement disponible",
         "bat.prod.a": "Mine de Lithium",
         "bat.prod.b": "Ferme céréalière",

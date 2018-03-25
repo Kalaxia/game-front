@@ -14,6 +14,9 @@ const initBase = () => fetch(`/api/planets/${planetId}`, {
     })
     .then(apiResponseMiddleware)
     .then(data => {
+        document
+            .querySelector('#planet-buildings > header > h3')
+            .innerHTML = dictionnary.buildings.title.replace("%planet%", `<a href="/views/map/planet.html?id=${planetId}">${data.name}</a>`);
         availableBuildings = data.available_buildings;
         initBuildings(data.buildings, data.nb_buildings);
     })
@@ -110,9 +113,7 @@ const launchBuildingConstruction = buildingName => fetch(`/api/planets/${planetI
     headers: headers
 }).then(response => response.json())
 .then(building => {
-    console.log(availableBuildings);
     availableBuildings = building.planet.available_buildings;
-    console.log(availableBuildings);
     document.querySelector('.building.category-area.selected').remove();
     let list = document.querySelector('#planet-buildings > section');
     list.appendChild(newBuilding(building));

@@ -8,6 +8,11 @@
 
 }
 
+.buildings-list > header > h3 > a {
+    text-decoration: none;
+    color: #8AF;
+}
+
 .buildings-list > section {
     display: flex;
     flex-wrap: wrap;
