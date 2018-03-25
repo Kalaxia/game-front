@@ -28,6 +28,9 @@
     "faction": {
         "members": {
             "title": "Membres"
+        },
+        "relations": {
+            "title": "Relations Diplomatiques"
         }
     },
     "planet": {
