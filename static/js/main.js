@@ -1,10 +1,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 if (!urlParams.has('jwt') && localStorage.getItem('security.jwt') === null) {
-  window.location = config.portalUrl;
+    window.location = `${config.portalUrl}/dashboard`;
 } else if (urlParams.has('jwt')) {
-  localStorage.setItem('security.jwt', urlParams.get('jwt'));
-  window.location = '/';
+    localStorage.setItem('security.jwt', urlParams.get('jwt'));
+    window.location = '/';
 }
 
 const jwt = localStorage.getItem('security.jwt');
@@ -13,20 +13,20 @@ var player = null;
 var headers = new Headers({"Authorization": `Bearer ${jwt}`});
 
 const getCurrentPlayer = () =>
-  fetch('/api/me', {
-      method: 'GET',
-      headers: headers
-  }).then(response => {
-    if (response.ok) {
-      return response.json();
-    }
-    window.location = `${config.portalUrl}/dashboard`;
-    return Promise.reject("unauthorized");
-  })
-  .then(data => {
-    player = data;
-  }).catch(error => console.log(error))
+    fetch('/api/me', {
+        method: 'GET',
+        headers: headers
+    }).then(apiResponseMiddleware)
+    .then(data => {
+        player = data;
+    }).catch(error => console.log(error))
 ;
+
+const logout = () => {
+    localStorage.removeItem('security.jwt');
+    localStorage.removeItem('current_planet');
+    window.location = `${config.portalUrl}/dashboard`;
+}
 
 const setCurrentPlanet = id => localStorage.setItem('current_planet', id);
 
@@ -40,13 +40,13 @@ const getCurrentPlanet = () => {
 };
 
 const apiResponseMiddleware = response => {
-  if (response.status === 401) {
-    window.location = `${config.portalUrl}/dashboard`;
-    return Promise.reject("unauthorized");
-  }
-  if (response.ok) {
-    return response.json();
-  }
+    if (response.status === 401) {
+        logout();
+        return Promise.reject("unauthorized");
+    }
+    if (response.ok) {
+        return response.json();
+    }
 };
 
 const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
@@ -55,14 +55,14 @@ const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
   .catch(error => console.log(error))
 ;
 createDictionnary('fr').then(() => document.querySelectorAll("[data-translate=true]").forEach(element => {
-  var keys = element.innerText.split('.');
-  var result = dictionnary;
-  keys.forEach(key => {
-    if (typeof result[key] === 'undefined') {
-      result = element.innerText;
-      return;
-    }
-    result = result[key];
-  });
-  element.innerText = result;
+    var keys = element.innerText.split('.');
+    var result = dictionnary;
+    keys.forEach(key => {
+        if (typeof result[key] === 'undefined') {
+            result = element.innerText;
+            return;
+        }
+        result = result[key];
+    });
+    element.innerText = result;
 }));

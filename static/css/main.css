@@ -13,6 +13,9 @@ body {
 
 #player-data {
   position:fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   top: 0px;
   left: 0px;
   width: 200px;
@@ -26,11 +29,19 @@ body {
 #player-data > h3 {
   text-align:right;
   padding-right:20px;
+  margin-left: 20px;
 }
 
 #player-data > h3 > a {
   color: #EFEFEF;
   text-decoration: none;
+}
+
+#player-data > img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    cursor:pointer;
 }
 
 .industry-point, .credits {
