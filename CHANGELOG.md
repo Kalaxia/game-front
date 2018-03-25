@@ -1,3 +1,8 @@
+## [0.1.9] - 2018-03-25
+### Added
+- Logout button
+- Backlink from buildings interface to planet view
+
 ## [0.1.8] - 2018-03-24
 ### Added
 - Base buildings management view
