@@ -1,3 +1,10 @@
+## [0.1.10] - 2018-03-30
+### Added
+- Faction relations
+- Navigation to other factions
+- Planet population points edition interface
+- Default avatar for players
+
 ## [0.1.9] - 2018-03-25
 ### Added
 - Logout button
