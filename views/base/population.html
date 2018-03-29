@@ -12,27 +12,33 @@
             <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
         </div>
 
-        <div id="planet-buildings" class="buildings-list">
+        <div id="planet-data">
             <header>
-                <h3></h3>
-                <a href="/views/base/population.html" class="population-points"></a>
+                <h1></h1>
             </header>
-            <section></section>
+            <section>
+                <div id="planet-population"></div>
+                <div id="planet-points"></div>
+            </section>
         </div>
 
-        <div id="planet-available-buildings" class="buildings-list">
+        <div id="points-configuration">
             <header>
-                <h3 data-translate="true">planet.available_buildings</h3>
+                <h3 data-translate="true">planet.points_configuration</h3>
+                <div id="available-points"></div>
             </header>
-            <section></section>
+            <section>
+
+            </section>
         </div>
+
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="text/javascript" src="/static/js/main.js"></script>
         <script type="text/javascript" src="/static/js/base.js"></script>
-        <script type="text/javascript" src="/static/js/components/planet/buildings.js"></script>
+        <script type="text/javascript" src="/static/js/components/planet/population.js"></script>
         <script type="text/javascript" src="/static/js/components/planet/resources.js"></script>
         <script type="text/javascript">
-            window.addEventListener('load', initBaseBuildings);
+            window.addEventListener('load', initBasePopulation);
         </script>
   </body>
 </html>

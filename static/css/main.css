@@ -54,3 +54,24 @@ body {
 }
 .industry-point { background-image: url('../images/resources/industry_point.svg'); }
 .credits { background-image: url('../images/resources/credits.svg'); }
+
+
+.population-points {
+    display: flex;
+    align-items: center;
+    color: #8AF;
+    text-decoration: none;
+}
+
+.population-points > strong {
+    font-size: 1.5em;
+}
+
+.population-points > img {
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
+    background-color: #EFEFEF;
+    border: 1px solid #000;
+    border-radius: 20px;
+}

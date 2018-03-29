@@ -5,15 +5,118 @@ getCurrentPlayer().then(() => {
   document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
-var availableBuildings = [];
 var planetId = getCurrentPlanet();
+var planetPopulation = 0;
+var planetSettings = {};
+var availablePoints = 0;
 
-const initBase = () => fetch(`/api/planets/${planetId}`, {
+/** POPULATION **/
+const initBasePopulation = () => fetch(`/api/planets/${planetId}`, {
         method: 'GET',
         headers: headers
     })
     .then(apiResponseMiddleware)
     .then(data => {
+        planetPopulation = data.population;
+        planetSettings = data.settings;
+        let populationPoints = getPopulationPoints(planetPopulation);
+
+        document.querySelector('#planet-data > header > h1').innerHTML = dictionnary.planet.demography.replace("%planet%", `<a href="/views/map/planet.html?id=${planetId}">${data.name}</a>`);
+        document.querySelector('#planet-population').innerHTML = dictionnary.planet.population.replace("%population%", planetPopulation);
+        document.querySelector('#planet-points').innerHTML = dictionnary.planet.population_points.replace("%points%", populationPoints);
+
+        initBasePoints(populationPoints);
+    })
+;
+
+const initBasePoints = (populationPoints) => {
+    availablePoints = populationPoints;
+    let configuration = document.querySelector('#points-configuration > section');
+
+    for (setting of ['services', 'building', 'military', 'research']) {
+        let points = planetSettings[`${setting}_points`];
+        let gauge = document.createElement('div');
+        let percentage = getPercentage(points, populationPoints);
+        gauge.classList.add('gauge-container');
+        gauge.innerHTML =
+            `<header><h4>${dictionnary.planet.settings[setting]}</h4></header>
+            <section>
+                <div id="${setting}-gauge" class="gauge">
+                    <span class="gauge-indicator">
+                        ${dictionnary.planet.population_points.replace("%points%", `<span>${points}</span>`)}
+                        (<em>${percentage}</em>%)
+                    </span>
+                    <div class="gauge-content" style="width:${percentage}%"></div>
+                    <span class="gauge-add" onclick="addPoint('${setting}')">+</span>
+                    <span class="gauge-substract" onclick="substractPoint('${setting}')">-</span>
+                </div>
+            </section>`
+        ;
+        configuration.appendChild(gauge);
+        availablePoints -= points;
+    }
+    document.querySelector('#available-points').innerHTML =
+        dictionnary
+        .planet
+        .available_population_points
+        .replace("%points%", `<span>${availablePoints}</span>`)
+    ;
+};
+
+const getPercentage = (points, total) => {
+    return Math.floor((points / total) * 100);
+};
+
+const getPopulationPoints = population => {
+    return Math.floor(population / 100000);
+};
+
+const addPoint = setting => {
+    if (availablePoints < 1) {
+        return;
+    }
+    planetSettings[`${setting}_points`]++;
+    availablePoints--;
+    updateGauge(setting);
+};
+
+const substractPoint = setting => {
+    if (planetSettings[`${setting}_points`] < 1) {
+        return;
+    }
+    planetSettings[`${setting}_points`]--;
+    availablePoints++;
+    updateGauge(setting);
+};
+
+const updateGauge = setting => fetch(`/api/planets/${planetId}/settings`, {
+    method: 'PUT',
+    body: JSON.stringify(planetSettings),
+    headers: headers,
+}).then(apiResponseMiddleware)
+.then(settings => {
+    planetSettings = settings;
+    let gauge = document.querySelector(`#${setting}-gauge`);
+    let points = planetSettings[`${setting}_points`];
+    let percentage = getPercentage(points, getPopulationPoints(planetPopulation));
+    document.querySelector('#available-points span').innerText = availablePoints;
+    gauge.querySelector('.gauge-indicator > span').innerText = points;
+    gauge.querySelector('.gauge-indicator > em').innerText = percentage;
+    gauge.querySelector('.gauge-content').style.width = `${percentage}%`;
+});
+
+/** BUILDINGS **/
+var availableBuildings = [];
+
+const initBaseBuildings = () => fetch(`/api/planets/${planetId}`, {
+        method: 'GET',
+        headers: headers
+    })
+    .then(apiResponseMiddleware)
+    .then(data => {
+        document.querySelector('.population-points').innerHTML =
+            `<strong>${data.settings.building_points}</strong><img src="/static/images/buildings/build.svg"/>`
+        ;
         document
             .querySelector('#planet-buildings > header > h3')
             .innerHTML = dictionnary.buildings.title.replace("%planet%", `<a href="/views/map/planet.html?id=${planetId}">${data.name}</a>`);
@@ -124,5 +227,3 @@ const launchBuildingConstruction = buildingName => fetch(`/api/planets/${planetI
     }
     document.querySelector('#planet-available-buildings').classList.remove('visible');
 });
-
-window.addEventListener('load', initBase);
