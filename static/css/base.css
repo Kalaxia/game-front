@@ -1,7 +1,81 @@
-.buildings-list {
-
+#planet-data {
+    width: 80%;
+    margin: auto;
     margin-top: 100px;
-    margin-left: 40px;
+}
+
+#planet-data > header > h1 > a {
+    color: #8AF;
+    text-decoration: none;
+}
+
+#points-configuration {
+    width: 80%;
+    margin: auto;
+}
+
+#points-configuration > section > .gauge-container {
+
+}
+
+#points-configuration > section > .gauge-container > section > .gauge {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #EFEFEF;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-indicator {
+    position: absolute;
+    top: 8px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    color: #8AF;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-content {
+    width: 0%;
+    height: 40px;
+    background-color: #EFEFEF;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-add,
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-substract {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    background-color: #565656;
+    color: #EFEFEF;
+    font-size: 2.0em;
+    border-left: 1px solid #FFF;
+    border-right: 1px solid #FFF;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-add:hover,
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-substract:hover {
+    background-color: #222;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-add {
+    right: 40px;
+}
+
+#points-configuration > section > .gauge-container > section > .gauge > .gauge-substract {
+    right: 0px;
+}
+
+.buildings-list {
+    width: 80%;
+    margin: auto;
+    margin-top: 100px;
 }
 
 .buildings-list > header {
@@ -106,6 +180,12 @@
     border: 2px solid #000;
     cursor:hover;
     transition: background-color 0.2s ease-out;
+}
+
+#planet-buildings > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #planet-available-buildings {

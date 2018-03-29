@@ -34,10 +34,21 @@
         }
     },
     "planet": {
+        "demography": "Démographie de %planet%",
+        "population": "%population% habitants",
+        "population_points": "%points% points",
+        "points_configuration": "Répartition des points",
+        "available_population_points": "%points% points disponibles",
         "available_buildings": "Bâtiments disponibles",
         "buildings": "Bâtiments",
         "resources": "Ressources",
         "relations": "Relations diplomatiques",
+        "settings": {
+            "services": "Service",
+            "building": "Génie Civil",
+            "military": "Génie Militaire",
+            "research": "Recherche"
+        },
         "system": "Système",
         "type": {
             "arctic": "Planète de glace",
