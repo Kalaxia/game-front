@@ -152,11 +152,14 @@ const newBuilding = data => {
         }
         footer += `<footer><div class="build-button" onclick="launchBuildingConstruction('${data.name}');"></div></footer>`
     }
+    console.log(data);
     if (typeof data.status !== 'undefined' && data.status == 'constructing') {
         building.classList.add('constructing');
-        building.setAttribute('data-built-at', data.built_at);
+        building.setAttribute('data-built-at', (data.construction_state !== null) ? data.construction_state.built_at : null);
         constructionOverlay = '<div class="construction-overlay"></div>';
-        buildingInfo += `<div class="countdown"></div>`;
+        buildingInfo +=
+            `<div class="countdown"></div><div class="points">${data.construction_state.current_points}/${data.construction_state.points}</div>`
+        ;
         timers[building.id] = setInterval(() => refreshConstructionCountdown(building.id), 1000);
     }
 
@@ -190,6 +193,7 @@ const refreshConstructionCountdown = buildingId => {
     var now = new Date();
     var difference = dateEntered.getTime() - now.getTime();
 
+    console.log(dateEntered, now, difference);
     if (difference <= 0) {
         building.classList.remove('constructing');
         building.querySelector('.construction-overlay').remove();
