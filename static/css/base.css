@@ -94,7 +94,7 @@
 
 .buildings-list > section > .building {
     display: flex;
-    flex-wrap: wrap;
+    width: 300px;
     margin: 10px 20px;
     background-color: rgba(0,0,0,0.8);
     border: 1px solid #565656;
@@ -148,8 +148,8 @@
 }
 
 .buildings-list > section > .building > section {
+    width: 100%;
     padding: 10px;
-    padding-right: 40px;
 }
 
 .buildings-list > section > .building > section > h5 {
@@ -162,6 +162,29 @@
 }
 .buildings-list > section > .building > section > .price > span {
     width: 80px;
+}
+
+.buildings-list > section > .building > section > .points {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.buildings-list > section > .building > section > .points > .progressbar {
+    flex-grow: 2;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #222;
+}
+.buildings-list > section > .building > section > .points > .progressbar > div {
+    flex-grow: 2;
+    background-color: #EFEFEF;
+    height: 100%;
+}
+.buildings-list > section > .building > section > .points > .industry-point {
+    margin-left: 5px;
 }
 
 .buildings-list > section > .building > footer {

@@ -10,7 +10,7 @@ const initPlanetBuildings = (container, planetId, buildings, maxBuildings, avail
     for (data of buildings) {
         let building = document.createElement('div');
         building.classList.add('building', `category-${buildingsData[data.name].category}`);
-        if (building.status === 'constructing') {
+        if (data.status === 'constructing') {
             building.classList.add('constructing');
         }
         building.style.backgroundImage = `url('/static/images/buildings/${buildingsData[data.name].picture}')`;
