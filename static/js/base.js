@@ -152,11 +152,23 @@ const newBuilding = data => {
         }
         footer += `<footer><div class="build-button" onclick="launchBuildingConstruction('${data.name}');"></div></footer>`
     }
-    if (typeof data.status !== 'undefined' && data.status == 'constructing') {
+    if (typeof data.status !== 'undefined' && data.construction_state !== null) {
         building.classList.add('constructing');
-        building.setAttribute('data-built-at', data.built_at);
+        building.setAttribute('data-built-at', data.construction_state.built_at);
+        building.setAttribute('data-points', data.construction_state.points);
+        building.setAttribute('data-current-points', data.construction_state.current_points);
+
+        let pointsPercent = Math.floor(data.construction_state.current_points * 100 / data.construction_state.points);
         constructionOverlay = '<div class="construction-overlay"></div>';
-        buildingInfo += `<div class="countdown"></div>`;
+        buildingInfo +=
+            `<div class="countdown"></div>
+            <div class="points">
+                <span>${data.construction_state.current_points}</span>
+                <div class="progressbar"><div style="width:${pointsPercent}%"></div></div>
+                <span>${data.construction_state.points}</span>
+                <div class="industry-point"></div>
+            </div>`
+        ;
         timers[building.id] = setInterval(() => refreshConstructionCountdown(building.id), 1000);
     }
 
@@ -165,9 +177,6 @@ const newBuilding = data => {
             <section><h5>${dictionnary.buildings[data.name]}</h5>${buildingInfo}</section>${footer}
         `
     ;
-    if (typeof data.duration !== 'undefined' && data.duration !== null) {
-        building.setAttribute('data-duration', data.duration);
-    }
     return building;
 };
 
@@ -187,14 +196,18 @@ const showAvailableBuildings = event => {
 const refreshConstructionCountdown = buildingId => {
     var building = document.querySelector(`#${buildingId}`);
     var dateEntered = new Date(building.getAttribute('data-built-at'));
+    var currentPoints = building.getAttribute('data-current-points');
+    var points = building.getAttribute('data-points');
     var now = new Date();
     var difference = dateEntered.getTime() - now.getTime();
 
     if (difference <= 0) {
-        building.classList.remove('constructing');
-        building.querySelector('.construction-overlay').remove();
         building.querySelector('.countdown').remove();
-        clearInterval(timers[buildingId])
+        clearInterval(timers[buildingId]);
+        if (currentPoints === points) {
+            building.classList.remove('constructing');
+            building.querySelector('.construction-overlay').remove();
+        }
         return;
     }
     var seconds = Math.floor(difference / 1000);
