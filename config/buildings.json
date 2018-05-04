@@ -13,7 +13,8 @@
     },
     "bat.shipyard.a": {
         "picture": "building.png",
-        "category": "shipyard"
+        "category": "shipyard",
+        "view": "shipyard.html"
     },
     "bat.shipyard.b": {
         "picture": "building.png",
