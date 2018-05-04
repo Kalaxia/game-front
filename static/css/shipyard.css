@@ -1,0 +1,358 @@
+#shipyard {
+    display: flex;
+    margin: 100px;
+
+}
+
+#ships-list {
+    width: 200px;
+}
+
+#ships-list > header > button {
+    padding: 0px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out;
+}
+
+#ships-list > header > button:hover {
+    background-color: #A0A0A0;
+}
+
+#ships-list > header > button > img {
+    width: 200px;
+    height: 150px;
+}
+
+#ships-list > section {
+
+}
+
+#ships-list > section > .ship {
+    height: 150px;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #EFEFEF;
+}
+
+#ships-list > section > .ship > header {
+    font-size: 6em;
+    text-align: center;
+    height: 120px;
+}
+
+#ships-list > section > .ship > footer {
+    text-align: right;
+}
+
+#ship-conception {
+    display: flex;
+    width: 100%;
+    background-color: #111;
+}
+
+#frames {
+    display: none;
+    margin: 20px;
+}
+
+#frames > section {
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+}
+
+#frames > section > .frame {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 20px;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #EFEFEF;
+    cursor: pointer;
+}
+#frames > section > .frame.selected {
+    box-shadow: 0px 0px 10px rgba(200, 200, 200, 0.8);
+}
+
+#frames > section > .frame > header {
+    font-size: 6em;
+    text-align: center;
+    height: 120px;
+}
+
+#frames > section > .frame > footer {
+    text-align: right;
+}
+
+#ship-vizualizer {
+    display: none;
+    flex-grow: 2;
+}
+
+#ship-vizualizer > header > h3 {
+    margin-left: 20px;
+}
+
+#ship-vizualizer > section {
+    position: relative;
+    height: 400px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+#ship-image {
+    font-size: 10em;
+    text-align: center;
+}
+
+#ship-vizualizer > section > .slot {
+    position: absolute;
+    background-color: #AAA;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#ship-vizualizer > section > .slot.selected {
+    background-color: #EFEFEF;
+}
+
+#ship-vizualizer > section > .slot[data-type="weapon"] {
+    background-color: red;
+}
+
+#ship-vizualizer > section > .slot[data-type="engine"] {
+    background-color: yellow;
+}
+
+#ship-vizualizer > section > .slot[data-type="shield"] {
+    background-color: blue;
+}
+
+#ship-vizualizer > section > .slot[data-type="cargo"] {
+    background-color: green;
+}
+
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="small"] {
+    width: 60px;
+    height: 60px;
+    background-size: 50px;
+    border-radius: 40px;
+}
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="medium"] {
+    width: 80px;
+    height: 80px;
+    background-size: 60px;
+    border-radius: 50px;
+}
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="large"] {
+    width: 100px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 60px;
+}
+
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="small"] {
+    width: 60px;
+    height: 60px;
+    background-size: 50px;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="medium"] {
+    width: 80px;
+    height: 80px;
+    background-size: 60px;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="large"] {
+    width: 100px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="small"] {
+    width: 80px;
+    height: 60px;
+    background-size: 50px;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="medium"] {
+    width: 100px;
+    height: 80px;
+    background-size: 60px;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="large"] {
+    width: 120px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > footer {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+}
+
+#ship-vizualizer > footer > .module {
+    width: 120px;
+    height: 120px;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 5em;
+    background-color: rgba(0,0,0,0.8);
+}
+
+#ship-vizualizer > footer > .module[data-type="weapon"] > div {
+    background-color: red;
+}
+
+#ship-vizualizer > footer > .module[data-type="engine"] > div {
+    background-color: yellow;
+}
+
+#ship-vizualizer > footer > .module[data-type="shield"] > div {
+    background-color: blue;
+}
+
+#ship-vizualizer > footer > .module[data-type="cargo"] > div {
+    background-color: green;
+}
+
+#ship-vizualizer > footer > .module > .circle {
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 60px;
+}
+
+#ship-vizualizer > footer > .module > .square {
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > footer > .module > .rectangle {
+    width: 100px;
+    height: 80px;
+    margin: 20px 10px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > footer > .module > .hexagon {
+  position: relative;
+  width: 100px;
+  height: 57.74px;
+  margin: 28.87px 0px;
+  background-image: url(/static/images/shipyard/module.png);
+  background-size: auto 115.4701px;
+  background-position: center;
+}
+
+#ship-vizualizer > footer > .module > .hexagon > .hexTop,
+#ship-vizualizer > footer > .module > .hexagon > .hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 70.71px;
+  height: 70.71px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 14.64px;
+}
+
+/*counter transform the bg image on the caps*/
+#ship-vizualizer > footer > .module > .hexagon > .hexTop:after,
+#ship-vizualizer > footer > .module > .hexagon > .hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 100.0000px;
+  height: 57.73502691896258px;
+  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  transform:          rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+}
+
+#ship-vizualizer > footer > .module > .hexagon > .hexTop {
+  top: -35.3553px;
+}
+
+#ship-vizualizer > footer > .module > .hexagon > .hexTop:after {
+  background-position: center top;
+}
+
+#ship-vizualizer > footer > .module > .hexagon > .hexBottom {
+  bottom: -35.3553px;
+}
+
+#ship-vizualizer > footer > .module > .hexagon > .hexBottom:after {
+  background-position: center bottom;
+}
+
+#ship-vizualizer > footer > .module > .hexagon:after {
+  content: "";
+  position: absolute;
+  top: 0.0000px;
+  left: 0;
+  width: 100.0000px;
+  height: 57.7350px;
+  z-index: 2;
+  background: inherit;
+}
+
+#ship-stats {
+    display: none;
+    flex-grow: 1;
+    margin: 40px;
+    padding: 20px;
+    height: calc(100% - 120px);
+    border: 1px solid #EFEFEF;
+}
+
+#ship-stats > header > input {
+    width: 100%;
+    height: 40px;
+    font-size: 1.3em;
+    color: #EFEFEF;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+#ship-stats .list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#ship-stats .list > .stat {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    background-color: #565656;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+#ship-stats .list > .stat > section {
+    font-size: 2em;
+}
