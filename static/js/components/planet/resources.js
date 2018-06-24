@@ -14,13 +14,14 @@ const initPlanetResources = (list, data, storage) => {
         resource = Object.assign(resource, resourcesData[resource.name]);
         var info = document.createElement('li');
         info.innerHTML =
-            `<div class="info">
-                <em>${resource.name}</em>
+            `<h5>${resource.name}</h5>
+            <div class="info">
                 <div class="density">${getDensityVisualization(
-                  resource.density,
-                  `<img src="/static/images/resources/${resource.picto}" alt="${resource.name}"/>`
-              )}</div></div>
-            ${(typeof storage !== 'undefined' && storage !== null) ? `<div class="storage">${storage.resources[resourceKey]}</div>` : ''}`
+                    resource.density,
+                    `<img src="/static/images/resources/${resource.picto}" alt="${resource.name}"/>`
+                )}</div>
+                ${(typeof storage !== 'undefined' && storage !== null) ? `<div class="storage">${storage.resources[resourceKey]}</div>` : ''}
+            </div>`
         ;
         list.appendChild(info);
     }
