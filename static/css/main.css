@@ -28,7 +28,7 @@ body {
   width: 200px;
   height: 50px;
   background-color: #010F2A;
-  border-bottom: 3px solid #E1BB81;
+  border-bottom: 3px solid #E1BB8A;
   font-variant: small-caps;
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 #player-data > h3 > a {
-  color: #E1BB81;
+  color: #E1BB8A;
   text-decoration: none;
 }
 
@@ -63,7 +63,7 @@ body {
     cursor:pointer;
 }
 
-.module {
+#wrapper > .module {
     background-color: rgba(75, 75, 100, 0.4);
     border: 2px solid #010F2A;
     border-radius: 5px;
@@ -71,16 +71,16 @@ body {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
 }
 
-.module > header {
+#wrapper > .module > header {
     position: relative;
     max-width: calc(100% - 60px);
     height: 30px;
     padding: 5px 0px 5px 15px;
     background-color: #010F2A;
-    border-bottom: 3px solid #E1BB81;
+    border-bottom: 3px solid #E1BB8A;
 }
 
-.module > header::after {
+#wrapper > .module > header::after {
     width: 0px;
     height: 0px;
     content: '';
@@ -93,11 +93,11 @@ body {
     border-bottom: 20px solid transparent;
 }
 
-.module > header > h3 {
+#wrapper > .module > header > h3 {
     margin: 0px;
 }
 
-.module > section {
+#wrapper > .module > section {
     padding: 20px;
 }
 
@@ -116,7 +116,7 @@ body {
 .population-points {
     display: flex;
     align-items: center;
-    color: #8AF;
+    color: #E1BB8A;
     text-decoration: none;
 }
 

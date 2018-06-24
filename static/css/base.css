@@ -5,7 +5,7 @@
 }
 
 #planet-data > header > h1 > a {
-    color: #E1BB81;
+    color: #E1BB8A;
     text-decoration: none;
 }
 
@@ -16,7 +16,7 @@
 }
 
 #points-configuration > header > #available-points > span {
-    color: #E1BB81;
+    color: #E1BB8A;
 }
 
 #points-configuration > section > .gauge-container {
@@ -27,7 +27,7 @@
     position: relative;
     width: 100%;
     height: 40px;
-    border: 1px solid #E1BB81;
+    border: 1px solid #E1BB8A;
 }
 
 #points-configuration > section > .gauge-container > section > .gauge > .gauge-indicator {
@@ -36,7 +36,7 @@
     width: 100%;
     text-align: center;
     font-size: 1.1em;
-    color: #E1BB81;
+    color: #E1BB8A;
 }
 
 #points-configuration > section > .gauge-container > section > .gauge > .gauge-content {
@@ -56,10 +56,10 @@
     width: 40px;
     height: 40px;
     background-color: black;
-    color: #E1BB81;
+    color: #E1BB8A;
     font-size: 2.0em;
-    border-left: 2px solid #E1BB81;
-    border-right: 2px solid #E1BB81;
+    border-left: 2px solid #E1BB8A;
+    border-right: 2px solid #E1BB8A;
     cursor: pointer;
     transition: background-color 0.2s ease-out;
 }
@@ -89,7 +89,7 @@
 
 .buildings-list > header > h3 > a {
     text-decoration: none;
-    color: #8AF;
+    color: #E1BB8A;
 }
 
 .buildings-list > section {

@@ -35,7 +35,7 @@
 
 #planet-data > section > .system > a,
 #planet-data > section > h4 > a {
-  color: #E1BB81;
+  color: #E1BB8A;
   text-decoration: none;
 }
 
@@ -51,7 +51,7 @@
     min-width: 15px;
     margin-top: 5px;
     margin-bottom: 10px;
-    color: #E1BB81;
+    color: #E1BB8A;
 }
 
 #planet-data > section > .resources > li > .info {
@@ -74,7 +74,7 @@
 
 #planet-data > section > .resources > li > span,
 #planet-data > section > .resources > li > .info > .storage {
-  color: #E1BB81;
+  color: #E1BB8A;
 }
 
 #planet-relations {
@@ -95,7 +95,7 @@
     height: 30px;
     padding-top: 5px;
     background-color: #010F2A;
-    border-bottom: 3px solid #E1BB81;
+    border-bottom: 3px solid #E1BB8A;
 }
 
 #planet-buildings > header::before {
@@ -114,7 +114,7 @@
 #planet-buildings > header > a {
     padding: 10px 20px;
     text-decoration: none;
-    color: #E1BB81;
+    color: #E1BB8A;
     font-size: 1.2em;
 }
 
@@ -150,7 +150,7 @@
     width: 64px;
     height: 64px;
     margin-top: 10px;
-    border: 2px solid #E1BB81;
+    border: 2px solid #E1BB8A;
     background-color: #EFEFEF;
     background-repeat: no-repeat;
     background-size: 54px 54px;

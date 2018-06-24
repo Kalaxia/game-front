@@ -14,7 +14,8 @@ const initShipyard = () => {
     for (let ship of shipsMock) {
         let element = document.createElement('div');
         element.classList.add('ship');
-        element.innerHTML = `<header>#</header><footer>${ship.name}</footer>`;
+        let picture = (framesMock[ship.frame].picture !== '') ? `<img src="/static/images/shipyard/frame_${framesMock[ship.frame].picture}" />` : '#';
+        element.innerHTML = `<header>${picture}</header><footer>${ship.name}</footer>`;
 
         list.append(element);
     }
@@ -30,10 +31,11 @@ const displayFrames = () => {
     for (let index in framesMock) {
         let frame = framesMock[index];
         let element = document.createElement('div');
+        let picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
         element.classList.add('frame');
         element.setAttribute('data-frame-index', index)
         element.addEventListener('click', chooseFrame);
-        element.innerHTML = `<header>#</header><footer>${frame.name}</footer>`
+        element.innerHTML = `<header>${picture}</header><footer>${frame.name}</footer>`
         list.append(element);
     }
 };
@@ -58,7 +60,8 @@ const chooseFrame = event => {
 
 const displaySlots = frame => {
     let vizualizer = document.querySelector('#ship-vizualizer > section');
-    vizualizer.innerHTML = '<div id="ship-image">#</div>';
+    let picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
+    vizualizer.innerHTML = `<div id="ship-image">${picture}</div>`;
 
     for (slot of frame.slots) {
         let element = document.createElement('div');
@@ -100,11 +103,23 @@ const displayModules = event => {
             continue;
         }
         let element = document.createElement('div');
+        let picture = (module.picture !== '') ? `module_${module.type}_${module.size}_${module.picture}` : 'module.png';
+        let transformScale = '';
+        let transform = '';
+        if (module.picture_flip_x === true) {
+            transformScale += ' scaleX(-1)';
+        }
+        if (module.picture_flip_y === true) {
+            transformScale += ' scaleY(-1)';
+        }
+        if (module.picture !== '' && transformScale !== '') {
+            transform = `transform: ${transformScale}`;
+        }
         element.classList.add('module', module.type);
         element.setAttribute('data-index', index);
         element.setAttribute('data-type', module.type);
         element.addEventListener('click', affectModule);
-        element.innerHTML = `<div class="${module.shape}"></div>`;
+        element.innerHTML = `<div class="${module.shape}" style="background-image: url('/static/images/shipyard/${picture}');${transform}"></div>`;
         list.append(element);
     }
 };
@@ -117,8 +132,11 @@ const affectModule = event => {
 
     displayStats();
 
+    let moduleStyle = window.getComputedStyle(moduleElement.querySelector('div'), null);
     slot.setAttribute('data-type', moduleElement.getAttribute('data-type'));
-    slot.style.backgroundImage = window.getComputedStyle(moduleElement.querySelector('div'), null).backgroundImage;
+
+    slot.style.transform = moduleStyle.transform;
+    slot.style.backgroundImage = moduleStyle.backgroundImage;
 };
 
 const displayStats = () => {
@@ -173,8 +191,8 @@ const displayModuleStats = () => {
     }
 };
 
-var framesMock = [
-    {
+var framesMock = {
+    "chassis-leger": {
         "id": 1,
         "name": "Châssis léger",
         "slug": "chassis-leger",
@@ -206,30 +224,30 @@ var framesMock = [
             "armor": 45,
         }
     },
-    {
+    "chassis-renforce": {
         "id": 2,
         "name": "Châssis renforcé",
         "slug": "chassis-renforce",
-        "picture": "",
+        "picture": "heavy.png",
         "slots": [
             {
                 "id": 1,
-                "top": 100,
-                "left": 100,
+                "top": 30,
+                "left": 60,
                 "shape": "square",
                 "size": "small",
             },
             {
                 "id": 2,
-                "bottom": 100,
-                "right": 100,
+                "top": 110,
+                "right": 220,
                 "shape": "circle",
                 "size": "small",
             },
             {
                 "id": 3,
-                "bottom": 150,
-                "right": 100,
+                "top": 100,
+                "left": 60,
                 "shape": "square",
                 "size": "medium",
             },
@@ -238,53 +256,53 @@ var framesMock = [
             "armor": 60
         }
     },
-    {
+    "chassis-polymere": {
         "id": 3,
         "name": "Châssis polymère",
         "slug": "chassis-polymere",
-        "picture": "",
+        "picture": "corvette.png",
         "slots": [
             {
                 "id": 1,
                 "top": 100,
-                "left": 100,
+                "left": 60,
                 "shape": "square",
                 "size": "medium",
             },
             {
                 "id": 2,
-                "bottom": 100,
-                "left": 200,
+                "top": 30,
+                "left": 250,
                 "shape": "rectangle",
                 "size": "medium",
             },
             {
                 "id": 3,
-                "bottom": 100,
-                "left": 300,
+                "top": 30,
+                "left": 400,
                 "shape": "rectangle",
                 "size": "medium",
             },
             {
                 "id": 4,
-                "bottom": 100,
-                "right": 100,
-                "shape": "square",
-                "size": "medium",
+                "bottom": 200,
+                "left": 380,
+                "shape": "circle",
+                "size": "small",
             },
             {
                 "id": 5,
-                "bottom": 150,
-                "right": 100,
-                "shape": "square",
-                "size": "medium",
+                "top": 60,
+                "right": 180,
+                "shape": "circle",
+                "size": "small",
             },
         ],
         "stats": {
             "armor": 80
         }
     },
-];
+};
 
 var modulesMock = [
     {
@@ -292,6 +310,9 @@ var modulesMock = [
         "name": "Mitrailleuse laser",
         "slug": "mitrailleuse-laser",
         "description": "Arme fixe à forte cadence, idéale pour un vaisseau rapide",
+        "picture": "",
+        "picture_flip_x": true,
+        "picture_flip_y": false,
         "type": "weapon",
         "shape": "square",
         "size": "small",
@@ -303,13 +324,30 @@ var modulesMock = [
             "nb_shots": 8,
             "damage": 10,
             "precision": 25
-        }
+        },
+        "price": [
+            {
+                "type": "credits",
+                "amount": 125,
+            },
+            {
+                "type": "resource",
+                "name": "resource.a",
+                "amount": 50
+            },
+            {
+
+            }
+        ]
     },
     {
         "id": 2,
         "name": "Réacteur principal Treigar",
         "slug": "reacteur-principal-treigar",
         "description": "Réacteur de petite taille avec une bonne puissance",
+        "picture": "",
+        "picture_flip_x": false,
+        "picture_flip_y": false,
         "type": "engine",
         "shape": "square",
         "size": "medium",
@@ -327,6 +365,9 @@ var modulesMock = [
         "name": "Réacteur auxiliaire Mark I",
         "slug": "reacteur-auxiliaire-mark-i",
         "description": "Réacteur léger ajoutant un peu de vitesse",
+        "picture": "mark_1.png",
+        "picture_flip_x": false,
+        "picture_flip_y": false,
         "type": "engine",
         "shape": "square",
         "size": "small",
@@ -344,6 +385,9 @@ var modulesMock = [
         "name": "Tourelle laser Meirrion",
         "slug": "tourelle-laser-meirrion",
         "description": "Tourelle mobile composée de deux canons laser parallèles",
+        "picture": "laser_01.png",
+        "picture_flip_x": true,
+        "picture_flip_y": false,
         "type": "weapon",
         "shape": "circle",
         "size": "small",
@@ -362,7 +406,10 @@ var modulesMock = [
         "id": 5,
         "name": "Générateur de bouclier léger",
         "slug": "generateur-de-bouclier-leger",
-        "description": "Réacteur léger ajoutant un peu de vitesse",
+        "description": "Générateur de petite taille protégeant des armes légères",
+        "picture": "",
+        "picture_flip_x": false,
+        "picture_flip_y": false,
         "type": "shield",
         "shape": "rectangle",
         "size": "medium",
@@ -382,6 +429,9 @@ var modulesMock = [
         "name": "Coffre de toit",
         "slug": "coffre-de-toit",
         "description": "Soute de taille moyenne pour du cargo",
+        "picture": "",
+        "picture_flip_x": false,
+        "picture_flip_y": false,
         "type": "cargo",
         "shape": "rectangle",
         "size": "medium",

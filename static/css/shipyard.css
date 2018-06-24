@@ -5,22 +5,26 @@
 }
 
 #ships-list {
+    grid-column: 1;
+    grid-row: 2/5;
     width: 200px;
 }
 
 #ships-list > header > button {
+    width: 100%;
     padding: 0px;
     border: none;
     cursor: pointer;
+    border: 1px solid #EFEFEF;
+    background-color: #303050;
     transition: background-color 0.2s ease-out;
 }
 
 #ships-list > header > button:hover {
-    background-color: #A0A0A0;
+    background-color: #404060;
 }
 
 #ships-list > header > button > img {
-    width: 200px;
     height: 150px;
 }
 
@@ -31,7 +35,7 @@
 #ships-list > section > .ship {
     height: 150px;
     padding: 10px;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(50,50,75,0.6);
     border: 1px solid #EFEFEF;
 }
 
@@ -41,19 +45,30 @@
     height: 120px;
 }
 
+
+#ships-list > section > .ship > header > img {
+    width: 100%;
+}
+
 #ships-list > section > .ship > footer {
     text-align: right;
 }
 
 #ship-conception {
+    grid-column: 2/5;
+    grid-row: 2/5;
     display: flex;
     width: 100%;
-    background-color: #111;
 }
 
 #frames {
     display: none;
-    margin: 20px;
+    font-variant: small-caps;
+}
+
+#frames > header > h3 {
+    margin-left: 20px;
+    color: #E1BB8A;
 }
 
 #frames > section {
@@ -68,8 +83,9 @@
     padding: 10px;
     margin-top: 10px;
     margin-right: 20px;
-    background-color: rgba(0,0,0,0.8);
-    border: 1px solid #EFEFEF;
+    background-color: rgba(50,50,75,0.6);
+    border: 2px solid #AAA;
+    border-radius: 5px;
     cursor: pointer;
 }
 #frames > section > .frame.selected {
@@ -80,6 +96,10 @@
     font-size: 6em;
     text-align: center;
     height: 120px;
+}
+
+#frames > section > .frame > header > img {
+    width: 100%;
 }
 
 #frames > section > .frame > footer {
@@ -93,6 +113,8 @@
 
 #ship-vizualizer > header > h3 {
     margin-left: 20px;
+    font-variant: small-caps;
+    color: #E1BB8A;
 }
 
 #ship-vizualizer > section {
@@ -103,34 +125,43 @@
 }
 
 #ship-image {
+    width: 90%;
+    margin: auto;
     font-size: 10em;
     text-align: center;
 }
 
+#ship-image > img {
+    width: 100%;
+}
+
 #ship-vizualizer > section > .slot {
     position: absolute;
-    background-color: #AAA;
+    border: 2px solid #AAA;
+    background-color: rgba(50,50,75,0.6);
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
 #ship-vizualizer > section > .slot.selected {
-    background-color: #EFEFEF;
+    background-color: rgba(100,100,175,0.8);
+    border: 2px solid #E1BB8A;
 }
 
 #ship-vizualizer > section > .slot[data-type="weapon"] {
-    background-color: red;
+    background-color: rgba(255,0,0,0.6);
 }
 
 #ship-vizualizer > section > .slot[data-type="engine"] {
-    background-color: yellow;
+    background-color: rgba(200, 175, 100, 0.6);
 }
 
 #ship-vizualizer > section > .slot[data-type="shield"] {
-    background-color: blue;
+    background-color: rgba(0,0,200,0.6);
 }
 
 #ship-vizualizer > section > .slot[data-type="cargo"] {
-    background-color: green;
+    background-color: rgba(0,200,0,0.6);
 }
 
 #ship-vizualizer > section > .slot[data-shape="circle"][data-size="small"] {
@@ -202,29 +233,36 @@
     margin-right: 10px;
     text-align: center;
     font-size: 5em;
-    background-color: rgba(0,0,0,0.8);
+    cursor: pointer;
+}
+
+#ship-vizualizer > footer > .module > div {
+    border: 2px solid #EFEFEF;
+}
+
+#ship-vizualizer > footer > .module:hover > div {
+    border: 2px solid #E1BB8A;
 }
 
 #ship-vizualizer > footer > .module[data-type="weapon"] > div {
-    background-color: red;
+    background-color: rgba(255,0,0,0.6);;
 }
 
 #ship-vizualizer > footer > .module[data-type="engine"] > div {
-    background-color: yellow;
+    background-color: rgba(200, 175, 100, 0.6);
 }
 
 #ship-vizualizer > footer > .module[data-type="shield"] > div {
-    background-color: blue;
+    background-color: rgba(0,0,200,0.6);
 }
 
 #ship-vizualizer > footer > .module[data-type="cargo"] > div {
-    background-color: green;
+    background-color: rgba(0,200,0,0.6);
 }
 
 #ship-vizualizer > footer > .module > .circle {
     width: 80px;
     height: 80px;
-    margin: 20px;
     background-image: url(/static/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
@@ -235,7 +273,6 @@
 #ship-vizualizer > footer > .module > .square {
     width: 80px;
     height: 80px;
-    margin: 20px;
     background-image: url(/static/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
@@ -246,7 +283,6 @@
 #ship-vizualizer > footer > .module > .rectangle {
     width: 100px;
     height: 80px;
-    margin: 20px 10px;
     background-image: url(/static/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
@@ -322,11 +358,11 @@
 }
 
 #ship-stats {
+    grid-column: 5;
+    grid-row: 2/5;
     display: none;
     flex-grow: 1;
     margin: 40px;
-    padding: 20px;
-    height: calc(100% - 120px);
     border: 1px solid #EFEFEF;
 }
 
@@ -340,6 +376,11 @@
     border-bottom: 1px solid #EFEFEF;
 }
 
+#ship-stats > section ,
+#ship-stats > footer {
+    padding: 20px;
+}
+
 #ship-stats .list {
     display: flex;
     flex-wrap: wrap;
@@ -349,10 +390,13 @@
     padding: 10px;
     margin: 10px;
     text-align: center;
-    background-color: #565656;
+    background-color: #010F2A;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
 
 #ship-stats .list > .stat > section {
     font-size: 2em;
+    color: #E1BB8A;
 }

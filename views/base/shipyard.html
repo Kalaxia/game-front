@@ -7,11 +7,11 @@
         <link rel="stylesheet" type="text/css" href="/static/css/shipyard.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-        </div>
-        <div id="shipyard">
+        <div id="wrapper">
+            <div id="player-data">
+                <h3></h3>
+                <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+            </div>
             <div id="ships-list">
                 <header>
                     <button onclick="displayFrames();">
@@ -42,19 +42,19 @@
 
                     </footer>
                 </div>
-                <div id="ship-stats">
-                    <header>
-                        <input type="text" name="ship-name" placeholder="Name"/>
-                    </header>
-                    <section>
-                        <h3>Statistiques du vaisseau</h3>
-                        <div class="list"></div>
-                    </section>
-                    <footer>
-                        <h3>Statistiques du module</h3>
-                        <div class="list"></div>
-                    </footer>
-                </div>
+            </div>
+            <div id="ship-stats" class="module">
+                <header>
+                    <input type="text" name="ship-name" placeholder="Name"/>
+                </header>
+                <section>
+                    <h3>Statistiques du vaisseau</h3>
+                    <div class="list"></div>
+                </section>
+                <footer>
+                    <h3>Statistiques du module</h3>
+                    <div class="list"></div>
+                </footer>
             </div>
         </div>
         <script type="text/javascript" src="/config/config.js"></script>
