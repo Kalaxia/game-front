@@ -1,6 +1,4 @@
-const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
-
-var resourcesData;
+let resourcesData;
 
 fetch('/config/resources.json', {cache: "no-store"})
 .then(response => response.json())
@@ -8,11 +6,13 @@ fetch('/config/resources.json', {cache: "no-store"})
   resourcesData = resources;
 });
 
+const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
+
 const initPlanetResources = (list, data, storage) => {
-    for (resource of data) {
-        var resourceKey = resource.name;
+    for (let resource of data) {
+        const resourceKey = resource.name;
         resource = Object.assign(resource, resourcesData[resource.name]);
-        var info = document.createElement('li');
+        const info = document.createElement('li');
         info.innerHTML =
             `<h5>${resource.name}</h5>
             <div class="info">

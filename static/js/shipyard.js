@@ -5,37 +5,65 @@ getCurrentPlayer().then(() => {
   document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
-var planetId = getCurrentPlanet();
-var ship = {};
+let planetId = getCurrentPlanet();
+let ship = {};
 
-const initShipyard = () => {
-    let list = document.querySelector('#ships-list > section');
+let shipFramesData;
+let shipModulesData;
 
-    for (let ship of shipsMock) {
-        let element = document.createElement('div');
-        element.classList.add('ship');
-        let picture = (framesMock[ship.frame].picture !== '') ? `<img src="/static/images/shipyard/frame_${framesMock[ship.frame].picture}" />` : '#';
-        element.innerHTML = `<header>${picture}</header><footer>${ship.name}</footer>`;
+fetch('/config/ship_frames.json', {cache: "no-store"})
+.then(response => response.json())
+.then(frames => {
+  shipFramesData = frames;
+});
 
-        list.append(element);
-    }
+fetch('/config/ship_modules.json', {cache: "no-store"})
+.then(response => response.json())
+.then(modules => {
+  shipModulesData = modules;
+});
+
+const initShipyard = () => fetch('/api/me/ship-models', {
+        method: 'GET',
+        headers: headers
+    })
+    .then(apiResponseMiddleware)
+    .then(shipModels => {
+        let list = document.querySelector('#ships-list > section');
+
+        for (let model of shipModels) {
+            let element = document.createElement('div');
+            element.classList.add('ship');
+            let picture = (shipFramesData[model.frame].picture !== '') ? `<img src="/static/images/shipyard/frame_${shipFramesData[model.frame].picture}" />` : '#';
+            element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
+
+            list.append(element);
+        }
+    })
+;
+
+const createShipModel = () => {
+    console.log(ship);
 };
 
 const displayFrames = () => {
     document.querySelector('#ship-vizualizer').style.display = 'none';
+    document.querySelector('#ship-data').style.display = 'none';
+    document.querySelector('#modules').style.display = 'none';
+    document.querySelector('#ships-list').style.display = 'block';
     let container = document.querySelector('#frames');
     container.style.display = 'block';
     let list = container.querySelector('section');
     list.innerHTML = '';
 
-    for (let index in framesMock) {
-        let frame = framesMock[index];
+    for (let frameSlug in shipFramesData) {
+        let frame = shipFramesData[frameSlug];
         let element = document.createElement('div');
         let picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
         element.classList.add('frame');
-        element.setAttribute('data-frame-index', index)
+        element.setAttribute('data-frame-slug', frameSlug)
         element.addEventListener('click', chooseFrame);
-        element.innerHTML = `<header>${picture}</header><footer>${frame.name}</footer>`
+        element.innerHTML = `<header>${picture}</header><footer>${dictionnary.ships.frames[frameSlug]}</footer>`
         list.append(element);
     }
 };
@@ -45,17 +73,21 @@ const chooseFrame = event => {
     if (frameElement === null) {
         return;
     }
-    let frame = framesMock[frameElement.getAttribute('data-frame-index')];
+    let frameSlug = frameElement.getAttribute('data-frame-slug');
+    let frame = shipFramesData[frameSlug];
     document.querySelector('#frames').style.display = "none";
     let vizualizer = document.querySelector('#ship-vizualizer');
     vizualizer.style.display = 'block';
-    vizualizer.querySelector('header > h3').innerText = frame.name;
-    ship = { frame: frame, slots: {} };
+    vizualizer.querySelector('header > h3').innerText = dictionnary.ships.frames[frameSlug];
+    ship = { frame: frameSlug, slots: {} };
     displaySlots(frame);
+    removeModuleData();
 
-    let stats = document.querySelector('#ship-stats');
-    stats.style.display = 'block';
-    displayStats();
+    document.querySelector('#ship-data').style.display = 'block';
+    document.querySelector('#modules').style.display = 'flex';
+    document.querySelector('#modules > section').innerHTML = '';
+    document.querySelector('#ships-list').style.display = 'none';
+    displayShipStats();
 };
 
 const displaySlots = frame => {
@@ -66,12 +98,14 @@ const displaySlots = frame => {
     for (slot of frame.slots) {
         let element = document.createElement('div');
         element.classList.add('slot');
-        element.setAttribute('data-id', slot.id);
+        element.setAttribute('data-position', slot.position);
         element.setAttribute('data-size', slot.size);
         element.setAttribute('data-shape', slot.shape);
         element.addEventListener('click', displayModules);
+        element.addEventListener('mouseenter', displaySlotModuleData);
+        element.addEventListener('mouseleave', removeModuleData);
 
-        ship.slots[slot.id] = {
+        ship.slots[slot.position] = {
             shape: slot.shape,
             size: slot.size,
             module: null,
@@ -79,7 +113,7 @@ const displaySlots = frame => {
 
         for (position of ['top', 'right', 'bottom', 'left']) {
             if (typeof slot[position] !== 'undefined') {
-                element.style[position] = `${slot[position]}px`;
+                element.style[position] = `${slot[position]}%`;
             }
         }
         vizualizer.append(element);
@@ -93,12 +127,12 @@ const displayModules = event => {
         previous.classList.remove('selected');
     }
     slot.classList.add('selected');
-    let slotData = ship.slots[slot.getAttribute('data-id')];
-    let list = document.querySelector('#ship-vizualizer > footer');
+    let slotData = ship.slots[slot.getAttribute('data-position')];
+    let list = document.querySelector('#modules > section');
     list.innerHTML = '';
 
-    for (let index in modulesMock) {
-        let module = modulesMock[index];
+    for (let moduleSlug in shipModulesData) {
+        let module = shipModulesData[moduleSlug];
         if (module.shape !== slotData['shape'] || module.size !== slotData['size']) {
             continue;
         }
@@ -116,9 +150,11 @@ const displayModules = event => {
             transform = `transform: ${transformScale}`;
         }
         element.classList.add('module', module.type);
-        element.setAttribute('data-index', index);
+        element.setAttribute('data-slug', moduleSlug);
         element.setAttribute('data-type', module.type);
         element.addEventListener('click', affectModule);
+        element.addEventListener('mouseenter', () => { displayModuleData(moduleSlug) });
+        element.addEventListener('mouseleave', removeModuleData);
         element.innerHTML = `<div class="${module.shape}" style="background-image: url('/static/images/shipyard/${picture}');${transform}"></div>`;
         list.append(element);
     }
@@ -127,10 +163,9 @@ const displayModules = event => {
 const affectModule = event => {
     let slot = document.querySelector('.slot.selected');
     let moduleElement = event.currentTarget;
-    let module = modulesMock[moduleElement.getAttribute('data-index')];
-    ship.slots[slot.getAttribute('data-id')].module = module;
+    ship.slots[slot.getAttribute('data-position')].module = moduleElement.getAttribute('data-slug');
 
-    displayStats();
+    displayShipStats();
 
     let moduleStyle = window.getComputedStyle(moduleElement.querySelector('div'), null);
     slot.setAttribute('data-type', moduleElement.getAttribute('data-type'));
@@ -139,331 +174,124 @@ const affectModule = event => {
     slot.style.backgroundImage = moduleStyle.backgroundImage;
 };
 
-const displayStats = () => {
-    displayGlobalStats();
-    displayModuleStats();
-};
-
-const displayGlobalStats = () => {
-    let stats = {};
-    let statsList = document.querySelector('#ship-stats > section > .list');
+const displayShipStats = () => {
+    const stats = {};
+    let prices = {};
+    const statsList = document.querySelector('#ship-stats');
+    const priceList = document.querySelector('#ship-data > section > .list');
     statsList.innerHTML = '';
+    priceList.innerHTML = '';
 
-    for (let key in ship.frame.stats) {
-        stats[key] = (typeof stats[key] !== 'undefined') ? stats[key] + ship.frame.stats[key] : ship.frame.stats[key];
+    for (const key in shipFramesData[ship.frame].stats) {
+        stats[key] = (typeof stats[key] !== 'undefined') ? stats[key] + shipFramesData[ship.frame].stats[key] : shipFramesData[ship.frame].stats[key];
     }
-    for (let id of Object.keys(ship.slots)) {
-        let slot = ship.slots[id];
-        if (slot.module === null || typeof slot.module.ship_stats === 'undefined') {
+    for (const price of shipFramesData[ship.frame].price) {
+        const key = (price.type !== 'resource') ? price.type : price.resource;
+        if (typeof prices[key] !== 'undefined') {
+            prices[key].amount += price.amount;
+        } else {
+            prices[key] = Object.assign({}, price);
+        }
+    }
+    for (const id of Object.keys(ship.slots)) {
+        const slot = ship.slots[id];
+        if (slot.module === null || typeof shipModulesData[slot.module].ship_stats === 'undefined') {
             continue;
         }
-        for (let key in slot.module.ship_stats) {
-            stats[key] = (typeof stats[key] !== 'undefined') ? stats[key] + slot.module.ship_stats[key] : slot.module.ship_stats[key];
+        for (const key in shipModulesData[slot.module].ship_stats) {
+            stats[key] = (typeof stats[key] !== 'undefined') ? stats[key] + shipModulesData[slot.module].ship_stats[key] : shipModulesData[slot.module].ship_stats[key];
+        }
+        for (const price of shipModulesData[slot.module].price) {
+            let key = (price.type !== 'resource') ? price.type : price.resource;
+            if (typeof prices[key] !== 'undefined') {
+                prices[key].amount += price.amount;
+            } else {
+                prices[key] = price;
+            }
         }
     }
     for (let key in stats) {
         let element = document.createElement('div');
         element.classList.add('stat');
-        element.innerHTML = `<header>${key}</header><section>${stats[key]}</section>`;
+        element.innerHTML = `<header>${dictionnary.ships.stats[key]}</header><section>${stats[key]}</section>`;
         statsList.append(element);
+    }
+    for (let key in prices) {
+        displayPrice(priceList, prices[key]);
+    }
+    prices = {};
+};
+
+const displaySlotModuleData = event => {
+    let module = ship.slots[event.target.getAttribute('data-position')].module;
+    if (module !== null) {
+        displayModuleData(module);
     }
 };
 
-const displayModuleStats = () => {
+const displayModuleData = module => {
     let stats = {};
-    let statsList = document.querySelector('#ship-stats > footer > .list');
+    let statsList = document.querySelector('#modules > footer');
     statsList.innerHTML = '';
+    let priceList = document.querySelector('#modules > header > div');
+    priceList.innerHTML = '';
+    let moduleData = shipModulesData[module];
 
-    for (let id of Object.keys(ship.slots)) {
-        let slot = ship.slots[id];
-        if (slot.module === null) {
-            continue;
-        }
-        for (let key in slot.module.stats) {
-            stats[key] = (typeof stats[key] !== 'undefined') ? stats[key] + slot.module.stats[key] : slot.module.stats[key];
-        }
-    }
-    for (let stat of Object.keys(stats)) {
+    document.querySelector('#modules > header > h3').innerText = dictionnary.ships.modules[module].name;
+
+    let addStat = (list, key, value) => {
         let element = document.createElement('div');
         element.classList.add('stat');
-        element.innerHTML = `<header>${stat}</header><section>${stats[stat]}</section>`;
-        statsList.append(element);
+        element.innerHTML = `<header>${dictionnary.ships.stats[key]}</header><section>${value}</section>`;
+        list.append(element);
+    };
+    for (let key in moduleData.stats) {
+        addStat(statsList, key, moduleData.stats[key]);
+    }
+    for (let key in moduleData.ship_stats) {
+        addStat(statsList, key, moduleData.ship_stats[key]);
+    }
+    for (let price of moduleData.price) {
+        displayPrice(priceList, price);
     }
 };
 
-var framesMock = {
-    "chassis-leger": {
-        "id": 1,
-        "name": "Châssis léger",
-        "slug": "chassis-leger",
-        "picture": "",
-        "slots": [
-            {
-                "id": 1,
-                "top": 100,
-                "left": 100,
-                "shape": "square",
-                "size": "small",
-            },
-            {
-                "id": 2,
-                "bottom": 250,
-                "right": 100,
-                "shape": "square",
-                "size": "medium",
-            },
-            {
-                "id": 3,
-                "bottom": 100,
-                "right": 150,
-                "shape": "square",
-                "size": "small",
-            },
-        ],
-        "stats": {
-            "armor": 45,
-        }
-    },
-    "chassis-renforce": {
-        "id": 2,
-        "name": "Châssis renforcé",
-        "slug": "chassis-renforce",
-        "picture": "heavy.png",
-        "slots": [
-            {
-                "id": 1,
-                "top": 30,
-                "left": 60,
-                "shape": "square",
-                "size": "small",
-            },
-            {
-                "id": 2,
-                "top": 110,
-                "right": 220,
-                "shape": "circle",
-                "size": "small",
-            },
-            {
-                "id": 3,
-                "top": 100,
-                "left": 60,
-                "shape": "square",
-                "size": "medium",
-            },
-        ],
-        "stats": {
-            "armor": 60
-        }
-    },
-    "chassis-polymere": {
-        "id": 3,
-        "name": "Châssis polymère",
-        "slug": "chassis-polymere",
-        "picture": "corvette.png",
-        "slots": [
-            {
-                "id": 1,
-                "top": 100,
-                "left": 60,
-                "shape": "square",
-                "size": "medium",
-            },
-            {
-                "id": 2,
-                "top": 30,
-                "left": 250,
-                "shape": "rectangle",
-                "size": "medium",
-            },
-            {
-                "id": 3,
-                "top": 30,
-                "left": 400,
-                "shape": "rectangle",
-                "size": "medium",
-            },
-            {
-                "id": 4,
-                "bottom": 200,
-                "left": 380,
-                "shape": "circle",
-                "size": "small",
-            },
-            {
-                "id": 5,
-                "top": 60,
-                "right": 180,
-                "shape": "circle",
-                "size": "small",
-            },
-        ],
-        "stats": {
-            "armor": 80
-        }
-    },
+const displayPrice = (list, price) => {
+    let name = '';
+    let picto = '/static/images/resources/';
+
+    switch (price.type) {
+        case 'credits':
+            name = dictionnary.credits;
+            picto += 'credits.svg';
+            break;
+        case 'points':
+            name = dictionnary.planet.settings.military;
+            picto += 'industry_point.svg';
+            break;
+        case 'resource':
+            name = dictionnary.resources[price.resource];
+            picto += resourcesData[price.resource].picto;
+            break;
+    }
+
+    let element = document.createElement('div');
+    element.classList.add('price');
+    element.innerHTML = `<header>${name}</header><section>${price.amount} <img src="${picto}"/></section>`;
+    list.append(element);
 };
 
-var modulesMock = [
-    {
-        "id": 1,
-        "name": "Mitrailleuse laser",
-        "slug": "mitrailleuse-laser",
-        "description": "Arme fixe à forte cadence, idéale pour un vaisseau rapide",
-        "picture": "",
-        "picture_flip_x": true,
-        "picture_flip_y": false,
-        "type": "weapon",
-        "shape": "square",
-        "size": "small",
-        "scores": {
-            "fighter": 50,
-            "bomber": 20,
-        },
-        "stats": {
-            "nb_shots": 8,
-            "damage": 10,
-            "precision": 25
-        },
-        "price": [
-            {
-                "type": "credits",
-                "amount": 125,
-            },
-            {
-                "type": "resource",
-                "name": "resource.a",
-                "amount": 50
-            },
-            {
+const removeModuleData = () => {
+    document.querySelector('#modules > header > h3').innerText = '';
+    document.querySelector('#modules > header > div').innerHTML = '';
+    document.querySelector('#modules > footer').innerHTML = '';
 
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Réacteur principal Treigar",
-        "slug": "reacteur-principal-treigar",
-        "description": "Réacteur de petite taille avec une bonne puissance",
-        "picture": "",
-        "picture_flip_x": false,
-        "picture_flip_y": false,
-        "type": "engine",
-        "shape": "square",
-        "size": "medium",
-        "scores": {
-            "fighter": 25,
-            "bomber": 20,
-            "freighter": 25
-        },
-        "ship_stats": {
-            "speed": 225,
-        }
-    },
-    {
-        "id": 3,
-        "name": "Réacteur auxiliaire Mark I",
-        "slug": "reacteur-auxiliaire-mark-i",
-        "description": "Réacteur léger ajoutant un peu de vitesse",
-        "picture": "mark_1.png",
-        "picture_flip_x": false,
-        "picture_flip_y": false,
-        "type": "engine",
-        "shape": "square",
-        "size": "small",
-        "scores": {
-            "fighter": 40,
-            "bomber": 35,
-            "freighter": 20
-        },
-        "ship_stats": {
-            "speed": 115,
-        }
-    },
-    {
-        "id": 4,
-        "name": "Tourelle laser Meirrion",
-        "slug": "tourelle-laser-meirrion",
-        "description": "Tourelle mobile composée de deux canons laser parallèles",
-        "picture": "laser_01.png",
-        "picture_flip_x": true,
-        "picture_flip_y": false,
-        "type": "weapon",
-        "shape": "circle",
-        "size": "small",
-        "scores": {
-            "fighter": 40,
-            "bomber": 35,
-            "freighter": 20
-        },
-        "stats": {
-            "nb_shots": 4,
-            "damage": 25,
-            "precision": 60,
-        }
-    },
-    {
-        "id": 5,
-        "name": "Générateur de bouclier léger",
-        "slug": "generateur-de-bouclier-leger",
-        "description": "Générateur de petite taille protégeant des armes légères",
-        "picture": "",
-        "picture_flip_x": false,
-        "picture_flip_y": false,
-        "type": "shield",
-        "shape": "rectangle",
-        "size": "medium",
-        "scores": {
-            "fighter": 10,
-            "bomber": 15,
-            "freighter": 25,
-            "corvette": 35,
-            "frigate": 25
-        },
-        "ship_stats": {
-            "power": 75,
-        }
-    },
-    {
-        "id": 6,
-        "name": "Coffre de toit",
-        "slug": "coffre-de-toit",
-        "description": "Soute de taille moyenne pour du cargo",
-        "picture": "",
-        "picture_flip_x": false,
-        "picture_flip_y": false,
-        "type": "cargo",
-        "shape": "rectangle",
-        "size": "medium",
-        "scores": {
-            "freighter": 60
-        },
-        "ship_stats": {
-            "size": 500,
-        }
-    },
-];
-
-var shipsMock = [
-    {
-        "id": 1,
-        "name": "Tartempion I",
-        "slug": "tartempion-i",
-        "type": "cargo",
-        "frame": "chassis-renforce",
-    },
-    {
-        "id": 2,
-        "name": "Tartempion II",
-        "slug": "tartempion-ii",
-        "type": "destroyer",
-        "frame": "chassis-polymere",
-    },
-    {
-        "id": 3,
-        "name": "Tartempion III",
-        "slug": "tartempion-iii",
-        "type": "cargo",
-        "frame": "chassis-polymere",
+    let slot = document.querySelector('.slot.selected');
+    if (slot === null) {
+        return;
     }
-];
+    let module = ship.slots[slot.getAttribute('data-position')].module
+    if (module !== null) {
+        displayModuleData(module);
+    }
+};
