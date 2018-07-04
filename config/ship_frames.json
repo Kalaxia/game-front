@@ -4,22 +4,22 @@
         "slots": [
             {
                 "position": 1,
-                "top": 100,
-                "left": 100,
+                "top": 25,
+                "left": 10,
                 "shape": "square",
                 "size": "small"
             },
             {
                 "position": 2,
-                "bottom": 250,
-                "right": 100,
+                "bottom": 25,
+                "right": 10,
                 "shape": "square",
                 "size": "medium"
             },
             {
                 "position": 3,
-                "bottom": 100,
-                "right": 150,
+                "bottom": 25,
+                "right": 15,
                 "shape": "square",
                 "size": "small"
             }

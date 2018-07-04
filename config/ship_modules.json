@@ -18,20 +18,6 @@
         "ship_stats": {},
         "price": [
             {
-                "type": "credits",
-                "amount": 125
-            },
-            {
-                "type": "resource",
-                "name": "resources.a",
-                "amount": 50
-            },
-            {
-
-            }
-        ],
-        "price": [
-            {
                 "type": "points",
                 "amount": 2
             },
@@ -41,7 +27,7 @@
             },
             {
                 "type": "resource",
-                "resource": "resources.a",
+                "resource": "resources.e",
                 "amount": 50
             }
         ]
@@ -115,7 +101,7 @@
             },
             {
                 "type": "resource",
-                "resource": "resources.d",
+                "resource": "resources.a",
                 "amount": 40
             }
         ]
@@ -149,7 +135,7 @@
             },
             {
                 "type": "resource",
-                "resource": "resources.a",
+                "resource": "resources.e",
                 "amount": 50
             }
         ]

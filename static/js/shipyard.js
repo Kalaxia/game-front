@@ -29,21 +29,45 @@ const initShipyard = () => fetch('/api/me/ship-models', {
     })
     .then(apiResponseMiddleware)
     .then(shipModels => {
-        let list = document.querySelector('#ships-list > section');
+        const list = document.querySelector('#ships-list > section');
 
-        for (let model of shipModels) {
-            let element = document.createElement('div');
-            element.classList.add('ship');
-            let picture = (shipFramesData[model.frame].picture !== '') ? `<img src="/static/images/shipyard/frame_${shipFramesData[model.frame].picture}" />` : '#';
-            element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
-
-            list.append(element);
+        for (const model of shipModels) {
+            addShipModel(list, model);
         }
     })
 ;
 
+const addShipModel = (list, model) => {
+    const element = document.createElement('div');
+    const picture =
+        (shipFramesData[model.frame].picture !== '')
+        ? `<img src="/static/images/shipyard/frame_${shipFramesData[model.frame].picture}" />`
+        : '#'
+    ;
+    element.classList.add('ship');
+    element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
+
+    list.prepend(element);
+}
+
 const createShipModel = () => {
-    console.log(ship);
+    const name = document.querySelector('#ship-data > header > input').value;
+    if (name === '') {
+        return;
+    }
+    fetch('/api/me/ship-models', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+            name: name,
+            frame: ship.frame,
+            slots: Object.values(ship.slots)
+        })
+    }).then(apiResponseMiddleware)
+    .then(response => {
+        addShipModel(document.querySelector('#ships-list > section'), response)
+        displayFrames();
+    }).catch(error => console.log(error));
 };
 
 const displayFrames = () => {
@@ -51,15 +75,15 @@ const displayFrames = () => {
     document.querySelector('#ship-data').style.display = 'none';
     document.querySelector('#modules').style.display = 'none';
     document.querySelector('#ships-list').style.display = 'block';
-    let container = document.querySelector('#frames');
+    const container = document.querySelector('#frames');
     container.style.display = 'block';
-    let list = container.querySelector('section');
+    const list = container.querySelector('section');
     list.innerHTML = '';
 
-    for (let frameSlug in shipFramesData) {
-        let frame = shipFramesData[frameSlug];
-        let element = document.createElement('div');
-        let picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
+    for (const frameSlug in shipFramesData) {
+        const frame = shipFramesData[frameSlug];
+        const element = document.createElement('div');
+        const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
         element.classList.add('frame');
         element.setAttribute('data-frame-slug', frameSlug)
         element.addEventListener('click', chooseFrame);
@@ -69,14 +93,14 @@ const displayFrames = () => {
 };
 
 const chooseFrame = event => {
-    let frameElement = event.currentTarget;
+    const frameElement = event.currentTarget;
     if (frameElement === null) {
         return;
     }
-    let frameSlug = frameElement.getAttribute('data-frame-slug');
-    let frame = shipFramesData[frameSlug];
+    const frameSlug = frameElement.getAttribute('data-frame-slug');
+    const frame = shipFramesData[frameSlug];
     document.querySelector('#frames').style.display = "none";
-    let vizualizer = document.querySelector('#ship-vizualizer');
+    const vizualizer = document.querySelector('#ship-vizualizer');
     vizualizer.style.display = 'block';
     vizualizer.querySelector('header > h3').innerText = dictionnary.ships.frames[frameSlug];
     ship = { frame: frameSlug, slots: {} };
@@ -91,12 +115,12 @@ const chooseFrame = event => {
 };
 
 const displaySlots = frame => {
-    let vizualizer = document.querySelector('#ship-vizualizer > section');
-    let picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
+    const vizualizer = document.querySelector('#ship-vizualizer > section');
+    const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
     vizualizer.innerHTML = `<div id="ship-image">${picture}</div>`;
 
-    for (slot of frame.slots) {
-        let element = document.createElement('div');
+    for (const slot of frame.slots) {
+        const element = document.createElement('div');
         element.classList.add('slot');
         element.setAttribute('data-position', slot.position);
         element.setAttribute('data-size', slot.size);
@@ -108,10 +132,11 @@ const displaySlots = frame => {
         ship.slots[slot.position] = {
             shape: slot.shape,
             size: slot.size,
+            position: slot.position,
             module: null,
         };
 
-        for (position of ['top', 'right', 'bottom', 'left']) {
+        for (const position of ['top', 'right', 'bottom', 'left']) {
             if (typeof slot[position] !== 'undefined') {
                 element.style[position] = `${slot[position]}%`;
             }
@@ -121,23 +146,23 @@ const displaySlots = frame => {
 };
 
 const displayModules = event => {
-    let slot = event.currentTarget;
-    let previous = document.querySelector('.slot.selected');
+    const slot = event.currentTarget;
+    const previous = document.querySelector('.slot.selected');
     if (previous !== null) {
         previous.classList.remove('selected');
     }
     slot.classList.add('selected');
-    let slotData = ship.slots[slot.getAttribute('data-position')];
-    let list = document.querySelector('#modules > section');
+    const slotData = ship.slots[slot.getAttribute('data-position')];
+    const list = document.querySelector('#modules > section');
     list.innerHTML = '';
 
-    for (let moduleSlug in shipModulesData) {
-        let module = shipModulesData[moduleSlug];
+    for (const moduleSlug in shipModulesData) {
+        const module = shipModulesData[moduleSlug];
         if (module.shape !== slotData['shape'] || module.size !== slotData['size']) {
             continue;
         }
-        let element = document.createElement('div');
-        let picture = (module.picture !== '') ? `module_${module.type}_${module.size}_${module.picture}` : 'module.png';
+        const element = document.createElement('div');
+        const picture = (module.picture !== '') ? `module_${module.type}_${module.size}_${module.picture}` : 'module.png';
         let transformScale = '';
         let transform = '';
         if (module.picture_flip_x === true) {
@@ -161,13 +186,13 @@ const displayModules = event => {
 };
 
 const affectModule = event => {
-    let slot = document.querySelector('.slot.selected');
-    let moduleElement = event.currentTarget;
+    const slot = document.querySelector('.slot.selected');
+    const moduleElement = event.currentTarget;
     ship.slots[slot.getAttribute('data-position')].module = moduleElement.getAttribute('data-slug');
 
     displayShipStats();
 
-    let moduleStyle = window.getComputedStyle(moduleElement.querySelector('div'), null);
+    const moduleStyle = window.getComputedStyle(moduleElement.querySelector('div'), null);
     slot.setAttribute('data-type', moduleElement.getAttribute('data-type'));
 
     slot.style.transform = moduleStyle.transform;
@@ -206,7 +231,7 @@ const displayShipStats = () => {
             if (typeof prices[key] !== 'undefined') {
                 prices[key].amount += price.amount;
             } else {
-                prices[key] = price;
+                prices[key] = Object.assign({}, price);
             }
         }
     }
@@ -274,7 +299,6 @@ const displayPrice = (list, price) => {
             picto += resourcesData[price.resource].picto;
             break;
     }
-
     let element = document.createElement('div');
     element.classList.add('price');
     element.innerHTML = `<header>${name}</header><section>${price.amount} <img src="${picto}"/></section>`;
