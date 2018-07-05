@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Electrolize');
 
 html {
-  background: #242424;
+  background: #202030;
   color: #EFEFEF;
   margin:0px;
   font-family: 'Electrolize', serif;
@@ -11,19 +11,38 @@ body {
   margin: 0px;
 }
 
+#wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
 #player-data {
-  position:fixed;
+    position: relative;
+    grid-row: 1;
+    grid-column: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  top: 0px;
-  left: 0px;
   width: 200px;
   height: 50px;
-  background-color: black;
-  border-bottom: #565656 solid 1px;
-  border-right: #565656 solid 1px;
-  z-index: 10;
+  background-color: #010F2A;
+  border-bottom: 3px solid #E1BB8A;
+  font-variant: small-caps;
+}
+
+#player-data::after {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    right: -50px;
+    bottom: 0px;
+    content: '';
+    border-top: #010F2A solid 25px;
+    border-right: transparent solid 25px;
+    border-bottom: transparent solid 25px;
+    border-left: #010F2A solid 25px;
 }
 
 #player-data > h3 {
@@ -33,7 +52,7 @@ body {
 }
 
 #player-data > h3 > a {
-  color: #EFEFEF;
+  color: #E1BB8A;
   text-decoration: none;
 }
 
@@ -42,6 +61,44 @@ body {
     height: 32px;
     margin-right: 10px;
     cursor:pointer;
+}
+
+#wrapper > .module {
+    background-color: rgba(75, 75, 100, 0.4);
+    border: 2px solid #010F2A;
+    border-radius: 5px;
+    font-variant: small-caps;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+}
+
+#wrapper > .module > header {
+    position: relative;
+    max-width: calc(100% - 60px);
+    height: 30px;
+    padding: 5px 0px 5px 15px;
+    background-color: #010F2A;
+    border-bottom: 3px solid #E1BB8A;
+}
+
+#wrapper > .module > header::after {
+    width: 0px;
+    height: 0px;
+    content: '';
+    position: absolute;
+    right: -40px;
+    bottom: 0px;
+    border-left: 20px solid #010F2A;
+    border-top: 20px solid #010F2A;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+#wrapper > .module > header > h3 {
+    margin: 0px;
+}
+
+#wrapper > .module > section {
+    padding: 20px;
 }
 
 .industry-point, .credits {
@@ -59,7 +116,7 @@ body {
 .population-points {
     display: flex;
     align-items: center;
-    color: #8AF;
+    color: #E1BB8A;
     text-decoration: none;
 }
 

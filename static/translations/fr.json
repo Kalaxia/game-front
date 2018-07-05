@@ -9,6 +9,7 @@
         "bat.techno.a": "Laboratoire expérimental",
         "bat.trade.a": "Comptoir commercial"
     },
+    "credits": "Crédits",
     "diplomacy": {
         "relations": {
             "indicators": {
@@ -73,6 +74,61 @@
         },
         "planet": {
             "title": "Choisissez votre planète !"
+        }
+    },
+    "resources": {
+        "resources.a": "Liquide",
+        "resources.b": "Minerai",
+        "resources.c": "Metal",
+        "resources.d": "Nourriture",
+        "resources.e": "Cristal",
+        "resources.f": "Minerai"
+    },
+    "ships": {
+        "cancel": "Annuler",
+        "frame": "Châssis",
+        "frames": {
+            "racer": "Châssis léger",
+            "corvette": "Châssis renforcé",
+            "frigate": "Châssis polymère"
+        },
+        "missing_name": "Il faut donner un nom à votre nouveau modèle !",
+        "modules": {
+            "laser-gun": {
+                "name": "Mitrailleuse laser",
+                "description": "Très légère, cette mitrailleuse envoie des salves de laser sur les petits vaisseaux ennemis"
+            },
+            "laser-turret-meirrion": {
+                "name": "Tourelle laser Meirrion",
+                "description": "Cette tourelle est utile pour retourner le feu à des assaillants de taille moyenne. Elle est en revanche pas assez mobile pour contrer des chasseurs."
+            },
+            "ion-reactor": {
+                "name": "Réacteur à ions",
+                "description": "Issu d'une technologie récemment stabilisée, le réacteur à ions est particulièrement performant pour les sauts hyperspaciaux"
+            },
+            "mark-i-reactor": {
+                "name": "Réacteur Mark I",
+                "description": "Un propulseur performant pour des vaisseaux de petite taille"
+            },
+            "light-shield-generator": {
+                "name": "Générateur de bouclier léger",
+                "description": "Suffisant pour protéger d'un assaut court, il ne repoussera cependant pas les tirs lourds"
+            },
+            "light-container": {
+                "name": "Container léger",
+                "description": "Une unité de stockage permettant d'accueillir tout type de ressources"
+            }
+        },
+        "price": "Prix",
+        "save": "Sauvegarder",
+        "stats": {
+            "armor": "Blindage",
+            "speed": "Vitesse",
+            "size": "Contenance",
+            "nb_shots": "Cadence",
+            "damage": "Dégâts",
+            "precision": "Précision",
+            "power": "Puissance"
         }
     },
     "system": {

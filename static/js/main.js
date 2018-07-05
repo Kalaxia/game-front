@@ -55,7 +55,7 @@ const createDictionnary = lang => fetch(`/static/translations/${lang}.json`)
   .catch(error => console.log(error))
 ;
 createDictionnary('fr').then(() => document.querySelectorAll("[data-translate=true]").forEach(element => {
-    var keys = element.innerText.split('.');
+    var keys = element.innerText.trim().split('.');
     var result = dictionnary;
     keys.forEach(key => {
         if (typeof result[key] === 'undefined') {

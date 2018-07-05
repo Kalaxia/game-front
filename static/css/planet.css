@@ -4,7 +4,10 @@
 }
 
 #planet {
-  position: absolute;
+    position: relative;
+    grid-column: 3;
+    grid-row: 2/3;
+    align-self: end;
   width: 300px;
   height: 300px;
   display: none;
@@ -22,77 +25,101 @@
 }
 
 #planet-data {
-  position: absolute;
-  top: 100px;
-  left: 20px;
+    grid-column: 1;
+    grid-row: 2/3;
 }
 
-#planet-data > h4 {
+#planet-data > section > h4 {
   margin: 0px;
 }
 
-#planet-data > .system > a,
-#planet-data > h4 > a {
-  color: #8AF;
+#planet-data > section > .system > a,
+#planet-data > section > h4 > a {
+  color: #E1BB8A;
   text-decoration: none;
 }
 
-#planet-data > .resources {
+#planet-data > section > .resources {
   list-style-type: none;
   padding-left:0px;
+  padding-top: 10px;
+  border-top: 3px solid #EFEFEF;
 }
 
-#planet-data > .resources > li > .info {
-  display:flex;
-  align-items: center;
-
+#planet-data > section > .resources > li > h5 {
+    font-style: italic;
+    min-width: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #E1BB8A;
 }
 
-#planet-data > .resources > li > .info > em {
-  display: inline-block;
-  min-width: 15px;
-  padding-right: 10px;
+#planet-data > section > .resources > li > .info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-#planet-data > .resources > li > .info > .density {
+#planet-data > section > .resources > li > .info > .density {
   font-weight: bold;
 }
 
-#planet-data > .resources > li > .info > .density > img {
+#planet-data > section > .resources > li > .info > .density > img {
   width: 32px;
   height: 32px;
-  margin-right: 5px;
+  margin-right: 10px;
+  /*padding: 5px;
+  border: 2px solid #EFEFEF;*/
 }
 
-#planet-data > .resources > li > span,
-#planet-data > .resources > li > .storage {
-  color: #00D000;
+#planet-data > section > .resources > li > span,
+#planet-data > section > .resources > li > .info > .storage {
+  color: #E1BB8A;
 }
 
 #planet-relations {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: 500px;
-  left: 20px;
+    grid-column: 1;
+    grid-row: 3/4;
+}
+
+#planet-buildings {
+    grid-column: 5;
+    grid-row: 1/3;
+    justify-self: end;
+    font-variant: small-caps;
 }
 
 #planet-buildings > header {
-    width: 200px;
-    background-color: black;
-    border-left: 5px solid #565656;
-    border-bottom: 1px solid #565656;
-    border-bottom-left-radius: 20px;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    padding-top: 5px;
+    background-color: #010F2A;
+    border-bottom: 3px solid #E1BB8A;
+}
+
+#planet-buildings > header::before {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    left: -50px;
+    bottom: 0px;
+    content: '';
+    border-top: 25px solid #010F2A;
+    border-bottom: 25px solid transparent;
+    border-left: 25px solid transparent;
+    border-right: 25px solid #010F2A;
 }
 
 #planet-buildings > header > a {
     padding: 10px 20px;
     text-decoration: none;
-    color: #8AF;
+    color: #E1BB8A;
     font-size: 1.2em;
 }
 
 #planet-buildings > section {
+    position: relative;
     width: 70px;
     display:flex;
     flex-direction: column;
@@ -100,18 +127,30 @@
     align-items: flex-end;
     padding: 5px 10px;
     margin-left: 110px;
-    background-color: black;
-    border-left: 5px solid #565656;
-    border-bottom: 1px solid #565656;
-    border-bottom-left-radius: 20px;
+    background-color: #010F2A;
+    border-left: 3px solid #EFEFEF;
+}
+
+#planet-buildings > section::after {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    right: 0px;
+    bottom: -90px;
+    content: '';
+    border-top: 45px solid #010F2A;
+    border-right: 45px solid #010F2A;
+    border-bottom: 45px solid transparent;
+    border-left: 45px solid transparent;
+
 }
 
 #planet-buildings > section > .building {
     position: relative;
     width: 64px;
     height: 64px;
-    margin-top: 5px;
-    border: 1px solid #EFEFEF;
+    margin-top: 10px;
+    border: 2px solid #E1BB8A;
     background-color: #EFEFEF;
     background-repeat: no-repeat;
     background-size: 54px 54px;

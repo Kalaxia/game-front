@@ -1,0 +1,513 @@
+html, body, #wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+#shipyard {
+    display: flex;
+    margin: 100px;
+
+}
+
+#ships-list {
+    grid-column: 1;
+    grid-row: 2/5;
+    width: 200px;
+}
+
+#ships-list > header > button {
+    width: 100%;
+    padding: 0px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid #EFEFEF;
+    background-color: #303050;
+    transition: background-color 0.2s ease-out;
+}
+
+#ships-list > header > button:hover {
+    background-color: #404060;
+}
+
+#ships-list > header > button > img {
+    height: 150px;
+}
+
+#ships-list > section {
+
+}
+
+#ships-list > section > .ship {
+    height: 150px;
+    padding: 10px;
+    background-color: rgba(50,50,75,0.6);
+    border: 1px solid #EFEFEF;
+}
+
+#ships-list > section > .ship > header {
+    font-size: 6em;
+    text-align: center;
+    height: 120px;
+}
+
+
+#ships-list > section > .ship > header > img {
+    width: 100%;
+}
+
+#ships-list > section > .ship > footer {
+    text-align: right;
+}
+
+#ship-conception {
+    grid-column: 2/6;
+    grid-row: 2/5;
+    display: flex;
+    width: 100%;
+}
+
+#frames {
+    display: none;
+    font-variant: small-caps;
+}
+
+#frames > header > h3 {
+    margin-left: 20px;
+    color: #E1BB8A;
+}
+
+#frames > section {
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+}
+
+#frames > section > .frame {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 20px;
+    background-color: rgba(50,50,75,0.6);
+    border: 2px solid #AAA;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#frames > section > .frame.selected {
+    box-shadow: 0px 0px 10px rgba(200, 200, 200, 0.8);
+}
+
+#frames > section > .frame > header {
+    font-size: 6em;
+    text-align: center;
+    height: 120px;
+}
+
+#frames > section > .frame > header > img {
+    width: 100%;
+}
+
+#frames > section > .frame > footer {
+    text-align: right;
+}
+
+#ship-vizualizer {
+    display: none;
+    width: 90%;
+    margin: auto;
+    margin-top: 0px;
+}
+
+#ship-vizualizer > header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#ship-stats {
+    display: flex;
+    align-items: center;
+    font-variant: small-caps;
+}
+
+#ship-stats > .stat,
+#modules > footer > .stat {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    background-color: #010F2A;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+#ship-stats > .stat > section,
+#modules > footer > .stat > section {
+    font-size: 2em;
+    color: #E1BB8A;
+}
+
+#ship-vizualizer > header > h3 {
+    margin-left: 20px;
+    font-variant: small-caps;
+    color: #E1BB8A;
+}
+
+#ship-vizualizer > section {
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#ship-image {
+    width: 100%;
+}
+
+#ship-image > img {
+    width: 100%;
+}
+
+#ship-vizualizer > section > .slot {
+    position: absolute;
+    border: 2px solid #AAA;
+    background-color: rgba(50,50,75,0.6);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+#ship-vizualizer > section > .slot.selected {
+    background-color: rgba(100,100,175,0.8);
+    border: 2px solid #E1BB8A;
+}
+
+#ship-vizualizer > section > .slot[data-type="weapon"] {
+    background-color: rgba(255,0,0,0.6);
+}
+
+#ship-vizualizer > section > .slot[data-type="engine"] {
+    background-color: rgba(200, 175, 100, 0.6);
+}
+
+#ship-vizualizer > section > .slot[data-type="shield"] {
+    background-color: rgba(0,0,200,0.6);
+}
+
+#ship-vizualizer > section > .slot[data-type="cargo"] {
+    background-color: rgba(0,200,0,0.6);
+}
+
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="small"] {
+    width: 4%;
+    height: 20%;
+    background-size: 70%;
+    border-radius: 40px;
+}
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="medium"] {
+    width: 80px;
+    height: 80px;
+    background-size: 60px;
+    border-radius: 50px;
+}
+#ship-vizualizer > section > .slot[data-shape="circle"][data-size="large"] {
+    width: 100px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 60px;
+}
+
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="small"] {
+    width: 4%;
+    height: 20%;
+    background-size: 70%;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="medium"] {
+    width: 5%;
+    height: 25%;
+    background-size: 70%;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="square"][data-size="large"] {
+    width: 100px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="small"] {
+    width: 5%;
+    height: 20%;
+    background-size: 90%;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="medium"] {
+    width: 10%;
+    height: 25%;
+    background-size: 50%;
+    border-radius: 5px;
+}
+#ship-vizualizer > section > .slot[data-shape="rectangle"][data-size="large"] {
+    width: 120px;
+    height: 100px;
+    background-size: 80px;
+    border-radius: 5px;
+}
+
+#ship-vizualizer > footer {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+}
+
+#ship-data {
+    grid-column: 1;
+    grid-row: 2/5;
+    display: none;
+    flex-grow: 1;
+    border: 1px solid #EFEFEF;
+}
+
+#ship-data > header > input {
+    width: 100%;
+    height: 40px;
+    font-size: 1.3em;
+    color: #EFEFEF;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+#ship-data > section ,
+#ship-data > footer {
+    padding: 20px;
+}
+
+#ship-data > section > .list,
+#modules > header > .list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#ship-data > section > .list > .price,
+#modules > header > .list > .price {
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: #EFEFEF 1px solid;
+    border-radius: 5px;
+    background-color: #010F2A;
+}
+
+#ship-data > section > .list > .price > header,
+#modules > header > .list > .price > header {
+    text-align: center;
+    color: #E1BB81;
+}
+
+#ship-data > section > .list > .price > section,
+#modules > header > .list > .price > section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#ship-data > section > .list > .price > section > img,
+#modules > header > .list > .price > section > img {
+    width: 42px;
+    height: 42px;
+    margin: 5px;
+}
+
+#ship-data > footer > button {
+    padding: 10px 20px;
+    color: #EFEFEF;
+    font-size: 1.1em;
+    text-align: center;
+    background-color: #010F2A;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    cursor: pointer;
+}
+
+#modules {
+    display: none;
+    grid-column: 1/6;
+    grid-row: 5/7;
+    background-color: rgba(75, 75, 100, 0.4);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+    border-top: 2px solid #010F2A;
+}
+
+#modules > header {
+    width: 30%;
+}
+
+#modules > header > h3 {
+    margin: 0px;
+}
+
+#modules > header > h3:not(:empty) {
+    position: relative;
+    max-width: calc(100% - 60px);
+    height: 30px;
+    padding: 5px 0px 5px 15px;
+    background-color: #010F2A;
+    border-bottom: 3px solid #E1BB8A;
+}
+
+#modules > header > h3:not(:empty):after {
+    width: 0px;
+    height: 0px;
+    content: '';
+    position: absolute;
+    right: -40px;
+    bottom: 0px;
+    border-left: 20px solid #010F2A;
+    border-top: 20px solid #010F2A;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+}
+
+#modules > section {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#modules > section > .module {
+    width: 120px;
+    height: 120px;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 5em;
+    cursor: pointer;
+}
+
+#modules > section > .module > div {
+    border: 2px solid #EFEFEF;
+}
+
+#modules > section > .module:hover > div {
+    border: 2px solid #E1BB8A;
+}
+
+#modules > section > .module[data-type="weapon"] > div {
+    background-color: rgba(255,0,0,0.6);;
+}
+
+#modules > section > .module[data-type="engine"] > div {
+    background-color: rgba(200, 175, 100, 0.6);
+}
+
+#modules > section > .module[data-type="shield"] > div {
+    background-color: rgba(0,0,200,0.6);
+}
+
+#modules > section > .module[data-type="cargo"] > div {
+    background-color: rgba(0,200,0,0.6);
+}
+
+#modules > section > .module > .circle {
+    width: 80px;
+    height: 80px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 60px;
+}
+
+#modules > section > .module > .square {
+    width: 80px;
+    height: 80px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 5px;
+}
+
+#modules > section > .module > .rectangle {
+    width: 100px;
+    height: 80px;
+    background-image: url(/static/images/shipyard/module.png);
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: center;
+    border-radius: 5px;
+}
+
+#modules > section > .module > .hexagon {
+  position: relative;
+  width: 100px;
+  height: 57.74px;
+  margin: 28.87px 0px;
+  background-image: url(/static/images/shipyard/module.png);
+  background-size: auto 115.4701px;
+  background-position: center;
+}
+
+#modules > section > .module > .hexagon > .hexTop,
+#modules > section > .module > .hexagon > .hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 70.71px;
+  height: 70.71px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 14.64px;
+}
+
+/*counter transform the bg image on the caps*/
+#modules > section > .module > .hexagon > .hexTop:after,
+#modules > section > .module > .hexagon > .hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 100.0000px;
+  height: 57.73502691896258px;
+  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  transform:          rotate(45deg) scaleY(1.7321) translateY(-28.8675px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+}
+
+#modules > section > .module > .hexagon > .hexTop {
+  top: -35.3553px;
+}
+
+#modules > section > .module > .hexagon > .hexTop:after {
+  background-position: center top;
+}
+
+#modules > section > .module > .hexagon > .hexBottom {
+  bottom: -35.3553px;
+}
+
+#modules > section > .module > .hexagon > .hexBottom:after {
+  background-position: center bottom;
+}
+
+#modules > section > .module > .hexagon:after {
+  content: "";
+  position: absolute;
+  top: 0.0000px;
+  left: 0;
+  width: 100.0000px;
+  height: 57.7350px;
+  z-index: 2;
+  background: inherit;
+}
+
+#modules > footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}

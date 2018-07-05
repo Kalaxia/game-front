@@ -8,7 +8,12 @@ fetch('/config/buildings.json', {cache: "no-store"})
 
 const initPlanetBuildings = (container, planetId, buildings, maxBuildings, availableBuildings) => {
     for (data of buildings) {
-        let building = document.createElement('div');
+        let building = document.createElement('a');
+        building.href =
+            (data.status === 'operational' && typeof buildingsData[data.name].view !== 'undefined')
+            ? `/views/base/${buildingsData[data.name].view}`
+            : '/views/base/buildings.html'
+        ;
         building.classList.add('building', `category-${buildingsData[data.name].category}`);
         if (data.status === 'constructing') {
             building.classList.add('constructing');
