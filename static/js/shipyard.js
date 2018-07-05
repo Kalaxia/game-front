@@ -53,6 +53,7 @@ const addShipModel = (list, model) => {
 const createShipModel = () => {
     const name = document.querySelector('#ship-data > header > input').value;
     if (name === '') {
+        alert(dictionnary.ships.missing_name);
         return;
     }
     fetch('/api/me/ship-models', {

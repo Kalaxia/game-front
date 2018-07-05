@@ -85,11 +85,14 @@
         "resources.f": "Minerai"
     },
     "ships": {
+        "cancel": "Annuler",
+        "frame": "Châssis",
         "frames": {
             "racer": "Châssis léger",
             "corvette": "Châssis renforcé",
             "frigate": "Châssis polymère"
         },
+        "missing_name": "Il faut donner un nom à votre nouveau modèle !",
         "modules": {
             "laser-gun": {
                 "name": "Mitrailleuse laser",
@@ -116,6 +119,8 @@
                 "description": "Une unité de stockage permettant d'accueillir tout type de ressources"
             }
         },
+        "price": "Prix",
+        "save": "Sauvegarder",
         "stats": {
             "armor": "Blindage",
             "speed": "Vitesse",

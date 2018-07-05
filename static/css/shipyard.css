@@ -216,9 +216,9 @@ html, body, #wrapper {
 }
 
 #ship-vizualizer > section > .slot[data-shape="square"][data-size="small"] {
-    width: 60px;
-    height: 60px;
-    background-size: 50px;
+    width: 4%;
+    height: 20%;
+    background-size: 70%;
     border-radius: 5px;
 }
 #ship-vizualizer > section > .slot[data-shape="square"][data-size="medium"] {
@@ -327,6 +327,7 @@ html, body, #wrapper {
     border: 1px solid #EFEFEF;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    cursor: pointer;
 }
 
 #modules {
