@@ -1,3 +1,10 @@
+## [0.1.11] - 2018-07-05
+### Added
+- Construction state for Buildings
+- Construction points
+- Player ship models list in shipyard
+- Ship model conception
+
 ## [0.1.10] - 2018-03-30
 ### Added
 - Faction relations
