@@ -7,8 +7,10 @@ const getFaction = id => fetch(`/api/factions/${id}`, {
 })
 .then(response => response.json())
 .then(faction => {
-    document.querySelector('.faction-name').append(faction.name);
-    document.querySelector('.faction-flag').style.backgroundColor = faction.color;
+    const title = document.querySelector('#faction > #infos > h1');
+    title.style.color = faction.color;
+    title.append(renderFactionFlag(faction))
+    title.append(faction.name);
     renderFactionRelations(faction);
 });
 
@@ -39,8 +41,8 @@ const renderFactionRelations = faction => {
         element.id = `relation-${relation.faction.id}`;
         element.classList.add('faction');
         element.innerHTML =
-            `<header><a href="/views/faction/index.html?id=${relation.faction.id}" class="faction-flag" style="background-color: ${relation.faction.color}"></a></header>
-            <section><h4>${relation.faction.name}</h4><p>${dictionnary.diplomacy.relations.indicators[relation.state]}</p></section>`
+            `<header><h4 style="color: ${relation.faction.color}">${relation.faction.name}</h4><a href="/views/faction/index.html?id=${relation.faction.id}">${renderFactionFlag(relation.faction).outerHTML}</a></header>
+            <section><p>${dictionnary.diplomacy.relations.indicators[relation.state]}</p></section>`
         ;
         list.appendChild(element);
     }

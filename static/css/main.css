@@ -132,3 +132,24 @@ body {
     border: 1px solid #000;
     border-radius: 20px;
 }
+
+.faction-flag {
+    width: 70px;
+}
+
+.faction-flag > section {
+    width: 64px;
+    height: 64px;
+    padding-top: 10px;
+    background-size: 64px;
+    background-position: 0px 15px;
+    background-repeat: no-repeat;
+}
+
+.faction-flag > section > img {
+    width: 64px;
+}
+
+.faction-flag > footer {
+    border: 32px solid rgba(0,0,0,0);
+}

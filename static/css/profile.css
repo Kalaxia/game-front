@@ -3,23 +3,18 @@
 }
 
 #profile {
-  width: 300px;
   margin-left: 20px;
+  margin-right: 40px;
 }
 
 #profile > .faction-name > a {
     display: flex;
-    align-items: center;
     color: #E1BB8A;
     text-decoration: none;
 }
 
 #profile > .faction-name > a > .faction-flag {
-    width: 64px;
-    height: 64px;
     margin-right: 20px;
-    border-radius: 40px;
-    border: 2px solid #EFEFEF;
 }
 
 #planets {
