@@ -38,10 +38,17 @@ const generatePlanets = (system, planets) => {
   for (data of planets) {
     generateOrbit(system, data.orbit);
     var orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${data.orbit.id}']`));
-    var radius = parseInt(orbitStyle.width) / 2;
+    var radius = parseInt(orbitStyle.width) / 2; //(1-1000)
     var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-    var angle = Math.random() * (5 - 1) + 1;
+    //var angle = Math.random() * (5 - 1) + 1;
+    var time = 0;// get the time since the beginning of the server
+    var offsetAngle = 0; //starting position when the server started
+    var PI = 3.14159265358979;
+    var starMass = 10; //(1-200) 10 -> our sun
+    var calcRadius = radius * 1000;
+    var calc = ((2*PI)*(radius * radius * radius))/ (starMass * 6.674 * 2);
+    var angle = (calc/365)%360;
     var planet = document.createElement("div");
     planet.classList.add('planet');
     planet.setAttribute('data-id', data.id);
