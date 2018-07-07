@@ -41,14 +41,14 @@ const generatePlanets = (system, planets) => {
     var radius = parseInt(orbitStyle.width) / 2; //(1-1000)
     var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-    //var angle = Math.random() * (5 - 1) + 1;
-    var time = 0;// get the time since the beginning of the server
-    var offsetAngle = 0; //starting position when the server started
-    var PI = 3.14159265358979;
-    var starMass = 10; //(1-200) 10 -> our sun
+    // formula : timeToRotate = 2*PI *sqrt(radius^3/(6.674*10^-11 . starMass)) with radius in meters, starMass in kg and time in seconds
+    var timeElapsed = Date.now();// get the time since the beginning of the server
+    var offsetAngle = 90; //starting position when the server started
+    //var PI = 3.14159265358979;
+    var starMass = 75; //(1-200) 10 -> our sun
     var calcRadius = radius * 1000;
-    var calc = ((2*PI)*(radius * radius * radius))/ (starMass * 6.674 * 2);
-    var angle = (calc/365)%360;
+    var timeToRotate = ((2*Math.PI)*(radius * radius * radius))/ (starMass * 13.348); // 6.674 * 2 = 13.348
+    var angle =(offsetAngle + ( (timeElapsed%(timeToRotate))*360/(31536000)))%360; //31536000 = 60*60*24*365
     var planet = document.createElement("div");
     planet.classList.add('planet');
     planet.setAttribute('data-id', data.id);
