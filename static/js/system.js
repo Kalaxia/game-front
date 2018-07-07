@@ -51,7 +51,7 @@ const generatePlanets = (system, planets) => {
     var angle = (calc/365)%360;
     var planet = document.createElement("div");
     planet.classList.add('planet');
-    planet.setAttribute('da ta-id', data.id);
+    planet.setAttribute('data-id', data.id);
     planet.setAttribute('data-type', data.type);
     planet.style.top = top - 10 + 'px';
     planet.style.left = left - 10 + 'px';
