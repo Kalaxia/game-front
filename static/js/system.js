@@ -37,7 +37,7 @@ const generateOrbit = (system, data) => {
 const generatePlanets = (system, planets) => {
   for (data of planets) {
     generateOrbit(system, data.orbit);
-    var orbitStyle = window.getComputedStyle(document.querySelector(.orbit[data-id='${data.orbit.id}']));
+    var orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${data.orbit.id}']`));
     var radius = parseInt(orbitStyle.width) / 2; //(1-1000)
     var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
@@ -51,7 +51,7 @@ const generatePlanets = (system, planets) => {
     var angle = (calc/365)%360;
     var planet = document.createElement("div");
     planet.classList.add('planet');
-    planet.setAttribute('data-id', data.id);
+    planet.setAttribute('da ta-id', data.id);
     planet.setAttribute('data-type', data.type);
     planet.style.top = top - 10 + 'px';
     planet.style.left = left - 10 + 'px';
@@ -64,7 +64,7 @@ const generatePlanets = (system, planets) => {
         factionFlag.style.top = top - 20 + 'px';
         factionFlag.style.left = left - 20 + 'px';
         factionFlag.style.backgroundColor = data.player.faction.color;
-        factionFlag.style.boxShadow = '0px' '0px' '10px' ${data.player.faction.color};
+        factionFlag.style.boxShadow = `0px 0px 10px ${data.player.faction.color}`;
         system.appendChild(factionFlag);
     }
     system.appendChild(planet);
