@@ -46,7 +46,7 @@ const generatePlanets = (system, planets) => {
     var offsetAngle = 0; //starting position when the server started
     var PI = 3.14159265358979;
     var starMass = 10; //(1-200) 10 -> our sun
-    var calcRadius = radius 1000;
+    var calcRadius = radius * 1000;
     var calc = ((2*PI)*(radius * radius * radius))/ (starMass * 6.674 * 2);
     var angle = (calc/365)%360;
     var planet = document.createElement("div");
