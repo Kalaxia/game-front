@@ -1,3 +1,4 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
 var searchParams = new URLSearchParams(window.location.search);
 var id = searchParams.get('id');
 
@@ -38,14 +39,28 @@ const generatePlanets = (system, planets) => {
   for (data of planets) {
     generateOrbit(system, data.orbit);
     var orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${data.orbit.id}']`));
-    var radius = parseInt(orbitStyle.width) / 2;
+    var radius = parseInt(orbitStyle.width) / 2; //(1-1000) would be values coherent in physics
     var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-    var angle = Math.random() * (5 - 1) + 1;
+    // formula : timeToRotate = 2*PI *sqrt(radius^3/(6.674*10^-11 . starMass)) with radius in meters, starMass in kg and time in seconds
+    // note : the powers of 10 have been simplified to reduce the values as much as possible
+    var timeElapsed = Date.now()/1000;// /1000 to get time in seconds
+    var angleOffset = 0; //offset the startingPosition
+    var starMass = 200; //(1-200) would be values coherent in physics. 10 is our sun's mass
+    var calcRadius = radius*1000 ; // times 1000 to fit the formula and take into consideration the units
+    var gravitationalConstant = 2 * 6.674 ; //2 is for the mass of the smallest star and 6.674 is from the gravitational constant G
+    var numberOfHoursInYear = 365.25*24;// to change earth rotation time ffor one year to one hour
+    var timeToRotate = ((2*Math.PI)*Math.sqrt((calcRadius * calcRadius * calcRadius)/ (starMass * gravitationalConstant)))/numberOfHoursInYear;
+    var timeIntoCurrentRotation =timeElapsed%timeToRotate;
+    var angle =(angleOffset + (timeIntoCurrentRotation/timeToRotate*(2*Math.PI)));// angles in radians
+
     var planet = document.createElement("div");
     planet.classList.add('planet');
+    planet.setAttribute('data-time-to-rotate', timeToRotate);
+    planet.setAttribute('data-angle-offset', angleOffset);
     planet.setAttribute('data-id', data.id);
     planet.setAttribute('data-type', data.type);
+    planet.setAttribute('data-orbit-id',data.orbit.id);
     planet.style.top = top - 10 + 'px';
     planet.style.left = left - 10 + 'px';
     planet.addEventListener('dblclick', redirectToPlanet);
@@ -54,6 +69,7 @@ const generatePlanets = (system, planets) => {
     if (data.player !== null) {
         var factionFlag = document.createElement('div');
         factionFlag.classList.add('faction-flag');
+        factionFlag.setAttribute('data-planet-id', data.id);
         factionFlag.style.top = top - 20 + 'px';
         factionFlag.style.left = left - 20 + 'px';
         factionFlag.style.backgroundColor = data.player.faction.color;
@@ -62,7 +78,39 @@ const generatePlanets = (system, planets) => {
     }
     system.appendChild(planet);
   }
+  requestAnimationFrame(systemRotation);
 };
+
+function systemRotation() {
+  document.querySelectorAll(`.planet`).forEach(rotatePlanet);
+  document.querySelectorAll(`.faction-flag`).forEach(rotateFlag);
+  requestAnimationFrame(systemRotation);
+}
+
+function rotatePlanet(planet)
+{
+  var orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${planet.getAttribute("data-orbit-id")}']`));
+  var radius = parseInt(orbitStyle.width) / 2; //(1-1000) would be values coherent in physics
+  var timeElapsed = Date.now()/1000;// /1000 to get time in seconds
+  var timeToRotate =planet.getAttribute("data-time-to-rotate");
+  var angleOffset = planet.getAttribute("data-angle-offset");
+  var timeIntoCurrentRotation =timeElapsed%timeToRotate;
+  var angle =(angleOffset + (timeIntoCurrentRotation/timeToRotate*(2*Math.PI)));// angles in radians
+  var top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
+  var left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
+  planet.style.top = top - 10 + 'px';
+  planet.style.left = left - 10 + 'px';
+}
+
+function rotateFlag(flag)
+{
+  var planetStyle = window.getComputedStyle(document.querySelector(`.planet[data-id='${flag.getAttribute("data-planet-id")}']`));
+  var top = parseInt(planetStyle.top);
+  var left = parseInt(planetStyle.left);
+  flag.style.top = top - 10 + 'px';
+  flag.style.left = left - 10 + 'px';
+}
+
 
 const redirectToPlanet = event => {
   window.location = `/views/map/planet.html?id=${event.currentTarget.getAttribute('data-id')}`;
