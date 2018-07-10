@@ -2,17 +2,12 @@
     margin-left: 20px;
 }
 
-.faction-name {
+#faction > #infos > h1 {
     display: flex;
-    align-items: center;
 }
 
-.faction-flag {
-    width: 64px;
-    height: 64px;
+#faction > #infos > h1 > .faction-flag {
     margin-right: 20px;
-    border-radius: 40px;
-    border: 2px solid #EFEFEF;
 }
 
 #members > section {
@@ -53,19 +48,16 @@
 }
 
 #faction-relations > section > .faction {
-    padding: 20px;
-    background-color: #2A2A2A;
-    border: 1px solid #EFEFEF;
-    border-radius: 5px;
     text-align: center;
     margin: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
 
-#faction-relations > section > .faction > header > .faction-flag {
-    display: inline-block;
-    width: 96px;
-    height: 96px;
-    border-radius: 50px;
+#faction-relations > section > .faction > header > h4 {
     margin: 0px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #565656;
+}
+
+#faction-relations > section > .faction > header > a > .faction-flag {
+    margin: auto;
 }

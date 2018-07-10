@@ -43,8 +43,9 @@ const setProfile = id => fetch(`/api/players/${id}`, {
 
 const displayProfile = profile => {
     document.querySelector('.player-name').innerText = profile.pseudo;
-    document.querySelector('.faction-name > a').append(profile.faction.name);
-    document.querySelector('.faction-flag').style.backgroundColor = profile.faction.color;
+    const faction = document.querySelector('.faction-name > a');
+    faction.append(renderFactionFlag(profile.faction));
+    faction.append(profile.faction.name);
     getPlayerPlanets(profile);
 };
 
