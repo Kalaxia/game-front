@@ -11,7 +11,7 @@
         <div id="wrapper">
             <div id="player-data">
                 <h3></h3>
-                <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+                <img id="logout" src="/static/images/logout.svg"/>
             </div>
             <div id="planet-buildings">
                 <header><a href="/views/base/buildings.html" data-translate="true">planet.buildings</a></header>
@@ -63,6 +63,9 @@
                 profileLink.href = '/views/profile';
                 profileLink.innerText = player.pseudo;
                 document.querySelector("#player-data h3").appendChild(profileLink);
+                document.querySelector('#logout').addEventListener('click', () => {
+                    Player.logout();
+                });
                 currentPlayer = player;
             });
 

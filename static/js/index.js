@@ -1,7 +1,6 @@
+import Api from './core/api.js';
 import Player from './model/player.js';
 
-window.addEventListener("load", () => {
-    Player.fetchCurrentPlayer().then(player => {
-        window.location = (player.is_active) ? '/views/profile' : '/views/register';
-    });
-});
+window.addEventListener("load", () => Api.initializationPromise.then(() => Player.fetchCurrentPlayer().then(player => {
+    window.location = (player.isActive === true) ? '/views/profile' : '/views/register';
+})));
