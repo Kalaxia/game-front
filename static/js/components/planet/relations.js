@@ -1,4 +1,7 @@
-const initPlanetRelations = (container, relations) => {
+import Dictionnary from '../../core/dictionnary.js';
+import { shadeColor } from '../../lib/colors.js';
+
+export const initPlanetRelations = (container, relations) => {
   var config = {
       type: 'doughnut',
       data: getRelationDatasets(relations),
@@ -27,7 +30,7 @@ const getRelationDatasets = relations => {
   var factionDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
   var playerDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
   var labels = [];
-  for (key in relations) {
+  for (const key in relations) {
     let relation = relations[key];
     if (relation.faction !== null) {
       var dataset = factionDataset;
@@ -72,7 +75,7 @@ const getRelationshipIndicator = (score, isPositive) => {
   if (isPositive === false) {
     score *= -1;
   }
-  let indicators = dictionnary.diplomacy.relations.indicators;
+  let indicators = Dictionnary.translations.diplomacy.relations.indicators;
   switch (true) {
     case (score >= 500): return indicators.philanthropic;
     case (score >= 400): return indicators.excellent;

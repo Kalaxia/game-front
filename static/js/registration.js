@@ -1,28 +1,31 @@
-const getFactions = () => fetch('/api/factions', {
-      method: 'GET',
-      headers: headers
-  })
-  .then(apiResponseMiddleware)
-  .then(data => {
-    var list = document.querySelector("#factions");
-    var descriptions  = document.querySelector("#descriptions");
+import Api from './core/api.js';
+import Faction from './model/faction.js';
+import Player from './model/player.js';
+import Planet from './model/planet.js';
+import { initPlanetResources } from './components/planet/resources.js';
+import { initPlanetRelations } from './components/planet/relations.js';
+import Dictionnary from './core/dictionnary.js';
 
-    for (key in data) {
-      var faction = document.createElement('div');
-      faction.classList.add('faction');
-      faction.innerText = data[key].name;
-      faction.onclick = selectFaction;
-      faction.setAttribute('data-id', data[key].id);
-      list.appendChild(faction);
+const getFactions = () => Faction.fetchAll().then(factions => {
 
-      var description = document.createElement('div');
-      description.id = `description-${data[key].id}`;
-      description.classList.add('description');
-      description.innerText = data[key].description;
-      descriptions.appendChild(description);
+    const list = document.querySelector("#factions");
+    const descriptions  = document.querySelector("#descriptions");
+
+    for (const faction of factions) {
+        const factionElement = document.createElement('div');
+        factionElement.classList.add('faction');
+        factionElement.innerText = faction.name;
+        factionElement.onclick = selectFaction;
+        factionElement.setAttribute('data-id', faction.id);
+        list.appendChild(factionElement);
+
+        const description = document.createElement('div');
+        description.id = `description-${faction.id}`;
+        description.classList.add('description');
+        description.innerText = faction.description;
+        descriptions.appendChild(description);
     }
-  }).catch(error => console.log(error))
-;
+});
 
 const selectFaction = event => {
   var previous = document.querySelector('.faction.selected');
@@ -34,7 +37,7 @@ const selectFaction = event => {
   document.querySelector(`#description-${event.currentTarget.getAttribute('data-id')}`).classList.add('active');
 };
 
-const nextStep = () => {
+export const nextStep = () => {
   var faction = document.querySelector('.faction.selected');
   if (faction === null) {
     return false;
@@ -43,52 +46,46 @@ const nextStep = () => {
   window.location = '/views/register/planet.html';
 };
 
-const getPlanets = () => fetch(`/api/factions/${sessionStorage.getItem('registration.faction')}/planet-choices`, {
-      method: 'GET',
-      headers: headers
-  })
-  .then(apiResponseMiddleware)
-  .then(data => {
+const getPlanets = () => Planet.fetchFactionChoicesPlanets(sessionStorage.getItem('registration.faction')).then(planets => {
     var list = document.querySelector("#planets");
     var descriptionsList = document.querySelector("#descriptions");
-    for (key in data) {
-      var planetData = data[key];
-      var planet = document.createElement('div');
-      planet.classList.add('shape');
-      planet.setAttribute('data-type', planetData.type);
-      planet.setAttribute('data-id', planetData.id);
-      planet.onclick = selectPlanet;
-      list.appendChild(planet);
+    for (const planet of planets) {
+      var planetElement = document.createElement('div');
+      planetElement.classList.add('shape');
+      planetElement.setAttribute('data-type', planet.type);
+      planetElement.setAttribute('data-id', planet.id);
+      planetElement.onclick = selectPlanet;
+      list.appendChild(planetElement);
 
       var description = document.createElement('div');
-      description.id = `description-${planetData.id}`;
+      description.id = `description-${planet.id}`;
       description.classList.add('description');
       description.innerHTML =
-        `<header><h3>${planetData.name}</h3></header>
+        `<header><h3>${planet.name}</h3></header>
         <section>
           <div class="relations">
-            <h4>${dictionnary.planet.relations}</h4>
+            <h4>${Dictionnary.translations.planet.relations}</h4>
             <div class="canvas-holder" style="width:100%">
               <canvas class="chart-area" width="500" height="500" />
             </div>
           </div>
-          <div class="resources"><h4>${dictionnary.planet.resources}</h4><ul></ul></div>
+          <div class="resources"><h4>${Dictionnary.translations.planet.resources}</h4><ul></ul></div>
         </section>`
       ;
       descriptionsList.appendChild(description);
       initPlanetResources(
-        document.querySelector(`#description-${planetData.id} > section > .resources > ul`),
-        planetData.resources
+        document.querySelector(`#description-${planet.id} > section > .resources > ul`),
+        planet.resources
       );
       initPlanetRelations(
-        document.querySelector(`#description-${planetData.id} > section > .relations`),
-        planetData.relations
+        document.querySelector(`#description-${planet.id} > section > .relations`),
+        planet.relations
       );
     }
-  }).catch(error => console.log(error))
+  })
 ;
 
-const selectPlanet = event => {
+export const selectPlanet = event => {
   var previous = document.querySelector('.shape.selected');
   if(previous !== null) {
     previous.classList.remove('selected');
@@ -98,7 +95,7 @@ const selectPlanet = event => {
   document.querySelector(`#description-${event.currentTarget.getAttribute('data-id')}`).classList.add('active');
 };
 
-const validate = () => {
+export const validate = () => {
   var planet = document.querySelector('.shape.selected');
   if (planet === null) {
     return false;
@@ -110,7 +107,7 @@ const validate = () => {
           faction_id: sessionStorage.getItem('registration.faction'),
           planet_id: planetId
       }),
-      headers: headers
+      headers: Api.headers
   })
   .then(response => {
     if (response.ok) {
@@ -121,8 +118,7 @@ const validate = () => {
   }).catch(error => console.log(error));
 };
 
-window.addEventListener("load", () => {
-  getCurrentPlayer().then(() => {
+window.addEventListener("load", () => Player.fetchCurrentPlayer().then(player => {
     if (player.is_active == true) {
       window.location = "/views/profile";
     }
@@ -131,5 +127,4 @@ window.addEventListener("load", () => {
     } else {
       getPlanets();
     }
-  });
-});
+}));

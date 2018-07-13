@@ -1,14 +1,8 @@
-var buildingsData;
+import buildingsData from '../../resources/buildings.js';
 
-fetch('/config/buildings.json', {cache: "no-store"})
-.then(response => response.json())
-.then(buildings => {
-    buildingsData = buildings;
-})
-
-const initPlanetBuildings = (container, planetId, buildings, maxBuildings, availableBuildings) => {
-    for (data of buildings) {
-        let building = document.createElement('a');
+export const initPlanetBuildings = (container, planetId, buildings, maxBuildings, availableBuildings) => {
+    for (const data of buildings) {
+        const building = document.createElement('a');
         building.href =
             (data.status === 'operational' && typeof buildingsData[data.name].view !== 'undefined')
             ? `/views/base/${buildingsData[data.name].view}`
@@ -24,7 +18,7 @@ const initPlanetBuildings = (container, planetId, buildings, maxBuildings, avail
     if (maxBuildings <= buildings.length) {
         return;
     }
-    let area = document.createElement('a');
+    const area = document.createElement('a');
     area.classList.add('building', 'area');
     area.href = '/views/base/buildings.html';
     container.appendChild(area);

@@ -1,14 +1,8 @@
-let resourcesData;
-
-fetch('/config/resources.json', {cache: "no-store"})
-.then(response => response.json())
-.then(resources => {
-  resourcesData = resources;
-});
+import resourcesData from '../../resources/resources.js';
 
 const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
 
-const initPlanetResources = (list, data, storage) => {
+export const initPlanetResources = (list, data, storage) => {
     for (let resource of data) {
         const resourceKey = resource.name;
         resource = Object.assign(resource, resourcesData[resource.name]);
