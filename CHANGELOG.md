@@ -1,3 +1,11 @@
+## [0.1.12] - 2018-07-13
+### Added
+- Faction banners
+- Planets rotation in system view
+
+### Changed
+- Refactor all the code with MVC architecture
+
 ## [0.1.11] - 2018-07-05
 ### Added
 - Construction state for Buildings
