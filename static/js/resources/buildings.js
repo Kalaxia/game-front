@@ -1,4 +1,4 @@
-{
+export default {
     "area": {
         "picture": "area.png",
         "category": "area"

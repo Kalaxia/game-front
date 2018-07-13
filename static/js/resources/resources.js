@@ -1,4 +1,4 @@
-{
+export default {
   "resources.a": {
     "name": "ResLiquide",
     "picto": "liquid_a.png"
@@ -23,4 +23,4 @@
     "name": "ResMinerai2",
     "picto": "ore_b.png"
   }
-}
+};
