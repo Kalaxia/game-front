@@ -36,11 +36,10 @@ const generateOrbit = (systemElement, data) => {
 
 const generatePlanets = (systemElement, planets) => {
     for (const planet of planets) {
+        console.log('ok');
         generateOrbit(systemElement, planet.orbit);
         const orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${planet.orbit.id}']`));
         const radius = parseInt(orbitStyle.width) / 2;
-        const top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
-        const left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
         // formula : timeToRotate = 2*PI *sqrt(radius^3/(6.674*10^-11 . starMass)) with radius in meters, starMass in kg and time in seconds
         // note : the powers of 10 have been simplified to reduce the values as much as possible
         const timeElapsed = Date.now()/1000;// /1000 to get time in seconds
@@ -52,6 +51,8 @@ const generatePlanets = (systemElement, planets) => {
         const timeToRotate = (( 2 * Math.PI ) * Math.sqrt((calcRadius * calcRadius * calcRadius)/ (starMass * gravitationalConstant))) / numberOfHoursInYear;
         const timeIntoCurrentRotation = timeElapsed % timeToRotate;
         const angle = (angleOffset + (timeIntoCurrentRotation / timeToRotate * ( 2 * Math.PI )));// angles in radians
+        const top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
+        const left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
 
         const planetElement = document.createElement("div");
         planetElement.classList.add('planet');
@@ -59,14 +60,14 @@ const generatePlanets = (systemElement, planets) => {
         planetElement.setAttribute('data-angle-offset', angleOffset);
         planetElement.setAttribute('data-id', planet.id);
         planetElement.setAttribute('data-type', planet.type);
-        planetElement.setAttribute('data-orbit-id',planet.orbit.id);
+        planetElement.setAttribute('data-orbit-id', planet.orbit.id);
         planetElement.style.top = top - 10 + 'px';
         planetElement.style.left = left - 10 + 'px';
         planetElement.addEventListener('dblclick', redirectToPlanet);
         if (planet.player !== null) {
             const factionFlag = document.createElement('div');
             factionFlag.classList.add('faction-flag');
-            factionFlag.setAttribute('data-planet-id', data.id);
+            factionFlag.setAttribute('data-planet-id', planet.id);
             factionFlag.style.top = top - 20 + 'px';
             factionFlag.style.left = left - 20 + 'px';
             factionFlag.style.backgroundColor = planet.player.faction.color;
@@ -98,7 +99,7 @@ const rotatePlanet = planet => {
     planet.style.left = left - 10 + 'px';
 }
 
-const rotateFlag = flag {
+const rotateFlag = flag => {
     const planetStyle = window.getComputedStyle(document.querySelector(`.planet[data-id='${flag.getAttribute("data-planet-id")}']`));
     const top = parseInt(planetStyle.top);
     const left = parseInt(planetStyle.left);

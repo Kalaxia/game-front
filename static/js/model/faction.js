@@ -5,6 +5,7 @@ class Faction {
         this.id = data.id
         this.name = data.name;
         this.description = data.description;
+        this.banner = data.banner;
         this.color = data.color;
         this.members = data.members;
         this.relations = data.relations;

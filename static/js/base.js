@@ -2,7 +2,8 @@ import Dictionnary from './core/dictionnary.js';
 import Building from './model/building.js';
 import Player from './model/player.js';
 import Planet from './model/planet.js';
-import { buildingsData } from './components/planet/buildings.js';
+import buildingsData from './resources/buildings.js';
+
 
 
 Player.fetchCurrentPlayer().then(player => {

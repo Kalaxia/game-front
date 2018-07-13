@@ -1,4 +1,5 @@
 import Api from '../core/api.js';
+import Faction from './faction.js';
 
 let currentPlayer = null;
 
@@ -7,7 +8,7 @@ export default class Player {
         this.id = data.id;
         this.pseudo = data.pseudo;
         this.isActive = data.is_active;
-        this.faction = data.faction;
+        this.faction = new Faction(data.faction);
         this.createdAt = data.created_at;
         this.updatedAt = data.updated_at;
     }

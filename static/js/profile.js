@@ -33,6 +33,7 @@ const setMyProfile = () => Player.fetchCurrentPlayer().then(displayProfile);
 const setProfile = id => Player.fetchPlayer(id).then(displayProfile);
 
 const displayProfile = profile => {
+    console.log(profile);
     document.querySelector('.player-name').innerText = profile.pseudo;
     const faction = document.querySelector('.faction-name > a');
     faction.append(renderFactionFlag(profile.faction));

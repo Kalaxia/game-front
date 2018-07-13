@@ -1,4 +1,5 @@
-export const renderFactionMembers = (list, members) => {
+export const renderFactionMembers = members => {
+    const list = document.querySelector("#members > section");
     for (const member of members) {
         const memberElement = document.createElement("a");
         memberElement.classList.add('member');

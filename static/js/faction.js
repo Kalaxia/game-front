@@ -19,9 +19,9 @@ window.addEventListener("load", () => Player.fetchCurrentPlayer().then(player =>
     const factionId = (id !== null) ? id : player.faction.id;
     Faction.fetch(factionId).then(faction => {
         renderFaction(faction);
-        renderFactionRelations(document.querySelector('#faction-relations > section'), faction);
+        renderFactionRelations(faction);
         faction.fetchMembers().then(members => {
-            renderFactionMembers(document.querySelector("#members > section"), members);
+            renderFactionMembers(members);
         });
     });
 }));
