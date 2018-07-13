@@ -72,10 +72,12 @@
             </div>
         </div>
         <script type="text/javascript" src="/config/config.js"></script>
-        <script type="text/javascript" src="/static/js/main.js"></script>
-        <script type="text/javascript" src="/static/js/components/planet/resources.js"></script>
-        <script type="text/javascript" src="/static/js/shipyard.js"></script>
-        <script type="text/javascript">
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module">
+            import { initShipyard, displayFrames, createShipModel } from '/static/js/shipyard.js';
+
+            window.displayFrames = displayFrames;
+            window.createShipModel = createShipModel;
             window.addEventListener('load', initShipyard);
         </script>
   </body>

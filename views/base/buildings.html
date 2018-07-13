@@ -27,11 +27,11 @@
             <section></section>
         </div>
         <script type="text/javascript" src="/config/config.js"></script>
-        <script type="text/javascript" src="/static/js/main.js"></script>
-        <script type="text/javascript" src="/static/js/base.js"></script>
-        <script type="text/javascript" src="/static/js/components/planet/buildings.js"></script>
-        <script type="text/javascript" src="/static/js/components/planet/resources.js"></script>
-        <script type="text/javascript">
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module">
+            import { initBaseBuildings, launchBuildingConstruction } from '/static/js/base.js';
+
+            window.launchBuildingConstruction = launchBuildingConstruction;
             window.addEventListener('load', initBaseBuildings);
         </script>
   </body>

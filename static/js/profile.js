@@ -1,47 +1,39 @@
-var searchParams = new URLSearchParams(window.location.search);
-var id = searchParams.get('id');
+import Api from './core/api.js';
+import Player from './model/player.js';
+import Planet from './model/planet.js';
+import { renderFactionFlag } from './components/faction/banner.js';
 
-const getPlayerProfile = id => fetch(`/api/players/${id}`, {
-    method: 'GET',
-    headers: headers
-})
+const searchParams = new URLSearchParams(window.location.search);
+const id = searchParams.get('id');
 
-const getPlayerPlanets = player => fetch(`/api/players/${player.id}/planets`, {
-  method: 'GET',
-  headers: headers
-}).then(apiResponseMiddleware)
-  .then(data => {
-    var list = document.querySelector('#planets > section');
-    for (key in data) {
-      var planetData = data[key];
-      var shape = document.createElement('a');
+const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(planets => {
+    const list = document.querySelector('#planets > section');
+    for (const planet of planets) {
+      const shape = document.createElement('a');
       shape.classList.add('shape');
-      shape.setAttribute('data-type', planetData.type);
-      shape.href = `/views/map/planet.html?id=${planetData.id}`;
+      shape.setAttribute('data-type', planet.type);
+      shape.href = `/views/map/planet.html?id=${planet.id}`;
 
-      var planetName = document.createElement('h3');
-      planetName.innerText = planetData.name;
+      const planetName = document.createElement('h3');
+      planetName.innerText = planet.name;
 
-      var planet = document.createElement('div');
-      planet.classList.add('planet');
+      const planetElement = document.createElement('div');
+      planetElement.classList.add('planet');
 
-      planet.appendChild(shape);
-      planet.appendChild(planetName);
-      list.appendChild(planet);
+      planetElement.appendChild(shape);
+      planetElement.appendChild(planetName);
+      list.appendChild(planetElement);
     }
   })
   .catch(error => console.log(error))
 ;
 
-const setMyProfile = () => getCurrentPlayer().then(() => displayProfile(player));
+const setMyProfile = () => Player.fetchCurrentPlayer().then(displayProfile);
 
-const setProfile = id => fetch(`/api/players/${id}`, {
-    method: 'GET',
-    headers: headers
-}).then(apiResponseMiddleware)
-.then(displayProfile);
+const setProfile = id => Player.fetchPlayer(id).then(displayProfile);
 
 const displayProfile = profile => {
+    console.log(profile);
     document.querySelector('.player-name').innerText = profile.pseudo;
     const faction = document.querySelector('.faction-name > a');
     faction.append(renderFactionFlag(profile.faction));

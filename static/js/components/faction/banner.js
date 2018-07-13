@@ -1,4 +1,6 @@
-const renderFactionFlag = faction => {
+import { shadeColor } from '../../lib/colors.js';
+
+export const renderFactionFlag = faction => {
     const flag = document.createElement('div');
     flag.classList.add('faction-flag');
     flag.innerHTML =

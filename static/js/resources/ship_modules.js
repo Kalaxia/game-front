@@ -1,4 +1,4 @@
-{
+export default {
     "laser-gun": {
         "picture": "",
         "picture_flip_x": true,

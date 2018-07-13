@@ -26,7 +26,11 @@
     </div>
     <input id="registration-step" type="hidden" value="factions" />
     <script type="text/javascript" src="/config/config.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
-    <script type="text/javascript" src="/static/js/registration.js"></script>
+    <script type="module" src="/static/js/main.js"></script>
+    <script type="module">
+        import { nextStep } from '/static/js/registration.js';
+
+        window.nextStep = nextStep;
+    </script>
   </body>
 </html>
