@@ -18,6 +18,61 @@ body {
   grid-auto-rows: minmax(100px, auto);
 }
 
+#storage-toolbar {
+    position: relative;
+    width: auto;
+    height: 50px;
+    grid-column: 4/6;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #010F2A;
+    border-bottom: 2px solid #EFEFEF;
+}
+
+#storage-toolbar > header > a {
+    text-decoration: none;
+    color: #EFEFEF;
+    font-variant: small-caps;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#storage-toolbar::before {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    left: -50px;
+    bottom: 0px;
+    content: '';
+    border-top: #010F2A solid 25px;
+    border-left: transparent solid 25px;
+    border-bottom: transparent solid 25px;
+    border-right: #010F2A solid 25px;
+}
+
+#storage-toolbar > section {
+    display: flex;
+    align-items: center;
+}
+
+#storage-toolbar > section > div {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #E1BB81;
+}
+
+#storage-toolbar > section > div > img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
 #player-data {
     position: relative;
     grid-row: 1;
