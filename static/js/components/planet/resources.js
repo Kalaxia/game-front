@@ -22,7 +22,7 @@ export const initPlanetResources = (list, data, storage) => {
 };
 
 export const displayPlanetStorage = planet => {
-    document.querySelector('#storage-toolbar > header').innerHTML = `<a href="/static/views/map/planet.html?id=${planet.id}">${planet.name}</a>`
+    document.querySelector('#storage-toolbar > header').innerHTML = `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`
     const list = document.querySelector('#storage-toolbar > section');
     for (const resource in planet.storage.resources) {
         const resourceData = Object.assign({}, resourcesData[resource]);

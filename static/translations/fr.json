@@ -86,6 +86,8 @@
     },
     "ships": {
         "cancel": "Annuler",
+        "create": "Lancer la fabrication",
+        "create_model": "Créer un nouveau modèle",
         "frame": "Châssis",
         "frames": {
             "racer": "Châssis léger",
@@ -93,6 +95,7 @@
             "frigate": "Châssis polymère"
         },
         "missing_name": "Il faut donner un nom à votre nouveau modèle !",
+        "modules_list": "Modules",
         "modules": {
             "laser-gun": {
                 "name": "Mitrailleuse laser",
@@ -121,6 +124,7 @@
         },
         "price": "Prix",
         "save": "Sauvegarder",
+        "stats_list": "Statistiques",
         "stats": {
             "armor": "Blindage",
             "speed": "Vitesse",
@@ -129,6 +133,13 @@
             "damage": "Dégâts",
             "precision": "Précision",
             "power": "Puissance"
+        },
+        "types": {
+            "fighter": "Chasseur",
+            "bomber": "Bombardier",
+            "corvette": "Corvette",
+            "frigate": "Frégate",
+            "freighter": "Transport"
         }
     },
     "system": {

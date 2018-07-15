@@ -1,8 +1,11 @@
 import Dictionnary from './core/dictionnary.js';
 import Player from './model/player.js';
+import Planet from './model/planet.js';
+import Ship from './model/ship/ship.js';
 import ShipModel from './model/ship/model.js';
 import ShipModule from './model/ship/module.js';
 import ShipFrame from './model/ship/frame.js';
+import { displayPlanetStorage } from './components/planet/resources.js';
 
 Player.fetchCurrentPlayer().then(player => {
   const profileLink = document.createElement('a');
@@ -11,16 +14,32 @@ Player.fetchCurrentPlayer().then(player => {
   document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
+let basePlanet;
 const planetId = getCurrentPlanet();
 const ship = new ShipModel({});
 
-export const initShipyard = () => ShipModel.fetchPlayerModels().then(shipModels => {
-    const list = document.querySelector('#ships-list > section');
+export const initShipyard = () => Promise.all([
+    ShipModel.fetchPlayerModels().then(shipModels => {
+        const list = document.querySelector('#ships-list > section');
 
-    for (const model of shipModels) {
-        addShipModel(list, model);
-    }
-});
+        for (const model of shipModels) {
+            addShipModel(list, model);
+        }
+    }),
+    Planet.fetch(planetId).then(planet => {
+        basePlanet = planet;
+        displayPlanetStorage(planet);
+    })
+]);
+
+export const displayShipModels = () => {
+    document.querySelector('#ship-conception').style.display = 'none';
+    document.querySelector('#ship-construction').style.display = 'none';
+    document.querySelector('#ship-vizualizer').style.display = 'none';
+    document.querySelector('#ship-data').style.display = 'none';
+    document.querySelector('#modules').style.display = 'none';
+    document.querySelector('#ships-list').style.display = 'block';
+};
 
 const addShipModel = (list, model) => {
     const element = document.createElement('div');
@@ -29,11 +48,60 @@ const addShipModel = (list, model) => {
         ? `<img src="/static/images/shipyard/frame_${model.frame.picture}" />`
         : '#'
     ;
-    element.classList.add('ship');
+    element.classList.add('ship-model');
+    element.classList.add(model.type);
+    element.addEventListener('click', () => displayShipModel(model.id));
     element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
 
     list.prepend(element);
-}
+};
+
+const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
+    const shipConstructor = document.querySelector('#ship-construction');
+    shipConstructor.style.display = 'block';
+    document.querySelector('#ships-list').style.display = 'none';
+    shipConstructor.querySelector(':scope > header > h1').innerHTML = `${model.name} <span>${Dictionnary.translations.ships.types[model.type]}</span>`;
+    shipConstructor.querySelector(':scope > header > div > button').addEventListener('click', () => createShip(
+        new Ship({ hangar: basePlanet, model: model }),
+        document.querySelector('input[name="quantity"]').value
+    ));
+    shipConstructor.querySelector(':scope > section > header > div').innerHTML =
+        `${model.slots.map(slot => {
+            if (slot.module === '') {
+                return '';
+            }
+            return renderShipModelModule(slot.module);
+        }).join('')}`
+    ;
+    shipConstructor.querySelector(':scope > section > section > div:first-child > header > h3').innerText = model.frame.name;
+    shipConstructor.querySelector(':scope > section > section > div:first-child > section').innerHTML =
+        `<img src="/static/images/shipyard/frame_${model.frame.picture}" alt="${model.frame.name}"/>`
+    ;
+    displayShipStats(
+        model,
+        shipConstructor.querySelector(':scope > section > section > div:last-child > header > div'),
+        shipConstructor.querySelector(':scope > section > section > div:last-child > section > div')
+    );
+});
+
+const renderShipModelModule = module => {
+    return `
+        <div class="module"><header><h4>${Dictionnary.translations.ships.modules[module.slug].name}</h4></header>
+        <section>
+            ${Object.keys(module.ship_stats).map(key => {
+                return `<div class="stat"><header>${Dictionnary.translations.ships.stats[key]}</header><section>${module.ship_stats[key]}</section></div>`
+            }).join('')}
+            ${Object.keys(module.stats).map(key => {
+                return `<div class="stat"><header>${Dictionnary.translations.ships.stats[key]}</header><section>${module.stats[key]}</section></div>`
+            }).join('')}
+        </section>
+        </div>`
+    ;
+};
+
+const createShip = (ship, quantity) => ship.create(quantity).then(() => {
+    displayShipModels();
+});
 
 export const createShipModel = () => {
     ship.name = document.querySelector('#ship-data > header > input').value;
@@ -42,15 +110,16 @@ export const createShipModel = () => {
     }
     ship.create().then(response => {
         addShipModel(document.querySelector('#ships-list > section'), ship)
-        displayFrames();
+        displayShipModels();
     }).catch(error => console.log(error));
 };
 
 export const displayFrames = () => {
+    document.querySelector('#ship-conception').style.display = 'block';
     document.querySelector('#ship-vizualizer').style.display = 'none';
     document.querySelector('#ship-data').style.display = 'none';
     document.querySelector('#modules').style.display = 'none';
-    document.querySelector('#ships-list').style.display = 'block';
+    document.querySelector('#ships-list').style.display = 'none';
     const container = document.querySelector('#frames');
     container.style.display = 'block';
     const list = container.querySelector('section');
@@ -86,7 +155,11 @@ const chooseFrame = event => {
     document.querySelector('#modules').style.display = 'flex';
     document.querySelector('#modules > section').innerHTML = '';
     document.querySelector('#ships-list').style.display = 'none';
-    displayShipStats();
+    displayShipStats(
+        ship,
+        document.querySelector('#ship-stats'),
+        document.querySelector('#ship-data > section > .list')
+    );
 };
 
 const displaySlots = frame => {
@@ -158,7 +231,11 @@ const affectModule = event => {
     const moduleElement = event.currentTarget;
     ship.slots[slot.getAttribute('data-position')].module = ShipModule.createFromSlug(moduleElement.getAttribute('data-slug'));
 
-    displayShipStats();
+    displayShipStats(
+        ship,
+        document.querySelector('#ship-stats'),
+        document.querySelector('#ship-data > section > .list')
+    );
 
     const moduleStyle = window.getComputedStyle(moduleElement.querySelector('div'), null);
     slot.setAttribute('data-type', moduleElement.getAttribute('data-type'));
@@ -167,11 +244,9 @@ const affectModule = event => {
     slot.style.backgroundImage = moduleStyle.backgroundImage;
 };
 
-const displayShipStats = () => {
+const displayShipStats = (ship, statsList, priceList) => {
     const stats = {};
     const prices = {};
-    const statsList = document.querySelector('#ship-stats');
-    const priceList = document.querySelector('#ship-data > section > .list');
     statsList.innerHTML = '';
     priceList.innerHTML = '';
 

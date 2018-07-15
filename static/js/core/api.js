@@ -27,8 +27,7 @@ class Api {
 
     responseMiddleware(response) {
         if (response.status === 401) {
-            //Player.logout();
-            console.log(response);
+            Player.logout();
             return Promise.reject("unauthorized");
         }
         if (response.ok) {

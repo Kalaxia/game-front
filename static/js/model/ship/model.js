@@ -1,5 +1,6 @@
 import Api from '../../core/api.js';
 import ShipFrame from './frame.js';
+import ShipModule from './module.js';
 
 class ShipModel {
     constructor(data) {
@@ -8,6 +9,24 @@ class ShipModel {
         this.frame = data.frame;
         this.type = data.type;
         this.slots = data.slots;
+    }
+
+    static fetch(id) {
+        return fetch(`/api/me/ship-models/${id}`, {
+            method: 'GET',
+            headers: Api.headers
+        })
+        .then(Api.responseMiddleware)
+        .then(data => {
+            data.frame = ShipFrame.createFromSlug(data.frame);
+            for (const key in data.slots) {
+                if (data.slots[key].module === '') {
+                    continue;
+                }
+                data.slots[key].module = ShipModule.createFromSlug(data.slots[key].module);
+            }
+            return new ShipModel(data);
+        });
     }
 
     static fetchPlayerModels() {
