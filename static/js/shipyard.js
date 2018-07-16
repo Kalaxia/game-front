@@ -50,7 +50,7 @@ const addShipModel = (list, model) => {
     ;
     element.classList.add('ship-model');
     element.classList.add(model.type);
-    element.addEventListener('click', () => displayShipModel(model.id));
+    element.onclick = () => displayShipModel(model.id);
     element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
 
     list.prepend(element);
@@ -61,10 +61,10 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
     shipConstructor.style.display = 'block';
     document.querySelector('#ships-list').style.display = 'none';
     shipConstructor.querySelector(':scope > header > h1').innerHTML = `${model.name} <span>${Dictionnary.translations.ships.types[model.type]}</span>`;
-    shipConstructor.querySelector(':scope > header > div > button').addEventListener('click', () => createShip(
+    shipConstructor.querySelector(':scope > header > div > button').onclick = () => createShip(
         new Ship({ hangar: basePlanet, model: model }),
         document.querySelector('input[name="quantity"]').value
-    ));
+    );
     shipConstructor.querySelector(':scope > section > header > div').innerHTML =
         `${model.slots.map(slot => {
             if (slot.module === '') {

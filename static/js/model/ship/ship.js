@@ -13,7 +13,7 @@ class Ship {
             method: 'POST',
             body: JSON.stringify({
                 model: this.model,
-                quantity: quantity
+                quantity: parseInt(quantity)
             }),
             headers: Api.headers
         }).then(Api.responseMiddleware);
