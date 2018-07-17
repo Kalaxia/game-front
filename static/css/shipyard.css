@@ -152,7 +152,13 @@ html, body, #wrapper {
 }
 
 #ships-list > section > .ship-model > footer {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ships-list > section > .ship-model > footer > h5 {
+    margin: 0px;
 }
 
 #ship-conception {

@@ -24,6 +24,13 @@ class Ship {
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }
+
+    static fetchHangarShips(planetId) {
+        return fetch(`/api/planets/${planetId}/ships`, {
+            method: 'GET',
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
 }
 
 export default Ship;

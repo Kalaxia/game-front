@@ -30,7 +30,10 @@ export const initShipyard = () => Promise.all([
         basePlanet = planet;
         displayPlanetStorage(planet);
     })
-]).then(() => Ship.fetchConstructingShips(planetId).then(ships => displayConstructingShips(ships)));
+]).then(Promise.all([
+    Ship.fetchConstructingShips(planetId).then(ships => displayConstructingShips(ships)),
+    Ship.fetchHangarShips(planetId).then(ships => displayHangarShips(ships))
+]));
 
 export const displayShipModels = () => {
     const shipConstructionsList = document.querySelector('#ship-constructions-list');
@@ -54,8 +57,9 @@ const addShipModel = (list, model) => {
     ;
     element.classList.add('ship-model');
     element.classList.add(model.type);
+    element.setAttribute('data-slug', model.slug);
     element.onclick = () => displayShipModel(model.id);
-    element.innerHTML = `<header>${picture}</header><footer>${model.name}</footer>`;
+    element.innerHTML = `<header>${picture}</header><footer><h5>${model.name}</h5><span></span></footer>`;
 
     list.prepend(element);
 };
@@ -112,6 +116,16 @@ const displayConstructingShips = ships => {
         section.appendChild(element);
     }
 };
+
+const displayHangarShips = ships => {
+    let shipCounters = {};
+    for (const ship of ships) {
+        shipCounters[ship.model.slug] = (typeof shipCounters[ship.model.slug] !== 'undefined') ? shipCounters[ship.model.slug] + 1 : 0
+    }
+    for (const key in shipCounters) {
+        document.querySelector(`.ship-model[data-slug="${key}"] > footer > span`).innerText = shipCounters[key];
+    }
+}
 
 const renderShipModelModule = module => {
     return `
