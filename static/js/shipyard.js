@@ -30,9 +30,13 @@ export const initShipyard = () => Promise.all([
         basePlanet = planet;
         displayPlanetStorage(planet);
     })
-]);
+]).then(() => Ship.fetchConstructingShips(planetId).then(ships => displayConstructingShips(ships)));
 
 export const displayShipModels = () => {
+    const shipConstructionsList = document.querySelector('#ship-constructions-list');
+    if (shipConstructionsList.querySelector(':scope > section').innerText != '') {
+        shipConstructionsList.style.display = 'block';
+    }
     document.querySelector('#ship-conception').style.display = 'none';
     document.querySelector('#ship-construction').style.display = 'none';
     document.querySelector('#ship-vizualizer').style.display = 'none';
@@ -83,6 +87,31 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
         shipConstructor.querySelector(':scope > section > section > div:last-child > section > div')
     );
 });
+
+const displayConstructingShips = ships => {
+    const list = document.querySelector('#ship-constructions-list');
+    list.style.display = 'block';
+    const section  = list.querySelector(':scope > section');
+    list.querySelector(':scope > header > .population-points').innerHTML =
+        `<strong>${basePlanet.settings.military_points}</strong><div class="industry-point"></div>`
+    ;
+    for (const ship of ships) {
+        const element = document.createElement('div');
+        const pointsPercent = Math.floor(ship.construction_state.current_points * 100 / ship.construction_state.points);
+        element.classList.add('ship');
+        element.innerHTML =
+            `<header><h5>${ship.model.name}</h5><span>${Dictionnary.translations.ships.types[ship.model.type]}</span></header>
+            <section>
+            <div class="points">
+                <span>${ship.construction_state.current_points}</span>
+                <div class="progressbar"><div style="width:${pointsPercent}%"></div></div>
+                <span>${ship.construction_state.points}</span>
+                <div class="industry-point"></div>
+            </div></section>`
+        ;
+        section.appendChild(element);
+    }
+};
 
 const renderShipModelModule = module => {
     return `
@@ -151,6 +180,7 @@ const chooseFrame = event => {
     displaySlots(frame);
     removeModuleData();
 
+    document.querySelector('#ship-constructions-list').style.display = 'none';
     document.querySelector('#ship-data').style.display = 'block';
     document.querySelector('#modules').style.display = 'flex';
     document.querySelector('#modules > section').innerHTML = '';

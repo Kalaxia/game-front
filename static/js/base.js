@@ -4,8 +4,6 @@ import Player from './model/player.js';
 import Planet from './model/planet.js';
 import buildingsData from './resources/buildings.js';
 
-
-
 Player.fetchCurrentPlayer().then(player => {
   var profileLink = document.createElement('a');
   profileLink.href = '/views/profile';

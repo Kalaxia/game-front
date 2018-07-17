@@ -8,13 +8,19 @@ class Ship {
     }
 
     create(quantity) {
-        console.log('CREATION');
         return fetch(`/api/planets/${this.hangar.id}/ships`, {
             method: 'POST',
             body: JSON.stringify({
                 model: this.model,
                 quantity: parseInt(quantity)
             }),
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
+
+    static fetchConstructingShips(planetId) {
+        return fetch(`/api/planets/${planetId}/ships/constructing`, {
+            method: 'GET',
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }

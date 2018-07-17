@@ -3,10 +3,70 @@ html, body, #wrapper {
     height: 100%;
 }
 
-#shipyard {
-    display: flex;
-    margin: 100px;
+#ship-constructions-list {
+    grid-column: 1;
+    grid-row: 2/5;
+    display: none;
+    padding-left: 20px;
+}
 
+#ship-constructions-list > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-variant: small-caps;
+}
+
+#ship-constructions-list > header > .population-points > .industry-point {
+    margin-left: 10px;
+}
+
+#ship-constructions-list > section > .ship {
+    background-color: #010F2A;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+#ship-constructions-list > section > .ship > header {
+    display: flex;
+    align-items: center;
+    font-variant: small-caps;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+#ship-constructions-list > section > .ship > header > h5 {
+    color: #E1BB81;
+    padding-right: 20px;
+    margin: 0px;
+    font-size: 0.9em;
+}
+
+#ship-constructions-list > section > .ship > header > span {
+    font-size: 0.8em;
+}
+
+#ship-constructions-list > section > .ship > section > .points {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+#ship-constructions-list > section > .ship > section > .points > .progressbar {
+    flex-grow: 2;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #222;
+}
+#ship-constructions-list > section > .ship > section > .points > .progressbar > div {
+    flex-grow: 2;
+    background-color: #EFEFEF;
+    height: 100%;
+}
+#ship-constructions-list > section > .ship > section > .points > .industry-point {
+    margin-left: 5px;
 }
 
 #ships-list {

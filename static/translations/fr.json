@@ -86,6 +86,7 @@
     },
     "ships": {
         "cancel": "Annuler",
+        "construction_list": "Chaîne d'usinage",
         "create": "Lancer la fabrication",
         "create_model": "Créer un nouveau modèle",
         "frame": "Châssis",
