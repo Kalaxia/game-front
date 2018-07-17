@@ -1,3 +1,10 @@
+## [0.1.13] - 2018-07-17
+### Added
+- Ship creation interface
+- Planet storage resources toolbar in shipyard
+- Constructing ships list
+- Hangar ships counters by model
+
 ## [0.1.12] - 2018-07-13
 ### Added
 - Faction banners
