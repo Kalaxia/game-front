@@ -87,8 +87,8 @@ const rotatePlanet = planet => {
     const angle =(angleOffset + (timeIntoCurrentRotation / timeToRotate * ( 2 * Math.PI )));// angles in radians
     const top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     const left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-    planet.style.top = top - 10 + 'px';
-    planet.style.left = left - 10 + 'px';
+    planet.style.top = top - 20 + 'px';
+    planet.style.left = left - 20 + 'px';
 }
 
 const redirectToPlanet = event => {
