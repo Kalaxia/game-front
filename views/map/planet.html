@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <title>Kalaxia</title>
         <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
-        <link rel="stylesheet" type="text/css" href="/static/css/map.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/planet.css" />
     </head>
     <body>
@@ -75,9 +74,7 @@
                 document.querySelector("#planet-data .name").innerText = planet.name;
                 document.querySelector("#planet-data .type").innerText = Dictionnary.translations.planet.type[planet.type];
                 document.querySelector('#planet .shape').setAttribute('data-type', planet.type);
-                planetElement.style.top = `calc(50% - ${parseInt(planetStyle.height) / 2}px)`;
-                planetElement.style.left = `calc(50% - ${parseInt(planetStyle.width) / 2}px)`;
-                planetElement.style.display = "inline-block";
+                planetElement.style.display = "block";
 
                 if (planet.player !== null) {
                     document.querySelector("#planet-data .player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;
