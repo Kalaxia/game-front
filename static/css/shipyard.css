@@ -3,20 +3,87 @@ html, body, #wrapper {
     height: 100%;
 }
 
-#shipyard {
-    display: flex;
-    margin: 100px;
+#ship-constructions-list {
+    grid-column: 1;
+    grid-row: 2/5;
+    display: none;
+    padding-left: 20px;
+}
 
+#ship-constructions-list > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-variant: small-caps;
+}
+
+#ship-constructions-list > header > .population-points > .industry-point {
+    margin-left: 10px;
+}
+
+#ship-constructions-list > section > .ship {
+    background-color: #010F2A;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+#ship-constructions-list > section > .ship > header {
+    display: flex;
+    align-items: center;
+    font-variant: small-caps;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+#ship-constructions-list > section > .ship > header > h5 {
+    color: #E1BB81;
+    padding-right: 20px;
+    margin: 0px;
+    font-size: 0.9em;
+}
+
+#ship-constructions-list > section > .ship > header > span {
+    font-size: 0.8em;
+}
+
+#ship-constructions-list > section > .ship > section > .points {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+#ship-constructions-list > section > .ship > section > .points > .progressbar {
+    flex-grow: 2;
+    height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #222;
+}
+#ship-constructions-list > section > .ship > section > .points > .progressbar > div {
+    flex-grow: 2;
+    background-color: #EFEFEF;
+    height: 100%;
+}
+#ship-constructions-list > section > .ship > section > .points > .industry-point {
+    margin-left: 5px;
 }
 
 #ships-list {
-    grid-column: 1;
+    grid-column: 2/6;
     grid-row: 2/5;
-    width: 200px;
+    z-index: 10;
+}
+
+#ships-list > header {
+    margin-left: 10px;
 }
 
 #ships-list > header > button {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #EFEFEF;
+    font-size: 1.2em;
     padding: 0px;
     border: none;
     cursor: pointer;
@@ -29,41 +96,237 @@ html, body, #wrapper {
     background-color: #404060;
 }
 
+#ships-list > header > button > span {
+    padding-right: 20px;
+}
+
 #ships-list > header > button > img {
-    height: 150px;
+    height: 40px;
+    margin: 10px;
 }
 
 #ships-list > section {
-
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-#ships-list > section > .ship {
+#ships-list > section > .ship-model {
+    width: 150px;
     height: 150px;
     padding: 10px;
-    background-color: rgba(50,50,75,0.6);
+    margin: 10px;
+    margin-top: 50px;
     border: 1px solid #EFEFEF;
+    transition: background-color 0.2s ease-out;
+    cursor: pointer;
+}
+#ships-list > section > .ship-model.fighter {
+    background-color: rgba(75, 0, 0, 0.6);
+}
+#ships-list > section > .ship-model.fighter:hover {
+    background-color: rgba(100, 0, 0, 0.6);
+}
+#ships-list > section > .ship-model.corvette {
+    background-color: rgba(75, 0, 50, 0.6);
+}
+#ships-list > section > .ship-model.corvette:hover {
+    background-color: rgba(100, 0, 75, 0.6);
+}
+#ships-list > section > .ship-model.freighter {
+    background-color: rgba(0, 75, 0, 0.6);
+}
+#ships-list > section > .ship-model.freighter:hover {
+    background-color: rgba(0, 100, 0, 0.6);
 }
 
-#ships-list > section > .ship > header {
+#ships-list > section > .ship-model > header {
     font-size: 6em;
     text-align: center;
     height: 120px;
 }
 
 
-#ships-list > section > .ship > header > img {
+#ships-list > section > .ship-model > header > img {
     width: 100%;
 }
 
-#ships-list > section > .ship > footer {
-    text-align: right;
+#ships-list > section > .ship-model > footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ships-list > section > .ship-model > footer > h5 {
+    margin: 0px;
 }
 
 #ship-conception {
     grid-column: 2/6;
     grid-row: 2/5;
-    display: flex;
+    display: none;
     width: 100%;
+}
+
+#ship-construction {
+    grid-column: 2/6;
+    grid-row: 2/5;
+    display: none;
+    margin-right: 40px;
+}
+
+#ship-construction > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #E1BB81;
+}
+
+#ship-construction > header > h1 > span {
+    padding-left: 20px;
+    font-size: 0.5em;
+    color: #E1BB81;
+}
+
+#ship-construction > header > div {
+
+}
+
+#ship-construction > header > div > button {
+    height: 35px;
+    border: 1px solid #EFEFEF;
+    color: #E1BB81;
+    font-variant: small-caps;
+    font-size: 1.1em;
+    background-color: #010F2A;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+#ship-construction > header > div > input {
+    height: 35px;
+    background-color: #010F2A;
+    border: none;
+    border-bottom: 1px solid #EFEFEF;
+    color: #E1BB81;
+}
+
+#ship-construction > section {
+    display: flex;
+}
+
+#ship-construction > section {
+    flex-basis: 30%;
+}
+
+#ship-construction > section > header > div > .module {
+    background-color: #010F2A;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-left: 2px solid #E1BB81;
+}
+
+#ship-construction > section > header > div > .module > header {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EFEFEF;
+}
+
+#ship-construction > section > header > div > .module > header > h4 {
+    margin: 0px;
+}
+
+#ship-construction > section > header > div > .module > section {
+    display: flex;
+    align-items: center;
+}
+
+#ship-construction > section > header > div > .module > section > .stat {
+    text-align: center;
+    margin-right: 15px;
+}
+
+#ship-construction > section > header > div > .module > section > .stat > header {
+    color: #E1BB81;
+    font-variant: small-caps;
+}
+
+#ship-construction > section > section {
+    flex-basis: 65%;
+    margin-left: 20px;
+}
+
+
+#ship-construction > section > section > div:first-child > section > img {
+    width: 100%;
+}
+
+#ship-construction > section > section > div:last-child {
+    display: flex;
+    margin-top: 30px;
+}
+
+#ship-construction > section > section > div:last-child > header {
+    flex-basis: 50%;
+}
+
+#ship-construction > section > section > div:last-child > header > div {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+#ship-construction > section > section > div:last-child > header > div > .stat {
+    padding: 10px;
+    background-color: #010F2A;
+    margin: 5px;
+}
+
+#ship-construction > section > section > div:last-child > header > div > .stat > header {
+    font-variant: small-caps;
+}
+
+#ship-construction > section > section > div:last-child > header > div > .stat > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #E1BB81;
+}
+
+#ship-construction > section > section > div:last-child > section {
+    align-self: flex-start;
+    flex-basis: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#ship-construction > section > section > div:last-child > section > div {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+#ship-construction > section > section > div:last-child > section > div > .price {
+    padding: 10px;
+    background-color: #010F2A;
+    margin: 5px;
+}
+
+#ship-construction > section > section > div:last-child > section > div > .price > header {
+    font-variant: small-caps;
+}
+
+#ship-construction > section > section > div:last-child > section > div > .price > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #E1BB81;
+}
+
+#ship-construction > section > section > div:last-child > section > div > .price > section > img {
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
 }
 
 #frames {

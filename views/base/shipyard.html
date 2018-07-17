@@ -12,10 +12,22 @@
                 <h3></h3>
                 <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
             </div>
+            <div id="storage-toolbar">
+                <header></header>
+                <section></section>
+            </div>
+            <div id="ship-constructions-list">
+                <header>
+                    <h3 data-translate="true">ships.construction_list</h3>
+                    <a href="/views/base/population.html" class="population-points"></a>
+                </header>
+                <section></section>
+            </div>
             <div id="ships-list">
                 <header>
                     <button onclick="displayFrames();">
                         <img src="/static/images/buildings/build.svg"/>
+                        <span data-translate="true">ships.create_model</span>
                     </button>
                 </header>
                 <section>
@@ -41,6 +53,29 @@
                     </section>
                 </div>
             </div>
+            <div id="ship-construction">
+                <header>
+                    <h1></h1>
+                    <div>
+                        <input type="number" name="quantity" value="1" min="1" max="100"/>
+                        <button data-translate="true">ships.create</button>
+                        <button data-translate="true" onclick="displayShipModels();">ships.cancel</button>
+                    </div>
+                </header>
+                <section>
+                    <header><h3 data-translate="true">ships.modules_list</h3><div></div></header>
+                    <section>
+                        <div>
+                            <header><h3></h3></header>
+                            <section></section>
+                        </div>
+                        <div>
+                            <header><h3 data-translate="true">ships.stats_list</h3><div></div></header>
+                            <section><h3 data-translate="true">ships.price</h3><div></div></section>
+                        </div>
+                    </section>
+                </section>
+            </div>
             <div id="ship-data" class="module">
                 <header>
                     <input type="text" name="ship-name" placeholder="Name"/>
@@ -50,7 +85,7 @@
                     <div class="list"></div>
                 </section>
                 <footer>
-                    <button data-translate="true" onclick="displayFrames();">
+                    <button data-translate="true" onclick="displayShipModels();">
                         ships.cancel
                     </button>
                     <button data-translate="true" onclick="createShipModel();">
@@ -74,8 +109,9 @@
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
-            import { initShipyard, displayFrames, createShipModel } from '/static/js/shipyard.js';
+            import { initShipyard, displayShipModels, displayFrames, createShipModel } from '/static/js/shipyard.js';
 
+            window.displayShipModels = displayShipModels;
             window.displayFrames = displayFrames;
             window.createShipModel = createShipModel;
             window.addEventListener('load', initShipyard);
