@@ -36,7 +36,6 @@ const generateOrbit = (systemElement, data) => {
 
 const generatePlanets = (systemElement, planets) => {
     for (const planet of planets) {
-        console.log('ok');
         generateOrbit(systemElement, planet.orbit);
         const orbitStyle = window.getComputedStyle(document.querySelector(`.orbit[data-id='${planet.orbit.id}']`));
         const radius = parseInt(orbitStyle.width) / 2;
@@ -61,18 +60,12 @@ const generatePlanets = (systemElement, planets) => {
         planetElement.setAttribute('data-id', planet.id);
         planetElement.setAttribute('data-type', planet.type);
         planetElement.setAttribute('data-orbit-id', planet.orbit.id);
-        planetElement.style.top = top - 10 + 'px';
-        planetElement.style.left = left - 10 + 'px';
+        planetElement.style.top = top - 20 + 'px';
+        planetElement.style.left = left - 20 + 'px';
         planetElement.addEventListener('dblclick', redirectToPlanet);
         if (planet.player !== null) {
-            const factionFlag = document.createElement('div');
-            factionFlag.classList.add('faction-flag');
-            factionFlag.setAttribute('data-planet-id', planet.id);
-            factionFlag.style.top = top - 20 + 'px';
-            factionFlag.style.left = left - 20 + 'px';
-            factionFlag.style.backgroundColor = planet.player.faction.color;
-            factionFlag.style.boxShadow = `0px 0px 10px ${planet.player.faction.color}`;
-            systemElement.appendChild(factionFlag);
+            planetElement.classList.add('faction-flag');
+            planetElement.style.backgroundImage = `url('/static/images/factions/${planet.player.faction.banner}')`;
         }
         systemElement.appendChild(planetElement);
     }
@@ -81,7 +74,6 @@ const generatePlanets = (systemElement, planets) => {
 
 const systemRotation = () => {
     document.querySelectorAll(`.planet`).forEach(rotatePlanet);
-    document.querySelectorAll(`.faction-flag`).forEach(rotateFlag);
     requestAnimationFrame(systemRotation);
 }
 
@@ -98,15 +90,6 @@ const rotatePlanet = planet => {
     planet.style.top = top - 10 + 'px';
     planet.style.left = left - 10 + 'px';
 }
-
-const rotateFlag = flag => {
-    const planetStyle = window.getComputedStyle(document.querySelector(`.planet[data-id='${flag.getAttribute("data-planet-id")}']`));
-    const top = parseInt(planetStyle.top);
-    const left = parseInt(planetStyle.left);
-    flag.style.top = top - 10 + 'px';
-    flag.style.left = left - 10 + 'px';
-}
-
 
 const redirectToPlanet = event => {
     window.location = `/views/map/planet.html?id=${event.currentTarget.getAttribute('data-id')}`;
