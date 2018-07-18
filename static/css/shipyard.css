@@ -774,3 +774,121 @@ html, body, #wrapper {
     flex-wrap: wrap;
     align-items: center;
 }
+
+@media (max-width: 1200px) {
+
+    #ship-conception {
+        grid-column: 1/6;
+        grid-row: 2/5;
+    }
+
+    #ship-construction {
+        grid-column: 1/6;
+        grid-row: 2/5;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #ship-data {
+        grid-column: 1/3;
+        grid-row: 5/7;
+    }
+
+    #ship-data > footer > button {
+        font-size: 0.8em;
+    }
+
+    #ship-stats > .stat {
+        font-size: 0.6em;
+    }
+
+    #modules {
+        display: none;
+        grid-column: 3/6;
+        grid-row: 5/7;
+        flex-direction: column;
+    }
+
+    #modules > header {
+        width: auto;
+        height: 150px;
+    }
+
+    #ship-data > section > .list > .price,
+    #modules > header > .list > .price {
+        font-size: 0.8em;
+    }
+    #ship-data > section > .list > .price > section > img,
+    #modules > header > .list > .price > section > img {
+        width: 32px;
+        height: 32px;
+        margin: 5px;
+    }
+
+    #modules > section {
+        width: auto;
+        margin-left: 20px;
+    }
+
+    #modules > section > .module {
+        width: 70px;
+        height: 70px;
+        margin-right: 5px;
+        font-size: 3em;
+    }
+
+    #modules > section > .module > div {
+        border: 1px solid #EFEFEF;
+    }
+
+    #modules > section > .module:hover > div {
+        border: 1px solid #E1BB8A;
+    }
+
+    #modules > section > .module > .circle {
+        width: 50px;
+        height: 50px;
+        background-size: 35px;
+        border-radius: 60px;
+    }
+
+    #modules > section > .module > .square {
+        width: 50px;
+        height: 50px;
+        background-size: 35px;
+        border-radius: 5px;
+    }
+
+    #modules > section > .module > .rectangle {
+        width: 60px;
+        height: 50px;
+        background-size: 35px;
+        border-radius: 5px;
+    }
+
+    #modules > footer {
+        margin-left: 20px;
+    }
+
+    #modules > footer > .stat {
+        font-size: 0.6em;
+        margin: 0px;
+        margin-right: 10px;
+    }
+
+    #ship-constructions-list {
+        grid-column: 1/6;
+        grid-row: 1;
+        display: none;
+        padding-left: 20px;
+        margin-top: 60px;
+    }
+
+    #ship-constructions-list > header {
+        margin-right: 20px;
+    }
+
+    #ship-constructions-list > section {
+        display: flex;
+    }
+}
