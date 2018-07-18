@@ -62,6 +62,7 @@
 
 #planet-data > section > .resources > li > .info > .density {
   font-weight: bold;
+  width: 300px;
 }
 
 #planet-data > section > .resources > li > .info > .density > img {
