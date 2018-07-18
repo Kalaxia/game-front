@@ -1,3 +1,13 @@
+## [0.1.14] - 2018-07-18
+### Added
+- Player faction banner as favicon
+- Faction banner instead of faction color in system view
+- Responsive design for the shipyard
+
+### Fixed
+- Planet picture position in planet view (Chrome)
+- Player registration
+
 ## [0.1.13] - 2018-07-17
 ### Added
 - Ship creation interface
