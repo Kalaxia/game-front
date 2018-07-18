@@ -208,3 +208,22 @@ body {
 .faction-flag > footer {
     border: 32px solid rgba(0,0,0,0);
 }
+
+@media (max-width: 1200px) {
+    #storage-toolbar > header > a {
+        font-size: 0.9em;
+        font-weight: bold;
+    }
+
+    #storage-toolbar > section > div {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 0.8em;
+    }
+
+    #storage-toolbar > section > div > img {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+}
