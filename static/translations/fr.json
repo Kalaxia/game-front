@@ -36,6 +36,7 @@
     },
     "planet": {
         "demography": "Démographie de %planet%",
+        "fleet": "Flottes de %planet%",
         "population": "%population% habitants",
         "population_points": "%points% points",
         "points_configuration": "Répartition des points",
@@ -146,6 +147,16 @@
     "system": {
         "links": {
             "map": "Retour à la carte"
+        }
+    },
+    "fleet" :{
+        "view" :{
+            "all" :{
+                "title" : "Flottes sous votre commandement"
+            },
+            "planet" :{
+                "title" : "Flottes sous votre commandement"
+            }
         }
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kalaxia</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/fleet.css" />
+    </head>
+    <body>
+        <div id="player-data">
+            <h3></h3>
+            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+        </div>
+
+        <div id="fleets-view">
+            <header>
+                <h1  data-translate="true" >fleet.view.all.title</h1>
+            </header>
+            <section id="fleets-list">
+
+            </section>
+        </div>
+
+        <script type="text/javascript" src="/config/config.js"></script>
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module" src="/static/js/fleet.js"></script>
+        <script type="module" src="/static/js/base.js"></script> <!-- it is only use for some display : TODO revoir-->
+        <script type="module">
+            import { creatFleet, initFleetView } from '/static/js/fleet.js';
+            
+
+            //window.creatFleet = creatFleet;
+            
+            window.addEventListener('load', initFleetView);
+           
+        </script>
+  </body>
+</html>

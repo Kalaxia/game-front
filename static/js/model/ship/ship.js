@@ -31,6 +31,8 @@ class Ship {
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }
+    
+    // TODO fetch fleet
 }
 
 export default Ship;
