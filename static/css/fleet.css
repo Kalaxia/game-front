@@ -1,0 +1,65 @@
+
+a.planet { /* hyper link for planet*/
+  color: #E1BB8A;
+  text-decoration: none;
+}
+
+#fleet-create-section > div {
+	--height : 40px; /* this is the varaible defining the height of the div*/
+	position: relative;
+    display: block; /* I have spacing probleme when using flex with the link*/
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: var(--height);
+    background-color: black;
+    /*color: #E1BB8A;*/
+    /*font-size: 2.0em;*/
+    border: 2px solid #E1BB8A;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out;
+    text-align: center;
+	vertical-align: middle; /* vertically in the middle*/
+	line-height: var(--height);       /* The size of the ligne for the vertical-align : The same as your div height */
+}
+
+#fleet-create-section > div:hover {
+	background-color: #222;
+}
+
+#fleets-list > div{
+	
+}
+
+#fleets-list > div > .fleet-id {
+	
+}
+
+#fleets-list > div > .fleet-position {
+	
+}
+
+#fleets-view {
+	width: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+#fleets-list  {
+	margin-top : 20px;
+}
+
+#fleets-list > span.noFleet {
+	animation:blinkingText 4s 2;
+	display: flex;
+	color:#fff;
+	width: 50%;
+	/*align-items: center;
+    justify-content: center;*/
+}
+
+@keyframes blinkingText{
+    0%{     color: #fff;    }
+    50%{   color: #f77;    }
+    100%{     color: #fff;    }
+}

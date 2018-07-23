@@ -21,9 +21,40 @@ class Fleet {
     }
 
     
-
+    /*
     static fetchPlayerFleets(playerId) {
         return fetch(`/api/players/${playerId}/fleets`, { //TODO in API
+          method: 'GET',
+          headers: Api.headers
+        }).then(Api.responseMiddleware)
+          .then(data => {
+              const fleets = new Array();
+              for (const fleetData of data) {
+                  fleets.push(new Fleet(fleetData));
+              }
+              return fleets;
+          })
+        ;
+    }
+    */
+    
+    static fetchFleets() {
+        return fetch(`/api/fleets`, { //TODO in API
+          method: 'GET',
+          headers: Api.headers
+        }).then(Api.responseMiddleware)
+          .then(data => {
+              const fleets = new Array();
+              for (const fleetData of data) {
+                  fleets.push(new Fleet(fleetData));
+              }
+              return fleets;
+          })
+        ;
+    }
+    
+    static fetchFleetsOnPlanet(planetId) {
+        return fetch(`/api/planets/${planetId}/fleets`, { //TODO in API
           method: 'GET',
           headers: Api.headers
         }).then(Api.responseMiddleware)
