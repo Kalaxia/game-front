@@ -6,7 +6,7 @@ class Fleet {
         this.player = data.player;
         this.location = data.location;
         this.journey = data.journey;
-    }
+    };
 
     static fetch(id) {
         return fetch(`/api/fleet/${id}`, { //TODO in API
@@ -18,7 +18,7 @@ class Fleet {
             return new Fleet(data);
         })
         .catch(error => console.log(error));
-    }
+    };
 
     
     /*
@@ -35,10 +35,10 @@ class Fleet {
               return fleets;
           })
         ;
-    }
+    };
     */
     
-    static fetchFleets() {
+    static fetchPlayerFleets() {
         return fetch(`/api/fleets`, { //TODO in API
           method: 'GET',
           headers: Api.headers
@@ -51,9 +51,9 @@ class Fleet {
               return fleets;
           })
         ;
-    }
+    };
     
-    static fetchFleetsOnPlanet(planetId) {
+    static fetchPlanetFleets(planetId) {
         return fetch(`/api/planets/${planetId}/fleets`, { //TODO in API
           method: 'GET',
           headers: Api.headers
@@ -66,7 +66,7 @@ class Fleet {
               return fleets;
           })
         ;
-    }
+    };
 
     
 }

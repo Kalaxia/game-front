@@ -153,13 +153,13 @@
         "view" :{
             "all" :{
                 "title" : "Flottes sous votre commandement",
-                "on_planet" : "Sationée sur %planet%",
+                "on_planet" : "Stationnée sur %planet%",
                 "on_journey" : "Erreur : Pas encore implémenté"
             },
             "planet" :{
                 "title" : "Flottes sous votre commandement",
-                "on_planet" : "Sationée sur %planet%",
-                "on_journey" : "Erreur : La flottes et en chemin",
+                "on_planet" : "Stationnée sur %planet%",
+                "on_journey" : "Erreur : La flotte et en chemin",
                 "no_fleet" : "Vous n'avez pas de flottes ici.",
                 "create" : "Créer un nouvelle flotte sur %planet%"
             }
