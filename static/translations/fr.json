@@ -161,6 +161,7 @@
                 "on_planet" : "Stationnée sur %planet%",
                 "on_journey" : "Erreur : La flotte et en chemin",
                 "no_fleet" : "Vous n'avez pas de flottes ici.",
+                "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
                 "create" : "Créer un nouvelle flotte sur %planet%"
             }
         }
