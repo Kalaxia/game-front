@@ -29,7 +29,7 @@ const getHTMLFleetArrayData = (fleets) => {
 	
 	var stringHTMLToReturn="";
 	
-	if (fleets == null || fleets == undefined || fleets == []) {
+	if (fleets == null || fleets == undefined || fleets.length == 0) {
 		
 		stringHTMLToReturn =  `<span class="noFleet"> ${Dictionnary.translations.fleet.view.planet.no_fleet}</span>`;
 		
@@ -51,7 +51,7 @@ const getHTMLFleetData = (fleet) => {
 	 * 
 	 */
 	
-	if (fleet == null || fleet == undefined || fleet == {}) {
+	if (fleet == null || fleet == undefined) {
 		return `<span class="noFleet"> ${Dictionnary.translations.fleet.view.planet.error_showing_fleet}</span>`;
 		
 	}
@@ -59,7 +59,7 @@ const getHTMLFleetData = (fleet) => {
 	
 	var textPosition; 
 	
-	if (fleet.location != null && fleet.location != undefined && fleet.location != {}) {
+	if (fleet.location != null && fleet.location != undefined ) {
 		var planet = fleet.location;
 		textPosition = Dictionnary.translations.fleet.view.planet.on_planet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet" >${planet.name}</a>`);					
 	}

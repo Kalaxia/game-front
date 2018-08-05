@@ -47,11 +47,14 @@ class Fleet {
           headers: Api.headers
         }).then(Api.responseMiddleware)
           .then(data => {
-              const fleets = new Array();
-              for (const fleetData of data) {
-                  fleets.push(new Fleet(fleetData));
-              }
-              return fleets;
+                const fleets = new Array();
+                if (data == undefined || data == null) {
+                    return fleets;
+                }
+                for (const fleetData of data) {
+                    fleets.push(new Fleet(fleetData));
+                }
+                return fleets;
           })
         ;
     };
@@ -65,11 +68,14 @@ class Fleet {
           headers: Api.headers
         }).then(Api.responseMiddleware)
           .then(data => {
-              const fleets = new Array();
-              for (const fleetData of data) {
-                  fleets.push(new Fleet(fleetData));
-              }
-              return fleets;
+                const fleets = new Array();
+                if (data == undefined || data == null) {
+                    return fleets;
+                }
+                for (const fleetData of data) {
+                    fleets.push(new Fleet(fleetData));
+                }
+                return fleets;
           })
         ;
     };
