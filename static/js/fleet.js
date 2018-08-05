@@ -6,7 +6,7 @@ import Planet from './model/planet.js';
 
 const planetId = window.getCurrentPlanet();
 
-const refreshFleetViewPlanet () {
+const refreshFleetViewPlanet = () => {
 	/*
 	 * Fetch the fleet and update the html
 	 *
@@ -21,7 +21,7 @@ const refreshFleetViewPlanet () {
 	});
 };
 
-const getHTMLFleetArrayData(fleets){
+const getHTMLFleetArrayData = (fleets) => {
 	/*
 	 * return a string in HTML format displaying information about the Array
 	 * 
@@ -45,7 +45,7 @@ const getHTMLFleetArrayData(fleets){
 	
 };
 
-const getHTMLFleetData(fleet) {
+const getHTMLFleetData = (fleet) => {
 	/*
 	 * return a string in HTML format displaying information about the fleet
 	 * 
@@ -84,7 +84,8 @@ export const initFleetViewPlanet = () => {
 	Planet.fetch(planetId).then(planet => {
 		
 		document.querySelector('#fleet-create').innerHTML = Dictionnary.translations.fleet.view.planet.create.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet">${planet.name}</a>`);
-		document.querySelector('#fleet-create').addEventListener("click" , creatFleet); //<stricly it does not have to be in the promise then
+		document.querySelector('#fleet-create').addEventListener("click" , creatFleet);
+		//< stricly it does not have to be in the promise then
 		//< but I don't want the event to be active before the texte initialise
 		
 	});
