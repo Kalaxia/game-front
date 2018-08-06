@@ -7,40 +7,38 @@
         <link rel="stylesheet" type="text/css" href="/static/css/planet.css" />
     </head>
     <body>
-        <div id="wrapper">
-            <div id="player-data">
-                <h3></h3>
-                <img id="logout" src="/static/images/logout.svg"/>
-            </div>
-            <div id="planet-buildings">
-                <header><a href="/views/base/buildings.html" data-translate="true">planet.buildings</a></header>
-                <section></section>
-            </div>
-            <div id="planet-data" class="module">
-                <header>
-                    <h3 class="name"></h3>
-                </header>
-                <section>
-                    <h4 class="system"></h4>
-                    <h4 class="player"></h4>
-                    <em class="type"></em>
-                    <ul class="resources"></ul>
-                </section>
-            </div>
-            <div id="planet">
-                <figure class="shape"><span class="shadow"></span></figure>
-            </div>
+        <div id="player-data">
+            <h3></h3>
+            <img id="logout" src="/static/images/logout.svg"/>
+        </div>
+        <div id="planet-buildings">
+            <header><a href="/views/base/buildings.html" data-translate="true">planet.buildings</a></header>
+            <section></section>
+        </div>
+        <div id="planet-data" class="module">
+            <header>
+                <h3 class="name"></h3>
+            </header>
+            <section>
+                <h4 class="system"></h4>
+                <h4 class="player"></h4>
+                <em class="type"></em>
+                <ul class="resources"></ul>
+            </section>
+        </div>
+        <div id="planet">
+            <figure class="shape"><span class="shadow"></span></figure>
+        </div>
 
-            <div id="planet-relations" class="module">
-                <header>
-                    <h3 data-translate="true">planet.relations</h3>
-                </header>
-                <section>
-                    <div class="canvas-holder" style="width:100%">
-                        <canvas class="chart-area" width="300" height="300" />
-                    </div>
-                </section>
-            </div>
+        <div id="planet-relations" class="module">
+            <header>
+                <h3 data-translate="true">planet.relations</h3>
+            </header>
+            <section>
+                <div class="canvas-holder" style="width:100%">
+                    <canvas class="chart-area" width="300" height="300" />
+                </div>
+            </section>
         </div>
 
         <script type="text/javascript" src="/config/config.js"></script>

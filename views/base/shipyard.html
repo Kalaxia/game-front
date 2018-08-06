@@ -7,104 +7,102 @@
         <link rel="stylesheet" type="text/css" href="/static/css/shipyard.css" />
     </head>
     <body>
-        <div id="wrapper">
-            <div id="player-data">
-                <h3></h3>
-                <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-            </div>
-            <div id="storage-toolbar">
-                <header></header>
-                <section></section>
-            </div>
-            <div id="ship-constructions-list">
+        <div id="player-data">
+            <h3></h3>
+            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+        </div>
+        <div id="storage-toolbar">
+            <header></header>
+            <section></section>
+        </div>
+        <div id="ship-constructions-list">
+            <header>
+                <h3 data-translate="true">ships.construction_list</h3>
+                <a href="/views/base/population.html" class="population-points"></a>
+            </header>
+            <section></section>
+        </div>
+        <div id="ships-list">
+            <header>
+                <button onclick="displayFrames();">
+                    <img src="/static/images/buildings/build.svg"/>
+                    <span data-translate="true">ships.create_model</span>
+                </button>
+            </header>
+            <section>
+
+            </section>
+        </div>
+        <div id="ship-conception">
+            <div id="frames">
                 <header>
-                    <h3 data-translate="true">ships.construction_list</h3>
-                    <a href="/views/base/population.html" class="population-points"></a>
-                </header>
-                <section></section>
-            </div>
-            <div id="ships-list">
-                <header>
-                    <button onclick="displayFrames();">
-                        <img src="/static/images/buildings/build.svg"/>
-                        <span data-translate="true">ships.create_model</span>
-                    </button>
+                    <h3 data-translate="true">ships.frame</h3>
                 </header>
                 <section>
 
                 </section>
             </div>
-            <div id="ship-conception">
-                <div id="frames">
-                    <header>
-                        <h3 data-translate="true">ships.frame</h3>
-                    </header>
-                    <section>
-
-                    </section>
-                </div>
-                <div id="ship-vizualizer">
-                    <header>
-                        <h3></h3>
-                        <div id="ship-stats"></div>
-                    </header>
-                    <section>
-
-                    </section>
-                </div>
-            </div>
-            <div id="ship-construction">
-                <header>
-                    <h1></h1>
-                    <div>
-                        <input type="number" name="quantity" value="1" min="1" max="100"/>
-                        <button data-translate="true">ships.create</button>
-                        <button data-translate="true" onclick="displayShipModels();">ships.cancel</button>
-                    </div>
-                </header>
-                <section>
-                    <header><h3 data-translate="true">ships.modules_list</h3><div></div></header>
-                    <section>
-                        <div>
-                            <header><h3></h3></header>
-                            <section></section>
-                        </div>
-                        <div>
-                            <header><h3 data-translate="true">ships.stats_list</h3><div></div></header>
-                            <section><h3 data-translate="true">ships.price</h3><div></div></section>
-                        </div>
-                    </section>
-                </section>
-            </div>
-            <div id="ship-data" class="module">
-                <header>
-                    <input type="text" name="ship-name" placeholder="Name"/>
-                </header>
-                <section>
-                    <h3 data-translate="true">ships.price</h3>
-                    <div class="list"></div>
-                </section>
-                <footer>
-                    <button data-translate="true" onclick="displayShipModels();">
-                        ships.cancel
-                    </button>
-                    <button data-translate="true" onclick="createShipModel();">
-                        ships.save
-                    </button>
-                </footer>
-            </div>
-            <div id="modules">
+            <div id="ship-vizualizer">
                 <header>
                     <h3></h3>
-                    <div class="list"></div>
+                    <div id="ship-stats"></div>
                 </header>
                 <section>
 
                 </section>
-                <footer>
-
-                </footer>
             </div>
+        </div>
+        <div id="ship-construction">
+            <header>
+                <h1></h1>
+                <div>
+                    <input type="number" name="quantity" value="1" min="1" max="100"/>
+                    <button data-translate="true">ships.create</button>
+                    <button data-translate="true" onclick="displayShipModels();">ships.cancel</button>
+                </div>
+            </header>
+            <section>
+                <header><h3 data-translate="true">ships.modules_list</h3><div></div></header>
+                <section>
+                    <div>
+                        <header><h3></h3></header>
+                        <section></section>
+                    </div>
+                    <div>
+                        <header><h3 data-translate="true">ships.stats_list</h3><div></div></header>
+                        <section><h3 data-translate="true">ships.price</h3><div></div></section>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <div id="ship-data" class="module">
+            <header>
+                <input type="text" name="ship-name" placeholder="Name"/>
+            </header>
+            <section>
+                <h3 data-translate="true">ships.price</h3>
+                <div class="list"></div>
+            </section>
+            <footer>
+                <button data-translate="true" onclick="displayShipModels();">
+                    ships.cancel
+                </button>
+                <button data-translate="true" onclick="createShipModel();">
+                    ships.save
+                </button>
+            </footer>
+        </div>
+        <div id="modules">
+            <header>
+                <h3></h3>
+                <div class="list"></div>
+            </header>
+            <section>
+
+            </section>
+            <footer>
+
+            </footer>
         </div>
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
