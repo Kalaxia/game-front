@@ -49,7 +49,8 @@ a.planet { /* hyper link for planet*/
 	margin-top : 20px;
 }
 
-#fleets-list > span.noFleet {
+#fleets-list > span.no-fleet-planet,
+#fleets-list > span.no-fleet-all {
 	animation:blinkingText 4s 2;
 	display: flex;
 	color:#fff;
