@@ -9,7 +9,7 @@ class Fleet {
     };
 
     static fetch(id) {
-        return fetch(`/api/fleet/${id}`, { //TODO in API
+        return fetch(`/api/fleet/${id}`, { 
             method: 'GET',
             headers: Api.headers
         })

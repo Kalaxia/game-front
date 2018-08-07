@@ -1,7 +1,7 @@
 
 a.planet { /* hyper link for planet*/
-  color: #E1BB8A;
-  text-decoration: none;
+	color: #E1BB8A;
+	text-decoration: none;
 }
 
 #fleet-create-section > div {
@@ -23,21 +23,74 @@ a.planet { /* hyper link for planet*/
 	line-height: var(--height);       /* The size of the ligne for the vertical-align : The same as your div height */
 }
 
+
+
+
+
+
 #fleet-create-section > div:hover {
 	background-color: #222;
 }
 
-#fleets-list > div{
+#fleet-table{
+	/*border-spacing: 10px;*/
+	border-collapse: collapse;
+	margin-left:20px;
 	
 }
 
-#fleets-list > div > .fleet-id {
+#fleet-table tr {
+	/*background-color: #242456;*/
+	/*background-color: #202030;*/
 	
+
 }
 
-#fleets-list > div > .fleet-position {
+#fleet-table th {
+	padding-bottom : 6px;
+	padding-left : 10px;
+	padding-right : 5px;
+	padding-top :6px;
+
+
+}
+
+
+#fleet-table .fleet-container > .fleet-id {
+	padding-left:10px;
+	text-align:right;
+	color : #E1BB8A;
+
+
+}
+
+#fleet-table .fleet-container > .fleet-position {
+	text-align:left;
+}
+
+#fleet-table .fleet-container:nth-child(even) {
+	background-color: #303040;
+}
+#fleet-table .fleet-container:nth-child(odd) {
+	background-color: #505060;
+}
+
+#fleet-table .header-table > .fleet-id {
+	text-align:left;
+	padding-left:10px;
 	
 }
+#fleet-table .header-table > th{
+	border-bottom : 2px solid white;
+	background-color: #606070;
+}
+
+
+#fleet-table .header-table > .fleet-position {
+	text-align:left;
+
+}
+
 
 #fleets-view {
 	width: 80%;
@@ -49,18 +102,27 @@ a.planet { /* hyper link for planet*/
 	margin-top : 20px;
 }
 
-#fleets-list > span.no-fleet-planet,
-#fleets-list > span.no-fleet-all {
+#fleets-list .no-fleet-planet,
+#fleets-list .no-fleet-all {
+	
+	
 	animation:blinkingText 4s 2;
-	display: flex;
 	color:#fff;
-	width: 50%;
+	/*width: 50%;*/
 	/*align-items: center;
     justify-content: center;*/
+	
 }
 
 @keyframes blinkingText{
     0%{     color: #fff;    }
     50%{   color: #f77;    }
     100%{     color: #fff;    }
+}
+
+
+#fleets-list > #fleet-table   .error-fleet-all,
+#fleets-list > #fleet-table   .error-fleet-planet {
+	animation:blinkingText 4s 2;
+	color:#fff;
 }

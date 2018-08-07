@@ -5,6 +5,7 @@ import Planet from './model/planet.js';
 
 
 const planetId = window.getCurrentPlanet();
+const COLL_SPAN = 2;
 
 const refreshFleetViewPlanet = () => {
 	/*
@@ -13,7 +14,7 @@ const refreshFleetViewPlanet = () => {
 	
 	Fleet.fetchPlanetFleets(planetId).then(fleets => {
 		
-		document.querySelector('#fleets-list').innerHTML = getHTMLFleetArrayData(fleets,true); // we reset the list 
+		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData(fleets,true); // we reset the list 
 		
 	});
 };
@@ -24,15 +25,15 @@ const getHTMLFleetArrayData = (fleets,isPlanetView = true) => {
 	 * isPlanetView is a boolean which is true when requesting string to display view for a planet and false when reauesting view for all fleets
 	 */
 	
-	var stringHTMLToReturn="";
+	var stringHTMLToReturn=`<tr class="header-table"><th class = "fleet-id"> ${Dictionnary.translations.fleet.view.header_id} </th> <th class = "fleet-position"> ${Dictionnary.translations.fleet.view.header_location} </th> </tr>`;
 	
 	if (fleets == null || fleets == undefined || fleets.length == 0) {
 		
 		if (isPlanetView) {
-			stringHTMLToReturn =  `<span class="no-fleet-planet"> ${Dictionnary.translations.fleet.view.planet.no_fleet}</span>`;
+			stringHTMLToReturn +=  `<tr><th class="no-fleet-planet" colspan=${COLL_SPAN}> ${Dictionnary.translations.fleet.view.planet.no_fleet}</th></tr>`;
 		}
 		else{
-			stringHTMLToReturn =  `<span class="no-fleet-all"> ${Dictionnary.translations.fleet.view.all.no_fleet}</span>`;
+			stringHTMLToReturn +=  `<tr><th class="no-fleet-all" colspan=${COLL_SPAN}> ${Dictionnary.translations.fleet.view.all.no_fleet}</th></tr>`;
 		}
 		
 		return stringHTMLToReturn;
@@ -56,10 +57,10 @@ const getHTMLFleetData = (fleet,isPlanetView = true) => {
 	if (fleet == null || fleet == undefined) {
 		
 		if (isPlanetView) {
-			return `<span class="error-fleet-planet"> ${Dictionnary.translations.fleet.view.planet.error_showing_fleet}</span>`;
+			return `<tr><th class="error-fleet-planet" colspan=${COLL_SPAN}>${Dictionnary.translations.fleet.view.planet.error_showing_fleet}</th></tr>`;
 		}
 		else{
-			return `<span class="error-fleet-all"> ${Dictionnary.translations.fleet.view.all.error_showing_fleet}</span>`;
+			return `<tr><th class="error-fleet-all" colspan=${COLL_SPAN}>${Dictionnary.translations.fleet.view.all.error_showing_fleet}</th></tr>`;
 		}
 		
 	}
@@ -92,7 +93,7 @@ const getHTMLFleetData = (fleet,isPlanetView = true) => {
 	}
 	
 	var id = fleet.id;
-	return `<div class=fleet-container> <span class=fleet-id> ${id} </span> <span class=fleet-position> ${textPosition} </span> </div>`;
+	return `<tr class="fleet-container"> <th class="fleet-id"> ${id} </th> <th class="fleet-position"> ${textPosition} </th> </tr>`;
 	
 };
 
@@ -120,7 +121,7 @@ export const initFleetView = () => {
 	
 	Fleet.fetchPlayerFleets().then(fleets => {
 		
-		document.querySelector('#fleets-list').innerHTML = getHTMLFleetArrayData(fleets,false); // we reset the list 
+		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData(fleets,false); // we reset the list 
 		
 	});
 	
@@ -133,11 +134,11 @@ export const creatFleet = () => {
 	
 	Fleet.createNewFleet(planetId).then(fleet => {
 		
-		document.querySelector('#fleets-list').innerHTML += getHTMLFleetData(fleet,true);
+		//document.querySelector('#fleets-list').innerHTML += getHTMLFleetData(fleet,true);
 		//< add tge new fleet to the list
 		
-		//refreshFleetViewPlanet(); //< after the creation of the fleet wi refresh the view
-		
+		refreshFleetViewPlanet(); //< after the creation of the fleet wi refresh the view
+		//< this is more robuste bu require more request
 	});
 	
 	
