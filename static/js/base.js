@@ -221,9 +221,9 @@ export const launchBuildingConstruction = buildingName => Building.create(basePl
 });
 
 /** FLEET **/
-export const initBaseForFleet = () => Planet.fetch(planetId).then(planet => {
-    basePlanet = planet;
-    
-    document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
-});
+
+
+
+/** HANGARD **/
+
   
