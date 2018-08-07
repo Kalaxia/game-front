@@ -5,10 +5,10 @@ import Planet from './model/planet.js';
 import buildingsData from './resources/buildings.js';
 
 Player.fetchCurrentPlayer().then(player => {
-  var profileLink = document.createElement('a');
-  profileLink.href = '/views/profile';
-  profileLink.innerText = player.pseudo;
-  document.querySelector("#player-data h3").appendChild(profileLink);
+    var profileLink = document.createElement('a');
+    profileLink.href = '/views/profile';
+    profileLink.innerText = player.pseudo;
+    document.querySelector("#player-data h3").appendChild(profileLink);
 });
 
 const planetId = window.getCurrentPlanet();
@@ -219,3 +219,11 @@ export const launchBuildingConstruction = buildingName => Building.create(basePl
     }
     document.querySelector('#planet-available-buildings').classList.remove('visible');
 });
+
+/** FLEET **/
+
+
+
+/** HANGARD **/
+
+  

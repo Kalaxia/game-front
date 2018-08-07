@@ -36,6 +36,7 @@
     },
     "planet": {
         "demography": "Démographie de %planet%",
+        "fleet": "Flottes de %planet%",
         "population": "%population% habitants",
         "population_points": "%points% points",
         "points_configuration": "Répartition des points",
@@ -146,6 +147,27 @@
     "system": {
         "links": {
             "map": "Retour à la carte"
+        }
+    },
+    "fleet" :{
+        "view" :{
+            "all" :{
+                "title" : "Flottes sous votre commandement",
+                "on_planet" : "Stationnée sur %planet%",
+                "on_journey" : "Erreur : Pas encore implémenté",
+                "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
+                "no_fleet" : "Vous n'avez pas de flottes."
+            },
+            "planet" :{
+                "title" : "Flottes sous votre commandement",
+                "on_planet" : "Stationnée sur %planet%",
+                "on_journey" : "Erreur : La flotte et en chemin",
+                "no_fleet" : "Vous n'avez pas de flottes ici.",
+                "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
+                "create" : "Créer un nouvelle flotte sur %planet%"
+            },
+            "header_location" :"Position",
+            "header_id" : "Identification"
         }
     }
 }
