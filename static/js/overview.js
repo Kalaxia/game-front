@@ -2,10 +2,6 @@ import Api from './core/api.js';
 import App from './core/app.js';
 import Player from './model/player.js';
 import Planet from './model/planet.js';
-import { renderFactionFlag } from './components/faction/banner.js';
-
-const searchParams = new URLSearchParams(window.location.search);
-const id = searchParams.get('id');
 
 const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(planets => {
     const list = document.querySelector('#planets > section');
@@ -29,13 +25,6 @@ const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(pla
   .catch(error => console.log(error))
 ;
 
-const displayProfile = profile => {
-    getPlayerPlanets(profile);
-};
-
 App.init().then(() => {
-    return (id !== null)
-        ? Player.fetchPlayer(id).then(displayProfile)
-        : displayProfile(App.getCurrentPlayer())
-    ;
+    getPlayerPlanets(App.getCurrentPlayer());
 });
