@@ -33,10 +33,10 @@ const setMyProfile = () => Player.fetchCurrentPlayer().then(displayProfile);
 const setProfile = id => Player.fetchPlayer(id).then(displayProfile);
 
 const displayProfile = profile => {
-    document.querySelector('.player-name').innerText = profile.pseudo;
-    const faction = document.querySelector('.faction-name > a');
-    faction.append(renderFactionFlag(profile.faction));
-    faction.append(profile.faction.name);
+    //document.querySelector('.player-name').innerText = profile.pseudo;
+    //const faction = document.querySelector('.faction-name > a');
+    //faction.append(renderFactionFlag(profile.faction));
+    //faction.append(profile.faction.name);
     getPlayerPlanets(profile);
 };
 

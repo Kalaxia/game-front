@@ -1,4 +1,7 @@
 {
+    "alerts": {
+        "not_implemented": "Cette fonctionnalité n'est pas encore implémentée."
+    },
     "buildings": {
         "title": "Bâtiments de %planet%",
         "area": "Emplacement disponible",
@@ -33,6 +36,14 @@
         "relations": {
             "title": "Relations Diplomatiques"
         }
+    },
+    "menu": {
+        "finances": "Finances",
+        "overview": "Vue d'ensemble",
+        "fleets": "Flottes",
+        "technologies": "Recherche",
+        "map": "Carte",
+        "profile": "Profil"
     },
     "planet": {
         "demography": "Démographie de %planet%",
