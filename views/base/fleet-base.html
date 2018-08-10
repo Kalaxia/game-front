@@ -8,45 +8,39 @@
         <link rel="stylesheet" type="text/css" href="/static/css/fleet.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-        </div>
         <div id="planet-data">
             <header>
                 <h1></h1>
             </header>
             <section>
-                
+
             </section>
         </div>
-        
+
         <div id="fleets-view">
             <section id=fleet-create-section>
-                <div data-translate="true" id ="fleet-create">fleet.view.planet.create</div>
+                <div id="fleet-create" onclick="createFleet();">fleet.view.planet.create</div>
             </section>
             <section>
                 <h3 data-translate="true">fleet.view.planet.title</h3>
             </section>
             <section id="fleets-list">
             <span id="error-fleet-list-section"></span>
-            <table id = "fleet-table"></table>
+            <table id="fleet-table"></table>
             </section>
         </div>
 
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
-        <script type="module" src="/static/js/fleet.js"></script>
         <script type="module">
-            
-            import { creatFleet, initFleetViewPlanet,initBaseForFleet } from '/static/js/fleet.js';
-            
-            
-            window.creatFleet = creatFleet;
-            window.initBaseForFleet = initBaseForFleet;
-            window.addEventListener('load', initBaseForFleet);
-            window.addEventListener('load', initFleetViewPlanet);
-            
+            import App from '/static/js/core/app.js';
+            import { createFleet, initFleetViewPlanet, initBaseForFleet } from '/static/js/fleet.js';
+
+            window.createFleet = createFleet;
+            App.init().then(() => {
+                initFleetViewPlanet();
+                initBaseForFleet();
+            });
         </script>
   </body>
 </html>

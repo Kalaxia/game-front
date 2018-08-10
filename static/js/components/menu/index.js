@@ -21,7 +21,7 @@ const initTopMenu = (player, planet) => {
             <img class="outline" src="/static/images/picto/G_P_Mon_Outline_64px.png" />
             <span>${Dictionnary.translations.menu.finances}</span>
         </a>
-        <a href="#" class="not-implemented">
+        <a href="/views/fleet/fleet-all.html">
             <img src="/static/images/picto/G_P_Def_64px.png" />
             <img class="outline" src="/static/images/picto/G_P_Def_Outline_64px.png" />
             <span>${Dictionnary.translations.menu.fleets}</span>
@@ -51,7 +51,7 @@ const initTopMenu = (player, planet) => {
                 <img src="/static/images/factions/${player.faction.banner}"/>
             </header>
             <section>
-                <a href="#" class="not-implemented">
+                <a href="/views/base/fleet-base.html">
                     <img src="/static/images/picto/G_P_Def_64px_BK.png" />
                 </a>
                 <a href="/views/map/planet.html?id=${planet.id}">

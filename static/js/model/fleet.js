@@ -9,7 +9,7 @@ class Fleet {
     };
 
     static fetch(id) {
-        return fetch(`/api/fleet/${id}`, { 
+        return fetch(`/api/fleet/${id}`, {
             method: 'GET',
             headers: Api.headers
         })
@@ -20,7 +20,7 @@ class Fleet {
         .catch(error => console.log(error));
     };
 
-    
+
     /*
     static fetchPlayerFleets(playerId) {
         return fetch(`/api/players/${playerId}/fleets`, { //TODO in API
@@ -37,12 +37,12 @@ class Fleet {
         ;
     };
     */
-    
+
     static fetchPlayerFleets() {
         /*
          * Fetch all the fleets of a player
          */
-        return fetch(`/api/fleets`, { 
+        return fetch(`/api/fleets`, {
           method: 'GET',
           headers: Api.headers
         }).then(Api.responseMiddleware)
@@ -58,12 +58,12 @@ class Fleet {
           })
         ;
     };
-    
+
     static fetchPlanetFleets(planetId) {
         /*
          * Fetch all the fleet on a planet ( that the player own : see API )
          */
-        return fetch(`/api/planets/${planetId}/fleets`, { 
+        return fetch(`/api/planets/${planetId}/fleets`, {
           method: 'GET',
           headers: Api.headers
         }).then(Api.responseMiddleware)
@@ -83,7 +83,7 @@ class Fleet {
     static createNewFleet(planetId) {
         return fetch(`/api/fleets`, {
             method: 'POST',
-            body: JSON.stringify({"planet_id":planetId}),
+            body: JSON.stringify({"planet_id": `${planetId}`}),
             headers: Api.headers
         }).then(Api.responseMiddleware)
         .then(fleet => { return fleet; })
