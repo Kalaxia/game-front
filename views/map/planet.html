@@ -7,38 +7,28 @@
         <link rel="stylesheet" type="text/css" href="/static/css/planet.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg"/>
-        </div>
         <div id="planet-buildings">
             <header><a href="/views/base/buildings.html" data-translate="true">planet.buildings</a></header>
             <section></section>
         </div>
-        <div id="planet-data" class="module">
-            <header>
-                <h3 class="name"></h3>
-            </header>
-            <section>
-                <h4 class="system"></h4>
-                <h4 class="player"></h4>
-                <em class="type"></em>
-                <ul class="resources"></ul>
-            </section>
+        <div id="planet-data">
+            <h3 id="planet-name"></h3>
+            <h4 id="player"></h4>
+            <h4 id="system"></h4>
         </div>
         <div id="planet">
             <figure class="shape"><span class="shadow"></span></figure>
         </div>
 
-        <div id="planet-relations" class="module">
-            <header>
-                <h3 data-translate="true">planet.relations</h3>
-            </header>
+        <div id="planet-relations">
             <section>
                 <div class="canvas-holder" style="width:100%">
                     <canvas class="chart-area" width="300" height="300" />
                 </div>
             </section>
+            <footer>
+                <h3 data-translate="true">planet.relations</h3>
+            </footer>
         </div>
 
         <script type="text/javascript" src="/config/config.js"></script>
@@ -48,51 +38,37 @@
             import Dictionnary from '/static/js/core/dictionnary.js';
             import Player from '/static/js/model/player.js';
             import Planet from '/static/js/model/planet.js';
+            import App from '/static/js/core/app.js';
             import { initPlanetRelations } from '/static/js/components/planet/relations.js';
             import { initPlanetBuildings } from '/static/js/components/planet/buildings.js';
             import { initPlanetResources } from '/static/js/components/planet/resources.js';
 
             const urlParams = new URLSearchParams(window.location.search);
-            let currentPlayer = {};
-
-            Player.fetchCurrentPlayer().then(player => {
-                const profileLink = document.createElement('a');
-                profileLink.href = '/views/profile';
-                profileLink.innerText = player.pseudo;
-                document.querySelector("#player-data h3").appendChild(profileLink);
-                document.querySelector('#logout').addEventListener('click', () => {
-                    Player.logout();
-                });
-                currentPlayer = player;
-            });
 
             const initPlanet = () => Planet.fetch(urlParams.get('id')).then(planet => {
                 const planetElement = document.querySelector("#planet");
                 const planetStyle = window.getComputedStyle(planetElement);
-                document.querySelector("#planet-data .name").innerText = planet.name;
-                document.querySelector("#planet-data .type").innerText = Dictionnary.translations.planet.type[planet.type];
+                let currentPlayer = App.getCurrentPlayer();
+                document.querySelector('#planet-name').innerHTML = planet.name;
                 document.querySelector('#planet .shape').setAttribute('data-type', planet.type);
                 planetElement.style.display = "block";
 
                 if (planet.player !== null) {
-                    document.querySelector("#planet-data .player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;
+                    document.querySelector("#player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;
                 }
-
                 const systemLink = document.createElement('a');
                 systemLink.href = `/views/map/system.html?id=${planet.system.id}`;
                 systemLink.innerText = `${Dictionnary.translations.planet.system} ${planet.system.coord_x}:${planet.system.coord_y}`;
-                document.querySelector('#planet-data .system').appendChild(systemLink);
+                document.querySelector('#system').appendChild(systemLink);
 
-                initPlanetResources(document.querySelector("#planet-data .resources"), planet.resources, planet.storage);
                 initPlanetRelations(document.querySelector("#planet-relations"), planet.relations);
 
                 if (planet.player !== null && currentPlayer.id === planet.player.id) {
                     initPlanetBuildings(document.querySelector("#planet-buildings > section"), planet.id, planet.buildings, planet.nb_buildings, planet.available_buildings);
                 }
-                window.setCurrentPlanet(planet.id);
             });
 
-            window.addEventListener('load', initPlanet);
+            App.init().then(() => { initPlanet() });
 
         </script>
   </body>

@@ -7,10 +7,6 @@
         <link rel="stylesheet" type="text/css" href="/static/css/shipyard.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-        </div>
         <div id="storage-toolbar">
             <header></header>
             <section></section>
@@ -21,6 +17,7 @@
                 <a href="/views/base/population.html" class="population-points"></a>
             </header>
             <section></section>
+            <footer></footer>
         </div>
         <div id="ships-list">
             <header>
@@ -75,20 +72,20 @@
                 </section>
             </section>
         </div>
-        <div id="ship-data" class="module">
+        <div id="ship-data">
             <header>
-                <input type="text" name="ship-name" placeholder="Name"/>
+                <input type="text" name="ship-name" placeholder="Nom"/>
             </header>
             <section>
                 <h3 data-translate="true">ships.price</h3>
                 <div class="list"></div>
             </section>
             <footer>
-                <button data-translate="true" onclick="displayShipModels();">
-                    ships.cancel
-                </button>
                 <button data-translate="true" onclick="createShipModel();">
                     ships.save
+                </button>
+                <button data-translate="true" onclick="displayShipModels();">
+                    ships.cancel
                 </button>
             </footer>
         </div>
@@ -107,12 +104,13 @@
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
+            import App from '/static/js/core/app.js';
             import { initShipyard, displayShipModels, displayFrames, createShipModel } from '/static/js/shipyard.js';
 
             window.displayShipModels = displayShipModels;
             window.displayFrames = displayFrames;
             window.createShipModel = createShipModel;
-            window.addEventListener('load', initShipyard);
+            App.init().then(() => { initShipyard(App.getCurrentPlanet()) });
         </script>
   </body>
 </html>

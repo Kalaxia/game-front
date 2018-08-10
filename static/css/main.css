@@ -79,6 +79,7 @@ body {
     border-right: 1px solid #808080;
     font-size: 0.9em;
     z-index: 2;
+    outline: none;
 }
 
 #top-menu > a:nth-child(3) {
@@ -97,6 +98,7 @@ body {
 #top-menu > a > img {
     height: 26px;
     margin-bottom: 10px;
+    outline: none;
 }
 
 #top-menu > a > img.outline {
@@ -120,7 +122,7 @@ body {
     background-color: #090A0A;
     transform: scale(2, 1);
     padding-top: 10px;
-    z-index: 3;
+    z-index: 15;
 }
 
 #top-menu > section > header {

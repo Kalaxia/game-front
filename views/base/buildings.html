@@ -7,11 +7,6 @@
         <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-        </div>
-
         <div id="planet-buildings" class="buildings-list">
             <header>
                 <h3></h3>
@@ -29,10 +24,11 @@
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
+            import App from '/static/js/core/app.js';
             import { initBaseBuildings, launchBuildingConstruction } from '/static/js/base.js';
 
             window.launchBuildingConstruction = launchBuildingConstruction;
-            window.addEventListener('load', initBaseBuildings);
+            App.init().then(() => { initBaseBuildings() });
         </script>
   </body>
 </html>
