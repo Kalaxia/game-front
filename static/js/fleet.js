@@ -520,3 +520,10 @@ export const inputCheckValueHangar = (node) => {
 		node.value = Math.max(Math.min(number,maxNumber),1); 
 	}
 };
+
+export const transferShipsToFleetButtonClick = (node) => {
+	var node = event.currentTarget;
+	var number = node.parentNode.querySelector(`input`).value
+	var modelId = node.getAttribute("model-id-data");
+	alert(`transfering ${number} ships with modelId ${modelId}`)
+}

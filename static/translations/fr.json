@@ -180,10 +180,11 @@
             },
             "single" : {
                 "title" : "Flotte %fleet%",
-                "ships_in_fleet" : "Vaisseaux dans la flottes",
+                "ships_in_fleet" : "Vaisseaux dans la flotte",
                 "ships_in_hangar" : "Vaisseaux dans le hangar",
                 "no_ship_hangar" : "Il n'y a pas de vaisseau dans le hangar",
-                "no_ship_fleet" : "Il n'y a pas de vaisseau dans la flotte" 
+                "no_ship_fleet" : "Il n'y a pas de vaisseau dans la flotte",
+                "transfer" : "Transferer"
             },
             "header_location" :"Position",
             "header_id" : "Identification"
