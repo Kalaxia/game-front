@@ -1,3 +1,10 @@
+## [0.1.15] - 2018-08-10
+### Added
+- New App master class
+- New interface design for menus
+- Player fleets view
+- Planet fleets view
+
 ## [0.1.14] - 2018-07-18
 ### Added
 - Player faction banner as favicon
