@@ -1,19 +1,13 @@
 import Player from './model/player.js';
 import System from './model/system.js';
+import App from './core/app.js';
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
 
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id');
 
-Player.fetchCurrentPlayer().then(player => {
-    const profileLink = document.createElement('a');
-    profileLink.href = '/views/profile';
-    profileLink.innerText = player.pseudo;
-    document.querySelector("#player-data h3").appendChild(profileLink);
-});
-
-System.fetch(id).then(system => {
+App.init().then(() => System.fetch(id)).then(system => {
     const systemElement = document.querySelector("#system");
     const star = document.querySelector("#star");
     generatePlanets(systemElement, system.planets);
@@ -52,21 +46,22 @@ const generatePlanets = (systemElement, planets) => {
         const angle = (angleOffset + (timeIntoCurrentRotation / timeToRotate * ( 2 * Math.PI )));// angles in radians
         const top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
         const left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-
+        let width = 10;
         const planetElement = document.createElement("div");
+        if (planet.player !== null) {
+            width = 20;
+            planetElement.classList.add('faction-flag');
+            planetElement.style.backgroundImage = `url('/static/images/factions/${planet.player.faction.banner}')`;
+        }
         planetElement.classList.add('planet');
         planetElement.setAttribute('data-time-to-rotate', timeToRotate);
         planetElement.setAttribute('data-angle-offset', angleOffset);
         planetElement.setAttribute('data-id', planet.id);
         planetElement.setAttribute('data-type', planet.type);
         planetElement.setAttribute('data-orbit-id', planet.orbit.id);
-        planetElement.style.top = top - 20 + 'px';
-        planetElement.style.left = left - 20 + 'px';
+        planetElement.style.top = top - width + 'px';
+        planetElement.style.left = left - width + 'px';
         planetElement.addEventListener('dblclick', redirectToPlanet);
-        if (planet.player !== null) {
-            planetElement.classList.add('faction-flag');
-            planetElement.style.backgroundImage = `url('/static/images/factions/${planet.player.faction.banner}')`;
-        }
         systemElement.appendChild(planetElement);
     }
     requestAnimationFrame(systemRotation);
@@ -87,8 +82,9 @@ const rotatePlanet = planet => {
     const angle =(angleOffset + (timeIntoCurrentRotation / timeToRotate * ( 2 * Math.PI )));// angles in radians
     const top = parseInt(orbitStyle.top) + radius + (Math.cos(angle) * radius);
     const left = parseInt(orbitStyle.left) + radius + (Math.sin(angle) * radius);
-    planet.style.top = top - 20 + 'px';
-    planet.style.left = left - 20 + 'px';
+    const width = (planet.classList.contains('faction-flag')) ? 20 : 10;
+    planet.style.top = top - width + 'px';
+    planet.style.left = left - width + 'px';
 }
 
 const redirectToPlanet = event => {

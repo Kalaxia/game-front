@@ -6,19 +6,11 @@ import ShipModel from './model/ship/model.js';
 import ShipModule from './model/ship/module.js';
 import ShipFrame from './model/ship/frame.js';
 import { displayPlanetStorage } from './components/planet/resources.js';
+import App from './core/app.js';
 
-Player.fetchCurrentPlayer().then(player => {
-  const profileLink = document.createElement('a');
-  profileLink.href = '/views/profile';
-  profileLink.innerText = player.pseudo;
-  document.querySelector("#player-data h3").appendChild(profileLink);
-});
-
-let basePlanet;
-const planetId = getCurrentPlanet();
 const ship = new ShipModel({});
 
-export const initShipyard = () => Promise.all([
+export const initShipyard = planet => Promise.all([
     ShipModel.fetchPlayerModels().then(shipModels => {
         const list = document.querySelector('#ships-list > section');
 
@@ -26,14 +18,9 @@ export const initShipyard = () => Promise.all([
             addShipModel(list, model);
         }
     }),
-    Planet.fetch(planetId).then(planet => {
-        basePlanet = planet;
-        displayPlanetStorage(planet);
-    })
-]).then(Promise.all([
-    Ship.fetchConstructingShips(planetId).then(ships => displayConstructingShips(ships)),
-    Ship.fetchHangarShips(planetId).then(ships => displayHangarShips(ships))
-]));
+    Ship.fetchConstructingShips(planet.id).then(ships => displayConstructingShips(planet, ships)),
+    Ship.fetchHangarShips(planet.id).then(ships => displayHangarShips(ships))
+]);
 
 export const displayShipModels = () => {
     const shipConstructionsList = document.querySelector('#ship-constructions-list');
@@ -70,7 +57,7 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
     document.querySelector('#ships-list').style.display = 'none';
     shipConstructor.querySelector(':scope > header > h1').innerHTML = `${model.name} <span>${Dictionnary.translations.ships.types[model.type]}</span>`;
     shipConstructor.querySelector(':scope > header > div > button').onclick = () => createShip(
-        new Ship({ hangar: basePlanet, model: model }),
+        new Ship({ hangar: App.getCurrentPlanet(), model: model }),
         document.querySelector('input[name="quantity"]').value
     );
     shipConstructor.querySelector(':scope > section > header > div').innerHTML =
@@ -92,13 +79,14 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
     );
 });
 
-const displayConstructingShips = ships => {
+const displayConstructingShips = (planet, ships) => {
     const list = document.querySelector('#ship-constructions-list');
     list.style.display = 'block';
     const section  = list.querySelector(':scope > section');
     list.querySelector(':scope > header > .population-points').innerHTML =
-        `<strong>${basePlanet.settings.military_points}</strong><div class="industry-point"></div>`
+        `<strong>${planet.settings.military_points}</strong><div class="industry-point"></div>`
     ;
+    let i = 0;
     for (const ship of ships) {
         const element = document.createElement('div');
         const pointsPercent = Math.floor(ship.construction_state.current_points * 100 / ship.construction_state.points);
@@ -114,6 +102,13 @@ const displayConstructingShips = ships => {
             </div></section>`
         ;
         section.appendChild(element);
+        i++;
+        if (i === 3) {
+            const footer = document.createElement('div');
+            footer.innerHTML = `${ships.length - i} autres dans la file.`;
+            list.querySelector(':scope > footer').appendChild(footer);
+            return;
+        }
     }
 };
 
@@ -195,8 +190,8 @@ const chooseFrame = event => {
     removeModuleData();
 
     document.querySelector('#ship-constructions-list').style.display = 'none';
-    document.querySelector('#ship-data').style.display = 'block';
-    document.querySelector('#modules').style.display = 'flex';
+    document.querySelector('#ship-data').style.display = 'grid';
+    document.querySelector('#modules').style.display = 'grid';
     document.querySelector('#modules > section').innerHTML = '';
     document.querySelector('#ships-list').style.display = 'none';
     displayShipStats(

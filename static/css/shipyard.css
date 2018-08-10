@@ -1,4 +1,4 @@
-html, body, #wrapper {
+html, body {
     width: 100%;
     height: 100%;
 }
@@ -8,6 +8,7 @@ html, body, #wrapper {
     grid-row: 2/5;
     display: none;
     padding-left: 20px;
+    padding-right: 20px;
 }
 
 #ship-constructions-list > header {
@@ -70,8 +71,8 @@ html, body, #wrapper {
 }
 
 #ships-list {
-    grid-column: 2/6;
-    grid-row: 2/5;
+    grid-column: 2/10;
+    grid-row: 3/9;
     z-index: 10;
 }
 
@@ -87,13 +88,7 @@ html, body, #wrapper {
     padding: 0px;
     border: none;
     cursor: pointer;
-    border: 1px solid #EFEFEF;
-    background-color: #303050;
-    transition: background-color 0.2s ease-out;
-}
-
-#ships-list > header > button:hover {
-    background-color: #404060;
+    background: none;
 }
 
 #ships-list > header > button > span {
@@ -103,6 +98,9 @@ html, body, #wrapper {
 #ships-list > header > button > img {
     height: 40px;
     margin: 10px;
+    padding: 5px;
+    background-color: #B9B9B9;
+    border-radius: 100px;
 }
 
 #ships-list > section {
@@ -162,15 +160,15 @@ html, body, #wrapper {
 }
 
 #ship-conception {
-    grid-column: 2/6;
-    grid-row: 2/5;
+    grid-column: 2/10;
+    grid-row: 4/8;
     display: none;
     width: 100%;
 }
 
 #ship-construction {
-    grid-column: 2/6;
-    grid-row: 2/5;
+    grid-column: 2/10;
+    grid-row: 2/10;
     display: none;
     margin-right: 40px;
 }
@@ -395,13 +393,8 @@ html, body, #wrapper {
 
 #ship-stats > .stat,
 #modules > footer > .stat {
-    padding: 10px;
     margin: 10px;
     text-align: center;
-    background-color: #010F2A;
-    border: 1px solid #EFEFEF;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
 }
 
 #ship-stats > .stat > section,
@@ -419,7 +412,7 @@ html, body, #wrapper {
 #ship-vizualizer > section {
     position: relative;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 #ship-image {
@@ -437,6 +430,7 @@ html, body, #wrapper {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    z-index: 10;
 }
 #ship-vizualizer > section > .slot.selected {
     background-color: rgba(100,100,175,0.8);
@@ -523,11 +517,18 @@ html, body, #wrapper {
 }
 
 #ship-data {
-    grid-column: 1;
-    grid-row: 2/5;
+    grid-row: 1/3;
+    grid-column: 1/11;
     display: none;
     flex-grow: 1;
-    border: 1px solid #EFEFEF;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(50%, auto);
+}
+
+#ship-data > header {
+    grid-row: 1;
+    grid-column: 1/4;
 }
 
 #ship-data > header > input {
@@ -537,7 +538,17 @@ html, body, #wrapper {
     color: #EFEFEF;
     background: none;
     border: none;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 2px solid #E1BB81;
+}
+
+#ship-data > section {
+    grid-row: 2;
+    grid-column: 2/10;
+}
+
+#ship-data > footer {
+    grid-row: 1;
+    grid-column: 9/11;
 }
 
 #ship-data > section ,
@@ -553,12 +564,7 @@ html, body, #wrapper {
 
 #ship-data > section > .list > .price,
 #modules > header > .list > .price {
-    padding: 5px;
-    margin-right: 10px;
-    margin-top: 10px;
-    border: #EFEFEF 1px solid;
-    border-radius: 5px;
-    background-color: #010F2A;
+    margin: 10px;
 }
 
 #ship-data > section > .list > .price > header,
@@ -595,48 +601,30 @@ html, body, #wrapper {
 
 #modules {
     display: none;
-    grid-column: 1/6;
-    grid-row: 5/7;
-    background-color: rgba(75, 75, 100, 0.4);
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
-    border-top: 2px solid #010F2A;
+    grid-column: 1/10;
+    grid-row: 7/10;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(50%, auto);
+    margin-left: 100px;
 }
 
 #modules > header {
-    width: 30%;
+    grid-row: 1/3;
+    grid-column: 1/4;
 }
 
 #modules > header > h3 {
     margin: 0px;
 }
 
-#modules > header > h3:not(:empty) {
-    position: relative;
-    max-width: calc(100% - 60px);
-    height: 30px;
-    padding: 5px 0px 5px 15px;
-    background-color: #010F2A;
-    border-bottom: 3px solid #E1BB8A;
-}
-
-#modules > header > h3:not(:empty):after {
-    width: 0px;
-    height: 0px;
-    content: '';
-    position: absolute;
-    right: -40px;
-    bottom: 0px;
-    border-left: 20px solid #010F2A;
-    border-top: 20px solid #010F2A;
-    border-right: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-}
-
 #modules > section {
-    width: 40%;
+    grid-row: 2;
+    grid-column: 4/9;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin-left: 10px;
 }
 
 #modules > section > .module {
@@ -770,6 +758,8 @@ html, body, #wrapper {
 }
 
 #modules > footer {
+    grid-row: 1;
+    grid-column: 9/11;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -778,19 +768,19 @@ html, body, #wrapper {
 @media (max-width: 1200px) {
 
     #ship-conception {
-        grid-column: 1/6;
+        grid-column: 1/11;
         grid-row: 2/5;
     }
 
     #ship-construction {
-        grid-column: 1/6;
+        grid-column: 1/11;
         grid-row: 2/5;
         margin-left: 20px;
         margin-right: 20px;
     }
 
     #ship-data {
-        grid-column: 1/3;
+        grid-column: 2/5;
         grid-row: 5/7;
     }
 
@@ -804,7 +794,7 @@ html, body, #wrapper {
 
     #modules {
         display: none;
-        grid-column: 3/6;
+        grid-column: 5/11;
         grid-row: 5/7;
         flex-direction: column;
     }
@@ -835,6 +825,7 @@ html, body, #wrapper {
         height: 70px;
         margin-right: 5px;
         font-size: 3em;
+        z-index: 10;
     }
 
     #modules > section > .module > div {

@@ -23,7 +23,10 @@ a.planet { /* hyper link for planet*/
 	line-height: var(--height);       /* The size of the ligne for the vertical-align : The same as your div height */
 }
 
-
+#fleets-view {
+	grid-row: 3;
+	grid-column: 2/10;
+}
 
 
 
@@ -36,13 +39,13 @@ a.planet { /* hyper link for planet*/
 	/*border-spacing: 10px;*/
 	border-collapse: collapse;
 	margin-left:20px;
-	
+
 }
 
 #fleet-table tr {
 	/*background-color: #242456;*/
 	/*background-color: #202030;*/
-	
+
 
 }
 
@@ -78,7 +81,7 @@ a.planet { /* hyper link for planet*/
 #fleet-table .header-table > .fleet-id {
 	text-align:left;
 	padding-left:10px;
-	
+
 }
 #fleet-table .header-table > th{
 	border-bottom : 2px solid white;
@@ -104,14 +107,14 @@ a.planet { /* hyper link for planet*/
 
 #fleets-list .no-fleet-planet,
 #fleets-list .no-fleet-all {
-	
-	
+
+
 	animation:blinkingText 4s 2;
 	color:#fff;
 	/*width: 50%;*/
 	/*align-items: center;
     justify-content: center;*/
-	
+
 }
 
 @keyframes blinkingText{

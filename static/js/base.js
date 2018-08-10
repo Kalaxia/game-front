@@ -1,24 +1,14 @@
 import Dictionnary from './core/dictionnary.js';
 import Building from './model/building.js';
-import Player from './model/player.js';
-import Planet from './model/planet.js';
 import buildingsData from './resources/buildings.js';
+import App from './core/app.js';
 
-Player.fetchCurrentPlayer().then(player => {
-    var profileLink = document.createElement('a');
-    profileLink.href = '/views/profile';
-    profileLink.innerText = player.pseudo;
-    document.querySelector("#player-data h3").appendChild(profileLink);
-});
-
-const planetId = window.getCurrentPlanet();
-let basePlanet = null;
 let planetPopulation = 0;
 let availablePoints = 0;
 
 /** POPULATION **/
-export const initBasePopulation = () => Planet.fetch(planetId).then(planet => {
-    basePlanet = planet;
+export const initBasePopulation = () => {
+    const planet = App.getCurrentPlanet();
     planetPopulation = planet.population;
     const populationPoints = getPopulationPoints(planetPopulation);
 
@@ -27,14 +17,14 @@ export const initBasePopulation = () => Planet.fetch(planetId).then(planet => {
     document.querySelector('#planet-points').innerHTML = Dictionnary.translations.planet.population_points.replace("%points%", populationPoints);
 
     initBasePoints(populationPoints);
-});
+};
 
 const initBasePoints = populationPoints => {
     availablePoints = populationPoints;
     const configuration = document.querySelector('#points-configuration > section');
 
     for (const setting of ['services', 'building', 'military', 'research']) {
-        const points = basePlanet.settings[`${setting}_points`];
+        const points = App.getCurrentPlanet().settings[`${setting}_points`];
         const gauge = document.createElement('div');
         const percentage = getPercentage(points, populationPoints);
         gauge.classList.add('gauge-container');
@@ -72,23 +62,23 @@ export const addPoint = setting => {
     if (availablePoints < 1) {
         return;
     }
-    basePlanet.settings[`${setting}_points`]++;
+    App.getCurrentPlanet().settings[`${setting}_points`]++;
     availablePoints--;
     updateGauge(setting);
 };
 
 export const substractPoint = setting => {
-    if (basePlanet.settings[`${setting}_points`] < 1) {
+    if (App.getCurrentPlanet().settings[`${setting}_points`] < 1) {
         return;
     }
-    basePlanet.settings[`${setting}_points`]--;
+    App.getCurrentPlanet().settings[`${setting}_points`]--;
     availablePoints++;
     updateGauge(setting);
 };
 
-const updateGauge = setting => basePlanet.updateSettings().then(() => {
+const updateGauge = setting => App.getCurrentPlanet().updateSettings().then(() => {
     const gauge = document.querySelector(`#${setting}-gauge`);
-    let points = basePlanet.settings[`${setting}_points`];
+    let points = App.getCurrentPlanet().settings[`${setting}_points`];
     let percentage = getPercentage(points, getPopulationPoints(planetPopulation));
     document.querySelector('#available-points span').innerText = availablePoints;
     gauge.querySelector('.gauge-indicator > span').innerText = points;
@@ -99,8 +89,8 @@ const updateGauge = setting => basePlanet.updateSettings().then(() => {
 /** BUILDINGS **/
 let availableBuildings = [];
 
-export const initBaseBuildings = () => Planet.fetch(planetId).then(planet => {
-    basePlanet = planet;
+export const initBaseBuildings = () => {
+    const planet = App.getCurrentPlanet();
     document.querySelector('.population-points').innerHTML =
         `<strong>${planet.settings.building_points}</strong><img src="/static/images/buildings/build.svg"/>`
     ;
@@ -109,7 +99,7 @@ export const initBaseBuildings = () => Planet.fetch(planetId).then(planet => {
     ;
     availableBuildings = planet.available_buildings;
     initBuildings(planet.buildings, planet.nb_buildings);
-});
+};
 
 const initBuildings = (buildings, maxBuildings) => {
     var list = document.querySelector('#planet-buildings > section');
@@ -207,7 +197,7 @@ const refreshConstructionCountdown = buildingId => {
     building.querySelector(`.countdown`).innerHTML = `${hours}:${minutes}:${seconds}`;
 }
 
-export const launchBuildingConstruction = buildingName => Building.create(basePlanet, buildingName).then(building => {
+export const launchBuildingConstruction = buildingName => Building.create(App.getCurrentPlanet(), buildingName).then(building => {
     availableBuildings = building.planet.available_buildings;
     document.querySelector('.building.category-area.selected').remove();
     let list = document.querySelector('#planet-buildings > section');
@@ -225,5 +215,3 @@ export const launchBuildingConstruction = buildingName => Building.create(basePl
 
 
 /** HANGARD **/
-
-  

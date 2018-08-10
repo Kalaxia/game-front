@@ -31,3 +31,7 @@ export const displayPlanetStorage = planet => {
         list.appendChild(storageElement);
     }
 };
+
+export const getResourceData = name => {
+    return resourcesData[name];
+}
