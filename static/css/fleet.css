@@ -204,7 +204,7 @@ a.planet { /* hyper link for planet*/
 }
 
 .ships-list > div.ships-table > .flex-row > div.model-transfer > input[type="number"]::-webkit-inner-spin-button {
-	opacity: 0;
+	/*opacity: 0;*/
 }
 
 .ships-list > div.ships-table > .flex-row > div.model-transfer > .transfer-ship {

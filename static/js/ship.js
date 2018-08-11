@@ -103,13 +103,13 @@ export class UniqueModelList{
 	}
 	
 	
-	getShipIdFromModelSlug(slug){
+	getShipsIdFromModelId(id){
 		/*
-		 * return a the liste of ships with the model slug given in input
-		 * if this slug does not exist resturn an empty array
+		 * return a the liste of ships with the model id given in input
+		 * if this id does not exist resturn an empty array
 		 */
 		for (var i in this.models){
-			if (this.models[i].slug == slug){
+			if (this.models[i].id == id){
 				return this.shipsId[i];
 			}
 		}
