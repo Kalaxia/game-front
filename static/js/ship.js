@@ -4,43 +4,8 @@ import Ship from './model/ship/ship.js';
 
 
 
-export const getHTMLShipArrayStringHangar = (ships) => {
-	/*
-	 * Return an HTML string to display the ships in an hangar
-	 */
-	
-	// header
-	var stringHTMLToReturn = `<div class="flex-row"> <div class="model-number"> ${Dictionnary.translations.general.number} </div> <div class="model-name"> ${Dictionnary.translations.general.name} </div><div class="model-type" > ${Dictionnary.translations.ships.type} </div> <div class="model-frame" > ${Dictionnary.translations.ships.frame}  </div></div>`;
-	
-	if (ships == null || ships == undefined || ships.length == 0) {
-		
-		stringHTMLToReturn +=  `<div class="flex-row-error"> <div class="no-ships">${Dictionnary.translations.fleet.view.single.no_ship_hangar} </div> </div>`;
-		return stringHTMLToReturn;
-	}
-	//Else
-	
-	stringHTMLToReturn += getHTMLShipArrayString(ships);
-	
-	return stringHTMLToReturn;
-};
-
-export const getHTMLShipArrayStringFleet = (ships) => {
-	/*
-	 * Return an HTML string to display the ships in a fleet
-	 */
-	// header
-	var stringHTMLToReturn = `<div class="flex-row"> <div class="model-number"> ${Dictionnary.translations.general.number} </div> <div class="model-name"> ${Dictionnary.translations.general.name} </div><div class="model-type" > ${Dictionnary.translations.ships.type}</div> <div class="model-frame" > ${Dictionnary.translations.ships.frame}  </div></div>`;
-	
-	if (ships == null || ships == undefined || ships.length == 0) {
-		
-		stringHTMLToReturn +=  `<div class="flex-row-error"> <div class="no-ships"> ${Dictionnary.translations.fleet.view.single.no_ship_fleet} </div> </div>`;
-		return stringHTMLToReturn;
-	}
-	//Else
-	stringHTMLToReturn += getHTMLShipArrayString(ships);
-	
-	return stringHTMLToReturn;
-};
+/************************/
+// utils
 
 export class UniqueModelList{
 	/*
@@ -102,11 +67,10 @@ export class UniqueModelList{
 		}
 	}
 	
-	
 	getShipsIdFromModelId(id){
 		/*
 		 * return a the liste of ships with the model id given in input
-		 * if this id does not exist resturn an empty array
+		 * if this id does not exist in this object return an empty array
 		 */
 		for (var i in this.models){
 			if (this.models[i].id == id){
@@ -116,7 +80,63 @@ export class UniqueModelList{
 		return [];
 	}
 	
-}
+	getNumberFromModelId(id){
+		/*
+		 * return the number of ships with the model id given in input
+		 * if this id does not exist in this object return 0
+		 */
+		for (var i in this.models){
+			if (this.models[i].id == id){
+				return this.numbers[i];
+			}
+		}
+		return 0;
+	}
+	
+};
+
+/************************/
+// get HTML data
+
+export const getHTMLShipArrayStringHangar = (ships) => {
+	/*
+	 * Return an HTML string to display the ships in an hangar
+	 */
+	
+	// header
+	var stringHTMLToReturn = `<div class="flex-row"> <div class="model-number"> ${Dictionnary.translations.general.number} </div> <div class="model-name"> ${Dictionnary.translations.general.name} </div><div class="model-type" > ${Dictionnary.translations.ships.type} </div> <div class="model-frame" > ${Dictionnary.translations.ships.frame}  </div></div>`;
+	
+	if (ships == null || ships == undefined || ships.length == 0) {
+		
+		stringHTMLToReturn +=  `<div class="flex-row-error"> <div class="no-ships">${Dictionnary.translations.fleet.view.single.no_ship_hangar} </div> </div>`;
+		return stringHTMLToReturn;
+	}
+	//Else
+	
+	stringHTMLToReturn += getHTMLShipArrayString(ships);
+	
+	return stringHTMLToReturn;
+};
+
+export const getHTMLShipArrayStringFleet = (ships) => {
+	/*
+	 * Return an HTML string to display the ships in a fleet
+	 */
+	// header
+	var stringHTMLToReturn = `<div class="flex-row"> <div class="model-number"> ${Dictionnary.translations.general.number} </div> <div class="model-name"> ${Dictionnary.translations.general.name} </div><div class="model-type" > ${Dictionnary.translations.ships.type}</div> <div class="model-frame" > ${Dictionnary.translations.ships.frame}  </div></div>`;
+	
+	if (ships == null || ships == undefined || ships.length == 0) {
+		
+		stringHTMLToReturn +=  `<div class="flex-row-error"> <div class="no-ships"> ${Dictionnary.translations.fleet.view.single.no_ship_fleet} </div> </div>`;
+		return stringHTMLToReturn;
+	}
+	//Else
+	stringHTMLToReturn += getHTMLShipArrayString(ships);
+	
+	return stringHTMLToReturn;
+};
+
+
 
 const getHTMLShipArrayString = (ships) => {
 	/*

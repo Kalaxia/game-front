@@ -521,40 +521,27 @@ export const inputCheckValueHangar = (node) => {
 	}
 };
 
-export const transferShipsToFleetButtonClick = (event) => {
-	var node = event.currentTarget;
-	var number = parseInt(node.parentNode.querySelector(`input`).value)
+/**************************************/
+// Events 
+
+export const creatFleet = () => {
+	/*
+	 * create a new fleet on the selected base
+	 */
 	
-	if ( isNaN(number) || number <= 0) {
-		throw "I need a positive number of ships to transfer";
-	}
-	
-	var modelId = node.getAttribute("model-id-data");
-	
-	
-	if (isNaN(modelId)){
-		throw "modelId must be an integer ()"
-	}
-	
-	var ships =modelLisFleet.getShipsIdFromModelId(modelId)
-	
-	if (ships.length == 0){
-		throw "You have no ships with this id"
-	}
-	if (ships.length <= number){
-		throw "Not enought ships to transfer"
-	}
-	
-	refreshFleetId();
-	
-	var shipsIdToTransfer = ships.splice(0,number) // take only the number ships in shipsIdToTransfer
-	Fleet.transferShipsToFleet(shipsIdToTransfer,fleetId).then( () => {
-		refreshShipsView(); //< robuste way to refresh view but require two fetch
+	Fleet.createNewFleet(planetId).then(fleet => {
+		
+		//document.querySelector('#fleets-list').innerHTML += getHTMLFleetData(fleet,true);
+		//< add tge new fleet to the list
+		
+		refreshFleetViewPlanet(); //< after the creation of the fleet wi refresh the view
+		//< this is more robuste bu require more request
 	});
+	
 	
 };
 
-export const transferShipsToHangarButtonClick = (event) => {
+export const transferShipsToFleetButtonClick = (event) => {
 	var node = event.currentTarget;
 	var number = parseInt(node.parentNode.querySelector(`input`).value)
 	
@@ -564,22 +551,99 @@ export const transferShipsToHangarButtonClick = (event) => {
 	
 	var modelId = parseInt(node.getAttribute("model-id-data"));
 	
+	
 	if (isNaN(modelId)){
-		throw "modelId must be an integer ()"
+		throw "modelId must be an integer";
 	}
 	
-	var ships =modelLisFleet.getShipsIdFromModelId(modelId)
+	var ships =modelListHangar.getShipsIdFromModelId(modelId);
 	
 	if (ships.length == 0){
-		throw "You have no ships with this id"
+		throw "You have no ships with this id";
 	}
-	if (ships.length <= number){
-		throw "Not enought ships to transfer"
+	if (ships.length < number){
+		throw "Not enought ships to transfer";
 	}
 	
-	var shipsIdToTransfer = ships.splice(0,number) // take only the number ships in shipsIdToTransfer
+	refreshFleetId();
+	
+	var shipsIdToTransfer = ships.splice(0,number); // take only the number ships in shipsIdToTransfer
+	Fleet.transferShipsToFleet(shipsIdToTransfer,fleetId).then( () => {
+		refreshShipsView(); //< robuste way to refresh view but require two fetch
+	});
+	
+};
+
+export const transferShipsToHangarButtonClick = (event) => {
+	var node = event.currentTarget;
+	var number = parseInt(node.parentNode.querySelector(`input`).value);
+	
+	if ( isNaN(number) || number <= 0) {
+		throw "I need a positive number of ships to transfer";
+	}
+	
+	var modelId = parseInt(node.getAttribute("model-id-data"));
+	
+	if (isNaN(modelId)){
+		throw "modelId must be an integer";
+	}
+	
+	var ships =modelListFleet.getShipsIdFromModelId(modelId);
+	
+	if (ships.length == 0){
+		throw "You have no ships with this id";
+	}
+	if (ships.length < number){
+		throw "Not enought ships to transfer";
+	}
+	
+	var shipsIdToTransfer = ships.splice(0,number); // take only the number ships in shipsIdToTransfer
 	Fleet.transferShipsToHangar(shipsIdToTransfer).then( () => {
 		refreshShipsView(); //< robuste way to refresh view but require two fetch
 	});
 	
-}
+};
+
+
+export const inputEventManagerFleet = (event) => {
+	var node = event.currentTarget;
+	var timeoutId = parseInt(node.getAttribute("timeout-id"));
+	if (timeoutId != undefined && timeoutId != null && ! isNaN(timeoutId)) {
+		clearTimeout(timeoutId);
+	}
+	node.setAttribute("timeout-id", setTimeout(inputCheckValueFleet, TIMEOUT_INPUT_DURATION,node));
+};
+
+export const inputEventManagerHangar = (event) => {
+	var node = event.currentTarget
+	var timeoutId = parseInt(node.getAttribute("timeout-id"));
+	if (timeoutId != undefined && timeoutId != null && ! isNaN(timeoutId)) {
+		clearTimeout(timeoutId)
+	}
+	node.setAttribute("timeout-id", setTimeout(inputCheckValueHangar, TIMEOUT_INPUT_DURATION,node));
+};
+
+
+export const inputCheckValueFleet = (node) => {
+	var number = parseInt(node.value);
+	if ( isNaN(number) ) {
+		node.value = 1;
+	}
+	else{
+		var modelId = parseInt(node.parentNode.querySelector('span.transfer-ship').getAttribute("model-id-data"));
+		var maxNumber = modelListFleet.getNumberFromModelId(modelId);
+		node.value = Math.max(Math.min(number,maxNumber),1); 
+	}
+};
+
+export const inputCheckValueHangar = (node) => {
+	var number = parseInt(node.value);
+	if ( isNaN(number) ) {
+		node.value = 1;
+	}
+	else{
+		var modelId = parseInt(node.parentNode.querySelector('span.transfer-ship').getAttribute("model-id-data"));
+		var maxNumber = modelListHangar.getNumberFromModelId(modelId);
+		node.value = Math.max(Math.min(number,maxNumber),1); 
+	}
+};

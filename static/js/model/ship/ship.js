@@ -5,6 +5,7 @@ class Ship {
     constructor(data) {
         this.model = data.model;
         this.hangar = data.hangar;
+        this.id = data.id;
     }
 
     create(quantity) {
