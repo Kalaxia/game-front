@@ -542,6 +542,9 @@ export const creatFleet = () => {
 };
 
 export const transferShipsToFleetButtonClick = (event) => {
+	/*
+	 * function called when the span to transfer ships to fleet is pushed ( so the button in the HANGAR)
+	 */
 	var node = event.currentTarget;
 	var number = parseInt(node.parentNode.querySelector(`input`).value)
 	
@@ -575,6 +578,9 @@ export const transferShipsToFleetButtonClick = (event) => {
 };
 
 export const transferShipsToHangarButtonClick = (event) => {
+	/*
+	 * function called when the span to transfer ships to hangar is pushed ( so the button in the FLEET)
+	 */
 	var node = event.currentTarget;
 	var number = parseInt(node.parentNode.querySelector(`input`).value);
 	
@@ -606,6 +612,17 @@ export const transferShipsToHangarButtonClick = (event) => {
 
 
 export const inputEventManagerFleet = (event) => {
+	/*
+	 * When the input is updated a timeout is set if there is a new modification the timeout is reset
+	 * the function in the timeout check that the input is correct and is not 
+	 * smaller that 1 or greater that the the total number of ships
+	 *
+	 * I have always hated input with range that correct immeditely the input. 
+	 * By instant you have 300 ships and the input si set to 100 and you want to transfer 150 ships.
+	 * What I sometimes do is that I write 1|00 -> 15|00 -> 15|0 but at the second step it directly set me to 300 ships
+	 * 
+	 */
+	
 	var node = event.currentTarget;
 	var timeoutId = parseInt(node.getAttribute("timeout-id"));
 	if (timeoutId != undefined && timeoutId != null && ! isNaN(timeoutId)) {
@@ -615,6 +632,16 @@ export const inputEventManagerFleet = (event) => {
 };
 
 export const inputEventManagerHangar = (event) => {
+	/*
+	 * When the input is updated a timeout is set if there is a new modification the timeout is reset
+	 * the function in the timeout check that the input is correct and is not 
+	 * smaller that 1 or greater that the the total number of ships
+	 *
+	 * I have always hated input with range that correct immeditely the input. 
+	 * By instant you have 300 ships and the input si set to 100 and you want to transfer 150 ships.
+	 * What I sometimes do is that I write 1|00 -> 15|00 -> 15|0 but at the second step it directly set me to 300 ships
+	 * 
+	 */
 	var node = event.currentTarget
 	var timeoutId = parseInt(node.getAttribute("timeout-id"));
 	if (timeoutId != undefined && timeoutId != null && ! isNaN(timeoutId)) {
@@ -625,6 +652,9 @@ export const inputEventManagerHangar = (event) => {
 
 
 export const inputCheckValueFleet = (node) => {
+	/*
+	 * Check that the input has correct value (not NaN, > 0 and <= total ammount of ships)
+	 */
 	var number = parseInt(node.value);
 	if ( isNaN(number) ) {
 		node.value = 1;
@@ -637,6 +667,9 @@ export const inputCheckValueFleet = (node) => {
 };
 
 export const inputCheckValueHangar = (node) => {
+	/*
+	 * Check that the input has correct value (not NaN, > 0 and <= total ammount of ships)
+	 */
 	var number = parseInt(node.value);
 	if ( isNaN(number) ) {
 		node.value = 1;

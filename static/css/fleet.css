@@ -105,6 +105,10 @@ a.planet { /* hyper link for planet*/
     margin-top: 40px;
 }
 
+#fleet-detail {
+	max-width:80%
+}
+
 #fleets-list  {
 	margin-top : 20px;
 }
@@ -179,6 +183,8 @@ a.planet { /* hyper link for planet*/
 	flex-grow: 1;
 	width: 100%;
 	text-align : center
+	animation:blinkingText 4s 2;
+	color:#fff;
 }
 
 .ships-list > div.ships-table > div:nth-child(even) {
@@ -198,9 +204,11 @@ a.planet { /* hyper link for planet*/
 }
 .ships-list > div.ships-table > .flex-row > div.model-transfer > input {
 	width: 20%;
-	background-color: #606070;
-	border: 1px solid;
+	background-color: #7a7a8a;
+	
 	margin-right: 10px;
+	color : white;
+	border: 1px solid #000000;
 }
 
 .ships-list > div.ships-table > .flex-row > div.model-transfer > input[type="number"]::-webkit-inner-spin-button {
