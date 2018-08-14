@@ -71,7 +71,8 @@
             "tropical": "Planète tropicale",
             "rocky": "Planète rocheuse",
             "volcanic": "Planète volcanique"
-        }
+        },
+        "hangar" : "Hangar de %planet%"
     },
     "profile": {
         "planets": {

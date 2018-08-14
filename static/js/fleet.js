@@ -3,13 +3,14 @@ import Dictionnary from './core/dictionnary.js';
 import Fleet from './model/fleet.js';
 import Planet from './model/planet.js';
 import Player from './model/player.js';
+import App from '/static/js/core/app.js';
 
 import { getHTMLShipArrayStringFleet, getHTMLShipArrayStringHangar, UniqueModelList } from './ship.js';
 
 /************************/
 // Global Variable
 
-const planetId = window.getCurrentPlanet();
+var planetId = window.getCurrentPlanet();
 var fleetId = window.getCurrentFleet();
 var planetIdFleetLocation;
 const COLL_SPAN = 2;
@@ -114,7 +115,7 @@ const refreshFleetViewPlanet = () => {
 	 * Fetch the fleet and update the html
 	 */
 	
-	Fleet.fetchPlanetFleets(planetId).then(fleets => {
+	Fleet.fetchPlanetFleets(App.getCurrentPlanet().id).then(fleets => {
 		
 		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData(fleets,true); // we reset the list 
 		
@@ -126,15 +127,15 @@ export const initFleetViewPlanet = () => {
 	/*
 	 * initialise the view for the fleets on a planet
 	 */
-	
-	Planet.fetch(planetId).then(planet => {
-		// initialze the "create fleet" button
-		document.querySelector('#fleet-create').innerHTML = Dictionnary.translations.fleet.view.planet.create.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet">${planet.name}</a>`);
-		document.querySelector('#fleet-create').addEventListener("click" , createFleet);
-		//< stricly it does not have to be in the promise then
-		//< but I don't want the event to be active before the texte initialise
+	var planet = App.getCurrentPlanet();
+	document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
+	// initialze the "create fleet" button
+	document.querySelector('#fleet-create').innerHTML = Dictionnary.translations.fleet.view.planet.create.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet">${planet.name}</a>`);
+	document.querySelector('#fleet-create').addEventListener("click" , createFleet);
+	//< stricly it does not have to be in the promise then
+	//< but I don't want the event to be active before the texte initialise
 		
-	});
+	
 	
 	refreshFleetViewPlanet();
 };
@@ -154,8 +155,9 @@ export const initFleetView = () => {
 
 
 
-export const initBaseForFleet = () => Planet.fetch(planetId).then(planet => {
-    
+export const initBaseForFleet = () => {
+	var planet = App.getCurrentPlanet();
+    planetId = planet.id;
 	Player.fetchCurrentPlayer().then(player => {
 	    var profileLink = document.createElement('a');
 	    profileLink.href = '/views/profile';
@@ -166,8 +168,8 @@ export const initBaseForFleet = () => Planet.fetch(planetId).then(planet => {
 		});
 	});
 	
-    document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
-});
+    
+};
 
 export const initFleetViewSingle = () => {
 	/*
@@ -344,7 +346,7 @@ export const createFleet = () => {
 	 * create a new fleet on the selected base
 	 */
 	
-	Fleet.createNewFleet(planetId).then(fleet => {
+	Fleet.createNewFleet(App.getCurrentPlanet().id).then(fleet => {
 		
 		//document.querySelector('#fleets-list').innerHTML += getHTMLFleetData(fleet,true);
 		//< add tge new fleet to the list

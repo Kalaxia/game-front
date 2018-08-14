@@ -12,15 +12,15 @@
             <h3></h3>
             <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
         </div>
-        <div id="planet-data">
-            <header>
-                <h1></h1>
-            </header>
-            <section>
-                
-            </section>
-        </div>
         <div id="single-fleet-view-container">
+            <div id="planet-data">
+                <header>
+                    <h1></h1>
+                </header>
+                <section>
+                    
+                </section>
+            </div>
             <div id="fleet-view">
                 <section>
                     <h3 data-translate="true">fleet.view.single.title</h3>
@@ -52,7 +52,7 @@
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
-            
+            import App from '/static/js/core/app.js';
             import {  initFleetViewSingle, initBaseForFleet} from '/static/js/fleet.js';
             
             const urlParams = new URLSearchParams(window.location.search);
@@ -70,7 +70,7 @@
             }
             
             //window.addEventListener('load', initBaseForFleet);
-            window.addEventListener('load', initFleet );
+            App.init().then(() => { initFleet() });
             
         </script>
   </body>

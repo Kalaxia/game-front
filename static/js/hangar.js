@@ -15,8 +15,8 @@ import { getHTMLShipArrayStringHangar, UniqueModelList } from './ship.js';
 export const initBaseForHangar = () => {
     
     const planet = App.getCurrentPlanet();
-    document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
-	document.querySelector('#ships-view > section > h3').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
+    //document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
+	document.querySelector('#ships-view > section > h3').innerHTML = Dictionnary.translations.planet.hangar.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet">${planet.name}</a>`);
     
     var player = App.getCurrentPlayer();    
     
