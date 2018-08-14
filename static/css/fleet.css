@@ -76,11 +76,24 @@ a.planet { /* hyper link for planet*/
 
 #fleet-table tr:nth-child(even) {
 	background-color: #303040;
+	
 }
+
+#fleet-table tr.tr-link{
+	transition: background-color 0.2s ease-out;
+	cursor: pointer;
+}
+
+#fleet-table tr.tr-link:hover {
+	background-color: #808090;
+}
+
 
 #fleet-table tr:nth-child(odd) {
 	background-color: #505060;
 }
+
+
 
 #fleet-table .header-table > .fleet-id {
 	text-align:left;
