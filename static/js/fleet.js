@@ -572,7 +572,7 @@ export const transferShipsToFleetButtonClick = (event) => {
 	
 	var shipsIdToTransfer = ships.splice(0,number); // take only the number ships in shipsIdToTransfer
 	Fleet.transferShipsToFleet(shipsIdToTransfer,fleetId).then( () => {
-		refreshShipsView(); //< robuste way to refresh view but require two fetch
+		refreshShipsViewWithInputBoxNumbers(); //< robuste way to refresh view but require two fetch
 	});
 	
 };
@@ -605,7 +605,7 @@ export const transferShipsToHangarButtonClick = (event) => {
 	
 	var shipsIdToTransfer = ships.splice(0,number); // take only the number ships in shipsIdToTransfer
 	Fleet.transferShipsToHangar(shipsIdToTransfer).then( () => {
-		refreshShipsView(); //< robuste way to refresh view but require two fetch
+		refreshShipsViewWithInputBoxNumbers(); //< robuste way to refresh view but require two fetch
 	});
 	
 };
