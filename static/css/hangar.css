@@ -4,3 +4,7 @@ a.planet { /* hyper link for planet*/
 	text-decoration: none;
 }
 
+#ships-view {
+	grid-row: 3;
+	grid-column: 2/10;
+}
