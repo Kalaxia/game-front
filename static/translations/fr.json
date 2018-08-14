@@ -147,6 +147,7 @@
             "precision": "Précision",
             "power": "Puissance"
         },
+        "type" : "Classe",
         "types": {
             "fighter": "Chasseur",
             "bomber": "Bombardier",
@@ -177,8 +178,22 @@
                 "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
                 "create" : "Créer un nouvelle flotte sur %planet%"
             },
+            "single" : {
+                "title" : "Flotte %fleet%",
+                "ships_in_fleet" : "Vaisseaux dans la flottes",
+                "ships_in_hangar" : "Vaisseaux dans le hangar",
+                "no_ship_hangar" : "Il n'y a pas de vaisseau dans le hangar",
+                "no_ship_fleet" : "Il n'y a pas de vaisseau dans la flotte" 
+            },
             "header_location" :"Position",
             "header_id" : "Identification"
         }
+    },
+    "hangar" : {
+        "title" : "Vaisseaux dans le hangar de %planet%"
+    },
+    "general" : {
+        "number" : "Nombre",
+        "name" : "Nom"
     }
 }

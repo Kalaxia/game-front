@@ -9,7 +9,7 @@ class Fleet {
     };
 
     static fetch(id) {
-        return fetch(`/api/fleet/${id}`, {
+        return fetch(`/api/fleets/${id}`, { 
             method: 'GET',
             headers: Api.headers
         })
@@ -23,7 +23,7 @@ class Fleet {
 
     /*
     static fetchPlayerFleets(playerId) {
-        return fetch(`/api/players/${playerId}/fleets`, { //TODO in API
+        return fetch(`/api/players/${playerId}/fleets`, {
           method: 'GET',
           headers: Api.headers
         }).then(Api.responseMiddleware)

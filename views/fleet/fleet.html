@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kalaxia</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/fleet.css" />
+    </head>
+    <body>
+        <div id="player-data">
+            <h3></h3>
+            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+        </div>
+        <div id="planet-data">
+            <header>
+                <h1></h1>
+            </header>
+            <section>
+                
+            </section>
+        </div>
+        
+        <div id="fleet-view">
+            <section>
+                <h3 data-translate="true">fleet.view.single.title</h3>
+            </section>
+            <section id="fleet-detail">
+                <table id = "fleet-table"></table>
+            </section>
+        </div>
+        
+        <div id="ships-fleet">
+            <section>
+                <h3 data-translate="true">fleet.view.single.ships_in_fleet</h3>
+            </section>
+            <section class="ships-list">
+                <div class="ships-table"></div>
+            </section>
+        </div>
+        
+        <div id="ships-hangar">
+            <section>
+                <h3 data-translate="true">fleet.view.single.ships_in_hangar</h3>
+            </section>
+            <section class="ships-list">
+                <div class="ships-table"></div>
+            </section>
+        </div>
+
+        <script type="text/javascript" src="/config/config.js"></script>
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module" src="/static/js/fleet.js"></script>
+        <script type="module">
+            
+            import {  initFleetViewSingle, initBaseForFleet} from '/static/js/fleet.js';
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get("id");
+            
+            if (id == null || id == undefined) {
+                throw "I must have an id"
+            }
+            window.setCurrentFleet(id);
+            
+            const initFleet = () => {
+                
+                initBaseForFleet();
+                initFleetViewSingle();
+            }
+            
+            //window.addEventListener('load', initBaseForFleet);
+            window.addEventListener('load', initFleet );
+            
+        </script>
+  </body>
+</html>

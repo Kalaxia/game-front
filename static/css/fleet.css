@@ -58,12 +58,15 @@ a.planet { /* hyper link for planet*/
 
 }
 
+.fleet-id {
+	color : #E1BB8A;
+}
+
 
 #fleet-table .fleet-container > .fleet-id {
 	padding-left:10px;
 	text-align:right;
 	color : #E1BB8A;
-
 
 }
 
@@ -71,10 +74,11 @@ a.planet { /* hyper link for planet*/
 	text-align:left;
 }
 
-#fleet-table .fleet-container:nth-child(even) {
+#fleet-table tr:nth-child(even) {
 	background-color: #303040;
 }
-#fleet-table .fleet-container:nth-child(odd) {
+
+#fleet-table tr:nth-child(odd) {
 	background-color: #505060;
 }
 
@@ -124,8 +128,18 @@ a.planet { /* hyper link for planet*/
 }
 
 
-#fleets-list > #fleet-table   .error-fleet-all,
-#fleets-list > #fleet-table   .error-fleet-planet {
+#fleet-table   .error-fleet-all,
+#fleet-table   .error-fleet-planet {
 	animation:blinkingText 4s 2;
 	color:#fff;
+}
+
+.ships-list > div.ships-table{
+	display: flex;
+}
+
+.ships-list > div.ships-table > .flex-row,
+.ships-list > div.ships-table > .flex-row-header,
+.ships-list > div.ships-table > .flex-row-eror {
+	display: flex;
 }
