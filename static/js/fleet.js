@@ -249,7 +249,7 @@ const refreshShipsView = (hangarId) => {
 	
 	
 	promiseArray[1] = Fleet.fetchShips(fleetId).then( ships => {
-		document.querySelector('#ships-fleet > .ships-list > div.ships-table').innerHTML= getHTMLShipArrayStringHangar(ships);
+		document.querySelector('#ships-fleet > .ships-list > div.ships-table').innerHTML= getHTMLShipArrayStringFleet(ships);
 		
 		
 		var flexRows = document.querySelectorAll('#ships-fleet > .ships-list > div.ships-table > div.flex-row:not(:first-child)');

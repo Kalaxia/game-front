@@ -28,6 +28,10 @@ a.planet { /* hyper link for planet*/
 	grid-column: 2/10;
 }
 
+#single-fleet-view-container {
+	grid-row: 3;
+	grid-column: 2/10;
+}
 
 
 
