@@ -231,3 +231,7 @@ a.planet { /* hyper link for planet*/
 .ships-list > div.ships-table > .flex-row > div.model-transfer > .transfer-ship:hover {
 	background-color: #222;
 }
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer > span.error-transfer {
+	animation:blinkingText 4s;
+}
