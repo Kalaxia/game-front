@@ -1,0 +1,11 @@
+
+a.planet { /* hyper link for planet*/
+	color: #E1BB8A;
+	text-decoration: none;
+}
+
+#ships-view {
+	grid-row: 3;
+	grid-column: 2/10;
+	z-index: 1;
+}

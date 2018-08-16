@@ -1,4 +1,5 @@
 import Api from '../core/api.js';
+import Ship from './ship/ship.js';
 
 class Planet {
     constructor(data) {
@@ -59,6 +60,25 @@ class Planet {
         ;
     }
 
+    static fetchShips(id) {
+        return fetch(`/api/planets/${id}/ships`, { 
+            method: 'GET',
+            headers: Api.headers
+        })
+        .then(Api.responseMiddleware)
+        .then(data => {
+            const ships = new Array();
+            if (data == undefined || data == null) {
+                return ships;
+            }
+            for (const shipData of data) {
+                ships.push(new Ship(shipData));
+            }
+            return ships;
+        })
+        .catch(error => console.log(error));
+    };
+    
     updateSettings() {
         const self = this;
         return fetch(`/api/planets/${self.id}/settings`, {
@@ -68,6 +88,8 @@ class Planet {
         }).then(Api.responseMiddleware)
         .then(response => { return self; })
     }
+    
+    
 }
 
 export default Planet;

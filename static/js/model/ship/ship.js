@@ -5,6 +5,7 @@ class Ship {
     constructor(data) {
         this.model = data.model;
         this.hangar = data.hangar;
+        this.id = data.id;
     }
 
     create(quantity) {
@@ -22,17 +23,37 @@ class Ship {
         return fetch(`/api/planets/${planetId}/ships/constructing`, {
             method: 'GET',
             headers: Api.headers
-        }).then(Api.responseMiddleware);
+        }).then(Api.responseMiddleware)
+        .then(data => {
+            const ships = new Array();
+            if (data == undefined || data == null) {
+               return ships;
+            }
+            for (const shipData of data) {
+                ships.push(new ships(shipData));
+            }
+            return ships;
+        });
     }
 
     static fetchHangarShips(planetId) {
         return fetch(`/api/planets/${planetId}/ships`, {
             method: 'GET',
             headers: Api.headers
-        }).then(Api.responseMiddleware);
+        }).then(Api.responseMiddleware)
+        .then(data => {
+            const ships = new Array();
+            if (data == undefined || data == null) {
+               return ships;
+            }
+            for (const shipData of data) {
+                ships.push(new ships(shipData));
+            }
+            return ships;
+        });
     }
     
-    // TODO fetch fleet
+    
 }
 
 export default Ship;

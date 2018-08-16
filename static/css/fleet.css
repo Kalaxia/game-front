@@ -26,8 +26,14 @@ a.planet { /* hyper link for planet*/
 #fleets-view {
 	grid-row: 3;
 	grid-column: 2/10;
+	z-index: 1;
 }
 
+#single-fleet-view-container {
+	grid-row: 3;
+	grid-column: 2/10;
+	z-index: 1;
+}
 
 
 
@@ -58,12 +64,15 @@ a.planet { /* hyper link for planet*/
 
 }
 
+.fleet-id {
+	color : #E1BB8A;
+}
+
 
 #fleet-table .fleet-container > .fleet-id {
 	padding-left:10px;
 	text-align:right;
 	color : #E1BB8A;
-
 
 }
 
@@ -71,12 +80,26 @@ a.planet { /* hyper link for planet*/
 	text-align:left;
 }
 
-#fleet-table .fleet-container:nth-child(even) {
+#fleet-table tr:nth-child(even) {
 	background-color: #303040;
+	
 }
-#fleet-table .fleet-container:nth-child(odd) {
+
+#fleet-table tr.tr-link{
+	transition: background-color 0.2s ease-out;
+	cursor: pointer;
+}
+
+#fleet-table tr.tr-link:hover {
+	background-color: #808090;
+}
+
+
+#fleet-table tr:nth-child(odd) {
 	background-color: #505060;
 }
+
+
 
 #fleet-table .header-table > .fleet-id {
 	text-align:left;
@@ -99,6 +122,10 @@ a.planet { /* hyper link for planet*/
 	width: 80%;
     margin: auto;
     margin-top: 40px;
+}
+
+#fleet-detail {
+	max-width:80%
 }
 
 #fleets-list  {
@@ -124,8 +151,106 @@ a.planet { /* hyper link for planet*/
 }
 
 
-#fleets-list > #fleet-table   .error-fleet-all,
-#fleets-list > #fleet-table   .error-fleet-planet {
+#fleet-table   .error-fleet-all,
+#fleet-table   .error-fleet-planet {
 	animation:blinkingText 4s 2;
 	color:#fff;
+}
+
+.ships-list {
+	max-width: 80%;
+}
+.ships-list > div.ships-table {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	margin-left: 10px;
+}
+
+.ships-list > div.ships-table > .flex-row,
+.ships-list > div.ships-table > .flex-row-error {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	max-width: 800px;
+}
+
+.ships-list > div.ships-table > .flex-row > div,
+.ships-list > div.ships-table > .flex-row-error > div {
+	/*width:100%;*/
+	overflow: hidden;
+	flex-basis: 0px;
+	padding: 3px;
+	margin: 1px;
+}
+
+.ships-list > div.ships-table > .flex-row > div {
+	flex-grow: 1;
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-number {
+	/*width:20%;*/
+	flex-grow: 0.4;
+}
+
+.ships-list > div.ships-table > .flex-row:not(:first-child) > div.model-number {
+	color: #e1bb8a;
+	text-align: right;
+}
+
+.ships-list > div.ships-table > .flex-row-error > div {
+	flex-grow: 1;
+	width: 100%;
+	text-align : center
+	animation:blinkingText 4s 2;
+	color:#fff;
+}
+
+.ships-list > div.ships-table > div:nth-child(even) {
+	background-color: #303040;
+}
+
+.ships-list > div.ships-table > div:nth-child(odd) {
+	background-color: #505060;
+}
+.ships-list > div.ships-table > div:first-child {
+	border-bottom: 2px solid white;
+	background-color: #606070;
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer {
+	flex-grow: 1.5;
+}
+.ships-list > div.ships-table > .flex-row > div.model-transfer > input {
+	width: 20%;
+	background-color: #7a7a8a;
+	
+	margin-right: 10px;
+	color : white;
+	border: 1px solid #000000;
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer > input[type="number"]::-webkit-inner-spin-button {
+	/*opacity: 0;*/
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer > .transfer-ship {
+	width: 100px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 1px;
+	padding-bottom: 2px;
+	background-color: black;
+	border: 1px solid #e1bb8a;
+	cursor: pointer;
+	transition: background-color 0.2s ease-out;
+	text-align: center;
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer > .transfer-ship:hover {
+	background-color: #222;
+}
+
+.ships-list > div.ships-table > .flex-row > div.model-transfer > span.error-transfer {
+	animation:blinkingText 4s;
 }

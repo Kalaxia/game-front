@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kalaxia</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/hangar.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/fleet.css" />
+    </head>
+    <body>
+        <div id="player-data">
+            <h3></h3>
+            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+        </div>
+        
+        
+        <div id="ships-view">
+            <section>
+                <h3 data-translate="true">hangar.title</h3>
+            </section>
+            <section class="ships-list">
+            <div class = "ships-table"></div>
+            </section>
+        </div>
+
+        <script type="text/javascript" src="/config/config.js"></script>
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module">
+            import App from '/static/js/core/app.js';
+            import {  initBaseForHangar } from '/static/js/hangar.js';
+
+            App.init().then(() => { initBaseForHangar() });
+            
+        </script>
+  </body>
+</html>
