@@ -10,8 +10,8 @@ import { getHTMLShipArrayStringFleet, getHTMLShipArrayStringHangar, UniqueModelL
 /************************/
 // Global Variable
 
-var planetId = window.getCurrentPlanet();
 var fleetId = window.getCurrentFleet();
+var planetId;
 var planetIdFleetLocation;
 const COLL_SPAN = 2;
 var modelListHangar;

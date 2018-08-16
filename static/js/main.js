@@ -24,15 +24,6 @@ App.init().then(() => {
 
 window.setCurrentFleet = id => localStorage.setItem('current_fleet', id);
 
-window.getCurrentPlanet = () => {
-    let currentPlanet;
-    if (typeof (currentPlanet = localStorage.getItem('current_planet')) === 'undefined') {
-        window.location = '/views/profile';
-        return;
-    }
-    return currentPlanet;
-};
-
 window.getCurrentFleet = () => {
     let currentFleet;
     if (typeof (currentFleet = localStorage.getItem('current_fleet')) === 'undefined') {
