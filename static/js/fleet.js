@@ -10,21 +10,23 @@ import { getHTMLShipArrayStringFleet, getHTMLShipArrayStringHangar, UniqueModelL
 /************************/
 // Global Variable
 
-var fleetId = window.getCurrentFleet();
-var planetId;
-var planetIdFleetLocation;
-const COLL_SPAN = 2;
-var modelListHangar;
-var modelListFleet;
-const TIMEOUT_INPUT_DURATION = 1000;
-const ASK_FOR_COMFIRMATION_ON_FLEET_DELETE = true;
+var fleetId = window.getCurrentFleet(); //<  used only by the single view the id of the  fleet we are currently looking at
+var planetIdFleetLocation; //<  used only by the single view, this is the id of the location of the fleet we are currently looking at.
 
+var fleetGlobal; //< used only by the single view, set the fleet we are currenty looking, it save some fetch
+
+var modelListHangar; //< see UniqueModelList in ships.js. This list the ships in hangar groupe by model. Only use for the single ship view
+var modelListFleet;  //< see UniqueModelList in ships.js. This list the ships in the current fleet groupe by model. Only use for the single ship view
+
+const TIMEOUT_INPUT_DURATION = 1000; //< time in milliseconde with no user input to check on the value on the input box for the ships transfer
+const ASK_FOR_COMFIRMATION_ON_FLEET_DELETE = true; //< boolean which state wheter or not ask the user to confirm a fleet deletion
+const COLL_SPAN = 2; //< coll span for the error row in the table for the fleet, set that number exactly as the number of collum in the table
 /************************/
 // utils
 
-const refreshFleetId = () => {
+const refreshFleetId = () => { //< I use that because when the script launch the fleet id is wrong 
 	fleetId = window.getCurrentFleet();
-}
+};
 
 /************************/
 // get HTML data
@@ -135,8 +137,6 @@ export const initFleetViewPlanet = () => {
 	document.querySelector('#fleet-create').onclick= createFleet;
 	//< stricly it does not have to be in the promise then
 	//< but I don't want the event to be active before the texte initialise
-		
-	
 	
 	refreshFleetViewPlanet();
 };
@@ -158,7 +158,6 @@ export const initFleetView = () => {
 
 export const initBaseForFleet = () => {
 	var planet = App.getCurrentPlanet();
-    planetId = planet.id;
 	Player.fetchCurrentPlayer().then(player => {
 	    var profileLink = document.createElement('a');
 	    profileLink.href = '/views/profile';
@@ -182,6 +181,7 @@ export const initFleetViewSingle = () => {
 	var id = fleetId;
 	
 	Fleet.fetch(id).then( fleet => {
+		fleetGlobal = fleet;
 		document.querySelector('#fleet-delete').onclick = deleteFleet;
 		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData([fleet],false);
 		
@@ -440,7 +440,7 @@ export const transferShipsToHangarButtonClick = (event) => {
 	
 };
 
-const transferShipsErrorShow = (node, errorMessage) => {
+const transferShipsErrorShow = (node, errorMessage) => { //< this will display the error in the cell with the transfer button
 	var parent = node.parentNode;
 	
 	var errorsSpan = parent.querySelector('span.error-transfer')
@@ -525,40 +525,50 @@ export const inputCheckValueHangar = (node) => {
 	}
 };
 
-export const deleteFleet = () => {
-	/*
-	 * Try to delete the fleet with the given id
-	 */
+export const deleteFleet = () => { //< delete fleet ONLY on the single fleet view
+	var id = fleetGlobal.id;
+	var hasUserConfirmed = false; // set to true if the user comfirme the deletion
 	
-	refreshFleetId();
-	var id = fleetId;
-	var hasUserConfirmed = false;
-	
-	if (ASK_FOR_COMFIRMATION_ON_FLEET_DELETE){
-		hasUserConfirmed = confirm(Dictionnary.translations.fleet.view.single.confirm_delete);
+	if (fleetGlobal.journey != null && fleetGlobal.journey != undefined){
+		showErrorDeleteFleet("moving_fleet");
 	}
-	
-	if (!ASK_FOR_COMFIRMATION_ON_FLEET_DELETE || hasUserConfirmed ){
-		
-		
-		Fleet.deleteFromId(id).then( (message) => {
-			if (message != undefined && message != null && message != ""){
-				throw message;
-			}
-			else {
-				location.href='/views/fleet/fleet-all.html';
-			}
-			
-		})
-		.catch( (error) => {
-			error.message = error.message.replace("'","\"");
-			var e = JSON.parse(error.message).translate;
-			var errorTranslate = e;
-			if (e == undefined || e == null ){
-				errorTranslate = "internal";
-			}
-			document.querySelector("#fleet-view #fleet-delete-section #fleet-delete-error").innerHTML= Dictionnary.translations.fleet.view.single.error.delete[errorTranslate];
-		});
+	else if (! modelListFleet.isEmpty()){
+		showErrorDeleteFleet("ship_in_fleet");
 	}
-	
+	else{ //< if there is no error
+		if (ASK_FOR_COMFIRMATION_ON_FLEET_DELETE){
+			hasUserConfirmed = confirm(Dictionnary.translations.fleet.view.single.confirm_delete);
+		}
+		if (!ASK_FOR_COMFIRMATION_ON_FLEET_DELETE || hasUserConfirmed ){ 
+			Fleet.deleteFromId(id).then( (message) => {
+				if (message != "Deleted"){ 
+					showErrorDeleteFleet(error);
+					throw message;
+				}
+				else {
+					location.href='/views/fleet/fleet-all.html';
+				}
+			}).catch( (error) => {
+				
+			});
+		}
+	}
+};
+
+const showErrorDeleteFleet = (error) => { // write the error in #fleet-delete-error
+	var errorTranslate = error;
+	if (error == undefined || error == null || error == "" ){ // I don't like errorTranslate = error || "internal"
+		errorTranslate = "internal";
+	}
+	var isKnownError = false;
+	for (let i in Dictionnary.translations.fleet.view.single.error.delete){
+		if (errorTranslate == i){ // here we check wether of not errorTranslate is a proper key in the translatio
+			isKnownError = true;
+			break;
+		}
+	}
+	if (!isKnownError){ // if it is not in the translation  json we set to unkonw error 
+		errorTranslate = "unknown";
+	}
+	document.querySelector("#fleet-view #fleet-delete-section #fleet-delete-error").innerHTML= Dictionnary.translations.fleet.view.single.error.delete[errorTranslate];
 };

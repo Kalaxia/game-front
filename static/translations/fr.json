@@ -199,7 +199,8 @@
                         "internal" : "Erreur interne du serveur.",
                         "forbidden" : "Vous ne controllez pas cette flotte.",
                         "moving_fleet" : "Vous ne pouvez pas supprimer une flotte qui se dépalce.",
-                        "ship_in_fleet" : "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux."
+                        "ship_in_fleet" : "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux.",
+                        "unknown" : "Erreur inconnu."
                     }
                 }
             },

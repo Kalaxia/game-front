@@ -157,14 +157,7 @@ class Fleet {
             method: 'DELETE',
             body : "",
             headers: Api.headers
-        }).then((response) => {
-            var returnVal = Api.responseMiddleware(response);
-            if (returnVal == undefined) {
-                returnVal = response.json();
-            }
-            
-            return returnVal;
-        });
+        }).then(Api.responseMiddleware); // if the fleet is delete it should return "Deleted" otherwise it does not return anything
     }
     
 }

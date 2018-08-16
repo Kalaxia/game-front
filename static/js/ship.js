@@ -93,6 +93,10 @@ export class UniqueModelList{
 		return 0;
 	}
 	
+	isEmpty(){
+		return this.models.length == 0;
+	}
+	
 };
 
 /************************/
