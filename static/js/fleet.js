@@ -17,6 +17,7 @@ const COLL_SPAN = 2;
 var modelListHangar;
 var modelListFleet;
 const TIMEOUT_INPUT_DURATION = 1000;
+const ASK_FOR_COMFIRMATION_ON_FLEET_DELETE = true;
 
 /************************/
 // utils
@@ -131,7 +132,7 @@ export const initFleetViewPlanet = () => {
 	document.querySelector('#planet-data > header > h1').innerHTML = Dictionnary.translations.planet.fleet.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`);
 	// initialze the "create fleet" button
 	document.querySelector('#fleet-create').innerHTML = Dictionnary.translations.fleet.view.planet.create.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}" class="planet">${planet.name}</a>`);
-	document.querySelector('#fleet-create').addEventListener("click" , createFleet);
+	document.querySelector('#fleet-create').onclick= createFleet;
 	//< stricly it does not have to be in the promise then
 	//< but I don't want the event to be active before the texte initialise
 		
@@ -181,6 +182,7 @@ export const initFleetViewSingle = () => {
 	var id = fleetId;
 	
 	Fleet.fetch(id).then( fleet => {
+		document.querySelector('#fleet-delete').onclick = deleteFleet;
 		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData([fleet],false);
 		
 		planetIdFleetLocation = fleet.location.id; // in fact we set the planetId to the fleet location
@@ -370,7 +372,7 @@ export const transferShipsToFleetButtonClick = (event) => {
 	
 	
 	if ( isNaN(number) || number <= 0) {
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.need_positive_number);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.need_positive_number);
 		throw "I need a positive number of ships to transfer";
 	}
 	
@@ -378,18 +380,18 @@ export const transferShipsToFleetButtonClick = (event) => {
 	
 	
 	if (isNaN(modelId)){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.model_id_NaN);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.model_id_NaN);
 		throw "modelId must be an integer";
 	}
 	
 	var ships =modelListHangar.getShipsIdFromModelId(modelId);
 	
 	if (ships.length == 0){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.no_ships_with_model);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.no_ships_with_model);
 		throw "You have no ships with this id";
 	}
 	if (ships.length < number){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.not_enough_ship);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.not_enough_ship);
 		throw "Not enought ships to transfer";
 	}
 	
@@ -410,24 +412,24 @@ export const transferShipsToHangarButtonClick = (event) => {
 	var number = parseInt(node.parentNode.querySelector(`input`).value);
 	
 	if ( isNaN(number) || number <= 0) {
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.need_positive_number);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.need_positive_number);
 		throw "I need a positive number of ships to transfer";
 	}
 	
 	var modelId = parseInt(node.getAttribute("model-id-data"));
 	
 	if (isNaN(modelId)){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.model_id_NaN);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.model_id_NaN);
 		throw "modelId must be an integer";
 	}
 	var ships =modelListFleet.getShipsIdFromModelId(modelId);
 	
 	if (ships.length == 0){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.no_ships_with_model);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.no_ships_with_model);
 		throw "You have no ships with this id";
 	}
 	if (ships.length < number){
-		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.not_enough_ship);
+		transferShipsErrorShow(node ,Dictionnary.translations.fleet.view.single.error.transfer.not_enough_ship);
 		throw "Not enought ships to transfer";
 	}
 	
@@ -521,4 +523,42 @@ export const inputCheckValueHangar = (node) => {
 		var maxNumber = modelListHangar.getNumberFromModelId(modelId);
 		node.value = Math.max(Math.min(number,maxNumber),1); 
 	}
+};
+
+export const deleteFleet = () => {
+	/*
+	 * Try to delete the fleet with the given id
+	 */
+	
+	refreshFleetId();
+	var id = fleetId;
+	var hasUserConfirmed = false;
+	
+	if (ASK_FOR_COMFIRMATION_ON_FLEET_DELETE){
+		hasUserConfirmed = confirm(Dictionnary.translations.fleet.view.single.confirm_delete);
+	}
+	
+	if (!ASK_FOR_COMFIRMATION_ON_FLEET_DELETE || hasUserConfirmed ){
+		
+		
+		Fleet.deleteFromId(id).then( (message) => {
+			if (message != undefined && message != null && message != ""){
+				throw message;
+			}
+			else {
+				location.href='/views/fleet/fleet-all.html';
+			}
+			
+		})
+		.catch( (error) => {
+			error.message = error.message.replace("'","\"");
+			var e = JSON.parse(error.message).translate;
+			var errorTranslate = e;
+			if (e == undefined || e == null ){
+				errorTranslate = "internal";
+			}
+			document.querySelector("#fleet-view #fleet-delete-section #fleet-delete-error").innerHTML= Dictionnary.translations.fleet.view.single.error.delete[errorTranslate];
+		});
+	}
+	
 };

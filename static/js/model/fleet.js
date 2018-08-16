@@ -138,8 +138,8 @@ class Fleet {
             method: 'DELETE',
             body: requestBody,
             headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then( ()=> { return; }) // the API does not return anything
+        }).then(Api.responseMiddleware);
+        // the API does not return anything
     }
     
     static transferShipsToFleet (shipsId,fleetId){
@@ -148,9 +148,25 @@ class Fleet {
             method: 'PATCH',
             body: requestBody,
             headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then( ()=> { return; }) // the API does not return anything
+        }).then(Api.responseMiddleware);
+        // the API does not return anything
     }
+    
+    static deleteFromId (id){
+        return fetch(`/api/fleets/${id}`, {
+            method: 'DELETE',
+            body : "",
+            headers: Api.headers
+        }).then((response) => {
+            var returnVal = Api.responseMiddleware(response);
+            if (returnVal == undefined) {
+                returnVal = response.json();
+            }
+            
+            return returnVal;
+        });
+    }
+    
 }
 
 export default Fleet;

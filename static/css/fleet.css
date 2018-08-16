@@ -4,7 +4,8 @@ a.planet { /* hyper link for planet*/
 	text-decoration: none;
 }
 
-#fleet-create-section > div {
+#fleet-create-section > div,
+#fleet-delete-section > #fleet-delete {
 	--height : 40px; /* this is the varaible defining the height of the div*/
 	position: relative;
     display: block; /* I have spacing probleme when using flex with the link*/
@@ -251,6 +252,11 @@ a.planet { /* hyper link for planet*/
 	background-color: #222;
 }
 
-.ships-list > div.ships-table > .flex-row > div.model-transfer > span.error-transfer {
-	animation:blinkingText 4s;
+.ships-list > div.ships-table > .flex-row > div.model-transfer > span.error-transfer,
+#fleet-delete-section > div.error {
+	animation:blinkingText 4s infinite;
+}
+
+#fleet-delete-section {
+	padding-bottom : 20px;
 }
