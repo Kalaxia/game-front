@@ -1,25 +1,35 @@
 import Api from './core/api.js';
 import Map from './model/map.js';
 import Player from './model/player.js';
+import App from '/static/js/core/app.js';
+
+export const initMap = () => {
+    Player.fetchCurrentPlayer().then(player => {
+        var profileLink = document.createElement('a');
+        profileLink.href = '/views/profile';
+        profileLink.innerText = player.pseudo;
+        document.querySelector("#player-data h3").appendChild(profileLink);
+    });
+    
+    Map.fetch().then(map => {
+        const mapElement = document.querySelector("#map");
+        const minimap = document.querySelector("#minimap");
+        for (const system of map.systems) {
+            displaySystem(mapElement, system, mapScale);
+            displaySystem(minimap, system, minimapScale);
+        }
+    });
+    
+    document.onmousedown = startMapMove;
+    document.onmouseup = stopMapMove;
+};
 
 const mapScale = 50;
 const minimapScale = 2;
 
-Player.fetchCurrentPlayer().then(player => {
-  var profileLink = document.createElement('a');
-  profileLink.href = '/views/profile';
-  profileLink.innerText = player.pseudo;
-  document.querySelector("#player-data h3").appendChild(profileLink);
-});
 
-Map.fetch().then(map => {
-    const mapElement = document.querySelector("#map");
-    const minimap = document.querySelector("#minimap");
-    for (const system of map.systems) {
-        displaySystem(mapElement, system, mapScale);
-        displaySystem(minimap, system, minimapScale);
-    }
-});
+
+
 
 const displaySystem = (map, system, scale) => {
     const systemElement = document.createElement("div");
@@ -80,9 +90,4 @@ const moveMap = e => {
 
  const redirectToSystem = event => {
    window.location = `/views/map/system.html?id=${event.currentTarget.getAttribute('data-id')}`;
- }
-
- window.onload = () => {
-     document.onmousedown = startMapMove;
-     document.onmouseup = stopMapMove;
  }

@@ -20,6 +20,29 @@
 
     <script type="text/javascript" src="/config/config.js"></script>
     <script type="module" src="/static/js/main.js"></script>
-    <script type="module" src="/static/js/map.js"></script>
+    <script type="module">
+        import App from '/static/js/core/app.js';
+        import { initMap } from '/static/js/map.js';
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        
+        if (id != null && id != undefined) {
+            window.setCurrentFleet(id);
+        }
+        
+        const initMapAll = () => {
+            
+            initMap();
+            if (id != null && id != undefined) {
+                //TODO
+            }
+            
+        }
+        
+        //window.addEventListener('load', initBaseForFleet);
+        App.init().then(initMapAll);
+        
+    </script>
   </body>
 </html>
