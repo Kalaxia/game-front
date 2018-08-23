@@ -1,12 +1,15 @@
 import Api from '../core/api.js';
 import Ship from './ship/ship.js';
+import Player from './player.js';
+import Planet from './planet.js';
+import Journey from './journey.js';
 
 class Fleet {
     constructor(data) {
         this.id = data.id;
-        this.player = data.player;
-        this.location = data.location;
-        this.journey = data.journey;
+        this.player = new Player (data.player);
+        this.location = new Planet (data.location);
+        this.journey = new Journey (data.journey);
     };
     
     /*************************/

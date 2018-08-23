@@ -19,6 +19,39 @@ html {
   border-radius: 10px;
 }
 
+#map > .fleet-location {
+    background-color: green;
+    
+}
+
+#map > .fleet-location-target{
+    position:absolute;
+    background-color: transparent;
+    border-radius: 10px;
+    border-color: #EFEFEF;
+    border-width: 2px;
+    width: 30px;
+    height: 30px;
+}
+#map > .fleet-location-target > div {
+    position:relative;
+}
+#map > .fleet-location-target > .north {
+     background-color: #EFEFEF;
+}
+
+#map > .fleet-location-target > .south {
+    
+}
+
+#map > .fleet-location-target > .west {
+    
+}
+
+#map > .fleet-location-target > .east {
+    
+}
+
 #minimap {
   position: fixed;
   width: 200px;

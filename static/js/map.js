@@ -24,8 +24,8 @@ export const initMap = () => {
     document.onmouseup = stopMapMove;
 };
 
-const mapScale = 50;
-const minimapScale = 2;
+export const mapScale = 50;
+export const minimapScale = 2;
 
 
 

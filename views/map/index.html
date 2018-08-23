@@ -23,19 +23,20 @@
     <script type="module">
         import App from '/static/js/core/app.js';
         import { initMap } from '/static/js/map.js';
+        import {initJourneyView} from '/static/js/journey.js';
         
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get("id");
+        const fleetId = urlParams.get("id");
         
-        if (id != null && id != undefined) {
-            window.setCurrentFleet(id);
+        if (fleetId != null && fleetId != undefined) {
+            window.setCurrentFleet(fleetId);
         }
         
         const initMapAll = () => {
             
             initMap();
-            if (id != null && id != undefined) {
-                //TODO
+            if (fleetId != null && fleetId != undefined) {
+                initJourneyView(fleetId);
             }
             
         }
