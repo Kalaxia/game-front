@@ -23,7 +23,7 @@
     <script type="module">
         import App from '/static/js/core/app.js';
         import { initMap } from '/static/js/map.js';
-        import {initJourneyView} from '/static/js/journey.js';
+        
         
         const urlParams = new URLSearchParams(window.location.search);
         const fleetId = urlParams.get("id");
@@ -35,9 +35,7 @@
         const initMapAll = () => {
             
             initMap();
-            if (fleetId != null && fleetId != undefined) {
-                initJourneyView(fleetId);
-            }
+            
             
         }
         

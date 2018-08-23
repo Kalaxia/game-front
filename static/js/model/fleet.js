@@ -163,6 +163,20 @@ class Fleet {
         }).then(Api.responseMiddleware); // if the fleet is delete it should return "Deleted" otherwise it does not return anything
     }
     
+    fetchRange(){
+        return fetch(`/api/fleets/${this.id}/range`, {
+            method: 'GET',
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
+    
+    static fetchRangeStatic(){
+        return fetch(`/api/fleets/range`, {
+            method: 'GET',
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
+    
 }
 
 export default Fleet;

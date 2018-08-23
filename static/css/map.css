@@ -20,36 +20,85 @@ html {
 }
 
 #map > .fleet-location {
-    background-color: green;
-    
+    border: 4px solid #09b309;
+    border-radius: 100px;
 }
 
 #map > .fleet-location-target{
     position:absolute;
-    background-color: transparent;
-    border-radius: 10px;
-    border-color: #EFEFEF;
-    border-width: 2px;
+    background-color: #ffffff00;
+    border-radius: 30px;
+    border : 2px solid #EFEFEF;
     width: 30px;
     height: 30px;
+    -webkit-animation: rotation 10s infinite linear;
 }
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+
 #map > .fleet-location-target > div {
-    position:relative;
+    position:absolute;
+    background-color: #EFEFEF;
 }
 #map > .fleet-location-target > .north {
-     background-color: #EFEFEF;
+     width : 2px;
+     height : 10px;
+     left : 14px;
+     top:-7px;
 }
 
 #map > .fleet-location-target > .south {
-    
+     width : 2px;
+     height : 10px;
+     left : 14px;
+     top:27px;
 }
 
 #map > .fleet-location-target > .west {
-    
+     width : 10px;
+     height : 2px;
+     left : -7px;
+     top:14px;
 }
 
 #map > .fleet-location-target > .east {
-    
+    width : 10px;
+     height : 2px;
+     left : 27px;
+     top:14px;
+}
+
+#map div.line{
+    height: 8px;
+    z-index: -1;
+    animation: line 3s linear infinite;
+    background-image: url(../../static/images/map/line_step.png);
+}
+
+#map > .range-circle {
+    border-radius: 10000px;
+    background-color: #ffffff00;
+    border-color: darkgray;
+    border-style: dashed;
+    -webkit-animation: rotation 100s infinite linear;
+    position: absolute;
+}
+
+@keyframes line {
+  from {
+    background-position: -56px 0px;
+  }
+  to {
+    background-position: 0px 0px;
+  }
 }
 
 #minimap {
