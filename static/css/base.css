@@ -235,3 +235,13 @@
 #planet-available-buildings.visible {
     display: block;
 }
+
+#planet-production {
+  grid-column: 2/6;
+  grid-row: 4/8;
+}
+
+#planet-storage {
+  grid-column: 6/10;
+  grid-row: 4/8;
+}

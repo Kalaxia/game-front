@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kalaxia</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    </head>
+    <body>
+        <div id="planet-production" class="resource-list">
+            <header>
+                <h3></h3>
+            </header>
+            <section></section>
+        </div>
+
+        <div id="planet-storage" class="storage-list">
+            <header>
+                <h3></h3>
+            </header>
+            <section></section>
+        </div>
+
+        <script type="text/javascript" src="/config/config.js"></script>
+        <script type="module" src="/static/js/main.js"></script>
+
+        <script type="module">
+            import App from '/static/js/core/app.js';
+            
+            import { initBaseProduction} from '/static/js/production.js';
+
+            App.init().then(() => { initBaseProduction() });
+        </script>
+  </body>
+</html>
