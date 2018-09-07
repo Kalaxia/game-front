@@ -9,14 +9,14 @@
     <body>
         <div id="planet-production" class="resource-list">
             <header>
-                <h3></h3>
+                <h3>Ressources</h3>
             </header>
             <section></section>
         </div>
 
         <div id="planet-storage" class="storage-list">
             <header>
-                <h3></h3>
+                <h3>Stockage</h3>
             </header>
             <section></section>
         </div>
@@ -26,7 +26,7 @@
 
         <script type="module">
             import App from '/static/js/core/app.js';
-            
+
             import { initBaseProduction} from '/static/js/production.js';
 
             App.init().then(() => { initBaseProduction() });
