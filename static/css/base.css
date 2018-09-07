@@ -238,10 +238,14 @@
 
 #planet-production {
   grid-column: 2/6;
-  grid-row: 4/8;
+  grid-row: 3/8;
 }
 
 #planet-storage {
   grid-column: 6/10;
-  grid-row: 4/8;
+  grid-row: 3/8;
+}
+
+#planet-storage > h5 {
+  margin : none;
 }
