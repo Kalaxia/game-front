@@ -15,6 +15,7 @@
             <h3 id="planet-name"></h3>
             <h4 id="player"></h4>
             <h4 id="system"></h4>
+            <h4 id="production-details"></h4>
         </div>
         <div id="planet">
             <figure class="shape"><span class="shadow"></span></figure>
@@ -52,6 +53,11 @@
                 document.querySelector('#planet-name').innerHTML = planet.name;
                 document.querySelector('#planet .shape').setAttribute('data-type', planet.type);
                 planetElement.style.display = "block";
+
+                const planetResourceLink = document.createElement('a');
+                planetResourceLink.innerText = "Production détaillée TOTRAD"
+                planetResourceLink.href = `/views/base/production.html`;
+                document.querySelector('#production-details').appendChild(planetResourceLink);
 
                 if (planet.player !== null) {
                     document.querySelector("#player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;

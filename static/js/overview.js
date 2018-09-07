@@ -17,6 +17,11 @@ const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(pla
       const planetElement = document.createElement('div');
       planetElement.classList.add('planet');
 
+      const planetResourceLink = document.createElement('a');
+      planetResourceLink.innerText = "Production détaillée TOTRAD"
+      planetResourceLink.href = `/views/base/production.html`;
+
+      planetElement.appendChild(planetResourceLink);
       planetElement.appendChild(shape);
       planetElement.appendChild(planetName);
       list.appendChild(planetElement);
