@@ -247,5 +247,31 @@
 }
 
 #planet-storage > h5 {
-  margin : none;
+  margin : 0;
+}
+
+#planet-production > h5 {
+  margin : 0;
+}
+
+.storage {
+    text-align: center;
+}
+.storage-display {
+    border-style: solid;
+    border-color: white;
+    border-radius: 25px;
+    height:25px;
+    width :100%;
+}
+
+.storage-full {
+    border-radius: 25px;
+    background-color: grey;
+    height : 100%;
+}
+
+.current-amount {
+    font-size: 1.7em;
+    display: inline;
 }
