@@ -21,6 +21,7 @@ export const initBaseProduction = () => {
                     resource.density,
                     `<img src="/static/images/resources/${resource.picto}" alt="${resource.name}"/>`
                 )}</div>
+                <h5>Production:${resource.density*10} /h</h5>
             </div>`
         ;
         listResources.appendChild(infoResources);
@@ -30,8 +31,8 @@ export const initBaseProduction = () => {
             <div class="info">
                 ${(typeof planet.storage !== 'undefined' && planet.storage !== null) ? `<div class="storage">${planet.storage.resources[resourceKey]}/
                 ${planet.storage.capacity}
-
-                <div class="full-capacity-time">Full in${(planet.storage.capacity-planet.storage.resources[resourceKey])/(resource.density*10)}h</div></div>` : ''}
+                ${Dictionnary.translations.planet.storage.capacity}
+                <div class="full-capacity-time">${Dictionnary.translations.planet.storage.capacity} ${(planet.storage.capacity-planet.storage.resources[resourceKey])/(resource.density*10)}h</div></div>` : ''}
             </div>`
         listStorage.appendChild(infoStorage);
     }
