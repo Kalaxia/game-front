@@ -54,10 +54,23 @@
                 document.querySelector('#planet .shape').setAttribute('data-type', planet.type);
                 planetElement.style.display = "block";
 
-                const planetResourceLink = document.createElement('a');
-                planetResourceLink.innerText = "Production détaillée TOTRAD"
-                planetResourceLink.href = `/views/base/production.html`;
-                document.querySelector('#production-details').appendChild(planetResourceLink);
+                const planetResources = document.createElement('div');
+                for (let resource of planet.resources) {
+                  console.log(planet.name);
+                    console.log(resource.resources);
+                    const resourcePicto = document.createElement('img');
+                    resourcePicto.src= "/static/images/resources/"+resource.picto;
+                    resourcePicto.alt=resource.name;
+                    planetResources.appendChild(resourcePicto);
+                }
+                document.querySelector('#production-details').appendChild(planetResources);
+
+                if(planet.player !== null && planet.player.id === currentPlayer.id) {
+                    const planetResourceLink = document.createElement('a');
+                    planetResourceLink.innerText = "Production détaillée TOTRAD"
+                    planetResourceLink.href = `/views/base/production.html`;
+                    document.querySelector('#production-details').appendChild(planetResourceLink);
+                }
 
                 if (planet.player !== null) {
                     document.querySelector("#player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;
