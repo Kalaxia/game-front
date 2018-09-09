@@ -254,9 +254,14 @@
   margin : 0;
 }
 
+.storage-picto {
+    align-items: stretch;
+}
+
 .storage {
     text-align: center;
 }
+
 .storage-display {
     border-style: solid;
     border-color: white;
@@ -274,4 +279,24 @@
 .current-amount {
     font-size: 1.7em;
     display: inline;
+}
+
+.info {
+    flex: 1;
+}
+
+.full-storage-display {
+    display: flex;
+}
+
+.full-storage-display > h5 {
+    margin :0;
+}
+
+.info {
+    justify-content: center;
+}
+
+.hourly-production {
+    justify-content: flex-end;
 }
