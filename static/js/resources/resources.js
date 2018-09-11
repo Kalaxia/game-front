@@ -1,37 +1,37 @@
 export default {
   "resources.a": {
     "name": "ResLiquide",
-    "picto": "liquid_a.png",
-    "color": "#CC9966"
+    "picto": "Pc_Crst.png",
+    "color": "#66CCCC"
   },
   "resources.b": {
     "name": "ResMinerai",
-    "picto": "ore_a.png",
-    "color": "#CC6699"
+    "picto": "Pc_Crst_Blood.png",
+    "color": "#CC3333"
   },
   "resources.c": {
     "name": "ResMetal",
-    "picto": "metal_a.png",
-    "color": "#999999"
+    "picto": "Pc_Crst_Amethyste.png",
+    "color": "#993366"
   },
   "resources.d": {
     "name": "ResFood",
-    "picto": "food_a.png",
-    "color": "#999966"
+    "picto": "Pc_Crst_Blue.png",
+    "color": "#336699"
   },
   "resources.e": {
     "name": "ResCristal",
-    "picto": "crystal_a.png",
-    "color": "#663366"
+    "picto": "Pc_Crst_Green.png",
+    "color": "#339966"
   },
   "resources.f": {
     "name": "ResMinerai2",
-    "picto": "ore_b.png",
-    "color": "#333366"
+    "picto": "Pc_Crst_Red.png",
+    "color": "#993333"
   },
   "resource.g": {
     "name": "ResCristal2",
-    "picto": "crystal_b.png",
-    "color": "#66CC99"
+    "picto": "Pc_Crst_Topaze.png",
+    "color": "#CCCC99"
   }
 };
