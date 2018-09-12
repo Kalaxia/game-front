@@ -17,7 +17,7 @@
     width: 80%;
     margin: auto;
     font-variant: small-caps;
-    z-index: 10;
+    z-index: 1000;
 }
 
 #points-configuration > header > #available-points > span {

@@ -32,14 +32,17 @@ html {
     width: 30px;
     height: 30px;
     -webkit-animation: rotation 10s infinite linear;
+    pointer-events: none;
 }
 
 @-webkit-keyframes rotation {
   from {
     -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
     -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
   }
 }
 
@@ -47,6 +50,7 @@ html {
 #map > .fleet-location-target > div {
     position:absolute;
     background-color: #EFEFEF;
+    pointer-events:inherit;
 }
 #map > .fleet-location-target > .north {
      width : 2px;
@@ -78,7 +82,7 @@ html {
 
 #map div.line{
     height: 8px;
-    z-index: -1;
+    z-index: -100;
     animation: line 3s linear infinite;
     background-image: url(../../static/images/map/line_step.png);
 }
@@ -90,6 +94,7 @@ html {
     border-style: dashed;
     -webkit-animation: rotation 100s infinite linear;
     position: absolute;
+    pointer-events: none; /*make it passthrought for mouse event*/
 }
 
 @keyframes line {
@@ -107,7 +112,7 @@ html {
   height: 200px;
   top:0px;
   left: 0px;
-  z-index: 10;
+  z-index: 1000;
   background-color: rgba(0,0,0,0.8);
 }
 
@@ -138,7 +143,7 @@ html {
   position: absolute;
   border: 1px solid #565656;
   border-radius: 5000px;
-  z-index: 5;
+  z-index: 500;
 }
 
 #system > .faction-flag {
@@ -147,7 +152,7 @@ html {
   height: 40px;
   border-radius: 20px;
   cursor: pointer;
-  z-index: 7;
+  z-index: 700;
   opacity: 0.6;
 }
 
@@ -157,7 +162,7 @@ html {
   height: 20px;
   border-radius: 15px;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1000;
   border: 1px solid #222;
 }
 
