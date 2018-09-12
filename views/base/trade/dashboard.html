@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kalaxia</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/trade.css" />
+    </head>
+    <body>
+        <a href="/views/base/trade/sell.html">Vendre</a>
+
+        <script type="text/javascript" src="/config/config.js"></script>
+        <script type="module" src="/static/js/main.js"></script>
+        <script type="module">
+            import App from '/static/js/core/app.js';
+            import { initTradingPost } from '/static/js/trade.js';
+
+            App.init().then(() => { initTradingPost(); });
+        </script>
+  </body>
+</html>

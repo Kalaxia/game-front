@@ -1,0 +1,457 @@
+#sell-form {
+    grid-column: 1/11;
+    grid-row: 2/9;
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-right: 80px;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(20%, auto);
+    z-index: 5;
+}
+
+#sell-form > section {
+    position: relative;
+    background-color: #090A0A;
+}
+
+#sell-form > section:first-child {
+    grid-column: 1/10;
+    grid-row: 1/6;
+}
+
+#sell-form > section:nth-child(2) {
+    grid-column: 11/21;
+    grid-row: 1/5;
+}
+
+#sell-form > footer {
+    grid-column: 12/21;
+    grid-row: 5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#sell-form > section > header {
+    position: relative;
+}
+
+#sell-form > section > header::before {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    left: 0px;
+    border-top: 40px solid #1E2024;
+    border-left: 40px solid #1E2024;
+    border-bottom: 40px solid #090A0A;
+    border-right: 40px solid #090A0A;
+    z-index: 1;
+}
+
+#sell-form > section > header::after {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    right: 0px;
+    border-top: 40px solid #1E2024;
+    border-right: 40px solid #1E2024;
+    border-bottom: 40px solid #090A0A;
+    border-left: 40px solid #090A0A;
+    z-index: 1;
+}
+
+#sell-form > section > header > h3 {
+    position: relative;
+    width: 60%;
+    height: 30px;
+    background-color: #1E2024;
+    margin: 0px;
+    padding: 10px 20px;
+    z-index: 2;
+}
+
+#sell-form > section > header > h3::after {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    right: 0px;
+    border-top: 25px solid #1E2024;
+    border-left: 25px solid #1E2024;
+    border-bottom: 25px solid #090A0A;
+    border-right: 25px solid #090A0A;
+    z-index: 1;
+}
+
+#sell-form > section > section {
+    padding-top: 50px;
+}
+
+#sell-form > section > section > form > header {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #1E2024;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#sell-form > section > section > form > header > span {
+    position: absolute;
+    width: 100%;
+    content: ' ';
+}
+#sell-form > section > section > form > header > span:first-child {
+    top: 0px;
+}
+#sell-form > section > section > form > header > span:last-child {
+    bottom: 0px;
+}
+#sell-form > section > section > form > header > span::before,
+#sell-form > section > section > form > header > span::after {
+    position: absolute;
+    content: ' ';
+}
+#sell-form > section > section > form > header > span:first-child::before {
+    top: 0px;
+    left: 0px;
+    border-bottom: 10px solid #1E2024;
+    border-right: 10px solid #1E2024;
+    border-top: 10px solid #090A0A;
+    border-left: 10px solid #090A0A;
+}
+#sell-form > section > section > form > header > span:first-child::after {
+    top: 0px;
+    right: 0px;
+    border-bottom: 10px solid #1E2024;
+    border-left: 10px solid #1E2024;
+    border-top: 10px solid #090A0A;
+    border-right: 10px solid #090A0A;
+}
+#sell-form > section > section > form > header > span:last-child::before {
+    bottom: 0px;
+    left: 0px;
+    border-top: 10px solid #1E2024;
+    border-right: 10px solid #1E2024;
+    border-bottom: 10px solid #090A0A;
+    border-left: 10px solid #090A0A;
+}
+#sell-form > section > section > form > header > span:last-child::after {
+    bottom: 0px;
+    right: 0px;
+    border-top: 10px solid #1E2024;
+    border-left: 10px solid #1E2024;
+    border-bottom: 10px solid #090A0A;
+    border-right: 10px solid #090A0A;
+}
+
+#sell-form > section > section > form > header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sell-form > section > section > form > header > div > p {
+    padding-right: 30px;
+    font-size: 1.2em;
+}
+
+#sell-form .selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #EFEFEF;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#sell-form .selector > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#sell-form .selector > div.selected {
+    background-color: #EFEFEF;
+}
+
+#sell-form .selector > div .picto {
+    width: 24px;
+    height: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 24px;
+}
+
+#sell-form .selector > div .picto.lot {
+    background-image: url('/static/images/picto/G_P_Lot_64px.png');
+}
+#sell-form .selector > div .picto.arrow {
+    background-image: url('/static/images/picto/G_P_Arr_64px.png');
+}
+#sell-form .selector > div .picto.money {
+    background-image: url('/static/images/picto/G_P_Mon_64px.png');
+}
+#sell-form .selector > div .picto.ship {
+    background-image: url('/static/images/picto/G_P_S_64px.png');
+}
+#sell-form .selector > div .picto.model {
+    background-image: url('/static/images/picto/G_P_Ov_64px.png');
+}
+
+#sell-form .selector > div.selected .picto.lot {
+    background-image: url('/static/images/picto/G_P_Lot_64px_BK.png');
+}
+#sell-form .selector > div.selected .picto.arrow {
+    background-image: url('/static/images/picto/G_P_Arr_64px_BK.png');
+}
+#sell-form .selector > div.selected .picto.money {
+    background-image: url('/static/images/picto/G_P_Mon_BK_64px.png');
+}
+#sell-form .selector > div.selected .picto.ship {
+    background-image: url('/static/images/picto/G_P_S_BK_64px.png');
+}
+#sell-form .selector > div.selected .picto.model {
+    background-image: url('/static/images/picto/G_P_Ov_BK_64px.png');
+}
+
+#sell-form > section > section > form > header > div img {
+    height: 24px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#sell-form > section > section > form > section {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    padding-top: 20px;
+    justify-content: space-between;
+}
+
+#sell-form > section > section > form > section > div {
+    width: 50%;
+}
+
+#sell-form > section > section > form > section p {
+    width: 120px;
+    padding-right: 20px;
+    text-align: right;
+    font-size: 0.9em;
+    margin: 0px;
+}
+
+#sell-form > section > section > form button {
+    background-color: #090A0A;
+    border: 1px solid #EFEFEF;
+    color: #EFEFEF;
+    border-radius: 10px;
+    padding: 2px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-variant: small-caps;
+}
+
+#sell-form #resource-selector {
+    display: flex;
+    align-items: center;
+}
+
+#sell-form #resource-selector > .selector > div {
+    text-align: center;
+}
+
+#sell-form #resource-selector > .selector > div > img {
+    height: 26px;
+}
+
+#sell-form #quantity-container,
+#sell-form #lot-container {
+    padding-top: 10px;
+}
+
+#sell-form #price-container {
+    padding-top: 100px;
+}
+#sell-form #discount-container {
+    padding-top: 5px;
+}
+
+#sell-form #quantity-container > section,
+#sell-form #lot-container > section,
+#sell-form #price-container,
+#sell-form #discount-container {
+    display: flex;
+    align-items: center;
+}
+
+#sell-form #quantity-container > section > div:nth-child(2),
+#sell-form #lot-container > section > div:nth-child(2),
+#sell-form #price-container > div,
+#sell-form #discount-container > div {
+    display:flex;
+    justify-content: space-between;;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #EFEFEF;
+    border-radius: 10px;
+}
+
+#sell-form #price-container > div,
+#sell-form #discount-container > div {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#sell-form #quantity-container > section > div:nth-child(2) > input,
+#sell-form #lot-container > section > div:nth-child(2) > input,
+#sell-form #price-container > div > input,
+#sell-form #discount-container > div > input {
+    border: none;
+    background: none;
+    color: #EFEFEF;
+    padding: 5px;
+    font-size: 1.2em;
+    text-align: right;
+}
+
+#sell-form #price-container > div > input,
+#sell-form #discount-container > div > input {
+    width: 60px;
+}
+
+#sell-form #quantity-container > section > div:nth-child(2) > img,
+#sell-form #lot-container > section > div:nth-child(2) > img{
+    height: 26px;
+}
+
+#sell-form #price-container > div > p,
+#sell-form #discount-container > div > p {
+    width: 120px;
+    padding-right: 20px;
+}
+
+#sell-form #price-container > div > div,
+#sell-form #discount-container > div > div {
+    display: flex;
+    height: 30px;
+    padding-top: 5px;
+}
+
+#sell-form #price-container > div > div > sup > img,
+#sell-form #discount-container > div > div > sup > img {
+    height: 12px;
+}
+
+#sell-form #price-container > div > div > span,
+#sell-form #discount-container > div > div > span{
+    padding-top: 5px;
+    padding-left: 2px;
+}
+
+#sell-form #price-container > div > div > sub,
+#sell-form #discount-container > div > div > sub {
+    padding-top: 10px;
+}
+
+#sell-form #quantity-container > footer,
+#sell-form #lot-container > footer {
+    padding-top: 5px;
+    padding-left: 150px;
+    font-size: 0.8em;
+}
+
+#sell-form #lot-container > section > div:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sell-form #resource-info > header > h4 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#sell-form #resource-info > section {
+    width: 96px;
+    height: 96px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFEFEF;
+    text-align:center;
+    border-radius: 20px;
+}
+
+#sell-form #resource-info > section > img {
+    height: 48px;
+}
+
+#sell-form #faction-module {
+    margin-top: 40px;
+}
+
+#sell-form #faction-module .faction-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#sell-form #faction-module .faction-container > div {
+    min-width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #EFEFEF;
+    border-radius: 10px;
+}
+
+#sell-form #faction-module .faction-container > div > div {
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#sell-form #faction-module .faction-container > div > div > img {
+    height: 24px;
+}
+
+#sell-form > section > footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
+
+#sell-form > section > footer::before {
+    position: absolute;
+    content: ' ';
+    left: 0px;
+    bottom: 0px;
+    border-bottom: 60px solid #l;
+    border-left: 60px solid #1E2024;
+    border-top: 60px solid #090A0A;
+    border-right: 60px solid #090A0A;
+}
+
+#sell-form > section > footer::after {
+    position: absolute;
+    content: ' ';
+    bottom: 0px;
+    right: 0px;
+    border-bottom: 20px solid #1E2024;
+    border-right: 20px solid #1E2024;
+    border-top: 20px solid #090A0A;
+    border-left: 20px solid #090A0A;
+}

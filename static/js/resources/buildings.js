@@ -22,7 +22,8 @@ export default {
     },
     "bat.trade.a": {
         "picture": "building.png",
-        "category": "trade"
+        "category": "trade",
+        "view": "trade/dashboard.html"
     },
     "bat.techno.a": {
         "picture": "building.png",
