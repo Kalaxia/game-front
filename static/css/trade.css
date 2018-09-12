@@ -455,3 +455,14 @@
     border-top: 20px solid #090A0A;
     border-left: 20px solid #090A0A;
 }
+
+#sell-form > footer > button {
+    margin-right: 25%;
+    background: none;
+    font-size: 1.4em;
+    color: #A0A0A0;
+    border-radius: 15px;
+    border: 3px solid #E1BB81;
+    padding: 5px 10px;
+    font-variant: small-caps;
+}

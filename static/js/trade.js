@@ -29,7 +29,7 @@ export const createOffer = () => {
             offer = new ModelOffer();
             break;
     }
-    offer.create();
+    offer.create().then(() => { window.location.href = "/views/base/trade/dashboard.html" });
 };
 
 export const chooseType = type => {

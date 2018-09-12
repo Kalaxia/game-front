@@ -6,6 +6,7 @@ class ResourceOffer extends Offer {
         super(operation, GOOD_TYPE_RESOURCES, planet, parseFloat(price));
         this.quantity = parseInt(quantity);
         this.lotQuantity = parseInt(lotQuantity);
+        this.resource = resource;
     }
 
     create() {
@@ -13,10 +14,10 @@ class ResourceOffer extends Offer {
             method: "POST",
             body: JSON.stringify({
                 operation: this.operation,
-                goodType: this.goodType,
+                good_type: this.goodType,
                 planet: this.planet,
                 quantity: this.quantity,
-                lotQuantity: this.lotQuantity,
+                lot_quantity: this.lotQuantity,
                 price: this.price,
                 resource: this.resource,
             }),
