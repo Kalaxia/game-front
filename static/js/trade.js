@@ -10,7 +10,7 @@ import ShipOffer from './model/trade/ship_offer.js';
 
 export const createOffer = () => {
     const operation = document.querySelector("#operation-selector > .selected").getAttribute('data-operation-type');
-    const type = document.querySelector("#good-selector > .selected").getAttribute('data-choice-type');
+    const type = document.querySelector("#good-type-selector > .selected").getAttribute('data-choice-type');
     const planet = App.getCurrentPlanet();
 
     let offer;
@@ -33,7 +33,7 @@ export const createOffer = () => {
 };
 
 export const chooseType = type => {
-    const previous = document.querySelector('#good-selector > div.selected');
+    const previous = document.querySelector('#good-type-selector > div.selected');
     if (previous !== null) {
         if (previous.getAttribute('data-choice-type') === type) {
             return;
@@ -43,7 +43,7 @@ export const chooseType = type => {
     document.querySelectorAll('#sell-form > section:first-child > section > form > section > div').forEach(element => {
         element.innerHTML = '';
     })
-    document.querySelector(`#good-selector > div[data-choice-type="${type}"]`).classList.add('selected');
+    document.querySelector(`#good-type-selector > div[data-choice-type="${type}"]`).classList.add('selected');
     switch(type) {
         case GOOD_TYPE_RESOURCES: initResourcesSaleForm(); break;
         case GOOD_TYPE_MODELS: initModelsSaleForm(); break;
