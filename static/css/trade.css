@@ -1,3 +1,102 @@
+#offers-list {
+    grid-column: 1/6;
+    grid-row: 2/9;
+    margin-left: 80px;
+    margin-right: 80px;
+    font-variant: small-caps;
+}
+
+#offers-list > header {
+    text-align: center;
+}
+
+#offers-list > header > a {
+    display: block;
+    width: 150px;;
+    margin: auto;
+    color: #A0A0A0;
+    border: 3px solid #E1BB81;
+    border-radius: 15px;
+    font-size: 1.2em;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+#offers-list > section > table {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #242424;
+    text-align: center;
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#offers-list > section > table > thead {
+    position: relative;
+    text-align: center;
+    background-color: #E0E0E0;
+}
+
+#offers-list > section > table > thead::before {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    left: 0px;
+    border-left: 10px solid #1E2024;
+    border-top: 10px solid #1E2024;
+    border-right: 10px solid #E0E0E0;
+    border-bottom: 10px solid #E0E0E0;
+}
+
+#offers-list > section > table > thead::after {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    right: 0px;
+    border-right: 10px solid #1E2024;
+    border-top: 10px solid #1E2024;
+    border-left: 10px solid #E0E0E0;
+    border-bottom: 10px solid #E0E0E0;
+}
+
+#offers-list > section > table > thead > tr > th {
+}
+
+#offers-list > section > table > thead > tr > th > img {
+    height: 24px;
+}
+
+#offers-list > section > table > tbody > tr > td {
+    padding: 5px 10px;
+}
+
+#offers-list > section > table > tbody > tr > td {
+    border-right: 2px solid #242424;
+}
+
+#offers-list > section > table > tbody > tr:nth-child(even) {
+    background-color: #090A0A;
+}
+
+#offers-list > section > table > tbody > tr > td:nth-child(3) > img {
+    height: 24px;
+}
+
+#offers-list > section > table > tbody > tr > td:nth-child(6) > img {
+    height: 16px;
+}
+
+#offers-list > section > table > tbody > tr > td:nth-child(6) > div {
+    display: inline-block;
+    padding-left: 5px;
+}
+
+#offers-list > section > table > tbody > tr > td:nth-child(6) > div img {
+    height: 12px;
+}
+
 #sell-form {
     grid-column: 1/11;
     grid-row: 2/9;

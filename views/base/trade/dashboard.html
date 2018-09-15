@@ -7,15 +7,48 @@
         <link rel="stylesheet" type="text/css" href="/static/css/trade.css" />
     </head>
     <body>
-        <a href="/views/base/trade/sell.html">Vendre</a>
+
+        <div id="offers-list">
+            <header>
+                <h1 data-translate="true">trade.trading_post</h1>
+                <a data-translate="true" href="/views/base/trade/sell.html">trade.create_offer</a>
+            </header>
+            <section>
+                <table>
+                    <thead>
+                        <th></th>
+                        <th><img src="/static/images/picto/G_P_Lot_64px_BK.png" /></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <img src="/static/images/picto/G_P_Lot_64px_BK.png" />
+                            <img src="/static/images/picto/G_P_Lot_64px_BK.png" />
+                            <img src="/static/images/picto/G_P_Lot_64px_BK.png" />
+                        </th>
+                        <th>
+                            <img src="/static/images/picto/G_P_Mon_BK_64px.png" />
+                            <img src="/static/images/picto/G_P_Arr_64px_BK.png" />
+                        </th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div>
+
+        </div>
+
 
         <script type="text/javascript" src="/config/config.js"></script>
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
             import App from '/static/js/core/app.js';
-            import { initTradingPost } from '/static/js/trade.js';
+            import { initOffersList } from '/static/js/trade.js';
 
-            App.init().then(() => { initTradingPost(); });
+            App.init().then(() => { initOffersList(); });
         </script>
   </body>
 </html>

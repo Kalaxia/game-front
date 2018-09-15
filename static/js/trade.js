@@ -3,10 +3,29 @@ import ShipModel from  './model/ship/model.js';
 import Faction from './model/faction.js';
 import resourcesData from './resources/resources.js';
 import Dictionnary from './core/dictionnary.js';
-import { OPERATION_BUY, OPERATION_SELL, GOOD_TYPE_RESOURCES, GOOD_TYPE_SHIPS, GOOD_TYPE_MODELS } from './model/trade/offer.js';
+import { Offer, OPERATION_BUY, OPERATION_SELL, GOOD_TYPE_RESOURCES, GOOD_TYPE_SHIPS, GOOD_TYPE_MODELS } from './model/trade/offer.js';
 import ResourceOffer from './model/trade/resource_offer.js';
 import ModelOffer from './model/trade/model_offer.js';
 import ShipOffer from './model/trade/ship_offer.js';
+import { transformArray } from './transformers/offer.js';
+
+export const initOffersList = () => Offer.fetchAll(OPERATION_SELL).then(transformArray).then(offers => {
+    const list = document.querySelector('#offers-list > section > table > tbody');
+    const planet = App.getCurrentPlanet();
+    for (const offer of offers) {
+        const row = document.createElement('tr');
+        row.innerHTML =
+            `<td style="color:${offer.location.player.faction.color}">${offer.location.player.pseudo}</td>
+            <td>${offer.getGoodName()}</td>
+            <td><img src="${offer.getGoodPicto()}"/></td>
+            <td>${offer.getGoodClass()}</td>
+            <td>${offer.getQuantity()}</td>
+            <td>${offer.getPrice()}</td>
+            <td>${(planet.id !== offer.location.id) ? `${planet.system.getDistanceFrom(offer.location.system)} Al` : '-'}</td>`
+        ;
+        list.appendChild(row);
+    }
+});
 
 export const createOffer = () => {
     const operation = document.querySelector("#operation-selector > .selected").getAttribute('data-operation-type');
