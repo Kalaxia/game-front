@@ -1,5 +1,6 @@
 import Api from '../core/api.js';
 import Ship from './ship/ship.js';
+import System from './system.js';
 
 class Planet {
     constructor(data) {
@@ -7,7 +8,7 @@ class Planet {
         this.name = data.name;
         this.type = data.type;
         this.player = data.player;
-        this.system = data.system;
+        this.system = (data.system !== null) ? new System(data.system) : null;
         this.population = data.population;
         this.buildings = data.buildings;
         this.nb_buildings = data.nb_buildings;
@@ -61,7 +62,7 @@ class Planet {
     }
 
     static fetchShips(id) {
-        return fetch(`/api/planets/${id}/ships`, { 
+        return fetch(`/api/planets/${id}/ships`, {
             method: 'GET',
             headers: Api.headers
         })
@@ -78,7 +79,7 @@ class Planet {
         })
         .catch(error => console.log(error));
     };
-    
+
     updateSettings() {
         const self = this;
         return fetch(`/api/planets/${self.id}/settings`, {
@@ -88,8 +89,6 @@ class Planet {
         }).then(Api.responseMiddleware)
         .then(response => { return self; })
     }
-    
-    
 }
 
 export default Planet;
