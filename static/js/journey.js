@@ -64,7 +64,7 @@ export const initJourneyViewForPlaner = (id) => {
 	
 };
 
-function getPosClickOnMap (eventX, eventY, mapNode) {
+const getPosClickOnMap = (eventX, eventY, mapNode) => {
 	var xPosMap; 
 	var yPosMap; 
 	if (mapNode.style.left == ""){
@@ -168,7 +168,17 @@ export const systemCurrentMenuAdd = (event) => {
 				
 				let div = menu.querySelector(`div.menuElement:nth-child(${i+1})`); // css start counting at one and js start at 0
 				div.style.transform = `rotate(${180+angleStartDiff + angleStep*i}deg) skew(${skewDiff}deg)`;
+				var factionIdAtribute =0 ;
+				var factionColor = "darkgrey";
 				
+				if (system.planets[i].player != null && system.planets[i].player != undefined){
+					factionIdAtribute = system.planets[i].player.faction.id;
+					factionColor = system.planets[i].player.faction.color;
+				}
+				
+				div.setAttribute("faction-id",`${factionIdAtribute}`);
+				//div.setAttribute("faction-color",factionColor);
+				div.style["background-color"] = factionColor;
 			}
 			menu.querySelectorAll(`div.menuElement`).forEach( (node) => {
 				node.addEventListener('click',planetAddToJourney);

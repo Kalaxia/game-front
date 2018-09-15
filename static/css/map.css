@@ -17,6 +17,7 @@ html {
   height: 20px;
   background-color: #EFEFEF;
   border-radius: 10px;
+  z-index: 40;
 }
 
 #map > .fleet-location {
@@ -33,6 +34,8 @@ html {
     height: 30px;
     -webkit-animation: rotation 10s infinite linear;
     pointer-events: none;
+    /*z-index: 45;*/
+    z-index: 30;
 }
 
 @-webkit-keyframes rotation {
@@ -51,6 +54,8 @@ html {
     position:absolute;
     background-color: #EFEFEF;
     pointer-events:inherit;
+    /*z-index: 45;*/
+    z-index: 30;
 }
 #map > .fleet-location-target > .north {
      width : 2px;

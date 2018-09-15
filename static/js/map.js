@@ -36,7 +36,7 @@ export const initMapForJourneyPlaner = () => {
         }
     });
     
-}
+};
 
 const initBaseMap = () => {
     Player.fetchCurrentPlayer().then(player => {
@@ -50,7 +50,7 @@ const initBaseMap = () => {
     document.onmouseup = stopMapMove;
     document.onwheel = zoomMap;
     document.oncontextmenu = (event) => {event.preventDefault();}; // no default contextmenu
-}
+};
 
 const initMapElement = (map) => {
     const mapElement = document.querySelector("#map");
@@ -59,7 +59,7 @@ const initMapElement = (map) => {
         displaySystem(mapElement, system, mapScale);
         displaySystem(minimap, system, minimapScale);
     }
-}
+};
 
 export const mapScale = 50.0;
 export const minimapScale = 2.0;
@@ -83,7 +83,7 @@ const displaySystem = (map, system, scale) => {
     }
     
     map.appendChild(systemElement);
-}
+};
 
 let drag = false;
 let offsetX = null;
@@ -124,7 +124,7 @@ const moveMap = e => {
      return;
    }
    if (!e) {
-     var e = window.event;
+     e = window.event;
    }
    var map = document.querySelector("#map");
    /*var zoomLevel;
@@ -138,15 +138,15 @@ const moveMap = e => {
    map.style.left = coordX + (e.clientX - offsetX) + 'px';
    map.style.top = coordY + (e.clientY - offsetY) + 'px';
    return false;
- }
+};
 
  const stopMapMove = () => {
      drag = false;
- }
+ };
 
 const redirectToSystem = event => {
     window.location = `/views/map/system.html?id=${event.currentTarget.getAttribute('data-id')}`;
-}
+};
 
 const zoomMap = (event) =>{
     var y = event.deltaY; // The amount we scrolled
@@ -175,4 +175,4 @@ const zoomMap = (event) =>{
     /*map.style.left = parseInt(map.style.left) + event.clientX * y * ZOOM_SCALE+ 'px';
     map.style.top = parseInt(map.style.top) + event.clientY * y * ZOOM_SCALE + 'px';*/
     
-}
+};

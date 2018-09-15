@@ -7,7 +7,6 @@
 
 #map > .system{
 	transition: background-color 0.2s ease-out, transform 0.4s ease-out, z-index 0.4s ease-out;
-	z-index: 40;
 }
 
 #map > .system:hover{
@@ -19,108 +18,6 @@
 	pointer-events: none;
 }
 
-/*
-#map > .contextMenuMap {
-	display: none;
-	background-color: white;
-	transition: display 0.2s ease-out;
-	position: absolute;
-	color:black;
-}
-
-#map menu:hover{
-    background-color:#0000e2;
-    font-weight:bold;
-}
-#map menu:hover > menu{
-    display:block;
-}
-
-#map menu[title]:before{
-    content:attr(title);
-}
-
-#map menu > menu{
-    display:none;
-}
-*/
-
-/*
-#map > .contextMenuMap{
-	font-size:1em;
-  width: 26em;
-  height: 26em;
-  overflow: hidden;
-  position: absolute;
-  z-index: 1000;
-  border-radius: 50%;
-  margin-left: -13em;
-  transform: scale(1);
-  transition: all .3s ease;
-  background-color:red;
-  opacity:1
-  pointer-events: none;
-}
-
-.opened-nav {
-  border-radius: 50%;
-  transform: scale(1);
-  pointer-events: all;
-}
-
-#map > .contextMenuMap li {
-  position: absolute;
-  font-size: 1.5em;
-  width: 10em;
-  height: 10em;
-  transform-origin: 100% 100%;
-  overflow: hidden;
-  left: 50%;
-  top: 50%;
-  margin-top: -1.3em;
-  margin-left: -10em;
-  transition: border .3s ease;
-  background-color:#ffffff8a;
-}
-
-#map > .contextMenuMap li a {
-  display: block;
-  font-size: 1.18em;
-  height: 14.5em;
-  width: 14.5em;
-  position: absolute;
-  bottom: -7.25em;
-  right: -7.25em;
-  border-radius: 50%;
-  text-decoration: none;
-  color: #fff;
-  padding-top: 1.8em;
-  text-align: center;
-  transform: skew(-50deg) rotate(-70deg) scale(1);
-  transition: opacity 0.3s, color 0.3s;
-  background-color: green;
-}
-
-.#map > .contextMenuMap li > a >span {
-	font-size: 1.1em;
-  opacity: 0.7;
-}
-
-#map > .contextMenuMap li:first-child {
-	transform: rotate(-10deg) skew(50deg);
-}
-
-#map > .contextMenuMap li:nth-child(2) {
-  transform: rotate(30deg) skew(50deg);
-}
-#map > .contextMenuMap li:nth-child(3) {
-  transform: rotate(70deg) skew(50deg)
-}
-
-#map > .contextMenuMap li:nth-child(4) {
-  transform: rotate(110deg) skew(50deg);
-}
-*/
 
 #map .contextMenuMap{
 	background-color: #fff00;
@@ -148,35 +45,20 @@
 
 .contextMenuMap > div{
 	position: absolute;
- 	left: 50%;
-  	top: 50%;
-  	transform-origin: 0% 0%;
-  	background-color: darkgrey;
-  	height: 200px;
-  	width: 200px;
-  	border: solid 0.5px black;
-  	transition: all 0.2s ease-out;
+	left: 50%;
+	top: 50%;
+	transform-origin: 0% 0%;
+	height: 200px;
+	width: 200px;
+	border: solid 0.5px black;
+	transition: all 0.2s ease-out;
+	background-color: darkgrey;
 }
+
 
 .contextMenuMap > div:hover {
-  background-color: grey;
+	filter: brightness(70%);
 }
-/*
-#map > .contextMenuMap div:first-child {
-	transform: rotate(180deg) skew(50deg);
-	background-color:white;
-
-
-}
-#map > .contextMenuMap div:nth-child(2) {
-	transform: rotate(220deg) skew(50deg);
-	background-color:white;
-
-
-}
-*/
-
-
 
 .contextMenuMap > div > span {
   	color: black;
