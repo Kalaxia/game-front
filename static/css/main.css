@@ -2,7 +2,7 @@
 
 html {
     height: 100%;
-    background: #090A0A;
+    background-color: #1e2024;
     color: #EFEFEF;
     font-family: 'Electrolize', serif;
 }
@@ -119,7 +119,7 @@ body {
     top: 50px;
     border-top: 5px solid #B9B9B9;
     border-radius: 100px 100px 0px 0px;
-    background-color: #090A0A;
+    background-color: #1E2024;
     transform: scale(2, 1);
     padding-top: 10px;
     z-index: 15;
@@ -213,8 +213,8 @@ body {
     top: 0px;
     right: 0px;
     content: ' ';
-    border-top: 20px solid #090A0A;
-    border-right: 20px solid #090A0A;
+    border-top: 20px solid #1E2024;
+    border-right: 20px solid #1E2024;
     border-left: 20px solid #B9B9B9;
     border-bottom: 20px solid #B9B9B9;
 }
@@ -334,8 +334,8 @@ body {
     top: 0px;
     right: 0px;
     content: ' ';
-    border-top: 18px solid #090A0A;
-    border-right: 18px solid #090A0A;
+    border-top: 18px solid #1E2024;
+    border-right: 18px solid #1E2024;
     border-left: 18px solid #B9B9B9;
     border-bottom: 18px solid #B9B9B9;
 }
@@ -377,8 +377,8 @@ body {
     top: 0px;
     left: 0px;
     content: ' ';
-    border-top: 20px solid #090A0A;
-    border-left: 20px solid #090A0A;
+    border-top: 20px solid #1E2024;
+    border-left: 20px solid #1E2024;
     border-right: 20px solid #B9B9B9;
     border-bottom: 20px solid #B9B9B9;
 }
@@ -444,8 +444,8 @@ body {
     top: 0px;
     left: 0px;
     content: ' ';
-    border-top: 18px solid #090A0A;
-    border-left: 18px solid #090A0A;
+    border-top: 18px solid #1E2024;
+    border-left: 18px solid #1E2024;
     border-right: 18px solid #B9B9B9;
     border-bottom: 18px solid #B9B9B9;
 }
