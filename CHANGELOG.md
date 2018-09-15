@@ -1,3 +1,10 @@
+## [0.1.16] - 2018-09-15
+### Added
+- Trade sale offer creation
+- Trade offers list
+- Fleet ship assignment
+- Fleet removal
+
 ## [0.1.15] - 2018-08-10
 ### Added
 - New App master class
