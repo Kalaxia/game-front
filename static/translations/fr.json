@@ -175,9 +175,12 @@
         "max": "max",
         "offer": "Offre",
         "price": "Prix de départ",
+        "purchases": "Achats",
+        "price": "Prix de départ",
         "quantity": "Quantité",
-        "transport": "Transport et Escorte",
+        "sales": "Ventes",
         "trading_post": "Comptoir commercial",
+        "transport": "Transport et Escorte",
         "unauthorized_factions": "Factions rejetées",
         "unique_available_lot": "un seul lot disponible",
         "unit_short": "u"

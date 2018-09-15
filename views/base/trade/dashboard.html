@@ -16,9 +16,9 @@
             <section>
                 <table>
                     <thead>
-                        <th></th>
+                        <th><img src="/static/images/picto/G_P_Char_BK_64px.png" /></th>
                         <th><img src="/static/images/picto/G_P_Lot_64px_BK.png" /></th>
-                        <th></th>
+                        <th><img src="/static/images/picto/G_P_Clas_BK_64px.png" /></th>
                         <th></th>
                         <th>
                             <img src="/static/images/picto/G_P_Lot_64px_BK.png" />
@@ -28,8 +28,9 @@
                         <th>
                             <img src="/static/images/picto/G_P_Mon_BK_64px.png" />
                             <img src="/static/images/picto/G_P_Arr_64px_BK.png" />
+                            <img src="/static/images/picto/G_P_Disc_BK_64px.png" />
                         </th>
-                        <th></th>
+                        <th><img src="/static/images/picto/G_P_Time_BK_64px.png" /></th>
                     </thead>
                     <tbody>
 
@@ -37,8 +38,35 @@
                 </table>
             </section>
         </div>
-        <div>
+        <div id="offer-filters">
+            <header></header>
+            <section>
+                <div id="operation-selector">
+                    <header></header>
+                    <section>
+                        <div data-operation-type="sell" class="selected" onclick="filterByOperation(event)">
+                            <div class="picto lot"></div>
+                            <div class="picto arrow"></div>
+                            <div class="picto money"></div>
+                            <span data-translate="true">trade.sales</span>
+                        </div>
+                        <div data-operation-type="buy" onclick="filterByOperation(event)">
+                            <div class="picto money"></div>
+                            <div class="picto arrow"></div>
+                            <div class="picto lot"></div>
+                            <span data-translate="true">trade.purchases</span>
+                        </div>
+                    </section>
+                    <footer></footer>
+                </div>
+                <div>
 
+                </div>
+                <div>
+
+                </div>
+            </section>
+            <footer></footer>
         </div>
 
 
@@ -46,8 +74,9 @@
         <script type="module" src="/static/js/main.js"></script>
         <script type="module">
             import App from '/static/js/core/app.js';
-            import { initOffersList } from '/static/js/trade.js';
+            import { initOffersList, filterByOperation } from '/static/js/trade.js';
 
+            window.filterByOperation = filterByOperation;
             App.init().then(() => { initOffersList(); });
         </script>
   </body>

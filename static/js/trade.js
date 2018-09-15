@@ -9,8 +9,11 @@ import ModelOffer from './model/trade/model_offer.js';
 import ShipOffer from './model/trade/ship_offer.js';
 import { transformArray } from './transformers/offer.js';
 
-export const initOffersList = () => Offer.fetchAll(OPERATION_SELL).then(transformArray).then(offers => {
+export const initOffersList = () => Offer.fetchAll(OPERATION_SELL).then(transformArray).then(displayOffers);
+
+const displayOffers = offers => {
     const list = document.querySelector('#offers-list > section > table > tbody');
+    list.innerHTML = '';
     const planet = App.getCurrentPlanet();
     for (const offer of offers) {
         const row = document.createElement('tr');
@@ -25,7 +28,16 @@ export const initOffersList = () => Offer.fetchAll(OPERATION_SELL).then(transfor
         ;
         list.appendChild(row);
     }
-});
+};
+
+export const filterByOperation = event => {
+    const previous = document.querySelector('#offer-filters #operation-selector .selected');
+    if (previous !== null) {
+        previous.classList.remove('selected');
+    }
+    event.currentTarget.classList.add('selected');
+    return Offer.fetchAll(event.currentTarget.getAttribute('data-operation-type')).then(transformArray).then(displayOffers);
+}
 
 export const createOffer = () => {
     const operation = document.querySelector("#operation-selector > .selected").getAttribute('data-operation-type');

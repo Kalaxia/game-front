@@ -24,7 +24,6 @@
 
 #offers-list > section > table {
     width: 100%;
-    height: 100%;
     position: relative;
     background-color: #242424;
     text-align: center;
@@ -44,10 +43,10 @@
     content: ' ';
     top: 0px;
     left: 0px;
-    border-left: 10px solid #1E2024;
-    border-top: 10px solid #1E2024;
-    border-right: 10px solid #E0E0E0;
-    border-bottom: 10px solid #E0E0E0;
+    border-left: 5px solid #1E2024;
+    border-top: 5px solid #1E2024;
+    border-right: 5px solid #E0E0E0;
+    border-bottom: 5px solid #E0E0E0;
 }
 
 #offers-list > section > table > thead::after {
@@ -55,13 +54,14 @@
     content: ' ';
     top: 0px;
     right: 0px;
-    border-right: 10px solid #1E2024;
-    border-top: 10px solid #1E2024;
-    border-left: 10px solid #E0E0E0;
-    border-bottom: 10px solid #E0E0E0;
+    border-right: 5px solid #1E2024;
+    border-top: 5px solid #1E2024;
+    border-left: 5px solid #E0E0E0;
+    border-bottom: 5px solid #E0E0E0;
 }
 
 #offers-list > section > table > thead > tr > th {
+    padding: 5px;
 }
 
 #offers-list > section > table > thead > tr > th > img {
@@ -95,6 +95,164 @@
 
 #offers-list > section > table > tbody > tr > td:nth-child(6) > div img {
     height: 12px;
+}
+
+#offer-filters {
+    position: relative;
+    grid-column: 6/10;
+    grid-row: 2/5;
+    background-color: #090A0A;
+}
+
+#offer-filters > header {
+    position: relative;
+    width: 100%;
+}
+
+#offer-filters > header::before {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    left: 0px;
+    border-left: 50px solid #1E2024;
+    border-top: 50px solid #1E2024;
+    border-right: 50px solid #090A0A;
+    border-bottom: 50px solid #090A0A;
+}
+
+#offer-filters > header::after {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    right: 0px;
+    border-right: 10px solid #1E2024;
+    border-top: 10px solid #1E2024;
+    border-left: 10px solid #090A0A;
+    border-bottom: 10px solid #090A0A;
+}
+
+#offer-filters > section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+#offer-filters #operation-selector {
+    background-color: #1E2024;
+}
+
+#offer-filters #operation-selector > header {
+    position: relative;
+    width: 100%;
+}
+
+#offer-filters #operation-selector > header::before {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    left: 0px;
+    border-left: 5px solid #090A0A;
+    border-top: 5px solid #090A0A;
+    border-right: 5px solid #1E2024;
+    border-bottom: 5px solid #1E2024;
+}
+
+#offer-filters #operation-selector > header::after {
+    position: absolute;
+    content: ' ';
+    top: 0px;
+    right: 0px;
+    border-right: 5px solid #090A0A;
+    border-top: 5px solid #090A0A;
+    border-left: 5px solid #1E2024;
+    border-bottom: 5px solid #1E2024;
+}
+
+#offer-filters #operation-selector > section {
+    padding: 10px;
+}
+
+#offer-filters #operation-selector > section > div {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #A0A0A0;
+    border-radius: 10px;
+    background-color: #090A0A;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+#offer-filters #operation-selector > section > div.selected {
+    background-color: #A0A0A0;
+}
+
+#offer-filters #operation-selector > section > div > span {
+    font-variant: small-caps;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#offer-filters #operation-selector > footer {
+    position: relative;
+    width: 100%;
+}
+
+
+#offer-filters #operation-selector > footer::before {
+    position: absolute;
+    content: ' ';
+    bottom: 0px;
+    left: 0px;
+    border-right: 5px solid #1E2024;
+    border-top: 5px solid #1E2024;
+    border-left: 5px solid #090A0A;
+    border-bottom: 5px solid #090A0A;
+}
+
+#offer-filters #operation-selector > footer::after {
+    position: absolute;
+    content: ' ';
+    bottom: 0px;
+    right: 0px;
+    border-right: 5px solid #090A0A;
+    border-top: 5px solid #1E2024;
+    border-left: 5px solid #1E2024;
+    border-bottom: 5px solid #090A0A;
+}
+
+#offer-filters > footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+#offer-filters > footer::before {
+    position: absolute;
+    content: ' ';
+    bottom: 0px;
+    right: 0px;
+    border-left: 10px solid #090A0A;
+    border-bottom: 10px solid #1E2024;
+    border-right: 10px solid #1E2024;
+    border-top: 10px solid #090A0A;
+}
+
+#offer-filters > footer::after {
+    position: absolute;
+    content: ' ';
+    bottom: 0px;
+    left: 0px;
+    border-right: 10px solid #090A0A;
+    border-bottom: 10px solid #1E2024;
+    border-left: 10px solid #1E2024;
+    border-top: 10px solid #090A0A;
+}
+
+#offer-filters > footer::after {
+
 }
 
 #sell-form {
@@ -281,7 +439,7 @@
     background-color: #EFEFEF;
 }
 
-#sell-form .selector > div .picto {
+.picto {
     width: 24px;
     height: 24px;
     padding-left: 5px;
@@ -291,35 +449,35 @@
     background-size: auto 24px;
 }
 
-#sell-form .selector > div .picto.lot {
+.picto.lot {
     background-image: url('/static/images/picto/G_P_Lot_64px.png');
 }
-#sell-form .selector > div .picto.arrow {
+.picto.arrow {
     background-image: url('/static/images/picto/G_P_Arr_64px.png');
 }
-#sell-form .selector > div .picto.money {
+.picto.money {
     background-image: url('/static/images/picto/G_P_Mon_64px.png');
 }
-#sell-form .selector > div .picto.ship {
+.picto.ship {
     background-image: url('/static/images/picto/G_P_S_64px.png');
 }
-#sell-form .selector > div .picto.model {
+.picto.model {
     background-image: url('/static/images/picto/G_P_Ov_64px.png');
 }
 
-#sell-form .selector > div.selected .picto.lot {
+.selected .picto.lot {
     background-image: url('/static/images/picto/G_P_Lot_64px_BK.png');
 }
-#sell-form .selector > div.selected .picto.arrow {
+.selected .picto.arrow {
     background-image: url('/static/images/picto/G_P_Arr_64px_BK.png');
 }
-#sell-form .selector > div.selected .picto.money {
+.selected .picto.money {
     background-image: url('/static/images/picto/G_P_Mon_BK_64px.png');
 }
-#sell-form .selector > div.selected .picto.ship {
+.selected .picto.ship {
     background-image: url('/static/images/picto/G_P_S_BK_64px.png');
 }
-#sell-form .selector > div.selected .picto.model {
+.selected .picto.model {
     background-image: url('/static/images/picto/G_P_Ov_BK_64px.png');
 }
 
