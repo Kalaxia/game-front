@@ -1,9 +1,5 @@
 
 
-#left-menu,
-#right-menu {
-	pointer-events: none; /*make it passthrought for mouse event*/
-}
 
 #map > .system{
 	transition: background-color 0.2s ease-out, transform 0.4s ease-out, z-index 0.4s ease-out;
@@ -80,4 +76,101 @@
   	height: 20px;
 	display: block;
   
+}
+
+#menu-jouney {
+	position: relative;
+    display: grid;
+    grid-column: 4/9;
+    grid-row: 9/10;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(10%, auto);
+    overflow: hidden;
+	pointer-events: none;
+
+}
+
+
+#menu-jouney > div {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    grid-row: 1/10;
+    grid-column: 2/8;
+    width:100%;
+
+    /*padding-top: 40px;
+    padding-bottom: 140px;*/
+    z-index: 100;
+     background-color: #B9B9B9;
+	color:black;
+	pointer-events: all;
+
+
+}
+
+#menu-jouney > div::before {
+	position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 0px;
+    left: 0px;
+    content: ' ';
+    border-top: 20px solid #090A0A;
+    border-left: 20px solid #090A0A;
+    border-right: 20px solid #B9B9B9;
+    border-bottom: 20px solid #B9B9B9;
+
+}
+
+#menu-jouney > div::after {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 0px;
+    right: 0px;
+    content: ' ';
+    border-top: 18px solid #090A0A;
+    border-right: 18px solid #090A0A;
+    border-left: 18px solid #B9B9B9;
+    border-bottom: 18px solid #B9B9B9;
+}
+
+#menu-jouney > div > div{
+	max-width:80%; /*Do not overflow uinder the #menu-jouney > div::after or #menu-jouney > div::before*/
+	text-align: center;
+}
+
+#menu-jouney > div >div > div.button {
+	--height : 20px; /* this is the varaible defining the height of the div*/
+	position: relative;
+    display: block; /* I have spacing probleme when using flex with the link*/
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--height);
+    /*color: #E1BB8A;*/
+    /*font-size: 2.0em;*/
+    border: 2px solid #6f5432;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+    text-align: center;
+	vertical-align: middle; /* vertically in the middle*/
+	line-height: var(--height);       /* The size of the ligne for the vertical-align : The same as your div height */
+	color: #EFEFEF;
+}
+
+#menu-jouney > div > div > div.button:not(.deactivate){
+	background-color: #040404;
+}
+
+#menu-jouney > div > div > div.button.deactivate{
+	background-color: #616161;
+}
+
+#menu-jouney > div > div > div.button:not(.deactivate):hover{
+	background-color: #333;
 }

@@ -192,6 +192,11 @@ body {
     grid-gap: 0px;
     grid-auto-rows: minmax(10%, auto);
     overflow: hidden;
+    pointer-events: none; /*make it passthrought for mouse event*/
+}
+
+#left-menu > * {
+    pointer-events: all;
 }
 
 #left-menu > header {
@@ -356,6 +361,11 @@ body {
     grid-gap: 0px;
     grid-auto-rows: minmax(10%, auto);
     overflow: hidden;
+    pointer-events: none; /*make it passthrought for mouse event*/
+}
+
+#right-menu > * {
+    pointer-events: all;
 }
 
 #right-menu > header {

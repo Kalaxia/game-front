@@ -12,7 +12,7 @@ class Journey {
 	
     
     static sendOnJourney (fleetId, stepObject){
-        return fetch(`/fleets/${fleetId}/journey`, {
+        return fetch(`/api/fleets/${fleetId}/journey`, {
             method: 'POST',
             body: JSON.stringify(stepObject),
             headers: Api.headers

@@ -12,8 +12,6 @@
     <div id="map">
         <div class="contextMenuMapWarper">
             <div class="contextMenuMap">
-                <div></div> 
-                <!-- TODO implement HTML auto -->
             </div>
         </div>
     </div>
@@ -23,6 +21,15 @@
     <div id="player-data">
       <h3></h3>
       <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
+    </div>
+    <div id="menu-jouney">
+        <div>
+            <div class="menu-title" data-translate="true"> jouney.planer.title </div>
+            <div class="menu-time"><span data-translate="true"> jouney.planer.estimated_time </span> <span class="time deactivate" data-translate="true"> jouney.planer.no_time </div>
+                <div class="menu-cancel"> <div id="remove-last-step" class="button deactivate" data-translate="true">jouney.planer.remove_last_step</div> </div>
+            <div class="menu-send"> <div id="send-fleet-button" class="button deactivate" data-translate="true">jouney.planer.send_fleet</div> </div>
+            <div class="menu-error"> </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="/config/config.js"></script>

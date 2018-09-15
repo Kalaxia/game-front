@@ -6,6 +6,7 @@ import Player from './model/player.js';
 import System from './model/system.js';
 import App from './core/app.js';
 import Utils from './utils/utils.js';
+import Journey from './model/journey.js';
 
 import { mapScale, minimapScale,mapSize } from './map.js';
 
@@ -58,11 +59,15 @@ class StepPlanerUtils {
 		var rangeForNextStep = this.getRangeForNextStep(usedX, usedY, planetId);
 		
 		if (distance <= rangeForNextStep){
+			if (typeof planetId == "number"){
+				planetId = planetId.toString();
+			}
 			this.positionArray.push(new PositionUtils(usedX,usedY,planetId)); // ok if planet id is not 0 the x and y can be arbitrary 
 			// Draw the line
 			
 			var lineDiv = document.createElement("div");
 			lineDiv.classList.add('line');
+			lineDiv.setAttribute('step-number',`${this.positionArray.length}`);
 			Utils.drawLinePosition([previousX*mapScale,previousY*mapScale],[usedX*mapScale,usedY*mapScale],lineDiv);
 			var map = document.querySelector('#map');
 			map.appendChild(lineDiv);
@@ -78,8 +83,14 @@ class StepPlanerUtils {
 				
 				point.style.width = SIZE_BOX_POINT+"px";
 				point.style.height = SIZE_BOX_POINT+"px";
+				point.setAttribute('step-number',`${this.positionArray.length}`);
 				map.appendChild(point);
 			}
+			document.querySelector('#send-fleet-button').classList.remove('deactivate');
+			document.querySelector('#remove-last-step').classList.remove('deactivate');
+			var rangeCircle = document.querySelector('.range-circle');
+			rangeCircle.style.left = usedX*mapScale - parseInt(rangeCircle.offsetWidth)/2 +"px";
+			rangeCircle.style.top = usedY*mapScale - parseInt(rangeCircle.offsetHeight)/2 +"px";
 			
 		}
 		else{
@@ -98,16 +109,15 @@ class StepPlanerUtils {
 		this.addStep(x,y,0);
 	}
 	
-	removeStep() {
-		this.positionArray.pop();
-	}
 	
 	toJSON(){
 		return JSON.stringify(this.positionArray);
 	}
 	
 	sendRequestStartJourney(fleetId) {
-		return Journey.sendOnJourney(fleetId,this.positionArray);
+		if (this.positionArray.length > 0){
+			return currentFleet.sendOnJourney(this.positionArray);
+		}
 	}
 	
 	getPreviousX(){
@@ -180,6 +190,26 @@ class StepPlanerUtils {
 		}
 	}
 	
+	removeLastStep () {
+		if (this.positionArray.length > 0){
+			document.querySelectorAll(`[step-number='${this.positionArray.length}']`).forEach( (node) => {
+				node.remove();
+			});
+			this.positionArray.pop();
+			var rangeCircle = document.querySelector('.range-circle');
+			rangeCircle.style.left = this.getPreviousX()*mapScale - parseInt(rangeCircle.offsetWidth)/2 +"px";
+			rangeCircle.style.top = this.getPreviousY()*mapScale - parseInt(rangeCircle.offsetHeight)/2 +"px";
+		}
+		
+		if (this.positionArray.length == 0){ // do not forget that previsly we pop the last element so this can trigger even if the last if did (if this.positionArray.length was previsly 1)
+			document.querySelector('#send-fleet-button').classList.add('deactivate');
+			document.querySelector('#remove-last-step').classList.add('deactivate');
+			
+		}
+		
+		
+	}
+	
 }
 
 var stepUtils = new StepPlanerUtils();
@@ -193,6 +223,8 @@ export const initJourneyView = (id) => {
 	Fleet.fetch(id).then( (fleet) => {
 		currentFleet = fleet;
 		currentFleet.fetchRange().then( (range) => {
+			document.querySelector('#remove-last-step').addEventListener('click', (event) => { stepUtils.removeLastStep(); }); // I need to use the arrow function other wise the "this" is infact the button
+			document.querySelector('#send-fleet-button').addEventListener('click', (event) => { stepUtils.sendRequestStartJourney(); });
 			rangeData = range;
 			if (fleet.journey == null || fleet.journey == undefined || fleet.journey.id == null ||  fleet.journey.id == undefined){
 				if (fleet.location != null && fleet.location != undefined) {
@@ -390,9 +422,8 @@ const closeMenu = () => { // safe to call if the menu is already closed
 const planetAddToJourney = (event) => {
 	
 	//console.log(`you added a planet`);
-	stepUtils.addPlanet(event.currentTarget.getAttribute("planet-id"));
-	
 	closeMenu();
+	stepUtils.addPlanet(event.currentTarget.getAttribute("planet-id"));
 	if (event.type == "contextmenu"){
 		event.preventDefault(); // DO not show contexte menue
 	}

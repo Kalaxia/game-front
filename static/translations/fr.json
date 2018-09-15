@@ -214,5 +214,14 @@
     "general" : {
         "number" : "Nombre",
         "name" : "Nom"
+    },
+    "jouney" : {
+        "planer" : {
+            "title" : "Info sur le trajet.",
+            "estimated_time" : "temps estimé du voyage : ",
+            "no_time" : "0h 00m 00s",
+            "send_fleet" : "Commencer le voyage.",
+            "remove_last_step" : "Annuler l'étape."
+        }
     }
 }

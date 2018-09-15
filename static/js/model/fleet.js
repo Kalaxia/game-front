@@ -7,9 +7,12 @@ import Journey from './journey.js';
 class Fleet {
     constructor(data) {
         this.id = data.id;
-        this.player = new Player (data.player);
-        this.location = new Planet (data.location);
-        this.journey = new Journey (data.journey);
+        //this.player = new Player (data.player);
+        //this.location = new Planet (data.location);
+        //this.journey = new Journey (data.journey);
+        this.player =data.player;
+        this.location = data.location;
+        this.journey = data.journey;
     };
     
     /*************************/
@@ -175,6 +178,10 @@ class Fleet {
             method: 'GET',
             headers: Api.headers
         }).then(Api.responseMiddleware);
+    }
+    
+    sendOnJourney(positionArray){
+        return Journey.sendOnJourney(this.id, {"steps" :positionArray});
     }
     
 }
