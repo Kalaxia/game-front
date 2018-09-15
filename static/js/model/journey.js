@@ -8,8 +8,17 @@ class Journey {
 			this[i] = data[i];
 		}
 		
-    };
+    }
 	
+    
+    static sendOnJourney (fleetId, stepObject){
+        return fetch(`/fleets/${fleetId}/journey`, {
+            method: 'POST',
+            body: JSON.stringify(stepObject),
+            headers: Api.headers
+        }).then(Api.responseMiddleware)
+        .then(JourneySteps => { return JourneySteps; })
+    }
 }
 
 export default Journey;

@@ -5,12 +5,15 @@ import App from '/static/js/core/app.js';
 import { initJourneyView, initJourneyViewForPlaner, systemCurrentMenuAdd } from '/static/js/journey.js';
 
 var isPlaner = false; // set if we see the planer
+export var mapSize;
+
 
 export const initMap = () => {
     
     initBaseMap();
     
     Map.fetch().then(map => {
+        mapSize = map.size;
         initMapElement(map);
         var fleetId = window.getCurrentFleet();
         
@@ -28,6 +31,7 @@ export const initMapForJourneyPlaner = () => {
     
     initBaseMap();
     Map.fetch().then(map => {
+        mapSize = map.size;
         initMapElement(map);
         var fleetId = window.getCurrentFleet();
         

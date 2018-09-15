@@ -5,15 +5,191 @@ import Planet from './model/planet.js';
 import Player from './model/player.js';
 import System from './model/system.js';
 import App from './core/app.js';
+import Utils from './utils/utils.js';
 
-import { mapScale, minimapScale } from './map.js';
+import { mapScale, minimapScale,mapSize } from './map.js';
 
 var rangeData;
 var currentFleet;
 var isPlaner = false; // set if we see the planer
-const OFFSET_SIZE_TARGET = -15; // -7 :  (widthExtene - widthIntern)/2 + boder width
+
+Array.prototype.last = function () {
+	return this[this.length-1];
+};
+
+class PositionUtils{
+	// TODO comment
+	constructor(x, y, planetId){
+		this.x = x;
+		this.y = y;
+		this.planetId = planetId;
+	}
+}
+
+class StepPlanerUtils {
+	// TODO comment
+	constructor(){
+		this.positionArray = [];
+	}
+	
+	addStep (x, y, planetId) {
+		if (planetId == 0 && (x < 0 || y <0 || x > mapSize || y > mapSize) ){
+			throw "invalid Position";
+		}
+		var usedX = x;
+		var usedY = y;
+		if (planetId != 0){
+			var menu = document.querySelector(`div[planet-id='${planetId}']`).parentNode;
+			var warper = menu.parentNode; 
+			var planetX = (parseInt(warper.style.left) + parseInt(menu.offsetWidth)/2)/mapScale;
+			var planetY = (parseInt(warper.style.top) + parseInt(menu.offsetHeight)/2)/mapScale; // not the best way to retrive the position :( 
+			// TODO see better way to do this (global variable? html atribute ?)
+			usedX = planetX;
+			usedY = planetY;
+		}
+		
+		var previousX = this.getPreviousX();
+		var previousY = this.getPreviousY();
+		
+		
+		
+		var distance = Math.sqrt( Math.pow(usedX - previousX, 2) + Math.pow(usedY-previousY, 2) );
+		
+		var rangeForNextStep = this.getRangeForNextStep(usedX, usedY, planetId);
+		
+		if (distance <= rangeForNextStep){
+			this.positionArray.push(new PositionUtils(usedX,usedY,planetId)); // ok if planet id is not 0 the x and y can be arbitrary 
+			// Draw the line
+			
+			var lineDiv = document.createElement("div");
+			lineDiv.classList.add('line');
+			Utils.drawLinePosition([previousX*mapScale,previousY*mapScale],[usedX*mapScale,usedY*mapScale],lineDiv);
+			var map = document.querySelector('#map');
+			map.appendChild(lineDiv);
+			if (planetId == 0){
+				var point = document.createElement("div");
+				point.classList.add("point");
+				point.innerHTML = `<div class="point-inner-1"></div><div class="point-inner-2"></div>`;
+				
+				const SIZE_BOX_POINT = 20; // defiened in thhe css 
+				
+				point.style.left = usedX * mapScale - SIZE_BOX_POINT/2 +"px";
+				point.style.top = usedY * mapScale - SIZE_BOX_POINT/2 +"px";
+				
+				point.style.width = SIZE_BOX_POINT+"px";
+				point.style.height = SIZE_BOX_POINT+"px";
+				map.appendChild(point);
+			}
+			
+		}
+		else{
+			//TODO
+			throw "out of range"
+		}
+		
+		
+	}
+	
+	addPlanet(planetId){
+		this.addStep(0,0,planetId);
+	}
+	
+	addPosition(x,y){
+		this.addStep(x,y,0);
+	}
+	
+	removeStep() {
+		this.positionArray.pop();
+	}
+	
+	toJSON(){
+		return JSON.stringify(this.positionArray);
+	}
+	
+	sendRequestStartJourney(fleetId) {
+		return Journey.sendOnJourney(fleetId,this.positionArray);
+	}
+	
+	getPreviousX(){
+		if (this.positionArray.length != 0){
+			return this.positionArray.last().x;
+		}
+		else{
+			if (currentFleet.location != null && currentFleet.location != undefined){
+				return currentFleet.location.system.coord_x;
+			}
+			else{
+				return currentFleet.map_pos_x;
+			}
+		}
+	}
+	
+	getPreviousY(){
+		if (this.positionArray.length != 0){
+			return this.positionArray.last().y;
+		}
+		else{
+			if (currentFleet.location != null && currentFleet.location != undefined){
+				return currentFleet.location.system.coord_y;
+			}
+			else{
+				return currentFleet.map_pos_y;
+			}
+		}
+	}
+	
+	getPreviousPlanetId(){
+		if (this.positionArray.length != 0){
+			return this.positionArray.last().planetId;
+		}
+		else{
+			if (currentFleet.location != null && currentFleet.location != undefined){
+				return currentFleet.location.id;
+			}
+			else{
+				return 0;
+			}
+		}
+	}
+	
+	getRangeForNextStep(x, y, planetId){
+		var previousX = this.getPreviousX();
+		var previousY = this.getPreviousY();
+		var previousPlanetId = this.getPreviousPlanetId();
+		
+		if (previousPlanetId.planetId != 0) {
+			if (planetId != 0) {
+				if (previousX == x && previousY == y  ) {
+					return rangeData.same_system ;
+				}
+				else{
+					return rangeData.planet_to_planet;
+				}
+			}
+			else{
+				return rangeData.planet_to_position;
+			}
+		}
+		else{
+			if (planetId != 0) {
+				return rangeData.position_to_planet;
+			}
+			else{
+				return rangeData.position_to_position;
+			}
+		}
+	}
+	
+}
+
+var stepUtils = new StepPlanerUtils();
+
+
+const OFFSET_SIZE_TARGET = -17; // -7 :  (widthExtene - widthIntern)/2 + boder width
+// width : 30 border-width : 1
 
 export const initJourneyView = (id) => {
+	// TODO comment
 	Fleet.fetch(id).then( (fleet) => {
 		currentFleet = fleet;
 		currentFleet.fetchRange().then( (range) => {
@@ -24,7 +200,7 @@ export const initJourneyView = (id) => {
 						
 						var scale = mapScale;
 						node.classList.add("fleet-location");
-						node.style.top = parseInt(node.style.top)-2+"px";  //-2 to repos correctly
+						node.style.top = parseInt(node.style.top)-2+"px";  //-2 to repos correctly due to border width
 					    node.style.left = parseInt(node.style.left)-2+"px";
 						var systemElementTraget = document.createElement("div");
 					    systemElementTraget.classList.add('fleet-location-target');
@@ -34,8 +210,8 @@ export const initJourneyView = (id) => {
 						node.parentNode.appendChild(systemElementTraget);
 						
 						var rangeCircle = document.createElement("div");
-						rangeCircle.style.width = range.planet_to_planet*scale+"px"; // I juste choose one
-						rangeCircle.style.height = range.planet_to_planet*scale+"px";
+						rangeCircle.style.width = range.planet_to_planet*scale*2+"px"; // I juste choose one
+						rangeCircle.style.height = range.planet_to_planet*scale*2+"px"; // time 2 because I give a radius and the width / height is a diameter
 						const BORDER_WIDTH = 6;
 						rangeCircle.style.top = (fleet.location.system.coord_y * scale - parseInt(rangeCircle.style.height)/2 - BORDER_WIDTH/2) + 'px';
 					  	rangeCircle.style.left = (fleet.location.system.coord_x * scale - parseInt(rangeCircle.style.width)/2 - BORDER_WIDTH/2) + 'px';
@@ -101,10 +277,12 @@ export const addPointMap = (event) => {
 		
 		var pos = getPosClickOnMap(event.clientX,event.clientY,map);
 		
-		console.log(`you clicked on position (${pos[0]/mapScale}, ${pos[1]/mapScale})`);
+		//console.log(`you clicked on position (${pos[0]/mapScale}, ${pos[1]/mapScale})`);
+		stepUtils.addPosition(pos[0]/mapScale,pos[1]/mapScale);
 	}
 	else{
 		//console.log(`you clicked on something else`);
+		
 	}
 	
 	if (event.type == "contextmenu"){
@@ -126,8 +304,7 @@ export const systemCurrentMenuAdd = (event) => {
 	var divSystem = event.currentTarget; // I need to save it because after the ftech currentTarget will be modified as is it a pointer.
 	var menu = document.querySelector("#map > .contextMenuMapWarper > .contextMenuMap");
 	
-	console.log(`you clicked on system ${systemId}`);
-	
+	//console.log(`you clicked on system ${systemId}`);
 	
     System.fetch(systemId).then( (system) => {
 		const timeFetchSystem = new Date();
@@ -175,7 +352,7 @@ export const systemCurrentMenuAdd = (event) => {
 					factionIdAtribute = system.planets[i].player.faction.id;
 					factionColor = system.planets[i].player.faction.color;
 				}
-				
+				div.setAttribute("planet-id",`${system.planets[i].id}`);
 				div.setAttribute("faction-id",`${factionIdAtribute}`);
 				//div.setAttribute("faction-color",factionColor);
 				div.style["background-color"] = factionColor;
@@ -211,14 +388,12 @@ const closeMenu = () => { // safe to call if the menu is already closed
 };
 
 const planetAddToJourney = (event) => {
-	closeMenu();
-	console.log(`you added a planet`);
 	
+	//console.log(`you added a planet`);
+	stepUtils.addPlanet(event.currentTarget.getAttribute("planet-id"));
+	
+	closeMenu();
 	if (event.type == "contextmenu"){
 		event.preventDefault(); // DO not show contexte menue
 	}
 };
-
-class stepPlanerUtils {
-	
-}

@@ -16,6 +16,8 @@ class System {
             return new System(data);
         }).catch(error => console.log(error));
     }
+    
+    
 }
 
 export default System;
