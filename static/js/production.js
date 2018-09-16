@@ -11,28 +11,9 @@ export const initBaseProduction = () => {
     var listStorage = document.getElementById("planet-storage");
     for (let resource of planet.resources) {
         var resourceTemp = Object.assign({}, resource);
-        displayDensity(planet, resourceTemp, listResources);
-        resourceTemp = Object.assign({}, resource);
         displayStorage(planet, resourceTemp, listStorage);
     }
-};
-
-export const displayDensity = (planet, resource, diplayLocation) => {
-    const resourceKey = resource.name;
-    resource = Object.assign(resource, resourcesData[resourceKey]);
-
-    const infoResources = document.createElement('div');
-    infoResources.innerHTML =
-        `<h5>${resource.name}</h5>
-        <div class="info">
-            <div class="density">${getDensityVisualization(
-                resource.density,
-                `<img src="/static/images/resources/${resource.picto}" alt="${resource.name}"/>`
-            )}</div>
-            <h5>Production: ${resource.density*10} /h</h5>
-        </div>`
-    ;
-    diplayLocation.appendChild(infoResources);
+    displayDensity(planet, listStorage);
 };
 
 const displayStorage = (planet, resource, displayLocation) => {
@@ -85,4 +66,80 @@ const displayStorage = (planet, resource, displayLocation) => {
         const timeLeftToFull = document.getElementById(idName);
         timeLeftToFull.style.color='#FF0066';
     }
+};
+
+export const displayDensity = (planet, container) => {
+    var config = {
+        type: 'polarArea',
+        data: getDensityDatasets(planet.resources),
+        options: {
+            responsive: false,
+            legend: {
+                display: false,
+            },
+            scale: {
+                gridLines: {
+                    color: "#090A0A",
+                    lineWidth: 1,
+                },
+                angleLines: {
+                    color: "#933333",
+                    lineWidth: 10,
+                },
+                ticks: {
+                    display: false,
+                    beginAtZero: true,
+                    min: 0,
+                    max: 100,
+                    stepSize: 25,
+                    showLabelBackdrop: false,
+
+                },
+                legend: {
+                    position: 'left',
+                },
+
+            },
+            tooltips: {
+                filter: (item, data) => (typeof data.datasets[item.datasetIndex].labels[item.index] !== "undefined"),
+                callbacks: {
+                    label: (tooltipItem, data) => {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var index = tooltipItem.index;
+                        return dataset.labels[index] + ': ' + dataset.details[index];
+                    }
+                }
+            }
+        }
+    };
+    var ctx = document.getElementById("resource-density");
+    console.log("Test ctx " +ctx);
+    var myChart = new Chart(ctx, config);
+};
+
+const getDensityDatasets = resources => {
+    var resourceDataset = { data: [], labels: [], details: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
+    console.log("resources: " + resources[0].name);
+    for (const key in resources) {
+        const resourceKey = resources[key].name;
+        console.log(resourceKey);
+        var resourceTemp = Object.assign({}, resourcesData[resourceKey]);
+        if (typeof resources[key].density !== 'undefined') {
+            var dataset = resourceDataset;
+            var density = resources[key].density;
+            var color = resourceTemp.color;
+            var name = resourceTemp.name;
+            var detail = resources[key].density;
+            console.log("name " + name+" density "+ density);
+            dataset.data.push(density);
+            dataset.backgroundColor.push(color);
+            dataset.labels.push(name);
+            dataset.details.push(detail);
+            dataset.borderColor.push('#090A0A');
+        }
+    }
+
+    return {
+        datasets: [ resourceDataset],
+    };
 };
