@@ -238,7 +238,7 @@
         "number" : "Nombre",
         "name" : "Nom"
     },
-    "jouney" : {
+    "journey" : {
         "planer" : {
             "title" : "Info sur le trajet.",
             "estimated_time" : "temps estimé du voyage : ",

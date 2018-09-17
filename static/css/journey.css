@@ -78,7 +78,7 @@
   
 }
 
-#menu-jouney {
+#menu-journey {
 	position: relative;
     display: grid;
     grid-column: 4/9;
@@ -92,7 +92,7 @@
 }
 
 
-#menu-jouney > div {
+#menu-journey > div {
 	position: relative;
     display: flex;
     flex-direction: column;
@@ -112,7 +112,7 @@
 
 }
 
-#menu-jouney > div::before {
+#menu-journey > div::before {
 	position: absolute;
     width: 0px;
     height: 0px;
@@ -126,7 +126,7 @@
 
 }
 
-#menu-jouney > div::after {
+#menu-journey > div::after {
     position: absolute;
     width: 0px;
     height: 0px;
@@ -139,12 +139,12 @@
     border-bottom: 18px solid #B9B9B9;
 }
 
-#menu-jouney > div > div{
-	max-width:80%; /*Do not overflow uinder the #menu-jouney > div::after or #menu-jouney > div::before*/
+#menu-journey > div > div{
+	max-width:80%; /*Do not overflow uinder the #menu-journey > div::after or #menu-journey > div::before*/
 	text-align: center;
 }
 
-#menu-jouney > div >div > div.button {
+#menu-journey > div >div > div.button {
 	--height : 20px; /* this is the varaible defining the height of the div*/
 	position: relative;
     display: block; /* I have spacing probleme when using flex with the link*/
@@ -163,14 +163,14 @@
 	color: #EFEFEF;
 }
 
-#menu-jouney > div > div > div.button:not(.deactivate){
+#menu-journey > div > div > div.button:not(.deactivate){
 	background-color: #040404;
 }
 
-#menu-jouney > div > div > div.button.deactivate{
+#menu-journey > div > div > div.button.deactivate{
 	background-color: #616161;
 }
 
-#menu-jouney > div > div > div.button:not(.deactivate):hover{
+#menu-journey > div > div > div.button:not(.deactivate):hover{
 	background-color: #333;
 }
