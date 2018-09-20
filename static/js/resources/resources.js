@@ -28,10 +28,5 @@ export default {
     "name": "ResMinerai2",
     "picto": "Pc_Crst_Red.png",
     "color": "#993333"
-  },
-  "resource.g": {
-    "name": "ResCristal2",
-    "picto": "Pc_Crst_Topaze.png",
-    "color": "#CCCC99"
   }
 };

@@ -119,12 +119,12 @@ export const displayDensity = (planet, container) => {
 
 const getDensityDatasets = resources => {
     var resourceDataset = { data: [], labels: [], details: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
-    console.log("resources: " + resources[0].name);
-    for (const key in resources) {
-        const resourceKey = resources[key].name;
-        console.log(resourceKey);
-        var resourceTemp = Object.assign({}, resourcesData[resourceKey]);
-        if (typeof resources[key].density !== 'undefined') {
+    var resourcesNames= ["resources.a", "resources.b", "resources.c", "resources.d", "resources.e", "resources.f"];
+    var resData = resourcesData;
+    var added = 0;
+      for (const key in resources) {
+          var resourceTemp = Object.assign({}, resData[resources[key].name]);
+            //if (typeof resources[key].density !== 'undefined') {
             var dataset = resourceDataset;
             var density = resources[key].density;
             var color = resourceTemp.color;
@@ -136,8 +136,22 @@ const getDensityDatasets = resources => {
             dataset.labels.push(name);
             dataset.details.push(detail);
             dataset.borderColor.push('#090A0A');
+            added ++;
+            //}
         }
-    }
+        while (added < 6) {
+            var dataset = resourceDataset;
+            var density = 0;
+            var color = "red";
+            var name = "";
+            var detail = "";
+            dataset.data.push(density);
+            dataset.backgroundColor.push(color);
+            dataset.labels.push(name);
+            dataset.details.push(detail);
+            dataset.borderColor.push('#090A0A');
+            added ++;
+        }
 
     return {
         datasets: [ resourceDataset],
