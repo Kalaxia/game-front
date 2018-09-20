@@ -20,10 +20,7 @@ const displayStorage = (planet, resource, displayLocation) => {
     const resourceKey = resource.name;
     resource = Object.assign(resource, resourcesData[resourceKey]);
     const infoStorage = document.createElement('div');
-    if (resource.name === "ResLiquide")
-    {
-        planet.storage.resources[resourceKey]=2000;
-    }
+
     var now = new Date();
     infoStorage.className ="full-storage-display";
     infoStorage.innerHTML =
@@ -79,12 +76,8 @@ export const displayDensity = (planet, container) => {
             },
             scale: {
                 gridLines: {
-                    color: "#090A0A",
+                    color: "#1F2125",
                     lineWidth: 1,
-                },
-                angleLines: {
-                    color: "#933333",
-                    lineWidth: 10,
                 },
                 ticks: {
                     display: false,
@@ -93,62 +86,51 @@ export const displayDensity = (planet, container) => {
                     max: 100,
                     stepSize: 25,
                     showLabelBackdrop: false,
-
                 },
-                legend: {
-                    position: 'left',
+                tooltips: {
+                  enabled: false,
                 },
-
+                hover: {
+                  display: false,
+                  mode: null,
+                },
             },
-            tooltips: {
-                filter: (item, data) => (typeof data.datasets[item.datasetIndex].labels[item.index] !== "undefined"),
-                callbacks: {
-                    label: (tooltipItem, data) => {
-                        var dataset = data.datasets[tooltipItem.datasetIndex];
-                        var index = tooltipItem.index;
-                        return dataset.labels[index] + ': ' + dataset.details[index];
-                    }
-                }
-            }
         }
     };
     var ctx = document.getElementById("resource-density");
-    console.log("Test ctx " +ctx);
+
+    ctx.style.height="500px";
+    ctx.style.width="500px";
+
     var myChart = new Chart(ctx, config);
+    var chartBackground = document.getElementById("chart-background");
+
+    chartBackground.style.height=ctx.style.height;
+    chartBackground.style.width= ctx.style.width;
+    displayDensityPicto(planet.resources);
 };
 
 const getDensityDatasets = resources => {
-    var resourceDataset = { data: [], labels: [], details: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
-    var resourcesNames= ["resources.a", "resources.b", "resources.c", "resources.d", "resources.e", "resources.f"];
+    var resourceDataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
     var resData = resourcesData;
     var added = 0;
       for (const key in resources) {
           var resourceTemp = Object.assign({}, resData[resources[key].name]);
-            //if (typeof resources[key].density !== 'undefined') {
             var dataset = resourceDataset;
             var density = resources[key].density;
             var color = resourceTemp.color;
-            var name = resourceTemp.name;
-            var detail = resources[key].density;
-            console.log("name " + name+" density "+ density);
+
             dataset.data.push(density);
             dataset.backgroundColor.push(color);
-            dataset.labels.push(name);
-            dataset.details.push(detail);
-            dataset.borderColor.push('#090A0A');
+            dataset.borderColor.push('#1F2125');
             added ++;
-            //}
         }
         while (added < 6) {
             var dataset = resourceDataset;
             var density = 0;
             var color = "red";
-            var name = "";
-            var detail = "";
             dataset.data.push(density);
             dataset.backgroundColor.push(color);
-            dataset.labels.push(name);
-            dataset.details.push(detail);
             dataset.borderColor.push('#090A0A');
             added ++;
         }
@@ -157,3 +139,60 @@ const getDensityDatasets = resources => {
         datasets: [ resourceDataset],
     };
 };
+
+const displayDensityPicto = resources => {
+    var added = 0;
+    var chartBackground = document.getElementById("chart-background");
+    var offset = parseInt(chartBackground.style.height);
+    var pictoSize = 84;
+    var imageSize = 64;
+    var borderSize = 10;
+    var resData = resourcesData;
+
+    for (const key in resources) {
+        var pictoBackground = document.createElement('div');
+
+        pictoBackground.classList.add("density-picto")
+        pictoBackground.style.height=pictoSize+"px";
+        pictoBackground.style.width=pictoSize +"px";
+        pictoBackground.style.borderWidth=borderSize+"px";
+
+        pictoBackground.innerHTML=
+            `<h5 class="storage-picto">
+                <img class="resource-picto-density" style="padding-left:${(pictoSize-imageSize)/2}px;padding-top:${(pictoSize-imageSize)/2}px;" src="/static/images/resources/${resData[resources[key].name].picto}" alt="${resData[resources[key].name].name}"/>
+            </h5>`
+            ;
+
+        const angle = ( ( Math.PI )*(-added/3 -1/6 ));// angles in radians
+        var top = (Math.cos(angle) * offset/2);
+        var left = (Math.sin(angle) * offset/2);
+
+        pictoBackground.style.bottom =offset/2-(borderSize) -(pictoSize/2 )+ top+'px';
+        pictoBackground.style.left = offset/2 -(borderSize) -(pictoSize/2 + left)+'px';
+
+        chartBackground.appendChild(pictoBackground);
+        added ++;
+    }
+    while (added < 6) { // completes the remaining densities with empty spaces to reach a total of 6
+        var pictoBackground = document.createElement('div');
+
+        pictoBackground.style.height=pictoSize+"px";
+        pictoBackground.style.width=pictoSize +"px";
+        pictoBackground.style.borderRadius="100%";
+        pictoBackground.style.borderColor="#1F2125";
+        pictoBackground.style.borderStyle="solid";
+        pictoBackground.style.borderWidth=borderSize+"px";
+        pictoBackground.style.backgroundColor="#090A0A";
+        pictoBackground.style.position="absolute";
+
+        const angle = ( ( Math.PI )*(-added/3 -1/6 ));// angles in radians
+        var top = (Math.cos(angle) * offset/2);
+        var left = (Math.sin(angle) * offset/2);
+
+        pictoBackground.style.bottom =offset/2-(borderSize) -(pictoSize/2 )+ top+'px';
+        pictoBackground.style.left = offset/2 -(borderSize) -(pictoSize/2 + left)+'px';
+
+        chartBackground.appendChild(pictoBackground);
+        added ++;
+    }
+}

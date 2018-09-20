@@ -256,6 +256,7 @@
 
 .storage-picto {
     align-items: stretch;
+    margin:0;
 }
 
 .storage {
@@ -299,4 +300,22 @@
 
 .hourly-production {
     justify-content: flex-end;
+}
+
+#chart-background {
+    border-radius: 100%;
+    background-color: #1F2125;
+    position: relative;
+}
+
+.resource-picto-density {
+    position: absolute;
+}
+
+.density-picto {
+    border-radius: 100%;
+    border-color: #1F2125;
+    border-style: solid;
+    background-color: #090A0A;
+    position: absolute;
 }
