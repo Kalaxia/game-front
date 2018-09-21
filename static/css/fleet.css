@@ -5,7 +5,8 @@ a.planet { /* hyper link for planet*/
 }
 
 #fleet-create-section > div,
-#fleet-delete-section > #fleet-delete {
+#fleet-delete-section > #fleet-delete,
+.button-big {
 	--height : 40px; /* this is the varaible defining the height of the div*/
 	position: relative;
     display: block; /* I have spacing probleme when using flex with the link*/
@@ -38,8 +39,9 @@ a.planet { /* hyper link for planet*/
 
 
 
-#fleet-create-section > div:hover {
-	background-color: #222;
+#fleet-create-section > div:hover,
+.button-big:hover {
+	background-color: #222 !important;
 }
 
 #fleet-table{
@@ -257,6 +259,6 @@ a.planet { /* hyper link for planet*/
 	animation:blinkingText 4s infinite;
 }
 
-#fleet-delete-section {
+.button-container {
 	padding-bottom : 20px;
 }

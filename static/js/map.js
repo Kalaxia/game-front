@@ -9,27 +9,20 @@ export var mapSize;
 
 
 export const initMap = () => {
-    
+    isPlaner = false;
     initBaseMap();
     
     Map.fetch().then(map => {
         mapSize = map.size;
         initMapElement(map);
-        var fleetId = window.getCurrentFleet();
         
-        if (fleetId != null && fleetId != undefined) {
-            initJourneyView(fleetId);
-        }
     });
-    
-    
 };
-
 
 export const initMapForJourneyPlaner = () => {
     isPlaner = true;
-    
     initBaseMap();
+    
     Map.fetch().then(map => {
         mapSize = map.size;
         initMapElement(map);
@@ -131,14 +124,7 @@ const moveMap = e => {
      e = window.event;
    }
    var map = document.querySelector("#map");
-   /*var zoomLevel;
-   if (map.style.zoom == "") {
-       zoomLevel = 1;
-   }
-   else{
-       zoomLevel = parseFloat(map.style.zoom);
-   }*/
-   // move div element
+   
    map.style.left = coordX + (e.clientX - offsetX) + 'px';
    map.style.top = coordY + (e.clientY - offsetY) + 'px';
    return false;
@@ -156,27 +142,5 @@ const zoomMap = (event) =>{
     var y = event.deltaY; // The amount we scrolled
     const map = document.querySelector("#map");
     //TODO
-    /*var zoomLevel;
-    if (map.style.scale == "") {
-        zoomLevel = 1;
-    }
-    else{
-        zoomLevel = parseFloat(map.style.scale);
-    }*/
-    
-    
-    //map.transform.scale = Math.max(0.1, zoomLevel - y *ZOOM_SCALE);
-    
-    //scaleLevel = Math.max(0.1,scaleLevel - y *ZOOM_SCALE)
-    
-    //map.style["transform-origin"] = `${parseIntmap.style.left+event.clientX}px ${map.style.top+event.clientY}px`
-    
-    //map.css('transform',`traslate()`)
-    //map.style.transform = `scale(${scaleLevel})`
-    
-    // TODO zoom center on cursor
-    
-    /*map.style.left = parseInt(map.style.left) + event.clientX * y * ZOOM_SCALE+ 'px';
-    map.style.top = parseInt(map.style.top) + event.clientY * y * ZOOM_SCALE + 'px';*/
     
 };

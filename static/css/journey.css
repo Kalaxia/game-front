@@ -1,12 +1,10 @@
 
-
-
 #map > .system{
-	transition: background-color 0.2s ease-out, transform 0.4s ease-out, z-index 0.4s ease-out;
+	transition: background-color 0.2s ease-out, transform 0.4s ease-out, z-index 0.4s ease-out, filter 0.2s ease-out;
 }
 
 #map > .system:hover{
-	background-color: #82899a;
+	filter: brightness(70%);
 }
 
 #map > .contextMenuMapWarper{

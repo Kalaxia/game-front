@@ -225,7 +225,8 @@
                         "ship_in_fleet" : "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux.",
                         "unknown" : "Erreur inconnu."
                     }
-                }
+                },
+                "journey_send" : "Déplacer la flotte."
             },
             "header_location" :"Position",
             "header_id" : "Identification"
