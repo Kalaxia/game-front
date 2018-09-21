@@ -224,37 +224,39 @@ export const initJourneyView = (id) => {
 		currentFleet = fleet;
 		currentFleet.fetchRange().then( (range) => {
 			document.querySelector('#remove-last-step').addEventListener('click', (event) => { stepUtils.removeLastStep(); }); // I need to use the arrow function other wise the "this" is infact the button
-			document.querySelector('#send-fleet-button').addEventListener('click', (event) => { stepUtils.sendRequestStartJourney(); });
+			document.querySelector('#send-fleet-button').addEventListener('click', sendFleet);
 			rangeData = range;
 			if (fleet.journey == null || fleet.journey == undefined || fleet.journey.id == null ||  fleet.journey.id == undefined){
 				if (fleet.location != null && fleet.location != undefined) {
 					document.querySelectorAll(`#map [data-id='${fleet.location.system.id}']`).forEach( node => {
 						
-						var scale = mapScale;
 						node.classList.add("fleet-location");
 						node.style.top = parseInt(node.style.top)-2+"px";  //-2 to repos correctly due to border width
 					    node.style.left = parseInt(node.style.left)-2+"px";
 						var systemElementTraget = document.createElement("div");
 					    systemElementTraget.classList.add('fleet-location-target');
-					    systemElementTraget.style.top = (fleet.location.system.coord_y * scale + OFFSET_SIZE_TARGET) + 'px';
-					    systemElementTraget.style.left = (fleet.location.system.coord_x * scale + OFFSET_SIZE_TARGET) + 'px';
-						systemElementTraget.innerHTML = `<div class="north"></div> <div class="south"></div> <div class="east"></div> <div class="west"></div>`
+					    systemElementTraget.style.top = (fleet.location.system.coord_y * mapScale + OFFSET_SIZE_TARGET) + 'px';
+					    systemElementTraget.style.left = (fleet.location.system.coord_x * mapScale + OFFSET_SIZE_TARGET) + 'px';
+						systemElementTraget.innerHTML = `<div class="north"></div> <div class="south"></div> <div class="east"></div> <div class="west"></div>`;
 						node.parentNode.appendChild(systemElementTraget);
 						
-						var rangeCircle = document.createElement("div");
-						rangeCircle.style.width = range.planet_to_planet*scale*2+"px"; // I juste choose one
-						rangeCircle.style.height = range.planet_to_planet*scale*2+"px"; // time 2 because I give a radius and the width / height is a diameter
-						const BORDER_WIDTH = 6;
-						rangeCircle.style.top = (fleet.location.system.coord_y * scale - parseInt(rangeCircle.style.height)/2 - BORDER_WIDTH/2) + 'px';
-					  	rangeCircle.style.left = (fleet.location.system.coord_x * scale - parseInt(rangeCircle.style.width)/2 - BORDER_WIDTH/2) + 'px';
-						rangeCircle.style["border-width"] = BORDER_WIDTH + "px";
-						rangeCircle.classList.add('range-circle');
-						
+						var rangeCircle = getRangeCircleElement(fleet.location.system.coord_x, fleet.location.system.coord_y, range);
 						node.parentNode.appendChild(rangeCircle);
-					})
+					});
 				}
 				else{
-					// TODO
+					var fleetPosition = document.createElement("div");
+					const DIV_SIZE = 30;
+					fleetPosition.classList.add('fleet-position');
+					fleetPosition.style.top = (fleet.map_pos_y * mapScale - DIV_SIZE/2) + 'px';
+					fleetPosition.style.left = (fleet.map_pos_x * mapScale - DIV_SIZE/2) + 'px';
+					fleetPosition.style.width = DIV_SIZE+"px"; // I juste choose one
+					fleetPosition.style.height = DIV_SIZE + "px"; // time 2 because I give a radius and the
+					
+					var rangeCircle = getRangeCircleElement(fleet.map_pos_x, fleet.map_pos_y, range);
+					var map = document.querySelector('#map');
+					map.appendChild(fleetPosition);
+					map.appendChild(rangeCircle);
 				}
 				// Initalise click event Listener
 				if (isPlaner) {
@@ -264,6 +266,23 @@ export const initJourneyView = (id) => {
 			}
 		});
 	});
+};
+
+const getRangeCircleElement = (x,y,range) => {
+	var rangeCircle = document.createElement("div");
+	rangeCircle.style.width = range.planet_to_planet*mapScale*2+"px"; // I juste choose one
+	rangeCircle.style.height = range.planet_to_planet*mapScale*2+"px"; // time 2 because I give a radius and the width / height is a diameter
+	const BORDER_WIDTH = 6;
+	rangeCircle.style.top = (y * mapScale - parseInt(rangeCircle.style.height)/2 - BORDER_WIDTH/2) + 'px';
+	rangeCircle.style.left = (x * mapScale - parseInt(rangeCircle.style.width)/2 - BORDER_WIDTH/2) + 'px';
+	rangeCircle.style["border-width"] = BORDER_WIDTH + "px";
+	rangeCircle.classList.add('range-circle');
+	
+	return rangeCircle;
+};
+
+const sendFleet = (event) => {
+	stepUtils.sendRequestStartJourney().then( (steps) => { location.reload(); }); // TEMP
 };
 
 export const initJourneyViewForPlaner = (id) => {

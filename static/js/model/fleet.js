@@ -13,6 +13,8 @@ class Fleet {
         this.player =data.player;
         this.location = data.location;
         this.journey = data.journey;
+        this.map_pos_x = data.map_pos_x;
+        this.map_pos_y = data.map_pos_y;
     };
     
     /*************************/
