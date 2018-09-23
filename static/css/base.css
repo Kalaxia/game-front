@@ -319,3 +319,19 @@
     background-color: #090A0A;
     position: absolute;
 }
+
+.resource-button {
+    border-radius: 100%;
+    border-color: #EFEFEF;
+    border-style: solid;
+    border-width: 5px;
+    color: #EFEFEF;
+    font-variant: small-caps;
+    font-family: Electrolize, sans-serif;
+}
+
+.resource-button:hover {
+    background-color: #EFEFEF;
+    color: #090A0A;
+
+}

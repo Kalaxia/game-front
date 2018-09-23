@@ -78,7 +78,8 @@
             "capacity" : "Capacité de stockage",
             "unit" : "mètres cubes",
             "full_in" : "Plein dans "
-        }
+        },
+        "production" : "Production"
     },
     "profile": {
         "planets": {

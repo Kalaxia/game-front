@@ -2,6 +2,7 @@ import Api from './core/api.js';
 import App from './core/app.js';
 import Player from './model/player.js';
 import Planet from './model/planet.js';
+import Dictionnary from './core/dictionnary.js';
 
 const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(planets => {
     const list = document.querySelector('#planets > section');
@@ -17,11 +18,11 @@ const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(pla
       const planetElement = document.createElement('div');
       planetElement.classList.add('planet');
 
-      const planetResourceLink = document.createElement('a');
-      planetResourceLink.innerText = "Production détaillée TOTRAD"
-      planetResourceLink.href = `/views/base/production.html`;
+      const planetResourceButton = document.createElement('div');
+      planetResourceButton.classList.add('resource-button');
+      planetResourceButton.innerHTML = `<a href="/views/base/production.html">${Dictionnary.translations.planet.production}</a>`;
 
-      planetElement.appendChild(planetResourceLink);
+      planetElement.appendChild(planetResourceButton);
       planetElement.appendChild(shape);
       planetElement.appendChild(planetName);
       list.appendChild(planetElement);

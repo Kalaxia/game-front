@@ -67,10 +67,10 @@
                 document.querySelector('#production-details').appendChild(planetResources);
 
                 if(planet.player !== null && planet.player.id === currentPlayer.id) {
-                    const planetResourceLink = document.createElement('a');
-                    planetResourceLink.innerText = "Production détaillée TOTRAD"
-                    planetResourceLink.href = `/views/base/production.html`;
-                    document.querySelector('#production-details').appendChild(planetResourceLink);
+                  const planetResourceButton = document.createElement('div');
+                  planetResourceButton.classList.add('resource-button');
+                  planetResourceButton.innerHTML = `<a href="/views/base/production.html">${Dictionnary.translations.planet.production}</a>`;
+                    document.querySelector('#production-details').appendChild(planetResourceButton);
                 }
 
                 if (planet.player !== null) {
