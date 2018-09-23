@@ -27,7 +27,7 @@ const displayOffers = offers => {
             <td>${offer.getGoodClass()}</td>
             <td>${offer.getQuantity()}</td>
             <td>${offer.getPrice()}</td>
-            <td>${(planet.id !== offer.location.id) ? `${planet.system.getDistanceFrom(offer.location.system)} Al` : '-'}</td>`
+            <td>${(planet.id !== offer.location.id) ? `${Number(planet.system.getDistanceFrom(offer.location.system)).toFixed(2)} Al` : '-'}</td>`
         ;
         list.appendChild(row);
     }
@@ -109,17 +109,17 @@ const showOfferDetails = (row, offer) => {
                         </strong>
                         <em>${Dictionnary.translations.trade.available_lots}</em>
                         <strong>
-                            ${offer.quantity / offer.lotQuantity}
+                            ${ offer.quantity / offer.lotQuantity }
                             <img src="/static/images/picto/G_P_Lot_64px.png"/>
                         </strong>
                         <em>${Dictionnary.translations.trade.lot_price}</em>
                         <strong>
-                            ${ offer.price * offer.lotQuantity }
+                            ${ Number(offer.price * offer.lotQuantity).toFixed(2) }
                             <img src="/static/images/picto/G_P_Mon_64px.png"/>
                         </strong>
                         <em>${Dictionnary.translations.trade.unit_price}</em>
                         <strong>
-                            ${ offer.price }
+                            ${ Number(offer.price).toFixed(2) }
                             <img src="/static/images/picto/G_P_Mon_64px.png"/>
                         </strong>
                     </div>

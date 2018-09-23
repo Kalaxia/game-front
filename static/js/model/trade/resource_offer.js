@@ -47,7 +47,7 @@ class ResourceOffer extends Offer {
     }
 
     getPrice() {
-        return `${this.getTotalPrice()} <img src="/static/images/picto/G_P_Arr_64px.png" />
+        return `${Number(this.getTotalPrice()).toFixed(2)} <img src="/static/images/picto/G_P_Arr_64px.png" />
             ${this.price} <div><sup><img src="/static/images/picto/G_P_Mon_64px.png"></sup>
             <span>&frasl;</span>
             <sub>${Dictionnary.translations.trade.unit_short}</sub></div>`
