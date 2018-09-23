@@ -4,8 +4,8 @@ import Api from '../../core/api.js';
 import resourcesData from '../../resources/resources.js';
 
 class ResourceOffer extends Offer {
-    constructor(operation, location, quantity, lotQuantity, price, resource) {
-        super(operation, GOOD_TYPE_RESOURCES, location, parseFloat(price));
+    constructor(id, operation, location, createdAt, acceptedAt, quantity, lotQuantity, price, resource) {
+        super(id, operation, GOOD_TYPE_RESOURCES, location, parseFloat(price), createdAt, acceptedAt);
         this.quantity = parseInt(quantity);
         this.lotQuantity = parseInt(lotQuantity);
         this.resource = resource;
