@@ -321,7 +321,7 @@
 }
 
 .resource-button {
-    border-radius: 100%;
+    border-radius: 1000px;
     border-color: #EFEFEF;
     border-style: solid;
     border-width: 5px;
@@ -333,5 +333,13 @@
 .resource-button:hover {
     background-color: #EFEFEF;
     color: #090A0A;
+}
 
+.resource-button > a {
+    text-decoration: none;
+    color: #EFEFEF;
+}
+
+.resource-button > a:hover {
+    color:#090A0A;
 }
