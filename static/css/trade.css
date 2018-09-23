@@ -275,6 +275,7 @@
     justify-content: space-between;
     border: 2px solid #FF0069;
     border-radius: 10px 0px 10px 50px;
+    z-index: 50;
 }
 
 #offer-infos {
@@ -417,6 +418,25 @@
 
 #good-infos > section strong > img {
     height: 16px;
+}
+
+#good-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#offer-actions > button {
+    background: none;
+    border: 1px solid #FF0069;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #EFEFEF;
+    cursor: pointer;
+}
+
+#offer-actions > button:hover {
+    background-color: #FF0069;
 }
 
 #sell-form {

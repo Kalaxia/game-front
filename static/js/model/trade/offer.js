@@ -30,4 +30,11 @@ export class Offer {
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }
+
+    static cancel(id) {
+        return fetch(`/api/offers/${id}`, {
+            method: 'DELETE',
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
 };

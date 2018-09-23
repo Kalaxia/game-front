@@ -18,6 +18,7 @@ const displayOffers = offers => {
     const planet = App.getCurrentPlanet();
     for (const offer of offers) {
         const row = document.createElement('tr');
+        row.id = `offer-${offer.id}`;
         row.addEventListener('click', (event) => { showOfferDetails(event.currentTarget, offer); });
         row.innerHTML =
             `<td style="color:${offer.location.player.faction.color}">${offer.location.player.pseudo}</td>
@@ -99,34 +100,48 @@ const showOfferDetails = (row, offer) => {
                         <strong>${Dictionnary.translations.resources[offer.resource]}</strong>
                     </div>
                 </div>
-                <div id="offer-data">
-                    <em>${Dictionnary.translations.trade.lot_contents}</em>
-                    <strong>
-                        ${offer.lotQuantity}
-                        <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
-                    </strong>
-                    <em>${Dictionnary.translations.trade.available_lots}</em>
-                    <strong>
-                        ${offer.quantity / offer.lotQuantity}
-                        <img src="/static/images/picto/G_P_Lot_64px.png"/>
-                    </strong>
-                    <em>${Dictionnary.translations.trade.lot_price}</em>
-                    <strong>
-                        ${ offer.price * offer.lotQuantity }
-                        <img src="/static/images/picto/G_P_Mon_64px.png"/>
-                    </strong>
-                    <em>${Dictionnary.translations.trade.unit_price}</em>
-                    <strong>
-                        ${ offer.price }
-                        <img src="/static/images/picto/G_P_Mon_64px.png"/>
-                    </strong>
+                <div id="good-data">
+                    <div id="offer-data">
+                        <em>${Dictionnary.translations.trade.lot_contents}</em>
+                        <strong>
+                            ${offer.lotQuantity}
+                            <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
+                        </strong>
+                        <em>${Dictionnary.translations.trade.available_lots}</em>
+                        <strong>
+                            ${offer.quantity / offer.lotQuantity}
+                            <img src="/static/images/picto/G_P_Lot_64px.png"/>
+                        </strong>
+                        <em>${Dictionnary.translations.trade.lot_price}</em>
+                        <strong>
+                            ${ offer.price * offer.lotQuantity }
+                            <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                        </strong>
+                        <em>${Dictionnary.translations.trade.unit_price}</em>
+                        <strong>
+                            ${ offer.price }
+                            <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                        </strong>
+                    </div>
+                    <div id="offer-actions">
+                        ${((offer.location.player.id === App.getCurrentPlayer().id)
+                            ? `<button onclick="cancelOffer(${offer.id});">
+                                ${Dictionnary.translations.trade.cancel_offer}
+                            </button>` : '') }
+                    </div>
                 </div>
             </section>
             <footer>${offer.createdAt.toLocaleDateString('fr-FR', {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</footer>
         </div>`
     ;
-
 };
+
+export const cancelOffer = offerId => Offer.cancel(offerId).then(() => {
+    document.querySelector(`#offer-${offerId}`).remove();
+    const offerDetails = document.querySelector('#offer-details');
+    offerDetails.style.visibility = 'hidden';
+    offerDetails.innerHTML = '';
+});
 
 export const filterByOperation = event => {
     const previous = document.querySelector('#offer-filters #operation-selector .selected');
@@ -149,7 +164,7 @@ export const createOffer = () => {
             const quantity = document.querySelector("#quantity-input").value;
             const lotQuantity = document.querySelector("#lot-quantity-input").value;
             const price = document.querySelector("#price-input").value;
-            offer = new ResourceOffer(operation, planet, quantity, lotQuantity, price, resource);
+            offer = new ResourceOffer(null, operation, planet, new Date(), null, quantity, lotQuantity, price, resource);
             break;
         case GOOD_TYPE_SHIPS:
             offer = new ShipOffer();
