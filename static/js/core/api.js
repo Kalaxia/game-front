@@ -30,6 +30,9 @@ class Api {
             Player.logout();
             return Promise.reject("unauthorized");
         }
+        if (response.status === 204) {
+            return Promise.resolve();
+        }
         if (response.ok) {
             return response.json();
         }
