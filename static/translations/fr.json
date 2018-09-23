@@ -204,7 +204,8 @@
         "unauthorized_factions": "Factions rejetées",
         "unique_available_lot": "un seul lot disponible",
         "unit_price": "Prix unitaire",
-        "unit_short": "u"
+        "unit_short": "u",
+        "yourself": "Vous"
     },
     "fleet" :{
         "view" :{

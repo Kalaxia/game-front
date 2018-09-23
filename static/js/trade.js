@@ -60,7 +60,7 @@ const showOfferDetails = (row, offer) => {
                 <div>
                     <img src="/static/images/avatars/Hombre_v3t.png"/>
                     <em>${Dictionnary.translations.trade[((offer.operation === OPERATION_BUY) ? 'buyer' : 'seller')]}</em>
-                    <strong>${offer.location.player.pseudo}</strong>
+                    <strong>${(offer.location.player.id === App.getCurrentPlayer().id) ? Dictionnary.translations.trade.yourself : offer.location.player.pseudo}</strong>
                 </div>
                 <div>
                     <img src="/static/images/picto/G_P_Char_OL_64px.png"/>
