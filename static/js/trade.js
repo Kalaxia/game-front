@@ -124,9 +124,10 @@ const showOfferDetails = (row, offer) => {
                         </strong>
                     </div>
                     <div id="offer-actions">
-                        <button onclick="cancelOffer(${offer.id});">
-                            ${Dictionnary.translations.trade.cancel_offer}
-                        </button>
+                        ${((offer.location.player.id === App.getCurrentPlayer().id)
+                            ? `<button onclick="cancelOffer(${offer.id});">
+                                ${Dictionnary.translations.trade.cancel_offer}
+                            </button>` : '') }
                     </div>
                 </div>
             </section>
@@ -163,7 +164,7 @@ export const createOffer = () => {
             const quantity = document.querySelector("#quantity-input").value;
             const lotQuantity = document.querySelector("#lot-quantity-input").value;
             const price = document.querySelector("#price-input").value;
-            offer = new ResourceOffer(operation, planet, quantity, lotQuantity, price, resource);
+            offer = new ResourceOffer(null, operation, planet, new Date(), null, quantity, lotQuantity, price, resource);
             break;
         case GOOD_TYPE_SHIPS:
             offer = new ShipOffer();
