@@ -79,6 +79,9 @@
             "title": "Planètes contrôlées"
         }
     },
+    "races": {
+        "human": "Humain"
+    },
     "registration": {
         "next_step": "Étape suivante",
         "validate": "Commencer la partie !",
@@ -165,25 +168,44 @@
     "trade": {
         "authorized_factions": "Factions acceptées",
         "available_quantity": "%quantity% disponible",
-        "available_lots": "%nb_lots% lots max",
+        "available_lots": "Lots disponibles",
+        "buyer": "Acheteur",
         "create_offer": "Créer une offre",
         "discount": "Prix réduit",
+        "faction": "Faction",
         "good": "Bien",
         "invalid_lot_quantity": "il ne peut y avoir de reste",
+        "lot_contents": "Contenu d'un lot",
+        "lot_price": "Prix d'un lot",
         "lot_quantity": "Quantité minimale par lot",
         "min": "min",
         "max": "max",
+        "max_lots": "%nb_lots% lots max",
         "offer": "Offre",
+        "operation": "Type d'offre",
+        "operations": {
+            "buy": "Achat",
+            "sell": "Vente"
+        },
+        "planet": "Planète",
         "price": "Prix de départ",
         "purchases": "Achats",
         "price": "Prix de départ",
         "quantity": "Quantité",
+        "race": "Race",
         "sales": "Ventes",
+        "selected_offer": "Offre sélectionnée",
+        "seller": "Vendeur",
         "trading_post": "Comptoir commercial",
         "transport": "Transport et Escorte",
+        "types": {
+            "resources": "Ressource"
+        },
         "unauthorized_factions": "Factions rejetées",
         "unique_available_lot": "un seul lot disponible",
-        "unit_short": "u"
+        "unit_price": "Prix unitaire",
+        "unit_short": "u",
+        "yourself": "Vous"
     },
     "fleet" :{
         "view" :{

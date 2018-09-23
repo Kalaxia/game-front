@@ -2,6 +2,7 @@ import App from './core/app.js';
 import ShipModel from  './model/ship/model.js';
 import Faction from './model/faction.js';
 import resourcesData from './resources/resources.js';
+import planetsData from './resources/planets.js';
 import Dictionnary from './core/dictionnary.js';
 import { Offer, OPERATION_BUY, OPERATION_SELL, GOOD_TYPE_RESOURCES, GOOD_TYPE_SHIPS, GOOD_TYPE_MODELS } from './model/trade/offer.js';
 import ResourceOffer from './model/trade/resource_offer.js';
@@ -17,6 +18,7 @@ const displayOffers = offers => {
     const planet = App.getCurrentPlanet();
     for (const offer of offers) {
         const row = document.createElement('tr');
+        row.addEventListener('click', (event) => { showOfferDetails(event.currentTarget, offer); });
         row.innerHTML =
             `<td style="color:${offer.location.player.faction.color}">${offer.location.player.pseudo}</td>
             <td>${offer.getGoodName()}</td>
@@ -28,6 +30,102 @@ const displayOffers = offers => {
         ;
         list.appendChild(row);
     }
+};
+
+const showOfferDetails = (row, offer) => {
+    const previous = document.querySelector('#offers-list > section > table > tbody > tr.selected');
+    if (previous !== null) {
+        if (previous === row) {
+            return;
+        }
+        previous.classList.remove('selected');
+    }
+    row.classList.add('selected');
+    const container = document.querySelector('#offer-details');
+    container.style.visibility = 'visible';
+    container.innerHTML =
+        `<div id="offer-infos">
+            <header>
+                <div>
+                    <img src="/static/images/picto/${planetsData[offer.location.type].picto}"/>
+                    <em>${Dictionnary.translations.trade.planet}</em>
+                    <strong>${offer.location.name}</strong>
+                    <strong>[${offer.location.system.x}.${offer.location.system.y}]</strong>
+                </div>
+                <div>
+                    <img src="/static/images/factions/${offer.location.player.faction.banner}"/>
+                    <em>${Dictionnary.translations.trade.faction}</em>
+                    <strong>${offer.location.player.faction.name}</strong>
+                </div>
+                <div>
+                    <img src="/static/images/avatars/Hombre_v3t.png"/>
+                    <em>${Dictionnary.translations.trade[((offer.operation === OPERATION_BUY) ? 'buyer' : 'seller')]}</em>
+                    <strong>${(offer.location.player.id === App.getCurrentPlayer().id) ? Dictionnary.translations.trade.yourself : offer.location.player.pseudo}</strong>
+                </div>
+                <div>
+                    <img src="/static/images/picto/G_P_Char_OL_64px.png"/>
+                    <em>${Dictionnary.translations.trade.race}</em>
+                    <strong>${Dictionnary.translations.races.human}</strong>
+                </div>
+            </header>
+            <section>
+                <div id="planets">
+                    <div><img src="/static/images/picto/${planetsData[offer.location.type].image}"/></div>
+                    <div>?</div>
+                </div>
+                <div id="travel-details">
+                    <div class="travel-point"></div>
+                    <img src="/static/images/picto/G_P_S2_64px.png"/>
+                    <div class="travel-point"></div>
+                </div>
+                <div id="good-picto">
+                    <img src="/static/images/picto/G_P_Lot_64px.png"/>
+                </div>
+            </section>
+            <footer></footer>
+        </div>
+        <div id="good-infos">
+            <header><h3>${Dictionnary.translations.trade.selected_offer}</h3></header>
+            <section>
+                <h4>${Dictionnary.translations.trade.types.resources}</h4>
+                <div id="good-details">
+                    <div id="good-type-picto">
+                        <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
+                    </div>
+                    <div id="operation-details">
+                        <em>${Dictionnary.translations.trade.operation}</em>
+                        <strong>${Dictionnary.translations.trade.operations[offer.operation]}</strong>
+                        <em>${Dictionnary.translations.trade.types.resources}</em>
+                        <strong>${Dictionnary.translations.resources[offer.resource]}</strong>
+                    </div>
+                </div>
+                <div id="offer-data">
+                    <em>${Dictionnary.translations.trade.lot_contents}</em>
+                    <strong>
+                        ${offer.lotQuantity}
+                        <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
+                    </strong>
+                    <em>${Dictionnary.translations.trade.available_lots}</em>
+                    <strong>
+                        ${offer.quantity / offer.lotQuantity}
+                        <img src="/static/images/picto/G_P_Lot_64px.png"/>
+                    </strong>
+                    <em>${Dictionnary.translations.trade.lot_price}</em>
+                    <strong>
+                        ${ offer.price * offer.lotQuantity }
+                        <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                    </strong>
+                    <em>${Dictionnary.translations.trade.unit_price}</em>
+                    <strong>
+                        ${ offer.price }
+                        <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                    </strong>
+                </div>
+            </section>
+            <footer>${offer.createdAt.toLocaleDateString('fr-FR', {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' })}</footer>
+        </div>`
+    ;
+
 };
 
 export const filterByOperation = event => {
@@ -113,7 +211,7 @@ const updateResourcesSaleForm = resource => {
     document.querySelector('#lot-container img').setAttribute('src', pictoPath);
     document.querySelector('#lot-container span').innerText =
         (quantityInput.value / lotQuantityInput.value >= 2)
-        ? `(${Dictionnary.translations.trade.available_lots.replace('%nb_lots%', quantityInput.value / lotQuantityInput.value)})`
+        ? `(${Dictionnary.translations.trade.max_lots.replace('%nb_lots%', quantityInput.value / lotQuantityInput.value)})`
         : `(${Dictionnary.translations.trade.unique_available_lot})`;
 };
 
@@ -230,7 +328,7 @@ export const updateLotIndicator = () => {
         lotQuantityIndicator.innerText = `(${Dictionnary.translations.trade.invalid_lot_quantity})`;
     } else {
         lotQuantityInput.style.color = '#EFEFEF';
-        lotQuantityIndicator.innerText = `(${Dictionnary.translations.trade.available_lots.replace('%nb_lots%', nbLots)})`;
+        lotQuantityIndicator.innerText = `(${Dictionnary.translations.trade.max_lots.replace('%nb_lots%', nbLots)})`;
     }
 }
 
