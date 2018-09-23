@@ -1,3 +1,10 @@
+## [0.1.7] - 2018-09-23
+### Added
+- Planet type picto and image
+- Trade resource offer details
+- Trade resource offer cancellation
+- 204 API responses handling
+
 ## [0.1.16] - 2018-09-15
 ### Added
 - Trade sale offer creation
