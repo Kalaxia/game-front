@@ -76,7 +76,7 @@ export const displayDensity = (planet) => {
           },
           scale: {
               gridLines: {
-                  color: "#1F2125",
+                  color: "#090A0A",
                   lineWidth: 1,
               },
               ticks: {
@@ -123,7 +123,7 @@ const getDensityDatasets = resources => {
 
           dataset.data.push(density);
           dataset.backgroundColor.push(color);
-          dataset.borderColor.push('#1F2125');
+          dataset.borderColor.push('#090A0A');
           added ++;
       }
       while (added < numberOfResources) {
@@ -132,7 +132,7 @@ const getDensityDatasets = resources => {
           const color = "red";
           dataset.data.push(density);
           dataset.backgroundColor.push(color);
-          dataset.borderColor.push('#090A0A');
+          dataset.borderColor.push('#E12024');
           added ++;
       }
     return {
@@ -179,10 +179,10 @@ const displayDensityPicto = resources => {
         pictoBackground.style.height=pictoSize+"px";
         pictoBackground.style.width=pictoSize +"px";
         pictoBackground.style.borderRadius="100%";
-        pictoBackground.style.borderColor="#1F2125";
+        pictoBackground.style.borderColor="#090A0A";
         pictoBackground.style.borderStyle="solid";
         pictoBackground.style.borderWidth=borderSize+"px";
-        pictoBackground.style.backgroundColor="#090A0A";
+        pictoBackground.style.backgroundColor="#1E2024";
         pictoBackground.style.position="absolute";
 
         const angle = ( ( Math.PI )*(-added/3 -1/6 ));// angles in radians

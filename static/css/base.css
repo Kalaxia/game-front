@@ -304,7 +304,7 @@
 
 #chart-background {
     border-radius: 100%;
-    background-color: #1F2125;
+    background-color: #090A0A;
     position: relative;
 }
 
@@ -314,7 +314,7 @@
 
 .density-picto {
     border-radius: 100%;
-    border: 5px solid #1F2125;
-    background-color: #090A0A;
+    border: 5px solid #090A0A;
+    background-color: #1E2024;
     position: absolute;
 }
