@@ -72,7 +72,14 @@
             "rocky": "Planète rocheuse",
             "volcanic": "Planète volcanique"
         },
-        "hangar" : "Hangar de %planet%"
+        "hangar" : "Hangar de %planet%",
+        "storage": {
+            "name" : "Stockage",
+            "capacity" : "Capacité de stockage",
+            "unit" : "mètres cubes",
+            "full_in" : "Plein dans "
+        },
+        "production" : "Production"
     },
     "profile": {
         "planets": {
