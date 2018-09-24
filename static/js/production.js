@@ -7,13 +7,13 @@ export const getDensityVisualization = (density, picto) => Array((Math.ceil(dens
 
 export const initBaseProduction = () => {
     const planet = App.getCurrentPlanet();
-    var listResources = document.getElementById("planet-production");
-    var listStorage = document.getElementById("planet-storage");
+    const listResources = document.getElementById("planet-production");
+    const listStorage = document.getElementById("planet-storage");
     for (let resource of planet.resources) {
-        var resourceTemp = Object.assign({}, resource);
+        const resourceTemp = Object.assign({}, resource);
         displayStorage(planet, resourceTemp, listStorage);
     }
-    displayDensity(planet, listStorage);
+    displayDensity(planet);
 };
 
 const displayStorage = (planet, resource, displayLocation) => {
@@ -21,7 +21,7 @@ const displayStorage = (planet, resource, displayLocation) => {
     resource = Object.assign(resource, resourcesData[resourceKey]);
     const infoStorage = document.createElement('div');
 
-    var now = new Date();
+    const now = new Date();
     infoStorage.className ="full-storage-display";
     infoStorage.innerHTML =
         `<h5 class="storage-picto"><img src="/static/images/resources/${resource.picto}" alt="${resource.name}"/>
@@ -50,60 +50,60 @@ const displayStorage = (planet, resource, displayLocation) => {
         </div>`
         ;
     displayLocation.appendChild(infoStorage);
-    var idName = "storage-full-"+resource.name;
-    const storageFull = document.getElementById(idName);
+
+    const storageFull = document.getElementById( "storage-full-"+resource.name);
     storageFull.style.width = (100*planet.storage.resources[resourceKey]/planet.storage.capacity)+"%";
     storageFull.style.backgroundColor = resource.color;
 
     if( planet.storage.resources[resourceKey] === planet.storage.capacity) {
-        var idName = "current-amount-"+resource.name;
-        const currentAmount = document.getElementById(idName);
+        const currentAmount = document.getElementById("current-amount-"+resource.name);
         currentAmount.style.color='#FF0066';
-        idName = "full-capacity-time-"+resource.name;
-        const timeLeftToFull = document.getElementById(idName);
+        const timeLeftToFull = document.getElementById("full-capacity-time-"+resource.name);
         timeLeftToFull.style.color='#FF0066';
     }
 };
 
-export const displayDensity = (planet, container) => {
-    var config = {
-        type: 'polarArea',
-        data: getDensityDatasets(planet.resources),
-        options: {
-            responsive: false,
-            legend: {
-                display: false,
-            },
-            scale: {
-                gridLines: {
-                    color: "#1F2125",
-                    lineWidth: 1,
-                },
-                ticks: {
-                    display: false,
-                    beginAtZero: true,
-                    min: 0,
-                    max: 100,
-                    stepSize: 25,
-                    showLabelBackdrop: false,
-                },
-                tooltips: {
-                  enabled: false,
-                },
-                hover: {
+
+
+export const displayDensity = (planet) => {
+  var config = {
+      type: 'polarArea',
+      data: getDensityDatasets(planet.resources),
+      options: {
+          responsive: false,
+          legend: {
+              display: false,
+          },
+          scale: {
+              gridLines: {
+                  color: "#1F2125",
+                  lineWidth: 1,
+              },
+              ticks: {
                   display: false,
-                  mode: null,
-                },
-            },
-        }
-    };
-    var ctx = document.getElementById("resource-density");
+                  beginAtZero: true,
+                  min: 0,
+                  max: 100,
+                  stepSize: 25,
+                  showLabelBackdrop: false,
+              },
+              tooltips: {
+                enabled: false,
+              },
+              hover: {
+                display: false,
+                mode: null,
+              },
+          },
+      }
+  };
+    const ctx = document.getElementById("resource-density");
 
     ctx.style.height="500px";
     ctx.style.width="500px";
 
-    var myChart = new Chart(ctx, config);
-    var chartBackground = document.getElementById("chart-background");
+    const myChart = new Chart(ctx, config);
+    const chartBackground = document.getElementById("chart-background");
 
     chartBackground.style.height=ctx.style.height;
     chartBackground.style.width= ctx.style.width;
@@ -111,46 +111,46 @@ export const displayDensity = (planet, container) => {
 };
 
 const getDensityDatasets = resources => {
-    var resourceDataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
-    var resData = resourcesData;
-    var added = 0;
-      for (const key in resources) {
-          var resourceTemp = Object.assign({}, resData[resources[key].name]);
-            var dataset = resourceDataset;
-            var density = resources[key].density;
-            var color = resourceTemp.color;
+    const resourceDataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
+    const resData = resourcesData;
+    let added = 0;
+    const numberOfResources = 6;
+    for (const key in resources) {
+          const resourceTemp = Object.assign({}, resData[resources[key].name]);
+          const dataset = resourceDataset;
+          const density = resources[key].density;
+          const color = resourceTemp.color;
 
-            dataset.data.push(density);
-            dataset.backgroundColor.push(color);
-            dataset.borderColor.push('#1F2125');
-            added ++;
-        }
-        while (added < 6) {
-            var dataset = resourceDataset;
-            var density = 0;
-            var color = "red";
-            dataset.data.push(density);
-            dataset.backgroundColor.push(color);
-            dataset.borderColor.push('#090A0A');
-            added ++;
-        }
-
+          dataset.data.push(density);
+          dataset.backgroundColor.push(color);
+          dataset.borderColor.push('#1F2125');
+          added ++;
+      }
+      while (added < numberOfResources) {
+          const dataset = resourceDataset;
+          const density = 0;
+          const color = "red";
+          dataset.data.push(density);
+          dataset.backgroundColor.push(color);
+          dataset.borderColor.push('#090A0A');
+          added ++;
+      }
     return {
         datasets: [ resourceDataset],
     };
 };
 
 const displayDensityPicto = resources => {
-    var added = 0;
-    var chartBackground = document.getElementById("chart-background");
-    var offset = parseInt(chartBackground.style.height);
-    var pictoSize = 84;
-    var imageSize = 64;
-    var borderSize = 10;
-    var resData = resourcesData;
+    let added = 0;
+    const chartBackground = document.getElementById("chart-background");
+    const offset = parseInt(chartBackground.style.height);
+    const pictoSize = 64;
+    const imageSize = 64;
+    const borderSize = 10;
+    const resData = resourcesData;
 
     for (const key in resources) {
-        var pictoBackground = document.createElement('div');
+        const pictoBackground = document.createElement('div');
 
         pictoBackground.classList.add("density-picto")
         pictoBackground.style.height=pictoSize+"px";
@@ -164,8 +164,8 @@ const displayDensityPicto = resources => {
             ;
 
         const angle = ( ( Math.PI )*(-added/3 -1/6 ));// angles in radians
-        var top = (Math.cos(angle) * offset/2);
-        var left = (Math.sin(angle) * offset/2);
+        const top = (Math.cos(angle) * offset/2);
+        const left = (Math.sin(angle) * offset/2);
 
         pictoBackground.style.bottom =offset/2-(borderSize) -(pictoSize/2 )+ top+'px';
         pictoBackground.style.left = offset/2 -(borderSize) -(pictoSize/2 + left)+'px';
@@ -174,7 +174,7 @@ const displayDensityPicto = resources => {
         added ++;
     }
     while (added < 6) { // completes the remaining densities with empty spaces to reach a total of 6
-        var pictoBackground = document.createElement('div');
+        const pictoBackground = document.createElement('div');
 
         pictoBackground.style.height=pictoSize+"px";
         pictoBackground.style.width=pictoSize +"px";
@@ -186,8 +186,8 @@ const displayDensityPicto = resources => {
         pictoBackground.style.position="absolute";
 
         const angle = ( ( Math.PI )*(-added/3 -1/6 ));// angles in radians
-        var top = (Math.cos(angle) * offset/2);
-        var left = (Math.sin(angle) * offset/2);
+        const top = (Math.cos(angle) * offset/2);
+        const left = (Math.sin(angle) * offset/2);
 
         pictoBackground.style.bottom =offset/2-(borderSize) -(pictoSize/2 )+ top+'px';
         pictoBackground.style.left = offset/2 -(borderSize) -(pictoSize/2 + left)+'px';

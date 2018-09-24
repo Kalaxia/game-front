@@ -18,13 +18,14 @@ const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(pla
       const planetElement = document.createElement('div');
       planetElement.classList.add('planet');
 
-      const planetResourceButton = document.createElement('div');
+      const planetResourceButton = document.createElement('a');
       planetResourceButton.classList.add('resource-button');
-      planetResourceButton.innerHTML = `<a href="/views/base/production.html">${Dictionnary.translations.planet.production}</a>`;
+      planetResourceButton.innerText = Dictionnary.translations.planet.production;
+      planetResourceButton.href= "/views/base/production.html";
 
-      planetElement.appendChild(planetResourceButton);
       planetElement.appendChild(shape);
       planetElement.appendChild(planetName);
+      planetElement.appendChild(planetResourceButton);
       list.appendChild(planetElement);
     }
   })

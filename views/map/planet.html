@@ -67,10 +67,11 @@
                 document.querySelector('#production-details').appendChild(planetResources);
 
                 if(planet.player !== null && planet.player.id === currentPlayer.id) {
-                  const planetResourceButton = document.createElement('div');
-                  planetResourceButton.classList.add('resource-button');
-                  planetResourceButton.innerHTML = `<a href="/views/base/production.html">${Dictionnary.translations.planet.production}</a>`;
-                    document.querySelector('#production-details').appendChild(planetResourceButton);
+                    const planetResourceButton = document.createElement('a');
+                    planetResourceButton.classList.add('resource-button');
+                    planetResourceButton.innerText = Dictionnary.translations.planet.production;
+                    planetResourceButton.href= "/views/base/production.html";
+                    document.querySelector('#planet-data').appendChild(planetResourceButton);
                 }
 
                 if (planet.player !== null) {

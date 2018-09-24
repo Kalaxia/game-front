@@ -21,6 +21,7 @@
 
 #planets {
   margin-top: 50px;
+  z-index: 2;
 }
 
 #planets > section {
@@ -41,6 +42,10 @@
 }
 
 .resource-button {
+    margin:auto;
+    display: block;
+    text-decoration: none;
+    color: #EFEFEF;
     border-radius: 1000px;
     border-color: #EFEFEF;
     border-style: solid;
@@ -53,13 +58,4 @@
 .resource-button:hover {
     background-color: #EFEFEF;
     color: #090A0A;
-}
-
-.resource-button > a {
-    text-decoration: none;
-    color: #EFEFEF;
-}
-
-.resource-button > a:hover {
-    color:#090A0A;
 }

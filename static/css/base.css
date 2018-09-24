@@ -264,8 +264,8 @@
 }
 
 .storage-display {
-    border-style: solid;
-    border-color: white;
+
+    border: 5px solid #EFEFEF;
     border-radius: 25px;
     height:25px;
     width :100%;
@@ -314,32 +314,7 @@
 
 .density-picto {
     border-radius: 100%;
-    border-color: #1F2125;
-    border-style: solid;
+    border: 5px solid #1F2125;
     background-color: #090A0A;
     position: absolute;
-}
-
-.resource-button {
-    border-radius: 1000px;
-    border-color: #EFEFEF;
-    border-style: solid;
-    border-width: 5px;
-    color: #EFEFEF;
-    font-variant: small-caps;
-    font-family: Electrolize, sans-serif;
-}
-
-.resource-button:hover {
-    background-color: #EFEFEF;
-    color: #090A0A;
-}
-
-.resource-button > a {
-    text-decoration: none;
-    color: #EFEFEF;
-}
-
-.resource-button > a:hover {
-    color:#090A0A;
 }
