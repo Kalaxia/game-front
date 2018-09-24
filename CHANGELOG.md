@@ -1,4 +1,10 @@
-## [0.1.7] - 2018-09-23
+## [0.1.18] - 2018-09-24
+### Added
+- Planet resources density chart
+- Planet resources storage gauges
+- Planet resources production rate
+
+## [0.1.17] - 2018-09-23
 ### Added
 - Planet type picto and image
 - Trade resource offer details
