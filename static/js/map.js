@@ -36,12 +36,11 @@ export const initMapForJourneyPlaner = () => {
 };
 
 const initBaseMap = () => {
-    Player.fetchCurrentPlayer().then(player => {
-        var profileLink = document.createElement('a');
-        profileLink.href = '/views/profile';
-        profileLink.innerText = player.pseudo;
-        document.querySelector("#player-data h3").appendChild(profileLink);
-    });
+    var player = App.currentPlayer;
+    var profileLink = document.createElement('a');
+    profileLink.href = '/views/profile';
+    profileLink.innerText = player.pseudo;
+    document.querySelector("#player-data h3").appendChild(profileLink);
     
     document.onmousedown = startMapMove;
     document.onmouseup = stopMapMove;
@@ -60,10 +59,6 @@ const initMapElement = (map) => {
 
 export const mapScale = 50.0;
 export const minimapScale = 2.0;
-
-const ZOOM_SCALE = 1.0/1000.0;
-
-
 
 
 const displaySystem = (map, system, scale) => {
@@ -87,8 +82,6 @@ let offsetX = null;
 let offsetY = null;
 let coordX = null;
 let coordY = null;
-
-export let scaleLevel=1.0;
 
 const startMapMove = e => {
     

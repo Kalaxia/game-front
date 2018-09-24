@@ -7,9 +7,6 @@ import Journey from './journey.js';
 class Fleet {
     constructor(data) {
         this.id = data.id;
-        //this.player = new Player (data.player);
-        //this.location = new Planet (data.location);
-        //this.journey = new Journey (data.journey);
         this.player =data.player;
         this.location = data.location;
         this.journey = data.journey;

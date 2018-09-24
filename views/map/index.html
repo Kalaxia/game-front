@@ -38,7 +38,6 @@
         import App from '/static/js/core/app.js';
         import { initMapForJourneyPlaner,initMap } from '/static/js/map.js';
         
-        
         const urlParams = new URLSearchParams(window.location.search);
         const fleetId = urlParams.get("id");
         
@@ -47,19 +46,10 @@
         }
         
         const initMapAll = () => {
-            if (fleetId != null && fleetId != undefined) {
-                initMapForJourneyPlaner();
-            }
-            else{
-                initMap();
-            } 
-            
-            
-            
-            
+            return (fleetId != null && fleetId != undefined)
+                ? initMapForJourneyPlaner()
+                : initMap()
         }
-        
-        //window.addEventListener('load', initBaseForFleet);
         App.init().then(initMapAll);
         
     </script>

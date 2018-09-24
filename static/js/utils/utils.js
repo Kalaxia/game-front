@@ -27,18 +27,7 @@ class Utils {
 		
 		lineNode.style.top = (PosStartCenter[1]+PosEndCenter[1])/2 - parseInt(lineNode.style.height)/2+ "px";
 		lineNode.style.left = (PosStartCenter[0]+PosEndCenter[0])/2 - parseInt(lineNode.style.width)/2 + "px";
-		/*
-		if(PosEndCenter[0] < PosStartCenter[0]) {
-    		//lineNode.offset({ top: PosStartCenter[1] - lineNode.height*Math.cos(angle), left: PosEndCenter[0] - lineNode.height*Math.sin(angle) });
-			lineNode.style.top = PosStartCenter[1] - parseInt(lineNode.style.height)*Math.cos(angle) + "px";
-			lineNode.style.left = PosEndCenter[0] - parseInt(lineNode.style.height)*Math.sin(angle) + "px";
-  		} 
-		else {
-    		//lineNode.offset({ top: PosStartCenter[1] - lineNode.height*Math.cos(angle), left: PosStartCenter[0] - lineNode.height*Math.sin(angle) });
-			lineNode.style.top = PosStartCenter[1] - parseInt(lineNode.style.height)*Math.cos(angle) + "px";
-			lineNode.style.left = PosStartCenter[0] - parseInt(lineNode.style.height)*Math.sin(angle) + "px";
-  		}
-		*/
+		
 		return lineNode;
 	}
 	

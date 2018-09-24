@@ -3,10 +3,10 @@ import Ship from './ship/ship.js';
 
 class Journey {
     constructor(data) {
-        //TODO 
-		for (var i in data) {
-			this[i] = data[i];
-		}
+        this.id = data.id;
+        this.created_at = data.created_at;
+        this.ended_at = data.ended_at;
+        this.current_step = data.current_step;
 		
     }
 	
@@ -17,7 +17,7 @@ class Journey {
             body: JSON.stringify(stepObject),
             headers: Api.headers
         }).then(Api.responseMiddleware)
-        .then(JourneySteps => { return JourneySteps; })
+        .then(JourneySteps => { return JourneySteps; });
     }
 }
 
