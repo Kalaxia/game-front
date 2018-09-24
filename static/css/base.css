@@ -235,3 +235,68 @@
 #planet-available-buildings.visible {
     display: block;
 }
+
+#planet-production {
+  grid-column: 2/6;
+  grid-row: 3/8;
+}
+
+#planet-storage {
+  grid-column: 6/10;
+  grid-row: 3/8;
+}
+
+#planet-storage > h5 {
+  margin : 0;
+}
+
+#planet-production > h5 {
+  margin : 0;
+}
+
+.storage-picto {
+    align-items: stretch;
+}
+
+.storage {
+    text-align: center;
+}
+
+.storage-display {
+    border-style: solid;
+    border-color: white;
+    border-radius: 25px;
+    height:25px;
+    width :100%;
+}
+
+.storage-full {
+    border-radius: 25px;
+    background-color: grey;
+    height : 100%;
+}
+
+.current-amount {
+    font-size: 1.7em;
+    display: inline;
+}
+
+.info {
+    flex: 1;
+}
+
+.full-storage-display {
+    display: flex;
+}
+
+.full-storage-display > h5 {
+    margin :0;
+}
+
+.info {
+    justify-content: center;
+}
+
+.hourly-production {
+    justify-content: flex-end;
+}
