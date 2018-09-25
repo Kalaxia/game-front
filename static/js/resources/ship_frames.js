@@ -5,24 +5,17 @@ export default {
         "slots": [
             {
                 "position": 1,
-                "top": 25,
-                "left": 10,
-                "shape": "square",
+                "top": 10,
+                "left": 47.5,
+                "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 2,
-                "bottom": 25,
-                "right": 10,
+                "bottom": 10,
+                "left": 47.5,
                 "shape": "square",
                 "size": "medium"
-            },
-            {
-                "position": 3,
-                "bottom": 25,
-                "right": 15,
-                "shape": "square",
-                "size": "small"
             }
         ],
         "stats": {
@@ -45,22 +38,22 @@ export default {
         "slots": [
             {
                 "position": 1,
-                "top": 20,
-                "left": 1,
-                "shape": "square",
+                "top": 10,
+                "left": 45,
+                "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 2,
-                "top": 65,
-                "right": 16,
+                "top": 10,
+                "right": 45,
                 "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 3,
-                "top": 60,
-                "left": 1,
+                "bottom": 10,
+                "left": 47.5,
                 "shape": "square",
                 "size": "medium"
             }

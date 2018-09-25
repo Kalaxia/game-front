@@ -365,7 +365,7 @@ html, body {
 }
 
 #frames > section > .frame > header > img {
-    width: 100%;
+    height: 100%;
 }
 
 #frames > section > .frame > footer {
@@ -417,10 +417,11 @@ html, body {
 
 #ship-image {
     width: 100%;
+    text-align: center;
 }
 
 #ship-image > img {
-    width: 100%;
+    height: 100%;
 }
 
 #ship-vizualizer > section > .slot {
