@@ -10,37 +10,30 @@ export var mapSize;
 export const initMap = () => {
     isPlaner = false;
     initBaseMap();
-    
+
     Map.fetch().then(map => {
         mapSize = map.size;
         initMapElement(map);
-        
     });
 };
 
 export const initMapForJourneyPlaner = () => {
     isPlaner = true;
     initBaseMap();
-    
+
     Map.fetch().then(map => {
         mapSize = map.size;
         initMapElement(map);
         var fleetId = window.getCurrentFleet();
-        
+
         if (fleetId != null && fleetId != undefined) {
             initJourneyViewForPlaner(fleetId);
         }
     });
-    
+
 };
 
 const initBaseMap = () => {
-    var player = App.currentPlayer;
-    var profileLink = document.createElement('a');
-    profileLink.href = '/views/profile';
-    profileLink.innerText = player.pseudo;
-    document.querySelector("#player-data h3").appendChild(profileLink);
-    
     document.onmousedown = startMapMove;
     document.onmouseup = stopMapMove;
     document.onwheel = zoomMap;
@@ -72,7 +65,7 @@ const displaySystem = (map, system, scale) => {
     else{
         systemElement.addEventListener('dblclick', redirectToSystem);
     }
-    
+
     map.appendChild(systemElement);
 };
 
@@ -83,7 +76,7 @@ let coordX = null;
 let coordY = null;
 
 const startMapMove = e => {
-    
+
     if (e.button == 0) { // only left click
         const map = document.querySelector("#map");
         // calculate event X, Y coordinates
@@ -116,7 +109,7 @@ const moveMap = e => {
      e = window.event;
    }
    var map = document.querySelector("#map");
-   
+
    map.style.left = coordX + (e.clientX - offsetX) + 'px';
    map.style.top = coordY + (e.clientY - offsetY) + 'px';
    return false;
@@ -134,5 +127,5 @@ const zoomMap = (event) =>{
     var y = event.deltaY; // The amount we scrolled
     const map = document.querySelector("#map");
     //TODO
-    
+
 };
