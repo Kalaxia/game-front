@@ -114,9 +114,8 @@
         "create_model": "Créer un nouveau modèle",
         "frame": "Châssis",
         "frames": {
-            "racer": "Châssis léger",
-            "corvette": "Châssis renforcé",
-            "frigate": "Châssis polymère"
+            "fighter": "Chasseur",
+            "bomber": "Bombardier"
         },
         "missing_name": "Il faut donner un nom à votre nouveau modèle !",
         "modules_list": "Modules",
