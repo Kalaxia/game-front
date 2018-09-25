@@ -1,4 +1,5 @@
 import Api from '../core/api.js';
+import Player from './player.js';
 
 class Faction {
     constructor(data) {
@@ -7,8 +8,8 @@ class Faction {
         this.description = data.description;
         this.banner = data.banner;
         this.color = data.color;
-        this.members = data.members;
         this.relations = data.relations;
+        this.members = new Array();
     }
 
     static fetch(id) {
@@ -39,15 +40,16 @@ class Faction {
 
     fetchMembers() {
         const self = this;
-        console.log(self.id);
         return fetch(`/api/factions/${self.id}/members`, {
             method: 'GET',
             headers: Api.headers
         })
         .then(Api.responseMiddleware)
         .then(members => {
-            self.members = members;
-            return members;
+            self.members = new Array();
+            for (const member of members) {
+                self.members.push(new Player(member));
+            }
         });
     }
 }
