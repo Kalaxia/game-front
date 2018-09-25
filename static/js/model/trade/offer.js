@@ -11,11 +11,14 @@ export const GOOD_TYPE_SHIPS = 'ships';
 export const GOOD_TYPE_MODELS = 'models';
 
 export class Offer {
-    constructor(operation, goodType, location, price) {
+    constructor(id, operation, goodType, location, price, createdAt, acceptedAt) {
+        this.id = id;
         this.operation = operation;
         this.goodType = goodType;
         this.location = new Planet(location);
         this.price = price;
+        this.createdAt = new Date(createdAt);
+        this.acceptedAt = (acceptedAt !== null) ? new Date(acceptedAt) : null;
     }
 
     static fetchAll(operation) {
@@ -24,6 +27,13 @@ export class Offer {
             body: JSON.stringify({
                 operation: operation
             }),
+            headers: Api.headers
+        }).then(Api.responseMiddleware);
+    }
+
+    static cancel(id) {
+        return fetch(`/api/offers/${id}`, {
+            method: 'DELETE',
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }

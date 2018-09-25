@@ -1,3 +1,27 @@
+## [0.1.19] - 2018-09-25
+### Added
+- Static avatar for faction members
+
+### Fixed
+- Resources density chart background
+- Modules background in shipyard view
+- Access to faction view
+- Disposition of faction view elements
+- System coordinates on planet view
+
+## [0.1.18] - 2018-09-24
+### Added
+- Planet resources density chart
+- Planet resources storage gauges
+- Planet resources production rate
+
+## [0.1.17] - 2018-09-23
+### Added
+- Planet type picto and image
+- Trade resource offer details
+- Trade resource offer cancellation
+- 204 API responses handling
+
 ## [0.1.16] - 2018-09-15
 ### Added
 - Trade sale offer creation

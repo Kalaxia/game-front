@@ -68,6 +68,16 @@
     height: 24px;
 }
 
+#offers-list > section > table > tbody > tr {
+    cursor: pointer;
+}
+
+#offers-list > section > table > tbody > tr:hover,
+#offers-list > section > table > tbody > tr.selected {
+    cursor: pointer;
+    border: 1px solid #FF0069;
+}
+
 #offers-list > section > table > tbody > tr > td {
     padding: 5px 10px;
 }
@@ -253,6 +263,180 @@
 
 #offer-filters > footer::after {
 
+}
+
+#offer-details {
+    grid-column: 6/10;
+    grid-row: 5/9;
+    margin-top: 20px;
+    background-color: #090A0A;
+    visibility: hidden;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #FF0069;
+    border-radius: 10px 0px 10px 50px;
+    z-index: 50;
+}
+
+#offer-infos {
+    flex-basis: 50%;
+    padding: 10px;
+}
+
+#offer-infos > header {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #EFEFEF;
+    padding-bottom: 10px;
+}
+
+#offer-infos > header > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#offer-infos > header > div > img {
+    height: 48px;
+}
+
+#offer-infos > section {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+#offer-infos #planets > div {
+    font-size: 72px;
+    padding: 10px;
+    border-radius: 100px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+#offer-infos #planets > div:first-child {
+    border-top: 2px solid #EFEFEF;
+}
+
+#offer-infos #planets > div > img {
+    height: 72px;
+}
+
+#offer-infos #travel-details {
+    position: relative;
+    height: 120px;
+    width: 200px;
+    border: 2px dashed #EFEFEF;
+    border-left: none;
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+}
+
+#offer-infos #travel-details .travel-point {
+    position: absolute;
+    border:5px solid #EFEFEF;
+    border-radius: 10px;
+}
+
+#offer-details #travel-details img {
+    position: absolute;
+    right: -30px;
+    top: 20px;
+    background-color: #1E2024;
+    border: 2px solid #EFEFEF;
+    border-radius: 100px;
+    padding: 10px;
+    height: 48px;
+    transform: rotate(160deg);
+}
+
+#offer-infos #travel-details .travel-point:first-child {
+    top: -5px;
+    left: 0px;
+}
+
+#offer-infos #travel-details .travel-point:last-child {
+    left: 0px;
+    bottom: -5px;
+}
+
+#offer-infos #good-picto {
+    margin-left: 40px;
+}
+
+#offer-infos #good-picto img {
+    height: 32px;
+}
+
+#good-infos {
+    flex-basis: 50%;
+}
+
+#good-infos > header {
+    background-color: #1E2024;
+    border-left: 2px solid #FF0069;
+    border-bottom: 2px solid #FF0069;
+    margin-top: -2px;
+    margin-right: -2px;
+    border-bottom-left-radius: 20px;
+}
+
+#good-infos > header > h3 {
+    padding: 10px;
+    margin: 0px;
+}
+
+#good-infos > section {
+    margin: 10px;
+    background-color: #1E2024;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#good-infos > section > h4 {
+    margin: 0px;
+}
+
+#good-infos > section strong,
+#good-infos > section em {
+    display: block;
+}
+
+#good-infos #good-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#good-infos #good-details #good-type-picto > img {
+    background-color: #090A0A;
+    padding: 10px;
+    height: 48px;
+    border-radius: 40px;
+}
+
+#good-infos > section strong > img {
+    height: 16px;
+}
+
+#good-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#offer-actions > button {
+    background: none;
+    border: 1px solid #FF0069;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #EFEFEF;
+    cursor: pointer;
+}
+
+#offer-actions > button:hover {
+    background-color: #FF0069;
 }
 
 #sell-form {

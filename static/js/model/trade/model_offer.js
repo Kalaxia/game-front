@@ -1,8 +1,8 @@
 import { Offer, GOOD_TYPE_MODELS } from './offer.js';
 
 class ModelOffer extends Offer {
-    constructor() {
-        super();
+    constructor(id, operation) {
+        super(id, operation);
     }
 
     create() {

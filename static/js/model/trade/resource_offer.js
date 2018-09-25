@@ -4,8 +4,8 @@ import Api from '../../core/api.js';
 import resourcesData from '../../resources/resources.js';
 
 class ResourceOffer extends Offer {
-    constructor(operation, location, quantity, lotQuantity, price, resource) {
-        super(operation, GOOD_TYPE_RESOURCES, location, parseFloat(price));
+    constructor(id, operation, location, createdAt, acceptedAt, quantity, lotQuantity, price, resource) {
+        super(id, operation, GOOD_TYPE_RESOURCES, location, parseFloat(price), createdAt, acceptedAt);
         this.quantity = parseInt(quantity);
         this.lotQuantity = parseInt(lotQuantity);
         this.resource = resource;
@@ -47,7 +47,7 @@ class ResourceOffer extends Offer {
     }
 
     getPrice() {
-        return `${this.getTotalPrice()} <img src="/static/images/picto/G_P_Arr_64px.png" />
+        return `${Number(this.getTotalPrice()).toFixed(2)} <img src="/static/images/picto/G_P_Arr_64px.png" />
             ${this.price} <div><sup><img src="/static/images/picto/G_P_Mon_64px.png"></sup>
             <span>&frasl;</span>
             <sub>${Dictionnary.translations.trade.unit_short}</sub></div>`

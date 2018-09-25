@@ -5,7 +5,6 @@ import Ship from './model/ship/ship.js';
 import ShipModel from './model/ship/model.js';
 import ShipModule from './model/ship/module.js';
 import ShipFrame from './model/ship/frame.js';
-import { displayPlanetStorage } from './components/planet/resources.js';
 import App from './core/app.js';
 
 const ship = new ShipModel({});
@@ -39,7 +38,7 @@ const addShipModel = (list, model) => {
     const element = document.createElement('div');
     const picture =
         (model.frame.picture !== '')
-        ? `<img src="/static/images/shipyard/frame_${model.frame.picture}" />`
+        ? `<img src="/static/images/shipyard/frame/${model.frame.picture}" />`
         : '#'
     ;
     element.classList.add('ship-model');
@@ -70,7 +69,7 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
     ;
     shipConstructor.querySelector(':scope > section > section > div:first-child > header > h3').innerText = model.frame.name;
     shipConstructor.querySelector(':scope > section > section > div:first-child > section').innerHTML =
-        `<img src="/static/images/shipyard/frame_${model.frame.picture}" alt="${model.frame.name}"/>`
+        `<img src="/static/images/shipyard/frame/${model.frame.picture}" alt="${model.frame.name}"/>`
     ;
     displayShipStats(
         model,
@@ -165,7 +164,7 @@ export const displayFrames = () => {
 
     for (const frame of ShipFrame.getFrames()) {
         const element = document.createElement('div');
-        const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
+        const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame/${frame.picture}" />` : '#';
         element.classList.add('frame');
         element.setAttribute('data-frame-slug', frame.slug)
         element.addEventListener('click', chooseFrame);
@@ -203,7 +202,7 @@ const chooseFrame = event => {
 
 const displaySlots = frame => {
     const vizualizer = document.querySelector('#ship-vizualizer > section');
-    const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame_${frame.picture}" />` : '#';
+    const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame/${frame.picture}" />` : '#';
     vizualizer.innerHTML = `<div id="ship-image">${picture}</div>`;
 
     for (const slotPosition in frame.slots) {
@@ -242,7 +241,7 @@ const displayModules = event => {
             continue;
         }
         const element = document.createElement('div');
-        const picture = (module.picture !== '') ? `module_${module.type}_${module.size}_${module.picture}` : 'module.png';
+        const picture = (module.picture !== '') ? `module/${module.type}_${module.size}_${module.picture}` : 'module.png';
         let transformScale = '';
         let transform = '';
         if (module.picture_flip_x === true) {

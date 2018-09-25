@@ -1,5 +1,6 @@
 #faction {
-    margin-left: 20px;
+    grid-row: 2/5;
+    grid-column: 2/6;
 }
 
 #faction > #infos > h1 {
@@ -8,6 +9,11 @@
 
 #faction > #infos > h1 > .faction-flag {
     margin-right: 20px;
+}
+
+#members {
+    grid-row: 2/10;
+    grid-column: 7/10;
 }
 
 #members > section {
@@ -31,7 +37,7 @@
 .member > header > img {
     width: 64px;
     height: 64px;
-    background-color: #ABC;
+    background-color: #090A0A;
     border-radius: 35px;
 }
 
@@ -40,7 +46,8 @@
 }
 
 #faction-relations {
-
+    grid-row: 6/10;
+    grid-column: 2/5;
 }
 
 #faction-relations > section {

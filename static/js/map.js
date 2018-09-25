@@ -7,7 +7,6 @@ import { initJourneyView, initJourneyViewForPlaner, systemCurrentMenuAdd } from 
 var isPlaner = false; // set if we see the planer
 export var mapSize;
 
-
 export const initMap = () => {
     isPlaner = false;
     initBaseMap();

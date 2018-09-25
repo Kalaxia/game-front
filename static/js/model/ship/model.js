@@ -46,11 +46,17 @@ class ShipModel {
     }
 
     create() {
+        const self = this;
         return fetch('/api/me/ship-models', {
             method: 'POST',
             headers: Api.headers,
             body: JSON.stringify(this.format())
         }).then(Api.responseMiddleware)
+        .then(data => {
+            self.id = data.id;
+            self.type = data.type;
+            self.slots = data.slots;
+        })
     }
 
     format() {

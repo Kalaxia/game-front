@@ -1,27 +1,21 @@
 export default {
-    "racer": {
-        "picture": "",
+    "fighter": {
+        "picture": "chasseur.png",
+        "picto": "chasseur_64px.png",
         "slots": [
             {
                 "position": 1,
-                "top": 25,
-                "left": 10,
-                "shape": "square",
+                "top": 10,
+                "left": 47.5,
+                "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 2,
-                "bottom": 25,
-                "right": 10,
+                "bottom": 10,
+                "left": 47.5,
                 "shape": "square",
                 "size": "medium"
-            },
-            {
-                "position": 3,
-                "bottom": 25,
-                "right": 15,
-                "shape": "square",
-                "size": "small"
             }
         ],
         "stats": {
@@ -38,27 +32,28 @@ export default {
             }
         ]
     },
-    "corvette": {
-        "picture": "heavy.png",
+    "bomber": {
+        "picture": "bombardier.png",
+        "picto": "bombardier_64px.png",
         "slots": [
             {
                 "position": 1,
-                "top": 20,
-                "left": 1,
-                "shape": "square",
+                "top": 10,
+                "left": 45,
+                "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 2,
-                "top": 65,
-                "right": 16,
+                "top": 10,
+                "right": 45,
                 "shape": "circle",
                 "size": "small"
             },
             {
                 "position": 3,
-                "top": 60,
-                "left": 1,
+                "bottom": 10,
+                "left": 47.5,
                 "shape": "square",
                 "size": "medium"
             }
@@ -77,57 +72,4 @@ export default {
             }
         ]
     },
-    "frigate": {
-        "picture": "corvette.png",
-        "slots": [
-            {
-                "position": 1,
-                "top": 58,
-                "left": 3,
-                "shape": "square",
-                "size": "medium"
-            },
-            {
-                "position": 2,
-                "top": 15,
-                "left": 20,
-                "shape": "rectangle",
-                "size": "medium"
-            },
-            {
-                "position": 3,
-                "top": 15,
-                "left": 35,
-                "shape": "rectangle",
-                "size": "medium"
-            },
-            {
-                "position": 4,
-                "bottom": 10,
-                "left": 37,
-                "shape": "circle",
-                "size": "small"
-            },
-            {
-                "position": 5,
-                "top": 35,
-                "right": 15,
-                "shape": "circle",
-                "size": "small"
-            }
-        ],
-        "stats": {
-            "armor": 80
-        },
-        "price": [
-            {
-                "type": "points",
-                "amount": 8
-            },
-            {
-                "type": "credits",
-                "amount": 350
-            }
-        ]
-    }
 }

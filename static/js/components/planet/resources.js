@@ -21,17 +21,6 @@ export const initPlanetResources = (list, data, storage) => {
     }
 };
 
-export const displayPlanetStorage = planet => {
-    document.querySelector('#storage-toolbar > header').innerHTML = `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`
-    const list = document.querySelector('#storage-toolbar > section');
-    for (const resource in planet.storage.resources) {
-        const resourceData = Object.assign({}, resourcesData[resource]);
-        const storageElement = document.createElement('div');
-        storageElement.innerHTML = `<img src="/static/images/resources/${resourceData.picto}" alt="${resourceData.name}"/> ${planet.storage.resources[resource]}`;
-        list.appendChild(storageElement);
-    }
-};
-
 export const getResourceData = name => {
     return resourcesData[name];
 }

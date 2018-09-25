@@ -25,7 +25,7 @@
 }
 
 #planet-data {
-    grid-row: 4;
+    grid-row: 3;
     grid-column: 1/3;
     padding-left: 20px;
 }
@@ -182,4 +182,25 @@
 }
 .shape[data-type="volcanic"]:before {
   background: radial-gradient(circle at 50% 0px, rgba(50, 50, 50, 0.6), rgba(255, 255, 255, 0) 58%);
+}
+
+.resource-button {
+    margin:auto;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    width: 50%;
+    color: #EFEFEF;
+    border-radius: 1000px;
+    border-color: #EFEFEF;
+    border-style: solid;
+    border-width: 5px;
+    color: #EFEFEF;
+    font-variant: small-caps;
+    font-family: Electrolize, sans-serif;
+}
+
+.resource-button:hover {
+    background-color: #EFEFEF;
+    color: #090A0A;
 }
