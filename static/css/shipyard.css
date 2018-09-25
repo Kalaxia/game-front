@@ -253,9 +253,12 @@ html, body {
     margin-left: 20px;
 }
 
+#ship-construction > section > section > div:first-child > section {
+    text-align: center;
+}
 
 #ship-construction > section > section > div:first-child > section > img {
-    width: 100%;
+    height: 100%;
 }
 
 #ship-construction > section > section > div:last-child {
