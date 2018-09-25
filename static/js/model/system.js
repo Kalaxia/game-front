@@ -18,7 +18,6 @@ class System {
             return new System(data);
         }).catch(error => console.log(error));
     }
-
     getDistanceFrom(system) {
         return Math.sqrt(Math.pow(system.x - this.x, 2) + Math.pow(system.y - this.y, 2));
     }

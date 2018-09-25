@@ -172,6 +172,9 @@ export const initFleetViewSingle = () => {
 	Fleet.fetch(id).then( fleet => {
 		fleetGlobal = fleet;
 		document.querySelector('#fleet-delete').onclick = deleteFleet;
+		document.querySelector('#fleet-journey-send').onclick = (event) => {
+			window.location = `/views/map/?id=${fleet.id}`;
+		};
 		document.querySelector('#fleet-table').innerHTML = getHTMLFleetArrayData([fleet],false);
 
 		planetIdFleetLocation = fleet.location.id; // in fact we set the planetId to the fleet location

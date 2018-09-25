@@ -73,7 +73,7 @@ html, body {
 #ships-list {
     grid-column: 2/10;
     grid-row: 3/9;
-    z-index: 10;
+    z-index: 1000;
 }
 
 #ships-list > header {
@@ -434,7 +434,7 @@ html, body {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    z-index: 10;
+    z-index: 1000;
 }
 #ship-vizualizer > section > .slot.selected {
     background-color: rgba(100,100,175,0.8);
@@ -707,7 +707,7 @@ html, body {
 #modules > section > .module > .hexagon > .hexTop,
 #modules > section > .module > .hexagon > .hexBottom {
   position: absolute;
-  z-index: 1;
+  z-index: 100;
   width: 70.71px;
   height: 70.71px;
   overflow: hidden;
@@ -757,7 +757,7 @@ html, body {
   left: 0;
   width: 100.0000px;
   height: 57.7350px;
-  z-index: 2;
+  z-index: 200;
   background: inherit;
 }
 
@@ -829,7 +829,7 @@ html, body {
         height: 70px;
         margin-right: 5px;
         font-size: 3em;
-        z-index: 10;
+        z-index: 1000;
     }
 
     #modules > section > .module > div {

@@ -17,6 +17,129 @@ html {
   height: 20px;
   background-color: #EFEFEF;
   border-radius: 10px;
+  z-index: 40;
+}
+
+#map > .fleet-location {
+    border: 2px solid #09b309;
+    border-radius: 100px;
+}
+
+#map > .fleet-location-target{
+    position:absolute;
+    background-color: #ffffff00;
+    border-radius: 30px;
+    border : 2px solid #EFEFEF;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: rotation 10s infinite linear;
+    pointer-events: none;
+    /*z-index: 45;*/
+    z-index: 30;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+
+#map > .fleet-location-target > div {
+    position:absolute;
+    background-color: #EFEFEF;
+    pointer-events:inherit;
+    /*z-index: 45;*/
+    z-index: 30;
+}
+#map > .fleet-location-target > .north {
+    width : 2px;
+    height : 10px;
+    left : 14px;
+    top:-7px;
+}
+
+#map > .fleet-location-target > .south {
+    width : 2px;
+    height : 10px;
+    left : 14px;
+    top:27px;
+}
+
+#map > .fleet-location-target > .west {
+    width : 10px;
+    height : 2px;
+    left : -7px;
+    top:14px;
+}
+
+#map > .fleet-location-target > .east {
+    width : 10px;
+    height : 2px;
+    left : 27px;
+    top:14px;
+}
+
+#map div.line{
+    height: 8px;
+    z-index: -100;
+    animation: line 3s linear infinite;
+    background-image: url(../../static/images/map/line_step.png);
+    position: absolute;
+    transform-origin: 50% 50%;
+}
+
+#map > .range-circle {
+    border-radius: 10000px;
+    background-color: #ffffff00;
+    border-color: darkgray;
+    border-style: dashed;
+    -webkit-animation: rotation 100s infinite linear;
+    position: absolute;
+    pointer-events: none; /*make it passthrought for mouse event*/
+}
+
+@keyframes line {
+  from {
+    background-position: -56px 0px;
+  }
+  to {
+    background-position: 0px 0px;
+  }
+}
+
+#map > .point {
+    position: absolute;
+    pointer-events: none;
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background: #ffffff00;
+    transform-origin: center;
+}
+
+#map > .point > div {
+    position: absolute;
+    pointer-events: inherit;
+    background: #EFEFEF;
+    
+}
+
+#map > .point > .point-inner-1 {
+    height: 20px;
+    width: 2px;
+    left: 9px;
+}
+
+#map > .point > .point-inner-2 {
+    height: 2px;
+    width: 20px;
+    top: 9px;
 }
 
 #minimap {
@@ -25,7 +148,7 @@ html {
   height: 200px;
   top:0px;
   left: 0px;
-  z-index: 10;
+  z-index: 1000;
   background-color: rgba(0,0,0,0.8);
 }
 
@@ -56,7 +179,7 @@ html {
   position: absolute;
   border: 1px solid #565656;
   border-radius: 5000px;
-  z-index: 5;
+  z-index: 500;
 }
 
 #system > .faction-flag {
@@ -65,7 +188,7 @@ html {
   height: 40px;
   border-radius: 20px;
   cursor: pointer;
-  z-index: 7;
+  z-index: 700;
   opacity: 0.6;
 }
 
@@ -75,7 +198,7 @@ html {
   height: 20px;
   border-radius: 15px;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1000;
   border: 1px solid #222;
 }
 

@@ -254,7 +254,8 @@
                         "ship_in_fleet" : "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux.",
                         "unknown" : "Erreur inconnu."
                     }
-                }
+                },
+                "journey_send" : "Déplacer la flotte."
             },
             "header_location" :"Position",
             "header_id" : "Identification"
@@ -266,5 +267,14 @@
     "general" : {
         "number" : "Nombre",
         "name" : "Nom"
+    },
+    "journey" : {
+        "planer" : {
+            "title" : "Info sur le trajet.",
+            "estimated_time" : "temps estimé du voyage : ",
+            "no_time" : "0h 00m 00s",
+            "send_fleet" : "Commencer le voyage.",
+            "remove_last_step" : "Annuler l'étape."
+        }
     }
 }
