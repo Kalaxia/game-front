@@ -1,3 +1,13 @@
+## [0.1.20] - 2018-09-25
+### Added
+- Fleet journeys
+- Two new ship frames
+
+### Fixed
+- Map background color
+- Logout icon in map view
+- Ship model creation aftereffect
+
 ## [0.1.19] - 2018-09-25
 ### Added
 - Static avatar for faction members
