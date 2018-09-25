@@ -8,17 +8,13 @@
         <link rel="stylesheet" type="text/css" href="/static/css/fleet.css" />
     </head>
     <body>
-        <div id="player-data">
-            <h3></h3>
-            <img id="logout" src="/static/images/logout.svg" onclick="logout();"/>
-        </div>
         <div id="single-fleet-view-container">
             <div id="planet-data">
                 <header>
                     <h1></h1>
                 </header>
                 <section>
-                    
+
                 </section>
             </div>
             <div id="fleet-view">
@@ -33,7 +29,7 @@
                     <table id = "fleet-table"></table>
                 </section>
             </div>
-            
+
             <div id="ships-fleet">
                 <section>
                     <h3 data-translate="true">fleet.view.single.ships_in_fleet</h3>
@@ -42,7 +38,7 @@
                     <div class="ships-table"></div>
                 </section>
             </div>
-            
+
             <div id="ships-hangar">
                 <section>
                     <h3 data-translate="true">fleet.view.single.ships_in_hangar</h3>
@@ -58,24 +54,24 @@
         <script type="module">
             import App from '/static/js/core/app.js';
             import {  initFleetViewSingle, initBaseForFleet} from '/static/js/fleet.js';
-            
+
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get("id");
-            
+
             if (id == null || id == undefined) {
                 throw "I must have an id"
             }
             window.setCurrentFleet(id);
-            
+
             const initFleet = () => {
-                
+
                 initBaseForFleet();
                 initFleetViewSingle();
             }
-            
+
             //window.addEventListener('load', initBaseForFleet);
             App.init().then(() => { initFleet() });
-            
+
         </script>
   </body>
 </html>

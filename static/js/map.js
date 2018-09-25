@@ -5,13 +5,6 @@ import Player from './model/player.js';
 const mapScale = 50;
 const minimapScale = 2;
 
-Player.fetchCurrentPlayer().then(player => {
-  var profileLink = document.createElement('a');
-  profileLink.href = '/views/profile';
-  profileLink.innerText = player.pseudo;
-  document.querySelector("#player-data h3").appendChild(profileLink);
-});
-
 Map.fetch().then(map => {
     const mapElement = document.querySelector("#map");
     const minimap = document.querySelector("#minimap");
