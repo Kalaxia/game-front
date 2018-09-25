@@ -48,7 +48,9 @@ const initTopMenu = (player, planet) => {
         </a>
         <section>
             <header>
-                <img src="/static/images/factions/${player.faction.banner}"/>
+                <a href="/views/faction">
+                    <img src="/static/images/factions/${player.faction.banner}"/>
+                </a>
             </header>
             <section>
                 <a href="/views/base/fleet-base.html">
@@ -138,9 +140,9 @@ const initRightMenu = player => {
             </div>
         </header>
         <section>
-            <div>
+            <a href="/views/faction">
                 <img src="/static/images/factions/${player.faction.banner}"/>
-            </div>
+            </a>
         </section>
         <footer class="side-menu">
             <div>
