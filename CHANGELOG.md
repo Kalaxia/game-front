@@ -1,3 +1,14 @@
+## [0.1.19] - 2018-09-25
+### Added
+- Static avatar for faction members
+
+### Fixed
+- Resources density chart background
+- Modules background in shipyard view
+- Access to faction view
+- Disposition of faction view elements
+- System coordinates on planet view
+
 ## [0.1.18] - 2018-09-24
 ### Added
 - Planet resources density chart
