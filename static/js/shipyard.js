@@ -5,7 +5,6 @@ import Ship from './model/ship/ship.js';
 import ShipModel from './model/ship/model.js';
 import ShipModule from './model/ship/module.js';
 import ShipFrame from './model/ship/frame.js';
-import { displayPlanetStorage } from './components/planet/resources.js';
 import App from './core/app.js';
 
 const ship = new ShipModel({});

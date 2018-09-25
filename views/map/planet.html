@@ -79,7 +79,7 @@
                 }
                 const systemLink = document.createElement('a');
                 systemLink.href = `/views/map/system.html?id=${planet.system.id}`;
-                systemLink.innerText = `${Dictionnary.translations.planet.system} ${planet.system.coord_x}:${planet.system.coord_y}`;
+                systemLink.innerText = `${Dictionnary.translations.planet.system} ${planet.system.x}:${planet.system.y}`;
                 document.querySelector('#system').appendChild(systemLink);
 
                 initPlanetRelations(document.querySelector("#planet-relations"), planet.relations);

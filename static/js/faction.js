@@ -20,8 +20,8 @@ window.addEventListener("load", () => Player.fetchCurrentPlayer().then(player =>
     Faction.fetch(factionId).then(faction => {
         renderFaction(faction);
         renderFactionRelations(faction);
-        faction.fetchMembers().then(members => {
-            renderFactionMembers(members);
+        faction.fetchMembers().then(() => {
+            renderFactionMembers(faction.members);
         });
     });
 }));

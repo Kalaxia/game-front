@@ -23,7 +23,7 @@ html, body {
 }
 
 #ship-constructions-list > section > .ship {
-    background-color: #010F2A;
+    background-color: #484856;
     padding: 10px 20px;
     margin-bottom: 10px;
 }
@@ -196,14 +196,14 @@ html, body {
     color: #E1BB81;
     font-variant: small-caps;
     font-size: 1.1em;
-    background-color: #010F2A;
+    background-color: #484856;
     margin-left: 10px;
     margin-right: 20px;
 }
 
 #ship-construction > header > div > input {
     height: 35px;
-    background-color: #010F2A;
+    background-color: #484856;
     border: none;
     border-bottom: 1px solid #EFEFEF;
     color: #E1BB81;
@@ -218,7 +218,7 @@ html, body {
 }
 
 #ship-construction > section > header > div > .module {
-    background-color: #010F2A;
+    background-color: #484856;
     padding: 10px 20px;
     margin-top: 20px;
     border-left: 2px solid #E1BB81;
@@ -276,7 +276,7 @@ html, body {
 
 #ship-construction > section > section > div:last-child > header > div > .stat {
     padding: 10px;
-    background-color: #010F2A;
+    background-color: #484856;
     margin: 5px;
 }
 
@@ -306,7 +306,7 @@ html, body {
 
 #ship-construction > section > section > div:last-child > section > div > .price {
     padding: 10px;
-    background-color: #010F2A;
+    background-color: #484856;
     margin: 5px;
 }
 
@@ -592,7 +592,7 @@ html, body {
     color: #EFEFEF;
     font-size: 1.1em;
     text-align: center;
-    background-color: #010F2A;
+    background-color: #484856;
     border: 1px solid #EFEFEF;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
