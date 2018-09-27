@@ -22,7 +22,7 @@
         <div>
             <div class="menu-title" data-translate="true"> journey.planer.title </div>
             <div class="menu-time"><span data-translate="true"> journey.planer.estimated_time </span> <span class="time deactivate" data-translate="true"> journey.planer.no_time </div>
-                <div class="menu-cancel"> <div id="remove-last-step" class="button deactivate" data-translate="true">journey.planer.remove_last_step</div> </div>
+            <div class="menu-cancel"> <div id="remove-last-step" class="button deactivate" data-translate="true">journey.planer.remove_last_step</div> </div>
             <div class="menu-send"> <div id="send-fleet-button" class="button deactivate" data-translate="true">journey.planer.send_fleet</div> </div>
             <div class="menu-error"> </div>
         </div>
@@ -33,21 +33,21 @@
     <script type="module">
         import App from '/static/js/core/app.js';
         import { initMapForJourneyPlaner,initMap } from '/static/js/map.js';
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const fleetId = urlParams.get("id");
-        
+
         if (fleetId != null && fleetId != undefined) {
             window.setCurrentFleet(fleetId);
         }
-        
+
         const initMapAll = () => {
             return (fleetId != null && fleetId != undefined)
                 ? initMapForJourneyPlaner()
                 : initMap()
         }
         App.init().then(initMapAll);
-        
+
     </script>
   </body>
 </html>
