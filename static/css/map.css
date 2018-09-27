@@ -15,9 +15,11 @@ html {
   position:absolute;
   width: 20px;
   height: 20px;
-  background-color: #EFEFEF;
-  border-radius: 10px;
   z-index: 40;
+  -webkit-mask: url('/static/images/map/Star_64px.svg') no-repeat center;
+  mask: url('/static/images/map/Star_64px.svg') no-repeat center;
+  background-color: #A0A0A0;
+  cursor: pointer;
 }
 
 #map > .fleet-location {
@@ -127,7 +129,7 @@ html {
     position: absolute;
     pointer-events: inherit;
     background: #EFEFEF;
-    
+
 }
 
 #map > .point > .point-inner-1 {

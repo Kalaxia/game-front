@@ -41,32 +41,38 @@ const initBaseMap = () => {
 };
 
 const initMapElement = (map) => {
-    const mapElement = document.querySelector("#map");
-    const minimap = document.querySelector("#minimap");
     for (const system of map.systems) {
-        displaySystem(mapElement, system, mapScale);
-        displaySystem(minimap, system, minimapScale);
+        displaySystem(system);
+        displayMinimapSystem(system);
     }
 };
 
 export const mapScale = 50.0;
 export const minimapScale = 2.0;
 
-
-const displaySystem = (map, system, scale) => {
-    const systemElement = document.createElement("div");
+const displaySystem = system => {
+    const map = document.querySelector("#map");
+    const systemElement = document.createElement("img");
     systemElement.classList.add('system');
-    systemElement.style.top = system.coord_y * scale - 10 + 'px'; //-10 to set in the middle ( width 20 px)
-    systemElement.style.left = system.coord_x * scale - 10 + 'px';
+    systemElement.style.top = system.coord_y * mapScale - 10 + 'px'; //-10 to set in the middle ( width 20 px)
+    systemElement.style.left = system.coord_x * mapScale - 10 + 'px';
     systemElement.setAttribute('data-id', system.id);
-    if (isPlaner){
+    if (isPlaner) {
         systemElement.addEventListener('contextmenu', systemCurrentMenuAdd); //contextmenu
-    }
-    else{
+    } else{
         systemElement.addEventListener('dblclick', redirectToSystem);
     }
 
     map.appendChild(systemElement);
+};
+
+const displayMinimapSystem = system => {
+    const minimap = document.querySelector("#minimap");
+    const systemElement = document.createElement("div");
+    systemElement.classList.add('system');
+    systemElement.style.top = system.coord_y * minimapScale - 10 + 'px'; //-10 to set in the middle ( width 20 px)
+    systemElement.style.left = system.coord_x * minimapScale - 10 + 'px';
+    minimap.appendChild(systemElement);
 };
 
 let drag = false;
