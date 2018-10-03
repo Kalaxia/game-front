@@ -17,9 +17,7 @@ const fillDateDivisions = () => {
         dateDivisions.value.push(values[cpt]);
     }
 }
-const formatNumber = () => {
-    const numberInput= document.getElementById("number");
-    const number = numberInput.value;
+export const formatNumber = (number) => {
     const values = { short: [], long: [], detailed: []};
     let newNumber;
     let decimalNumber;
@@ -54,12 +52,6 @@ const formatNumber = () => {
                 values.short.push(Math.round(newNumber/Math.pow(10,(numberLength+decimalNumber-shortNumber)))/Math.pow(10,shortNumber-numberLength%shortNumber)+numberShortNames[Math.floor((numberLength)/3)])
         ) : values.short.push(Math.round(newNumber/Math.pow(10,-shortNumber+numberLength+decimalNumber))/Math.pow(10,shortNumber-numberLength));
 
-        (numberLength>shortNumber)? (
-            ((numberLength%shortNumber) === 0)?
-                values.short.push("test1"):
-                values.short.push('test2')
-        ) : values.short.push("test3");
-
         let detailedFormat="";
         let cpt = 0;
         let numberTemp = newNumber/Math.pow(10,decimalNumber);
@@ -79,16 +71,15 @@ const formatNumber = () => {
             cpt=cpt+3;
         }
         values.detailed.push(detailedFormat);
-        console.log("newNumber: "+newNumber + " values.short: "+values.short+" detailed format: "+values.detailed);
-
     }
+    return values;
 };
 
 const isNumber = (n) => {
     return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
  };
 
-const formatDate = (datetime) => {
+export const formatDate = (datetime) => {
     const dateInput= document.getElementById("date");
     const date = dateInput.value;
     fillDateDivisions();

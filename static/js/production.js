@@ -1,6 +1,7 @@
 import Dictionnary from './core/dictionnary.js';
 import App from './core/app.js';
 import resourcesData from './resources/resources.js';
+import {formatNumber, formatDate} from './core/formater.js';
 
 /** PRODUCTION **/
 export const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
@@ -30,9 +31,9 @@ const displayStorage = (planet, resource, displayLocation) => {
             ${(typeof planet.storage !== 'undefined' && planet.storage !== null) ? `
             <div class="storage">
                 <div class ="storage-status">
-                    <div class="current-amount" id="current-amount-${resource.name}">${planet.storage.resources[resourceKey]}
+                    <div class="current-amount" id="current-amount-${resource.name}">${formatNumber(planet.storage.resources[resourceKey]).short}
                     </div>
-                 / ${planet.storage.capacity}
+                 / ${formatNumber(planet.storage.capacity).short[0]}
                 </div>
                 <div class="storage-line">
                     <div class="storage-display ${resource.name}">
@@ -41,7 +42,7 @@ const displayStorage = (planet, resource, displayLocation) => {
                     </div>
                     <div id="full-capacity-time-${resource.name}">
                         ${(planet.storage.capacity - planet.storage.resources[resourceKey])===0?
-                        "Full" : "-" + Math.floor((planet.storage.capacity - planet.storage.resources[resourceKey]) /(resource.density*10)) +"h"+ (60- now.getMinutes())+"min"}
+                        "Full" : "-" + formatTime(new Date(now.getYear(), now.getMonth(),now.getDate(), now.getHours()+1+Math.floor((planet.storage.capacity - planet.storage.resources[resourceKey]) /(resource.density*10))))}
                     </div>
                 </div>
                 <div class="hourly-production">+${resource.density*10}/h
