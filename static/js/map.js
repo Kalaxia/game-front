@@ -1,8 +1,8 @@
 import Api from './core/api.js';
 import Map from './model/map.js';
 import Player from './model/player.js';
-import App from '/static/js/core/app.js';
-import { initJourneyView, initJourneyViewForPlaner, systemCurrentMenuAdd } from '/static/js/journey.js';
+import App from './core/app.js';
+import { initJourneyView, initJourneyViewForPlaner, systemCurrentMenuAdd } from './journey.js';
 
 var isPlaner = false; // set if we see the planer
 export var mapSize;
