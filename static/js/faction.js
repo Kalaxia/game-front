@@ -1,6 +1,5 @@
-import Dictionnary from '/static/js/core/dictionnary.js';
-import Faction from '/static/js/model/faction.js';
-import Player from '/static/js/model/player.js';
+import Faction from './model/faction.js';
+import Player from './model/player.js';
 import { renderFactionFlag } from './components/faction/banner.js';
 import { renderFactionRelations } from './components/faction/relations.js';
 import { renderFactionMembers } from './components/faction/members.js';
