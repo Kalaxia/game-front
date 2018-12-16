@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Kalaxia/game-front#readme",
   "devDependencies": {
+    "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.0.1",
     "file-loader": "^2.0.0",
     "less": "^3.9.0",
