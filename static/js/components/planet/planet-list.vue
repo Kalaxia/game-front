@@ -25,6 +25,9 @@ export default {
 
 <style lang="less" scoped>
     .planet-list {
+        grid-row: ~"3/8";
+        grid-column: ~"2/8";
+
         & > section {
             display: flex;
         }

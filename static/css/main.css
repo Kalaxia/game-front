@@ -10,10 +10,6 @@ html {
 body {
     height: 100%;
     margin: 0px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-gap: 0px;
-    grid-auto-rows: minmax(10%, auto);
 }
 
 #logout {

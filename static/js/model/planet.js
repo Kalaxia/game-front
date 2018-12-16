@@ -46,8 +46,8 @@ class Planet {
           }).catch(error => console.log(error));
     }
 
-    static fetchPlayerPlanets(playerId) {
-        return fetch(`/api/players/${playerId}/planets`, {
+    static fetchPlayerPlanets(player) {
+        return fetch(`/api/players/${player.id}/planets`, {
           method: 'GET',
           headers: Api.headers
         }).then(Api.responseMiddleware)

@@ -7,7 +7,7 @@ import { renderFactionFlag } from './components/faction/banner.js';
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id');
 
-const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player.id).then(planets => {
+const getPlayerPlanets = player => Planet.fetchPlayerPlanets(player).then(planets => {
     const list = document.querySelector('#planets > section');
     for (const planet of planets) {
       const shape = document.createElement('a');

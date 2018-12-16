@@ -18,7 +18,7 @@ class App {
             Player.fetchCurrentPlayer().then(player => {
                 app.currentPlayer = player;
                 return player;
-            }).then(player => Planet.fetchPlayerPlanets(player.id))
+            }).then(player => Planet.fetchPlayerPlanets(player))
             .then(planets => Planet.fetch(planets[0].id))
             .then(planet => {
                 app.currentPlanet = planet;
