@@ -7,7 +7,7 @@ import PlanetList from './components/planet/planet-list';
 import TopMenu from './components/organisms/menu/top';
 import BottomMenu from './components/organisms/menu/bottom';
 
-//import Vue from 'vue';
+import Vue from 'vue';
 import { i18n } from './lib/i18n';
 
 const vm = new Vue({
@@ -24,7 +24,7 @@ const vm = new Vue({
       currentPlanet: null,
       appStyle: AppStyle
     }
-})
+});
 
 App.init()
   .then(() => {

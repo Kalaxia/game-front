@@ -24,8 +24,18 @@ class App {
                 app.currentPlanet = planet;
                 app.isInitialized = true;
                 app.isStarted = false;
+
+                this.initFavicon();
             })
         ]);
+    }
+
+    initFavicon() {
+        const link = document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = `/static/images/factions/${this.currentPlayer.faction.banner}`;
+        document.getElementsByTagName('head')[0].appendChild(link);
     }
 
     checkInit() {

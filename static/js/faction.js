@@ -1,26 +1,44 @@
+require('../less/pages/faction/faction.less');
+
 import Faction from './model/faction.js';
-import Player from './model/player.js';
-import { renderFactionFlag } from './components/faction/banner.js';
-import { renderFactionRelations } from './components/faction/relations.js';
-import { renderFactionMembers } from './components/faction/members.js';
+import App from './core/app';
 
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id');
 
-const renderFaction = faction => {
-    const title = document.querySelector('#faction > #infos > h1');
-    title.style.color = faction.color;
-    title.append(renderFactionFlag(faction))
-    title.append(faction.name);
-};
+import FactionData from './components/organisms/faction/faction';
+import FactionMembers from './components/molecules/faction/members';
+import FactionRelations from './components/molecules/faction/relations';
+import TopMenu from './components/organisms/menu/top';
+import BottomMenu from './components/organisms/menu/bottom';
 
-window.addEventListener("load", () => Player.fetchCurrentPlayer().then(player => {
-    const factionId = (id !== null) ? id : player.faction.id;
-    Faction.fetch(factionId).then(faction => {
-        renderFaction(faction);
-        renderFactionRelations(faction);
-        faction.fetchMembers().then(() => {
-            renderFactionMembers(faction.members);
-        });
-    });
-}));
+import AppStyle from './app-style';
+import Vue from 'vue';
+import { i18n } from './lib/i18n';
+
+const vm = new Vue({
+    el: '#app',
+    i18n,
+    components: {
+      FactionData,
+      FactionMembers,
+      FactionRelations,
+      TopMenu,
+      BottomMenu
+    },
+    data: {
+      faction: null,
+      player: null,
+      currentPlanet: null,
+      appStyle: AppStyle
+    }
+});
+
+App.init()
+  .then(() => {
+    vm.player = App.getCurrentPlayer();
+    vm.currentPlanet = App.getCurrentPlanet();
+
+    return Faction.fetch((id !== null) ? id : vm.player.faction.id);
+  }).then(faction => { vm.faction = faction; })
+;

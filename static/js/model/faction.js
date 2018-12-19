@@ -37,21 +37,6 @@ class Faction {
               return factions;
           }).catch(error => console.log(error))
     }
-
-    fetchMembers() {
-        const self = this;
-        return fetch(`/api/factions/${self.id}/members`, {
-            method: 'GET',
-            headers: Api.headers
-        })
-        .then(Api.responseMiddleware)
-        .then(members => {
-            self.members = new Array();
-            for (const member of members) {
-                self.members.push(new Player(member));
-            }
-        });
-    }
 }
 
 export default Faction;
