@@ -1,7 +1,7 @@
 import { Offer, GOOD_TYPE_RESOURCES } from './offer.js';
 import Dictionnary from '../../core/dictionnary.js';
 import Api from '../../core/api.js';
-import resourcesData from '../../resources/resources.js';
+import resourcesData from '../../resources/resources';
 
 class ResourceOffer extends Offer {
     constructor(id, operation, location, createdAt, acceptedAt, quantity, lotQuantity, price, resource) {

@@ -1,20 +1,21 @@
 <template>
-    <a :href="`/views/map/planet.html?id=${id}`" class="shape" :data-type="type"></a>
+    <a :href="`/views/map/planet.html?id=${id}`"
+        class="shape"
+        :data-type="type"
+        :style="{ width: `${width}px` , height: `${height}px` }"></a>
 </template>
 
 <script>
 export default {
     name: 'planet-shape',
 
-    props: ['id', 'type']
+    props: ['id', 'type', 'width', 'height']
 }
 </script>
 
 <style lang="less" scoped>
 .shape {
     display: inline-block;
-    width: 200px;
-    height: 200px;
     margin: 0;
     border-radius: 50%;
     position: relative;

@@ -1,0 +1,32 @@
+.shape {
+    position: absolute !important;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+}
+
+#planet-relations {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    grid-row: ~"4/8";
+    grid-column: ~"8/11";
+}
+
+#planet-resources {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    grid-row: ~"4/8";
+    grid-column: ~"1/4";
+    padding-left: 20px;
+
+    & a {
+        margin-bottom: 10px;
+    }
+
+    & img {
+        width: 48px;
+        margin: 5px 0px;
+    }
+}

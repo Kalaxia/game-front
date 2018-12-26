@@ -3,7 +3,7 @@ import Faction from './model/faction.js';
 import Player from './model/player.js';
 import Planet from './model/planet.js';
 import { initPlanetResources } from './components/planet/resources.js';
-import { initPlanetRelations } from './components/planet/relations.js';
+//import { initPlanetRelations } from './components/planet/relations.js';
 import Dictionnary from './core/dictionnary.js';
 
 const getFactions = () => Faction.fetchAll().then(factions => {
@@ -77,10 +77,10 @@ const getPlanets = () => Planet.fetchFactionChoicesPlanets(sessionStorage.getIte
         document.querySelector(`#description-${planet.id} > section > .resources > ul`),
         planet.resources
       );
-      initPlanetRelations(
-        document.querySelector(`#description-${planet.id} > section > .relations`),
-        planet.relations
-      );
+      // initPlanetRelations(
+      //   document.querySelector(`#description-${planet.id} > section > .relations`),
+      //   planet.relations
+      // );
     }
   })
 ;

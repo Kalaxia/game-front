@@ -1,6 +1,6 @@
 import Dictionnary from '../../core/dictionnary.js';
 import Api from '../../core/api.js';
-import resourcesData from '../../resources/resources.js';
+import resourcesData from '../../resources/resources';
 import Planet from '../planet.js';
 
 export const OPERATION_SELL = 'sell';

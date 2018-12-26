@@ -1,4 +1,4 @@
-import resourcesData from '../../resources/resources.js';
+import resourcesData from '../../resources/resources';
 
 const getDensityVisualization = (density, picto) => Array((Math.ceil(density / 20) + 1)).join(picto);
 

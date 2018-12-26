@@ -1,4 +1,4 @@
-export default {
+{
   "resources.a": {
     "name": "ResLiquide",
     "picto": "liquid_a.png",
@@ -29,4 +29,4 @@ export default {
     "picto": "ore_b.png",
     "color": "#993333"
   }
-};
+}

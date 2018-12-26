@@ -4,13 +4,13 @@
             <h3>{{ $t(`profile.planets.title`) }}</h3>
         </header>
         <section>
-            <planet v-for="planet in planets" :key="planet.id" v-bind:planet="planet" />
+            <planet-item v-for="planet in planets" :key="planet.id" v-bind:planet="planet" />
         </section>
     </div>
 </template>
 
 <script>
-import Planet from './planet';
+import PlanetItem from '../../molecules/planet/item';
 
 export default {
     name: 'planet-list',
@@ -18,7 +18,7 @@ export default {
     props: ['planets'],
 
     components: {
-        Planet
+        PlanetItem
     }
 }
 </script>

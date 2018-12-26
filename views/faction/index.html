@@ -8,12 +8,12 @@
     <link rel="stylesheet" type="text/css" href="/static/css/faction.css" />
   </head>
   <body>
-    <div id="app" v-bind:style="appStyle">
+    <div id="app" :style="appStyle">
         <top-menu v-if="player" :faction="player.faction"></top-menu>
         <faction-data id="faction-data" v-if="faction" :faction="faction"></faction-data>
         <faction-members id="faction-members" v-if="faction" :faction="faction"></faction-members>
         <faction-relations id="faction-relations" v-if="faction" :faction="faction"></faction-relations>
-        <bottom-menu v-bind:player="player" :planet="currentPlanet"></bottom-menu>
+        <bottom-menu :player="player" :planet="currentPlanet"></bottom-menu>
     </div>
     
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> -->

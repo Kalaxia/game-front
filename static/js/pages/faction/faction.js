@@ -1,20 +1,20 @@
-require('../less/pages/faction/faction.less');
+require('../../../less/pages/faction/faction.less');
 
-import Faction from './model/faction.js';
-import App from './core/app';
+import Faction from '../../model/faction.js';
+import App from '../../core/app';
 
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id');
 
-import FactionData from './components/organisms/faction/faction';
-import FactionMembers from './components/molecules/faction/members';
-import FactionRelations from './components/molecules/faction/relations';
-import TopMenu from './components/organisms/menu/top';
-import BottomMenu from './components/organisms/menu/bottom';
+import FactionData from '../../components/organisms/faction/faction';
+import FactionMembers from '../../components/molecules/faction/members';
+import FactionRelations from '../../components/molecules/faction/relations';
+import TopMenu from '../../components/organisms/menu/top';
+import BottomMenu from '../../components/organisms/menu/bottom';
 
-import AppStyle from './app-style';
+import AppStyle from '../../app-style';
 import Vue from 'vue';
-import { i18n } from './lib/i18n';
+import { i18n } from '../../lib/i18n';
 
 const vm = new Vue({
     el: '#app',

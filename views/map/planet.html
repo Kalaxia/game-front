@@ -7,90 +7,19 @@
         <link rel="stylesheet" type="text/css" href="/static/css/planet.css" />
     </head>
     <body>
-        <div id="planet-buildings">
-            <header><a href="/views/base/buildings.html" data-translate="true">planet.buildings</a></header>
-            <section></section>
-        </div>
-        <div id="planet-data">
-            <h3 id="planet-name"></h3>
-            <h4 id="player"></h4>
-            <h4 id="system"></h4>
-            <h4 id="production-details"></h4>
-        </div>
-        <div id="planet">
-            <figure class="shape"><span class="shadow"></span></figure>
+        <div id="app" :style="appStyle">
+            <top-menu v-if="player" :faction="player.faction"></top-menu>
+            <planet-data :planet="planet"></planet-data>
+            <planet-resources v-if="planet" :resources="planet.resources"></planet-resources>
+            <planet-shape v-if="planet" :id="planet.id" :type="planet.type" width="300" height="300"></planet-shape>
+            <planet-buildings :planet="planet"></planet-buildings>
+            <planet-relations v-if="planet" :planet="planet" width="300" height="300"></planet-relations>
+            <bottom-menu :player="player" :planet="currentPlanet"></bottom-menu>
         </div>
 
-        <div id="planet-relations">
-            <section>
-                <div class="canvas-holder" style="width:100%">
-                    <canvas class="chart-area" width="300" height="300" />
-                </div>
-            </section>
-            <footer>
-                <h3 data-translate="true">planet.relations</h3>
-            </footer>
-        </div>
-
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> -->
         <script type="text/javascript" src="/config/config.js"></script>
-        <script type="module" src="/static/js/main.js"></script>
-        <script type="text/javascript" src="/static/js/lib/chart.js"></script>
-        <script type="module">
-            import Dictionnary from '/static/js/core/dictionnary.js';
-            import Player from '/static/js/model/player.js';
-            import Planet from '/static/js/model/planet.js';
-            import App from '/static/js/core/app.js';
-            import { initPlanetRelations } from '/static/js/components/planet/relations.js';
-            import { initPlanetBuildings } from '/static/js/components/planet/buildings.js';
-            import { initPlanetResources } from '/static/js/components/planet/resources.js';
-            import resourcesData from '/static/js/resources/resources.js';
-
-            const urlParams = new URLSearchParams(window.location.search);
-
-            const initPlanet = () => Planet.fetch(urlParams.get('id')).then(planet => {
-                const planetElement = document.querySelector("#planet");
-                const planetStyle = window.getComputedStyle(planetElement);
-                let currentPlayer = App.getCurrentPlayer();
-                document.querySelector('#planet-name').innerHTML = planet.name;
-                document.querySelector('#planet .shape').setAttribute('data-type', planet.type);
-                planetElement.style.display = "block";
-
-                const planetResources = document.createElement('div');
-                for (let resource of planet.resources) {
-                    resource = Object.assign(resource, resourcesData[resource.name]);
-
-                    const resourcePicto = document.createElement('img');
-                    resourcePicto.src= "/static/images/resources/"+resource.picto;
-                    resourcePicto.alt=resource.name;
-                    planetResources.appendChild(resourcePicto);
-                }
-                document.querySelector('#production-details').appendChild(planetResources);
-
-                if(planet.player !== null && planet.player.id === currentPlayer.id) {
-                    const planetResourceButton = document.createElement('a');
-                    planetResourceButton.classList.add('resource-button');
-                    planetResourceButton.innerText = Dictionnary.translations.planet.production;
-                    planetResourceButton.href= "/views/base/production.html";
-                    document.querySelector('#planet-data').appendChild(planetResourceButton);
-                }
-
-                if (planet.player !== null) {
-                    document.querySelector("#player").innerHTML = `<a href="/views/profile/${(planet.player.id != currentPlayer.id) ? `?id=${planet.player.id}` : ''}" >${planet.player.pseudo}</a>`;
-                }
-                const systemLink = document.createElement('a');
-                systemLink.href = `/views/map/system.html?id=${planet.system.id}`;
-                systemLink.innerText = `${Dictionnary.translations.planet.system} ${planet.system.x}:${planet.system.y}`;
-                document.querySelector('#system').appendChild(systemLink);
-
-                initPlanetRelations(document.querySelector("#planet-relations"), planet.relations);
-
-                if (planet.player !== null && currentPlayer.id === planet.player.id) {
-                    initPlanetBuildings(document.querySelector("#planet-buildings > section"), planet.id, planet.buildings, planet.nb_buildings, planet.available_buildings);
-                }
-            });
-
-            App.init().then(() => { initPlanet() });
-
-        </script>
+        <script type="text/javascript" src="/dist/js/main.js"></script>
+        <script type='text/javascript' src="/dist/js/planet.js"></script>
   </body>
 </html>

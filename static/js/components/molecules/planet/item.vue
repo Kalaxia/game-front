@@ -1,20 +1,22 @@
 <template>
     <div class="planet">
-        <planet-shape v-bind:id="planet.id" v-bind:type="planet.type" />
+        <planet-shape v-bind:id="planet.id" v-bind:type="planet.type" width="200" height="200" />
         <h3>{{ planet.name }}</h3>
-        <a href="/views/base/production.html" class="resource-button">{{ $t('planet.production') }}</a>
+        <production-link />
     </div>
 </template>
 
 <script>
-import PlanetShape from '../atoms/planet/shape';
+import ProductionLink from '../../atoms/resource/production-link';
+import PlanetShape from '../../atoms/planet/shape';
 
 export default {
-    name: 'planet',
+    name: 'planet-item',
 
     props: ['planet'],
 
     components: {
+        ProductionLink,
         PlanetShape
     }
 }

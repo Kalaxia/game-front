@@ -9,9 +9,9 @@
     </head>
     <body>
         <div id="app" v-bind:style="appStyle">
-            <top-menu v-if="player" v-bind:faction="player.faction"></top-menu>
-            <planet-list v-bind:planets="planets"></planet-list>
-            <bottom-menu v-bind:player="player" v-bind:planet="currentPlanet"></bottom-menu>
+            <top-menu v-if="player" :faction="player.faction"></top-menu>
+            <planet-list :planets="planets"></planet-list>
+            <bottom-menu :player="player" :planet="currentPlanet"></bottom-menu>
         </div>
         
         <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> -->

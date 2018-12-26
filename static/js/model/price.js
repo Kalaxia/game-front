@@ -1,5 +1,5 @@
 import Dictionnary from '../core/dictionnary.js';
-import resourcesData from '../resources/resources.js';
+import resourcesData from '../resources/resources';
 
 class Price {
     constructor(data) {
