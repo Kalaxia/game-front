@@ -1,5 +1,8 @@
 <template>
-    <a :href="`/views/${link}`">
+    <a v-if="link" :href="`/views/${link}`">
+        <img :src="`/static/images/picto/${image}`" />
+    </a>
+    <a v-else href="#" @click="notImplemented">
         <img :src="`/static/images/picto/${image}`" />
     </a>
 </template>
@@ -8,7 +11,13 @@
 export default {
     name: 'menu-item',
 
-    props: ['link', 'image', 'color', 'implemented']
+    props: ['link', 'image', 'color'],
+
+    methods: {
+        notImplemented: function() {
+            alert(this.$i18n.t('alerts.not_implemented'));
+        }
+    }
 }
 </script>
 

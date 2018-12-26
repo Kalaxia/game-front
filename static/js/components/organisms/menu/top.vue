@@ -1,8 +1,8 @@
 <template>
     <div class="top-menu">
-        <Item :implemented=false :image="'G_P_Mon_64px.png'" :color="faction.color" />
-        <Item :link="'fleet/fleet-all'" :image="'G_P_Def_64px.png'" :color="faction.color" />
-        <Item :implemented=false :image="'G_P_Science_64px.png'" :color="faction.color" />
+        <Item :image="'G_P_Mon_64px.png'" :color="faction.color" />
+        <Item :link="'fleet/fleet-all.html'" :image="'G_P_Def_64px.png'" :color="faction.color" />
+        <Item :image="'G_P_Science_64px.png'" :color="faction.color" />
 
         <FactionBanner :faction="faction" />
 
