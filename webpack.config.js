@@ -10,6 +10,7 @@ module.exports = {
     hangar: './static/js/hangar.js',
     index: './static/js/index.js',
     journey: './static/js/journey.js',
+    fleets: './static/js/pages/fleet/list.js',
     main: './static/js/main.js',
     map: './static/js/map.js',
     planet: './static/js/pages/planet/planet.js',

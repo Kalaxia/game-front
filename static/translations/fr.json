@@ -218,7 +218,7 @@
         "view" :{
             "all" :{
                 "title" : "Flottes sous votre commandement",
-                "on_planet" : "Stationnée sur %planet%",
+                "on_planet" : "Stationnée sur {planet}",
                 "on_journey" : "Erreur : Pas encore implémenté",
                 "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
                 "no_fleet" : "Vous n'avez pas de flottes."
