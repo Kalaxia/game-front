@@ -2,7 +2,7 @@ import App from './core/app.js';
 import ShipModel from  './model/ship/model.js';
 import Faction from './model/faction.js';
 import resourcesData from './resources/resources';
-import planetsData from './resources/planets.js';
+import planetsData from './resources/planets';
 import Dictionnary from './core/dictionnary.js';
 import { Offer, OPERATION_BUY, OPERATION_SELL, GOOD_TYPE_RESOURCES, GOOD_TYPE_SHIPS, GOOD_TYPE_MODELS } from './model/trade/offer.js';
 import ResourceOffer from './model/trade/resource_offer.js';

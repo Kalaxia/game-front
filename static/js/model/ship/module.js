@@ -1,5 +1,5 @@
 import Dictionnary from '../../core/dictionnary.js';
-import modulesData from '../../resources/ship_modules.js';
+import modulesData from '../../resources/ship_modules';
 import Price from '../price.js';
 
 class ShipModule {

@@ -1,4 +1,4 @@
-export default {
+{
     "arctic": {
         "picto": "P_PL_Ice_64.png",
         "image": "PL_Ice_200px.png"
@@ -27,4 +27,4 @@ export default {
         "picto": "P_PL_Volc_64px.png",
         "image": "PL_Volc_200px.png"
     }
-};
+}

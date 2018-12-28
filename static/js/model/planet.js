@@ -1,5 +1,6 @@
 import Api from '../core/api.js';
 import Ship from './ship/ship.js';
+import ShipGroup from './ship/group.js';
 import System from './system.js';
 
 class Planet {
@@ -17,6 +18,8 @@ class Planet {
         this.relations = data.relations;
         this.resources = data.resources;
         this.storage = data.storage;
+        this.ships = new Array();
+        this.shipGroups = new Array();
     }
 
     static fetch(id) {
@@ -61,33 +64,40 @@ class Planet {
         ;
     }
 
-    static fetchShips(id) {
-        return fetch(`/api/planets/${id}/ships`, {
+    fetchShips() {
+        return fetch(`/api/planets/${this.id}/ships`, {
             method: 'GET',
             headers: Api.headers
         })
         .then(Api.responseMiddleware)
         .then(data => {
-            const ships = new Array();
-            if (data == undefined || data == null) {
-                return ships;
-            }
+            this.ships = new Array();
             for (const shipData of data) {
-                ships.push(new Ship(shipData));
+                this.ships.push(new Ship(shipData));
             }
-            return ships;
+        });
+    };
+
+    fetchShipGroups() {
+        return fetch(`/api/planets/${this.id}/ships/groups`, {
+            method: 'GET',
+            headers: Api.headers
         })
-        .catch(error => console.log(error));
+        .then(Api.responseMiddleware)
+        .then(data => {
+            this.shipGroups = new Array();
+            for (const groupData of data) {
+                this.shipGroups.push(new ShipGroup(groupData));
+            }
+        });
     };
 
     updateSettings() {
-        const self = this;
-        return fetch(`/api/planets/${self.id}/settings`, {
+        return fetch(`/api/planets/${this.id}/settings`, {
             method: 'PUT',
-            body: JSON.stringify(self.settings),
+            body: JSON.stringify(this.settings),
             headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then(response => { return self; })
+        }).then(Api.responseMiddleware);
     }
 }
 

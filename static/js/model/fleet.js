@@ -1,21 +1,23 @@
 import Api from '../core/api.js';
 import Ship from './ship/ship.js';
+import ShipGroup from './ship/group.js';
 import Player from './player.js';
 import Planet from './planet.js';
 import Journey from './journey.js';
 
-class Fleet {
+export default class Fleet {
     constructor(data) {
         this.id = data.id;
-        this.player =data.player;
-        this.location = data.location;
-        this.journey = data.journey;
+        this.player = new Player(data.player);
+        this.location = new Planet(data.location);
+        if (data.journey !== null) {
+            this.journey = new Journey(data.journey);
+        }
+        this.ships = new Array();
+        this.shipGroups = new Array();
         this.map_pos_x = data.map_pos_x;
         this.map_pos_y = data.map_pos_y;
     };
-    
-    /*************************/
-    // Fetch
     
     static fetch(id) {
         return fetch(`/api/fleets/${id}`, { 
@@ -26,163 +28,115 @@ class Fleet {
         .then(data => {
             return new Fleet(data);
         })
-        .catch(error => console.log(error));
     };
-
-
-    /*
-    static fetchPlayerFleets(playerId) {
-        return fetch(`/api/players/${playerId}/fleets`, {
-          method: 'GET',
-          headers: Api.headers
-        }).then(Api.responseMiddleware)
-          .then(data => {
-              const fleets = new Array();
-              for (const fleetData of data) {
-                  fleets.push(new Fleet(fleetData));
-              }
-              return fleets;
-          })
-        ;
-    };
-    */
 
     static fetchPlayerFleets() {
-        /*
-         * Fetch all the fleets of a player
-         */
         return fetch(`/api/fleets`, {
           method: 'GET',
           headers: Api.headers
-        }).then(Api.responseMiddleware)
-          .then(data => {
-                const fleets = new Array();
-                if (data == undefined || data == null) {
-                    return fleets;
-                }
-                for (const fleetData of data) {
-                    fleets.push(new Fleet(fleetData));
-                }
-                return fleets;
-          })
-        ;
+        })
+        .then(Api.responseMiddleware)
+        .then(data => {
+            const fleets = new Array();
+            for (const fleetData of data) {
+                fleets.push(new Fleet(fleetData));
+            }
+            return fleets;
+        });
     };
 
     static fetchPlanetFleets(planetId) {
-        /*
-         * Fetch all the fleet on a planet ( that the player own : see API )
-         */
         return fetch(`/api/planets/${planetId}/fleets`, {
           method: 'GET',
           headers: Api.headers
-        }).then(Api.responseMiddleware)
-          .then(data => {
-                const fleets = new Array();
-                if (data == undefined || data == null) {
-                    return fleets;
-                }
-                for (const fleetData of data) {
-                    fleets.push(new Fleet(fleetData));
-                }
-                return fleets;
-          })
-        ;
+        })
+        .then(Api.responseMiddleware)
+        .then(data => {
+            const fleets = new Array();
+            for (const fleetData of data) {
+                fleets.push(new Fleet(fleetData));
+            }
+            return fleets;
+        });
     };
 
-    static createNewFleet(planetId) {
+    create() {
         return fetch(`/api/fleets`, {
             method: 'POST',
-            body: JSON.stringify({"planet_id": `${planetId}`}),
+            body: JSON.stringify({ planet_id: this.location.id }),
             headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then(fleet => { return fleet; })
+        }).then(Api.responseMiddleware).then(data => {
+            this.id = data.id;
+        });
     };
-    /*------------*/
-    // Fetch ships 
     
-    static fetchShips(fleetId) {
-        /*
-         * Fetch all the ships on a fleet 
-         */
-        return fetch(`/api/fleets/${fleetId}/ships`, { 
+    fetchShips() {
+        return fetch(`/api/fleets/${this.id}/ships`, { 
           method: 'GET',
           headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then(data => {
-            const ships = new Array();
-            if (data == undefined || data == null) {
-                return ships;
-            }
-            for (const shipData of data) {
-                ships.push(new Ship(shipData));
-            }
-            return ships;
         })
-        .catch(error => console.log(error));
+        .then(Api.responseMiddleware)
+        .then(data => {
+            this.ships = new Array();
+            for (const shipData of data) {
+                this.ships.push(new Ship(shipData));
+            }
+        });
     };
     
-    /************************/
-    // Create 
-    
-    static createNewFleet(planetId) {
-        return fetch(`/api/fleets`, {
-            method: 'POST',
-            body: JSON.stringify({"planet_id":planetId}),
-            headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then(fleet => { return fleet; })
+    fetchShipGroups() {
+        return fetch(`/api/fleets/${this.id}/ships/groups`, { 
+          method: 'GET',
+          headers: Api.headers
+        })
+        .then(Api.responseMiddleware)
+        .then(data => {
+            this.shipGroups = new Array();
+            for (const groupData of data) {
+                this.shipGroups.push(new ShipGroup(groupData));
+            }
+        });
     };
     
-    
-    /************************/
-    // Transfer 
-    
-    static transferShipsToHangar (shipsId){
-        var requestBody = JSON.stringify( {"data-ships" : shipsId});
+    transferShipsToHangar(shipsId) {
         return fetch(`/api/fleets/ships`, {
             method: 'DELETE',
-            body: requestBody,
+            body: JSON.stringify( {'data-ships': shipsId }),
             headers: Api.headers
         }).then(Api.responseMiddleware);
-        // the API does not return anything
     }
     
-    static transferShipsToFleet (shipsId,fleetId){
-        var requestBody = JSON.stringify( {"data-ships" : shipsId});
-        return fetch(`/api/fleets/${fleetId}/ships`, {
+    transferShipsToFleet(shipsId) {
+        return fetch(`/api/fleets/${this.id}/ships`, {
             method: 'PATCH',
-            body: requestBody,
+            body: JSON.stringify( {'data-ships': shipsId }),
             headers: Api.headers
         }).then(Api.responseMiddleware);
-        // the API does not return anything
     }
     
-    static deleteFromId (id){
-        return fetch(`/api/fleets/${id}`, {
+    remove() {
+        return fetch(`/api/fleets/${this.id}`, {
             method: 'DELETE',
             body : "",
             headers: Api.headers
-        }).then(Api.responseMiddleware); // if the fleet is delete it should return "Deleted" otherwise it does not return anything
+        }).then(Api.responseMiddleware);
     }
     
-    fetchRange(){
+    fetchRange() {
         return fetch(`/api/fleets/${this.id}/range`, {
             method: 'GET',
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }
     
-    static fetchRangeStatic(){
+    static fetchRangeStatic() {
         return fetch(`/api/fleets/range`, {
             method: 'GET',
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }
     
-    sendOnJourney(positionArray){
-        return Journey.sendOnJourney(this.id, {"steps" :positionArray});
+    sendOnJourney(positionArray) {
+        return Journey.sendOnJourney(this.id, { steps: positionArray });
     }
-    
-}
-
-export default Fleet;
+};

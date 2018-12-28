@@ -1,7 +1,7 @@
 <template>
     <div id="fleets-list">
         <header>
-            <h3>{{ $t('fleet.view.all.title') }}</h3>
+            <h3>{{ $t('fleet.own_fleets') }}</h3>
         </header>
         <section>
             <fleet-card v-for="fleet in fleets" :fleet="fleet" :key="fleet.id" />

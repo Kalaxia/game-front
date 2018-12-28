@@ -1,0 +1,33 @@
+@fighterColor: #600000;
+@bgFighter: rgba(75, 0, 0, 0.6);
+@bgFighterHover: rgba(100, 0, 0, 0.6);
+
+@corvetteColor: #600040;
+@bgCorvette: rgba(75, 0, 50, 0.6);
+@bgCorvetteHover: rgba(100, 0, 75, 0.6);
+
+@freighterColor: #006000;
+@bgFreighter: rgba(0, 75, 0, 0.6);
+@bgFreighterHover: rgba(0, 100, 0, 0.6);
+
+.fighter {
+    border: 1px solid @fighterColor;
+    background-color: @bgFighter;
+    &:hover {
+        background-color: @bgFighterHover;
+    }
+}
+.corvette {
+    border: 1px solid @corvetteColor;
+    background-color: @bgCorvette;
+    &:hover {
+        background-color: @bgCorvetteHover;
+    }
+}
+.freighter {
+    border: 1px solid @freighterColor;
+    background-color: @bgFreighter;
+    &:hover {
+        background-color: @bgFreighterHover;
+    }
+}

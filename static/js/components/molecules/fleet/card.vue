@@ -8,7 +8,7 @@
         </section>
         <section v-else>
             <planet-image :type="fleet.location.type" width="48" height="48" />
-            <p>{{ $t('fleet.view.all.on_planet', { planet: fleet.location.name }) }}</p>
+            <p>{{ $t('fleet.statuses.idle', { location: fleet.location.name }) }}</p>
         </section>
     </a>
 </template>
@@ -28,12 +28,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    @import '../../../../less/atoms/box.less';
+
     a {
         display: block;
         color: #EFEFEF;
         text-decoration: none;
         margin: 5px;
-        clip-path: polygon(10% 0%, 90% 0%, 100% 20%, 100% 80%, 90% 100%, 10% 100%, 0% 80%, 0% 20%);
+        clip-path: @smallBoxClipPath;
         padding: 10px 20px;
         background-color: rgba(0,0,0,0.8);
     }

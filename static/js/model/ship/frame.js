@@ -1,5 +1,5 @@
 import Dictionnary from '../../core/dictionnary.js';
-import framesData from '../../resources/ship_frames.js';
+import framesData from '../../resources/ship_frames';
 import Price from '../price.js';
 import ShipSlot from './slot.js';
 

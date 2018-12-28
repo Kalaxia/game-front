@@ -1,6 +1,4 @@
 import Dictionnary from './core/dictionnary.js';
-import Player from './model/player.js';
-import Planet from './model/planet.js';
 import Ship from './model/ship/ship.js';
 import ShipModel from './model/ship/model.js';
 import ShipModule from './model/ship/module.js';

@@ -197,7 +197,6 @@
         "planet": "Planète",
         "price": "Prix de départ",
         "purchases": "Achats",
-        "price": "Prix de départ",
         "quantity": "Quantité",
         "race": "Race",
         "sales": "Ventes",
@@ -215,50 +214,35 @@
         "yourself": "Vous"
     },
     "fleet" :{
-        "view" :{
-            "all" :{
-                "title" : "Flottes sous votre commandement",
-                "on_planet" : "Stationnée sur {planet}",
-                "on_journey" : "Erreur : Pas encore implémenté",
-                "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
-                "no_fleet" : "Vous n'avez pas de flottes."
+        "own_fleets": "Flottes sous votre commandement",
+        "not_found": "Cette flotte n'existe pas",
+        "no_fleet": "Vous n'avez pas de flottes",
+        "create": "Créer une nouvelle flotte sur {planet}",
+        "title": "Flotte {fleet}",
+        "fleet_ships": "Vaisseaux dans la flotte",
+        "hangar_ships": "Vaisseaux dans le hangar",
+        "empty_hangar": "Il n'y a pas de vaisseau dans le hangar",
+        "empty_fleet": "Il n'y a pas de vaisseau dans la flotte",
+        "transfer": "Transférer",
+        "move": "Déplacer",
+        "remove": "Supprimer",
+        "confirm_removal": "Voulez-vous vraiment supprimer cette flotte ? Cette action est irréversible.",
+        "statuses": {
+            "idle": "Stationnée sur {location}",
+            "traveling": "La flotte est en chemin",
+            "fighting": "En combat"
+        },
+        "error": {
+            "transfer": {
+                "need_positive_number": "Vous ne pouvez pas transférer un nombre négatif de vaisseaux",
+                "no_ships_with_model": "Il n'y a pas de vaisseau avec ce model. Veuillez recharger la page.",
+                "not_enough_ship": "Vous n'avez pas assez de vaisseaux pour exécuter ce transfer."
             },
-            "planet" :{
-                "title" : "Flottes sous votre commandement",
-                "on_planet" : "Stationnée sur %planet%",
-                "on_journey" : "Erreur : La flotte et en chemin",
-                "no_fleet" : "Vous n'avez pas de flottes ici.",
-                "error_showing_fleet" : "Une erreur c'est produite, la flotte ne peut pas être affiché.",
-                "create" : "Créer un nouvelle flotte sur %planet%"
-            },
-            "single" : {
-                "title" : "Flotte %fleet%",
-                "ships_in_fleet" : "Vaisseaux dans la flotte",
-                "ships_in_hangar" : "Vaisseaux dans le hangar",
-                "no_ship_hangar" : "Il n'y a pas de vaisseau dans le hangar",
-                "no_ship_fleet" : "Il n'y a pas de vaisseau dans la flotte",
-                "transfer" : "Transferer",
-                "delete" : "Supprimer cette flotte.",
-                "confirm_delete" : "Voulez vous vraiment supprimer cette flotte ? Cette action est irréversible.",
-                "error" : {
-                    "transfer" : {
-                        "need_positive_number" : "Vous ne pouvez pas transfer un nombre négatif de vaisseau",
-                        "model_id_NaN" : "Le model ne peut pas être lu. Veuillez recharger la page.",
-                        "no_ships_with_model" : "Il n'y a pas de vaisseau avec ce model. Veuillez recharger la page.",
-                        "not_enough_ship" : "Vous n'avez pas assez de vaisseaux pour exécuter ce transfer."
-                    },
-                    "delete" : {
-                        "internal" : "Erreur interne du serveur.",
-                        "forbidden" : "Vous ne controllez pas cette flotte.",
-                        "moving_fleet" : "Vous ne pouvez pas supprimer une flotte qui se dépalce.",
-                        "ship_in_fleet" : "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux.",
-                        "unknown" : "Erreur inconnu."
-                    }
-                },
-                "journey_send" : "Déplacer la flotte."
-            },
-            "header_location" :"Position",
-            "header_id" : "Identification"
+            "delete": {
+                "forbidden": "Vous ne controllez pas cette flotte.",
+                "moving": "Vous ne pouvez pas supprimer une flotte qui se dépalce.",
+                "not_empty": "Vous ne pouvez pas supprimer une flotte qui a encore des vaisseaux."
+            }
         }
     },
     "hangar" : {

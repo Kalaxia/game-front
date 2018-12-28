@@ -1,4 +1,4 @@
-export default {
+{
     "fighter": {
         "picture": "chasseur.png",
         "picto": "chasseur_64px.png",
@@ -71,5 +71,5 @@ export default {
                 "amount": 200
             }
         ]
-    },
+    }
 }

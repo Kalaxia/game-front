@@ -1,11 +1,11 @@
-require('../../../less/pages/fleet/list.less');
+require('../../../less/pages/fleet/details.less');
 
 import App from '../../core/app.js';
 import Fleet from '../../model/fleet.js';
 
 import AppStyle from '../../app-style';
 
-import FleetsList from '../../components/organisms/fleet/list';
+import FleetDetails from '../../components/organisms/fleet/details';
 import TopMenu from '../../components/organisms/menu/top';
 import BottomMenu from '../../components/organisms/menu/bottom';
 
@@ -16,12 +16,12 @@ const vm = new Vue({
     el: '#app',
     i18n,
     components: {
-      FleetsList,
+      FleetDetails,
       TopMenu,
       BottomMenu
     },
     data: {
-      fleets: {},
+      fleet: null,
       player: null,
       currentPlanet: null,
       appStyle: AppStyle
@@ -30,9 +30,11 @@ const vm = new Vue({
 
 App.init()
   .then(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
     vm.player = App.getCurrentPlayer();
     vm.currentPlanet = App.getCurrentPlanet();
 
-    return Fleet.fetchPlayerFleets();
-  }).then(fleets => { vm.fleets = fleets; })
+    return Fleet.fetch(urlParams.get('id'));
+  }).then(fleet => { vm.fleet = fleet; })
 ;
