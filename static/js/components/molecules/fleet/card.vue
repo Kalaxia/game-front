@@ -1,7 +1,7 @@
 <template>
     <a :href="`/views/fleet/fleet.html?id=${fleet.id}`">
         <header>
-            {{ fleet.id }}
+            {{ $t('fleet.title', {fleet: fleet.id}) }}
         </header>
         <section v-if="fleet.journey">
 

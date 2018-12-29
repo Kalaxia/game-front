@@ -9,7 +9,7 @@ import FleetDetails from '../../components/organisms/fleet/details';
 import TopMenu from '../../components/organisms/menu/top';
 import BottomMenu from '../../components/organisms/menu/bottom';
 
-//import Vue from 'vue';
+import Vue from 'vue';
 import { i18n } from '../../lib/i18n';
 
 const vm = new Vue({

@@ -4,7 +4,6 @@ import ShipGroup from './ship/group.js';
 import Player from './player.js';
 import Planet from './planet.js';
 import Journey from './journey.js';
-import ShipModel from './ship/model.js';
 
 export default class Fleet {
     constructor(data) {

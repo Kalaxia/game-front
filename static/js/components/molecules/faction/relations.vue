@@ -33,4 +33,8 @@ export default {
         text-align: center;
         margin: 5px 10px;
     }
+
+    .faction-banner {
+        margin: auto;
+    }
 </style>
