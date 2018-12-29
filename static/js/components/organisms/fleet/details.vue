@@ -15,7 +15,12 @@
                     <h3>{{ $t('fleet.fleet_ships') }}</h3>
                 </header>
                 <section>
-                    <ship-group v-for="group in fleet.shipGroups" :group="group" :key="group.id" />
+                    <transition-group name="list-complete" tag="div">
+                        <ship-group v-for="group in fleet.shipGroups"
+                            :group="group"
+                            :key="group.id"
+                            @click.native="transferShips(group, -1, $event);" />
+                    </transition-group>
                 </section>
             </div>
 
@@ -24,7 +29,12 @@
                     <h3>{{ $t('fleet.hangar_ships') }}</h3>
                 </header>
                 <section>
-                    <ship-group v-for="group in fleet.location.shipGroups" :group="group" :key="group.id" />
+                    <transition-group name="list-complete" tag="div">
+                        <ship-group v-for="group in fleet.location.shipGroups"
+                            :group="group"
+                            :key="group.id"
+                            @click.native="transferShips(group, 1, $event);" />
+                    </transition-group>
                 </section>
             </div>
         </section>
@@ -74,6 +84,13 @@ export default {
 
         move: function() {
             window.location.href = `/views/map/?id=${this.fleet.id}`;
+        },
+
+        transferShips: function(shipGroup, quantity, event) {
+            if (event.ctrlKey) {
+                quantity *= 5;
+            }
+            this.fleet.transferShips(shipGroup, quantity);
         }
     }
 }
@@ -92,14 +109,26 @@ export default {
         align-items: center;
     }
 
-    .ship-groups {
-        & > section {
-            display: flex;
-            flex-wrap: wrap;
+    .ship-groups > section > div {
+        display: flex;
+        flex-wrap: wrap;
 
-            & > div {
-                margin: 5px;
-            }
+        & > div {
+            margin: 5px;
         }
+    }
+
+    .ship-group {
+        transition: all 1s;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .list-complete-enter, .list-complete-leave-to
+        /* .list-complete-leave-active below version 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    .list-complete-leave-active {
+        position: absolute;
     }
 </style>

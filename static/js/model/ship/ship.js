@@ -1,9 +1,9 @@
 import Api from '../../core/api.js';
 import ShipModel from './model.js';
 
-class Ship {
+export default class Ship {
     constructor(data) {
-        this.model = data.model;
+        this.model = new ShipModel(data.model);
         this.hangar = data.hangar;
         this.id = data.id;
     }
@@ -52,8 +52,4 @@ class Ship {
             return ships;
         });
     }
-    
-    
-}
-
-export default Ship;
+};

@@ -4,6 +4,7 @@ import ShipGroup from './ship/group.js';
 import Player from './player.js';
 import Planet from './planet.js';
 import Journey from './journey.js';
+import ShipModel from './ship/model.js';
 
 export default class Fleet {
     constructor(data) {
@@ -98,26 +99,39 @@ export default class Fleet {
         });
     };
     
-    transferShipsToHangar(shipsId) {
-        return fetch(`/api/fleets/ships`, {
-            method: 'DELETE',
-            body: JSON.stringify( {'data-ships': shipsId }),
-            headers: Api.headers
-        }).then(Api.responseMiddleware);
-    }
-    
-    transferShipsToFleet(shipsId) {
+    transferShips(shipGroup, quantity) {
         return fetch(`/api/fleets/${this.id}/ships`, {
             method: 'PATCH',
-            body: JSON.stringify( {'data-ships': shipsId }),
+            body: JSON.stringify({
+                'model-id': shipGroup.id,
+                quantity: quantity
+            }),
             headers: Api.headers
-        }).then(Api.responseMiddleware);
+        }).then(Api.responseMiddleware).then(data => {
+            this.updateShipGroups(shipGroup, data.quantity);
+            this.location.updateShipGroups(shipGroup, -data.quantity);
+        });
+    }
+
+    updateShipGroups(shipGroup, nbShips) {
+        let index = -1;
+        for (const sg of this.shipGroups) {
+            if (sg.id === shipGroup.id) {
+                index = this.shipGroups.indexOf(sg);
+                sg.quantity += nbShips;
+                break;
+            }
+        }
+        if (index === -1 && nbShips > 0) {
+            this.shipGroups.push(Object.assign({}, shipGroup, { quantity: nbShips }));
+        } else if (index >= 0 && this.shipGroups[index].quantity === 0) {
+            this.shipGroups.splice(index, 1);
+        }
     }
     
     remove() {
         return fetch(`/api/fleets/${this.id}`, {
             method: 'DELETE',
-            body : "",
             headers: Api.headers
         }).then(Api.responseMiddleware);
     }

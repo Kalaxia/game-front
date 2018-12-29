@@ -92,6 +92,22 @@ class Planet {
         });
     };
 
+    updateShipGroups(shipGroup, nbShips) {
+        let index = -1;
+        for (const sg of this.shipGroups) {
+            if (sg.id === shipGroup.id) {
+                index = this.shipGroups.indexOf(sg);
+                sg.quantity += nbShips;
+                break;
+            }
+        }
+        if (index === -1 && nbShips > 0) {
+            this.shipGroups.push(Object.assign({}, shipGroup, { quantity: nbShips }));
+        } else if (index >= 0 && this.shipGroups[index].quantity === 0) {
+            this.shipGroups.splice(index, 1);
+        }
+    }
+
     updateSettings() {
         return fetch(`/api/planets/${this.id}/settings`, {
             method: 'PUT',

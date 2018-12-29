@@ -6,8 +6,6 @@ module.exports = {
   entry: {
     base: './static/js/base.js',
     faction: './static/js/pages/faction/faction.js',
-    fleet: './static/js/fleet.js',
-    hangar: './static/js/hangar.js',
     index: './static/js/index.js',
     journey: './static/js/journey.js',
     'fleet/details': './static/js/pages/fleet/details.js',
@@ -19,7 +17,6 @@ module.exports = {
     production: './static/js/production.js',
     profile: './static/js/profile.js',
     registration: './static/js/registration.js',
-    ship: './static/js/ship.js',
     shipyard: './static/js/shipyard.js',
     system: './static/js/system.js',
     trade: './static/js/trade.js'
