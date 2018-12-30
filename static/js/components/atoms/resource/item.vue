@@ -12,7 +12,7 @@ export default {
     
     data: function() {
         return {
-            planetResource: Object.assign(this.resource, resourcesData[this.resource.name])
+            planetResource: Object.assign({}, this.resource, resourcesData[this.resource.name])
         }
     },
     

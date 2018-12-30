@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'production-link',
+    name: 'resource-production-link',
 }
 </script>
 

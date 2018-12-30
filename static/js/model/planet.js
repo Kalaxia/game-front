@@ -30,8 +30,7 @@ class Planet {
         .then(Api.responseMiddleware)
         .then(data => {
             return new Planet(data);
-        })
-        .catch(error => console.log(error));
+        });
     }
 
     static fetchFactionChoicesPlanets(factionId) {
@@ -46,7 +45,7 @@ class Planet {
                   planets.push(new Planet(planetData));
               }
               return planets;
-          }).catch(error => console.log(error));
+          });
     }
 
     static fetchPlayerPlanets(player) {

@@ -77,7 +77,8 @@
             "name" : "Stockage",
             "capacity" : "Capacité de stockage",
             "unit" : "mètres cubes",
-            "full_in" : "Plein dans "
+            "full_in" : "Plein dans ",
+            "full": "Plein"
         },
         "production" : "Production"
     },

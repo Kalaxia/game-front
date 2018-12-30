@@ -7,7 +7,7 @@
 
 <script>
 import ProductionLink from '../../atoms/resource/production-link';
-import ResourceItem from '../../atoms/resource/resource-item';
+import ResourceItem from '../../atoms/resource/item';
 
 export default {
     name: 'planet-resources',

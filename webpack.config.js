@@ -14,7 +14,7 @@ module.exports = {
     map: './static/js/map.js',
     planet: './static/js/pages/planet/planet.js',
     overview: './static/js/pages/overview.js',
-    production: './static/js/production.js',
+    'planet/production': './static/js/pages/planet/production.js',
     profile: './static/js/profile.js',
     registration: './static/js/registration.js',
     shipyard: './static/js/shipyard.js',
