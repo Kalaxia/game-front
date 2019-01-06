@@ -1,4 +1,3 @@
-import Dictionnary from '../core/dictionnary.js';
 import resourcesData from '../resources/resources';
 
 class Price {
@@ -20,15 +19,15 @@ class Price {
     getInfos() {
         switch (this.type) {
             case 'credits': return {
-                name: Dictionnary.translations.credits,
+                name: 'credits',
                 picto: 'credits.svg'
             };
             case 'points': return {
-                name: Dictionnary.translations.planet.settings.military,
+                name: 'planet.settings.military',
                 picto: 'industry_point.svg'
             };
             case 'resource': return {
-                name: Dictionnary.translations.resources[this.resource],
+                name: this.resource,
                 picto: resourcesData[this.resource].picto
             };
         }

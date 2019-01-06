@@ -1,5 +1,3 @@
-import Api from '../../core/api.js';
-
 export default class ShipGroup {
     constructor(data) {
         this.id = data.id;

@@ -1,10 +1,10 @@
 <template>
-    <a :href="`/views/map/planet.html?id=${planet.id}`" class="planet-menu">
+    <router-link :to="`/planet/${planet.id}`" class="planet-menu">
         <planet-picto class="planet-picto" :type="planet.type" width="36" height="36" />
         <h5 :class="planet.type" >{{ planet.name }}</h5>
         <planet-coords :planet="planet" />
         <planet-image class="planet-image" :type="planet.type" width="96" height="96" />
-    </a>
+    </router-link>
 </template>
 
 <script>

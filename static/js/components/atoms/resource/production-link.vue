@@ -1,10 +1,12 @@
 <template>
-    <a href="/views/base/production.html">{{ $t('planet.production') }}</a>
+    <router-link :to="`/planet/${planet.id}/production`">{{ $t('planet.production') }}</router-link>
 </template>
 
 <script>
 export default {
     name: 'resource-production-link',
+
+    props: ['planet']
 }
 </script>
 

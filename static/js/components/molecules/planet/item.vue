@@ -2,7 +2,7 @@
     <div class="planet">
         <planet-shape v-bind:id="planet.id" v-bind:type="planet.type" width="200" height="200" />
         <h3>{{ planet.name }}</h3>
-        <production-link />
+        <production-link :planet="planet" />
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
-    <a v-if="link" :href="`/views/${link}`">
+    <router-link v-if="link" :to="link">
         <img :src="`/static/images/picto/${image}`" />
-    </a>
+    </router-link>
     <a v-else href="#" @click="notImplemented">
         <img :src="`/static/images/picto/${image}`" />
     </a>

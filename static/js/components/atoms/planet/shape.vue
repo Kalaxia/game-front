@@ -1,8 +1,8 @@
 <template>
-    <a :href="`/views/map/planet.html?id=${id}`"
+    <router-link :to="`/planet/${id}`"
         class="shape"
         :data-type="type"
-        :style="{ width: `${width}px` , height: `${height}px` }"></a>
+        :style="{ width: `${width}px` , height: `${height}px` }" />
 </template>
 
 <script>

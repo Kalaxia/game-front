@@ -31,6 +31,7 @@ export default {
 
 <style lang="less" scoped>
     @import '../../../../less/atoms/box.less';
+    @import '../../../../less/atoms/ship/type.less';
 
     .ship-group {
         padding: 10px 20px;

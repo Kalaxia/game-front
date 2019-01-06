@@ -1,7 +1,7 @@
 <template>
     <div id="planet-resources">
-        <production-link />
-        <resource-item v-for="resource in resources" :resource="resource" :key="resource.name" />
+        <production-link :planet="planet" />
+        <resource-item v-for="resource in planet.resources" :resource="resource" :key="resource.name" />
     </div>
 </template>
 
@@ -12,7 +12,7 @@ import ResourceItem from '../../atoms/resource/item';
 export default {
     name: 'planet-resources',
 
-    props: ['resources'],
+    props: ['planet'],
 
     components: {
         ProductionLink,

@@ -1,4 +1,3 @@
-import Api from '../../core/api.js';
 import ShipFrame from './frame.js';
 import ShipModule from './module.js';
 
@@ -13,10 +12,8 @@ class ShipModel {
 
     static fetch(id) {
         return fetch(`/api/me/ship-models/${id}`, {
-            method: 'GET',
-            headers: Api.headers
+            method: 'GET'
         })
-        .then(Api.responseMiddleware)
         .then(data => {
             data.frame = ShipFrame.createFromSlug(data.frame);
             for (const key in data.slots) {
@@ -31,10 +28,8 @@ class ShipModel {
 
     static fetchPlayerModels() {
         return fetch('/api/me/ship-models', {
-            method: 'GET',
-            headers: Api.headers
+            method: 'GET'
         })
-        .then(Api.responseMiddleware)
         .then(data => {
             const result = new Array();
             for (const shipModelData of data) {
@@ -49,9 +44,8 @@ class ShipModel {
         const self = this;
         return fetch('/api/me/ship-models', {
             method: 'POST',
-            headers: Api.headers,
             body: JSON.stringify(this.format())
-        }).then(Api.responseMiddleware)
+        })
         .then(data => {
             self.id = data.id;
             self.type = data.type;

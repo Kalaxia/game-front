@@ -1,11 +1,11 @@
 <template>
-    <a :href="`/views/profile?id=${member.id}`" :alt="member.pseudo">
+    <router-link :to="`/profile/${member.id}`" :alt="member.pseudo">
         <img src="/static/images/avatars/Hombre_v3t.png" />
         <div>
             <p>{{ member.pseudo }}</p>
             <em>Gouverneur</em>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>

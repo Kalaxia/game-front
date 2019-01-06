@@ -1,4 +1,3 @@
-import Api from '../../core/api.js';
 import ShipModel from './model.js';
 
 export default class Ship {
@@ -14,16 +13,14 @@ export default class Ship {
             body: JSON.stringify({
                 model: this.model,
                 quantity: parseInt(quantity)
-            }),
-            headers: Api.headers
-        }).then(Api.responseMiddleware);
+            })
+        });
     }
 
     static fetchConstructingShips(planetId) {
         return fetch(`/api/planets/${planetId}/ships/constructing`, {
             method: 'GET',
-            headers: Api.headers
-        }).then(Api.responseMiddleware)
+        })
         .then(data => {
             const ships = new Array();
             if (data == undefined || data == null) {
@@ -38,9 +35,8 @@ export default class Ship {
 
     static fetchHangarShips(planetId) {
         return fetch(`/api/planets/${planetId}/ships`, {
-            method: 'GET',
-            headers: Api.headers
-        }).then(Api.responseMiddleware)
+            method: 'GET'
+        })
         .then(data => {
             const ships = new Array();
             if (data == undefined || data == null) {

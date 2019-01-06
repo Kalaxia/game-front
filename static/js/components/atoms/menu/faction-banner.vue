@@ -1,7 +1,7 @@
 <template>
-    <a class="faction-banner" href="/views/faction" :alt="faction.name">
+    <router-link class="faction-banner" :to="`/faction/${faction.id}`" :alt="faction.name">
         <img :src="`/static/images/factions/${faction.banner}`" :alt="faction.name" />
-    </a>
+    </router-link>
 </template>
 
 <script>

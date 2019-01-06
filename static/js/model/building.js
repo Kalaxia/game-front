@@ -1,5 +1,3 @@
-import Api from '../core/api.js';
-
 class Building {
     constructor(data) {
         this.id = data.id;
@@ -14,9 +12,8 @@ class Building {
             method: "POST",
             body: JSON.stringify({
                 name: name
-            }),
-            headers: Api.headers
-        }).then(Api.responseMiddleware)
+            })
+        })
         .then(data => {
             return new Building(data);
         });

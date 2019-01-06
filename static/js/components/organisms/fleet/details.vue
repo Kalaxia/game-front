@@ -42,9 +42,12 @@
 </template>
 
 <script>
-import Fleet from '../../../model/fleet';
+import Fleet from '../../../model/fleet/fleet';
 import FleetData from '../../molecules/fleet/data';
 import ShipGroup from '../../molecules/ship/group';
+
+import { getFleetShipGroups, transferShips, removeFleet } from '../../../api/fleet';
+import { fetchHangarShipGroups } from '../../../api/planet';
 
 export default {
     name: 'fleet-details',
@@ -68,39 +71,43 @@ export default {
     },
 
     mounted: function() {
-        this.fleet.fetchShipGroups();
-        this.fleet.location.fetchShipGroups();
+        getFleetShipGroups(this.fleet);
+        fetchHangarShipGroups(this.fleet.location);
     },
 
     methods: {
-        remove: function() {
+        remove: async function() {
             if (!confirm(this.$i18n.t('fleet.confirm_removal'))) {
                 return false;
             }
-            this.fleet.remove().then(() => {
-                window.location.href = "/views/fleet/fleet-all.html";
-            });
+            await removeFleet(this.fleet);
+            
+            this.$router.push('/fleets');
         },
 
         move: function() {
-            window.location.href = `/views/map/?id=${this.fleet.id}`;
+            this.$router.push({ path: '/map', query: { id: this.fleet.id} });
         },
 
         transferShips: function(shipGroup, quantity, event) {
             if (event.ctrlKey) {
                 quantity *= 5;
             }
-            this.fleet.transferShips(shipGroup, quantity);
+            transferShips(this.fleet, shipGroup, quantity);
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-    header {
+    #fleet-details > header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        & > h3 {
+            margin-top: 0px;
+        }
     }
 
     .toolbar {
@@ -123,8 +130,7 @@ export default {
         display: inline-block;
         margin-right: 10px;
     }
-    .list-complete-enter, .list-complete-leave-to
-        /* .list-complete-leave-active below version 2.1.8 */ {
+    .list-complete-enter, .list-complete-leave-to {
         opacity: 0;
         transform: translateY(30px);
     }

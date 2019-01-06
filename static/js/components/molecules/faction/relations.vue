@@ -3,9 +3,9 @@
         <div v-for="relation in faction.relations" :key="relation.id" :id="`relation-${relation.faction.id}`" class="faction">
             <header>
                 <h4 :style="{color: relation.faction.color}">{{ relation.faction.name }}</h4>
-                <a :href="`/views/faction/index.html?id=${relation.faction.id}`">
+                <router-link :to="`/faction/${relation.faction.id}`">
                     <faction-banner :faction="relation.faction" width="80" height="130" />
-                </a>
+                </router-link>
             </header>
             <section>
                 <p>{{ $t(`diplomacy.relations.indicators.${relation.state}`) }}</p>

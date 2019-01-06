@@ -16,7 +16,7 @@ export default {
                 oceanic: 'P_PL_Wate_64.png',
                 temperate: 'P_PL_Temp_64.png',
                 tropical: 'P_PL_Trop_64.png',
-                rocky: 'P_PL_Rock_64.png',
+                rocky: 'P_PL_Rock_64px.png',
                 volcanic: 'P_PL_Volc_64.png'
             }[this.type];
         }

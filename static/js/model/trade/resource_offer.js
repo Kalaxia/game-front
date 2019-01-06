@@ -1,6 +1,4 @@
 import { Offer, GOOD_TYPE_RESOURCES } from './offer.js';
-import Dictionnary from '../../core/dictionnary.js';
-import Api from '../../core/api.js';
 import resourcesData from '../../resources/resources';
 
 class ResourceOffer extends Offer {
@@ -25,14 +23,13 @@ class ResourceOffer extends Offer {
                 lot_quantity: this.lotQuantity,
                 price: this.price,
                 resource: this.resource,
-            }),
-            headers: Api.headers
-        }).then(Api.responseMiddleware);
+            })
+        });
     }
 
-    getGoodName() {
-        return Dictionnary.translations.resources[this.resource];
-    };
+    // getGoodName() {
+    //     return Dictionnary.translations.resources[this.resource];
+    // };
 
     getGoodPicto() {
         return `/static/images/resources/${resourcesData[this.resource].picto}`;
@@ -50,7 +47,7 @@ class ResourceOffer extends Offer {
         return `${Number(this.getTotalPrice()).toFixed(2)} <img src="/static/images/picto/G_P_Arr_64px.png" />
             ${this.price} <div><sup><img src="/static/images/picto/G_P_Mon_64px.png"></sup>
             <span>&frasl;</span>
-            <sub>${Dictionnary.translations.trade.unit_short}</sub></div>`
+            <sub>trade.unit_short</sub></div>`
         ;
     }
 

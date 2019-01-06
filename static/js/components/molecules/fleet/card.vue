@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/views/fleet/fleet.html?id=${fleet.id}`">
+    <router-link :to="`/fleets/${fleet.id}`">
         <header>
             {{ $t('fleet.title', {fleet: fleet.id}) }}
         </header>
@@ -10,7 +10,7 @@
             <planet-image :type="fleet.location.type" width="48" height="48" />
             <p>{{ $t('fleet.statuses.idle', { location: fleet.location.name }) }}</p>
         </section>
-    </a>
+    </router-link>
 </template>
 
 <script>
