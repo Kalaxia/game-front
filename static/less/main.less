@@ -1,0 +1,36 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Electrolize');
+
+html {
+    height: 100%;
+    background-color: #1e2024;
+    color: #EFEFEF;
+    font-family: 'Electrolize', serif;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: minmax(10%, auto);
+}
+
+.top-menu, .bottom-menu {
+    z-index: 3;
+}
+
+#wrapper {
+    z-index: 2;
+    grid-row: ~"1/11";
+    grid-column: ~"1/11";
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0px;
+    grid-template-rows: repeat(10, 1fr);
+}

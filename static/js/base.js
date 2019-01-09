@@ -1,6 +1,6 @@
 import Dictionnary from './core/dictionnary.js';
 import Building from './model/building.js';
-import buildingsData from './resources/buildings.js';
+import buildingsData from './resources/buildings.json';
 import App from './core/app.js';
 
 let planetPopulation = 0;

@@ -1,5 +1,5 @@
-import Api from '../core/api.js';
 import Ship from './ship/ship.js';
+import ShipGroup from './ship/group.js';
 import System from './system.js';
 
 class Planet {
@@ -17,77 +17,56 @@ class Planet {
         this.relations = data.relations;
         this.resources = data.resources;
         this.storage = data.storage;
-    }
-
-    static fetch(id) {
-        return fetch(`/api/planets/${id}`, {
-            method: 'GET',
-            headers: Api.headers
-        })
-        .then(Api.responseMiddleware)
-        .then(data => {
-            return new Planet(data);
-        })
-        .catch(error => console.log(error));
+        this.ships = new Array();
+        this.shipGroups = new Array();
     }
 
     static fetchFactionChoicesPlanets(factionId) {
         return fetch(`/api/factions/${factionId}/planet-choices`, {
-              method: 'GET',
-              headers: Api.headers
+              method: 'GET'
           })
-          .then(Api.responseMiddleware)
           .then(data => {
               const planets = new Array();
               for (const planetData of data) {
                   planets.push(new Planet(planetData));
               }
               return planets;
-          }).catch(error => console.log(error));
+          });
     }
 
-    static fetchPlayerPlanets(playerId) {
-        return fetch(`/api/players/${playerId}/planets`, {
-          method: 'GET',
-          headers: Api.headers
-        }).then(Api.responseMiddleware)
-          .then(data => {
-              const planets = new Array();
-              for (const planetData of data) {
-                  planets.push(new Planet(planetData));
-              }
-              return planets;
-          })
-        ;
-    }
-
-    static fetchShips(id) {
-        return fetch(`/api/planets/${id}/ships`, {
-            method: 'GET',
-            headers: Api.headers
+    fetchShips() {
+        return fetch(`/api/planets/${this.id}/ships`, {
+            method: 'GET'
         })
-        .then(Api.responseMiddleware)
         .then(data => {
-            const ships = new Array();
-            if (data == undefined || data == null) {
-                return ships;
-            }
+            this.ships = new Array();
             for (const shipData of data) {
-                ships.push(new Ship(shipData));
+                this.ships.push(new Ship(shipData));
             }
-            return ships;
-        })
-        .catch(error => console.log(error));
+        });
     };
 
+    updateShipGroups(shipGroup, nbShips) {
+        let index = -1;
+        for (const sg of this.shipGroups) {
+            if (sg.id === shipGroup.id) {
+                index = this.shipGroups.indexOf(sg);
+                sg.quantity += nbShips;
+                break;
+            }
+        }
+        if (index === -1 && nbShips > 0) {
+            this.shipGroups.push(Object.assign({}, shipGroup, { quantity: nbShips }));
+        } else if (index >= 0 && this.shipGroups[index].quantity === 0) {
+            this.shipGroups.splice(index, 1);
+        }
+    }
+
     updateSettings() {
-        const self = this;
-        return fetch(`/api/planets/${self.id}/settings`, {
+        return fetch(`/api/planets/${this.id}/settings`, {
             method: 'PUT',
-            body: JSON.stringify(self.settings),
-            headers: Api.headers
-        }).then(Api.responseMiddleware)
-        .then(response => { return self; })
+            body: JSON.stringify(this.settings)
+        });
     }
 }
 

@@ -1,5 +1,4 @@
-import Dictionnary from '../../core/dictionnary.js';
-import modulesData from '../../resources/ship_modules.js';
+import modulesData from '../../resources/ship_modules';
 import Price from '../price.js';
 
 class ShipModule {
@@ -21,9 +20,8 @@ class ShipModule {
 
     static createFromSlug(slug) {
         const moduleData = modulesData[slug];
-        const translatedData = Dictionnary.translations.ships.modules[slug];
-        moduleData.name = translatedData.name;
-        moduleData.description = translatedData.description;
+        //moduleData.name = translatedData.name;
+        //moduleData.description = translatedData.description;
         moduleData.slug = slug;
         moduleData.price = Price.format(moduleData.price);
         return new ShipModule(moduleData);

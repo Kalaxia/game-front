@@ -1,6 +1,3 @@
-import Dictionnary from '../../core/dictionnary.js';
-import Api from '../../core/api.js';
-import resourcesData from '../../resources/resources.js';
 import Planet from '../planet.js';
 
 export const OPERATION_SELL = 'sell';
@@ -26,15 +23,13 @@ export class Offer {
             method: 'POST',
             body: JSON.stringify({
                 operation: operation
-            }),
-            headers: Api.headers
-        }).then(Api.responseMiddleware);
+            })
+        });
     }
 
     static cancel(id) {
         return fetch(`/api/offers/${id}`, {
-            method: 'DELETE',
-            headers: Api.headers
-        }).then(Api.responseMiddleware);
+            method: 'DELETE'
+        });
     }
 };

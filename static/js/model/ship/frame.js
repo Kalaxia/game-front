@@ -1,5 +1,4 @@
-import Dictionnary from '../../core/dictionnary.js';
-import framesData from '../../resources/ship_frames.js';
+import framesData from '../../resources/ship_frames';
 import Price from '../price.js';
 import ShipSlot from './slot.js';
 
@@ -14,7 +13,7 @@ class ShipFrame {
 
     static createFromSlug(slug) {
         const frame = new ShipFrame(framesData[slug]);
-        frame.name = Dictionnary.translations.ships.frames[slug];
+        //frame.name = ships.frames[slug];
         frame.slug = slug;
         frame.slots = ShipSlot.formatArray(frame.slots);
         frame.price = Price.format(frame.price);
