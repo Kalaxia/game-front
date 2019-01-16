@@ -1,18 +1,18 @@
 <template>
-    <a :href="`/views/map/system.html?id=${planet.system.id}`">
+    <router-link :to="`/map/systems/${system.id}`">
         {{ planetCoords }}
-    </a>
+    </router-link>
 </template>
 
 <script>
 export default {
     name: 'planet-coords',
 
-    props: ['planet'],
+    props: ['system', 'planet'],
 
     computed: {
         planetCoords: function() {
-            return `[${this.planet.system.x}.${this.planet.system.y}.${this.planet.id % 100}]`;
+            return `[${this.system.x}.${this.system.y}.${this.planet.id % 100}]`;
         }
     }
 }

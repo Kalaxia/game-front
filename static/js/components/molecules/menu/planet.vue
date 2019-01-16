@@ -2,7 +2,7 @@
     <router-link :to="`/planet/${planet.id}`" class="planet-menu">
         <planet-picto class="planet-picto" :type="planet.type" width="36" height="36" />
         <h5 :class="planet.type" >{{ planet.name }}</h5>
-        <planet-coords :planet="planet" />
+        <planet-coords :planet="planet" :system="planet.system" />
         <planet-image class="planet-image" :type="planet.type" width="96" height="96" />
     </router-link>
 </template>
@@ -30,6 +30,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-decoration: none;
 
         & > h5 {
             margin: 0px;

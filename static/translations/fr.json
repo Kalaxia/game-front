@@ -168,6 +168,7 @@
         }
     },
     "system": {
+        "title": "Système stellaire",
         "links": {
             "map": "Retour à la carte"
         }
@@ -251,7 +252,9 @@
     },
     "general" : {
         "number" : "Nombre",
-        "name" : "Nom"
+        "name" : "Nom",
+        "player": "Joueur",
+        "faction": "Faction"
     },
     "journey" : {
         "planer" : {

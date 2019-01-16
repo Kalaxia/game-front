@@ -5,9 +5,7 @@
             <p>{{ player.wallet }}</p>
         </header>
         <section>
-            <div class="avatar">
-                <img :src="`/static/images/avatars/portrait-mauve.png`" :alt="player.pseudo" />
-            </div>
+            <Avatar :player="player" width="126" height="126" />
             <div class="player-info">
                 <h4>{{ player.pseudo }}</h4>
                 <h5>Un grand homme</h5>
@@ -17,10 +15,16 @@
 </template>
 
 <script>
+import Avatar from '../../atoms/player/avatar';
+
 export default {
     name: 'player-menu',
     
-    props: ['player']
+    props: ['player'],
+
+    components: {
+        Avatar
+    }
 }
 </script>
 
@@ -53,7 +57,7 @@ export default {
         background-color: #000;
         border-radius: 70px;
 
-        & > img {
+        img {
             width: 126px;
             height: 126px;
             border-radius: 70px;

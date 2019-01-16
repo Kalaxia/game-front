@@ -1,9 +1,15 @@
 <template>
-    
+    <div>
+        <PlanetsList :system="system" />
+        <PlanetsGraph :system="system" />
+    </div>
 </template>
 
 <script>
 import { getSystem } from '../../../api/map';
+
+import PlanetsList from '../../organisms/map/planets-list';
+import PlanetsGraph from '../../organisms/map/planets-graph';
 
 export default {
     name: 'page-system',
@@ -14,6 +20,11 @@ export default {
         };
     },
 
+    components: {
+        PlanetsList,
+        PlanetsGraph
+    },
+
     mounted: async function() {
         this.system = await getSystem(this.$route.params.id);
     }
@@ -21,5 +32,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    #planets-list {
+        grid-column: ~"2/6";
+        grid-row: ~"2/8";
+    }
 
+    #planets-graph {
+        grid-column: ~"6/10";
+        grid-row: ~"2/8";
+    }
 </style>
