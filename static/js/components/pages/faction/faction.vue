@@ -51,7 +51,8 @@ export default {
 
     #faction-members {
         grid-row: ~"3/10";
-        grid-column: ~"6/11";
+        grid-column: ~"6/10";
+        overflow: scroll;
     }
 
     #faction-relations {

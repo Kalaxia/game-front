@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="faction-members">
         <header>
             <h3>{{ $t('faction.members.title') }}</h3>
         </header>
@@ -38,5 +38,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+    .faction-members {
+        & > section {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
 </style>
