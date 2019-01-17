@@ -1,14 +1,14 @@
 <template>
     <div class="player-menu" v-if="player">
         <header>
-            <img src="/static/images/picto/G_P_Mon_64px.png" />
+            <colored-picto :src="'G_P_Mon_64px.png'" :color="player.faction.color" width="32" height="32" />
             <p>{{ player.wallet }}</p>
         </header>
         <section>
             <Avatar :player="player" width="126" height="126" />
             <div class="player-info">
                 <h4>{{ player.pseudo }}</h4>
-                <h5>Un grand homme</h5>
+                <h5>{{ $t('player.titles.governor') }}</h5>
             </div>
         </section>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import Avatar from '../../atoms/player/avatar';
+import ColoredPicto from '../../atoms/colored-picto';
 
 export default {
     name: 'player-menu',
@@ -23,7 +24,8 @@ export default {
     props: ['player'],
 
     components: {
-        Avatar
+        Avatar,
+        ColoredPicto
     }
 }
 </script>

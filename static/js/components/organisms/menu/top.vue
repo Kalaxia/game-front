@@ -1,6 +1,6 @@
 <template>
     <div class="top-menu">
-        <Item image="G_P_Mon_64px.png" :color="faction.color" />
+        <Item image="B_Merc_64px.png" :color="faction.color" />
         <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.color" />
         <Item image="G_P_Science_64px.png" :color="faction.color" />
 
