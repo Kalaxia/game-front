@@ -52,7 +52,7 @@ export default {
     #faction-members {
         grid-row: ~"3/10";
         grid-column: ~"6/10";
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     #faction-relations {

@@ -41,7 +41,7 @@ export default {
     #planets-list {
         grid-column: ~"2/6";
         grid-row: ~"2/9";
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     #planets-graph {
