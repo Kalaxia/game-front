@@ -12,6 +12,7 @@ class Planet {
         this.population = data.population;
         this.buildings = data.buildings;
         this.nb_buildings = data.nb_buildings;
+        this.orbit = data.orbit;
         this.available_buildings = data.available_buildings;
         this.settings = data.settings;
         this.relations = data.relations;

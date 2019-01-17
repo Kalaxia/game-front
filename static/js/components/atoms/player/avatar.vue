@@ -13,8 +13,8 @@ export default {
     computed: {
         style: function() {
             return {
-                width: `${this.width}px`,
-                height: `${this.height}px`,
+                width: `${this.width - 6}px`,
+                height: `${this.height - 6}px`,
                 border: `3px solid ${this.player.faction.color}`
             }
         }

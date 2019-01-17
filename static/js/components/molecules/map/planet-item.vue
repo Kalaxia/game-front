@@ -3,7 +3,7 @@
         <div class="planet-item">
             <PlanetImage :type="planet.type" width="72" height="72" />
             <div class="planet-data">
-                <PlanetPicto :type="planet.type" width="24" height="24" />
+                <PlanetPicto :type="planet.type" :width="24" :height="24" />
                 <router-link :to="`/planet/${planet.id}`">{{ planet.name }}</router-link>
                 <PlanetCoords :planet="planet" :system="system" />
             </div>

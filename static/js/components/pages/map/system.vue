@@ -34,11 +34,12 @@ export default {
 <style lang="less" scoped>
     #planets-list {
         grid-column: ~"2/6";
-        grid-row: ~"2/8";
+        grid-row: ~"2/9";
     }
 
     #planets-graph {
+        position: relative;
         grid-column: ~"6/10";
-        grid-row: ~"2/8";
+        grid-row: ~"3/9";
     }
 </style>
