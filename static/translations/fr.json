@@ -256,6 +256,11 @@
         "player": "Joueur",
         "faction": "Faction"
     },
+    "player": {
+        "titles": {
+            "governor": "Gouverneur"
+        }
+    },
     "journey" : {
         "planer" : {
             "title" : "Info sur le trajet.",

@@ -3,7 +3,7 @@
         <img src="/static/images/avatars/Hombre_v3t.png" />
         <div>
             <p>{{ member.pseudo }}</p>
-            <em>Gouverneur</em>
+            <em>{{ $t('player.titles.governor') }}</em>
         </div>
     </router-link>
 </template>
