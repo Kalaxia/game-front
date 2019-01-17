@@ -1,32 +1,32 @@
 {
   "resources.a": {
     "name": "ResLiquide",
-    "picto": "liquid_a.png",
-    "color": "#339966"
+    "picto": "Pc_R_Wat.png",
+    "color": "#00A3CA"
   },
   "resources.b": {
     "name": "ResMinerai",
-    "picto": "ore_a.png",
-    "color": "#CC3333"
+    "picto": "Pc_R_Vol.png",
+    "color": "#F461BE"
   },
   "resources.c": {
     "name": "ResMetal",
-    "picto": "metal_a.png",
-    "color": "#993366"
+    "picto": "Pc_R_Eme.png",
+    "color": "#00704E"
   },
   "resources.d": {
     "name": "ResFood",
-    "picto": "food_a.png",
-    "color": "#336699"
+    "picto": "Pc_R_Geo.png",
+    "color": "#D49F70"
   },
   "resources.e": {
     "name": "ResCristal",
-    "picto": "crystal_a.png",
-    "color": "#66CCCC"
+    "picto": "Pc_R_Cri.png",
+    "color": "#18ACAC"
   },
   "resources.f": {
     "name": "ResMinerai2",
-    "picto": "ore_b.png",
-    "color": "#993333"
+    "picto": "Pc_R_Rub.png",
+    "color": "#CD092F"
   }
 }
