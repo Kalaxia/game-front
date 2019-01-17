@@ -116,7 +116,7 @@ export default {
         },
 
         redirectToSystem: function(systemId) {
-            this.$router.push(`/map/system/${systemId}`);
+            this.$router.push(`/map/systems/${systemId}`);
         },
 
         goToCurrentPlanet: function() {

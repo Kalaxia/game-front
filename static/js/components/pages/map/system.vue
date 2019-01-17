@@ -27,6 +27,12 @@ export default {
 
     mounted: async function() {
         this.system = await getSystem(this.$route.params.id);
+    },
+
+    beforeRouteUpdate: async function(to, from, next) {
+        this.system = await getSystem(to.params.id);
+
+        next();
     }
 }
 </script>
