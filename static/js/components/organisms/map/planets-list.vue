@@ -1,7 +1,10 @@
 <template>
     <div id="planets-list">
         <header>
-            <h3>{{ $t('system.title') }}</h3>
+            <h3>
+                <img src="/static/images/picto/Pc_SS_GR_64px.png" />
+                {{ $t('system.title') }}
+            </h3>
         </header>
         <section v-if="system">
             <PlanetItem v-for="planet in system.planets" :key="planet.id" :planet="planet" :system="system" />
@@ -24,5 +27,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    #planets-list > header > h3 {
+        display: flex;
+        align-items: center;
 
+        & > img {
+            width: 48px;
+            height: 48px;
+            margin-right: 20px;
+        }
+    }
 </style>

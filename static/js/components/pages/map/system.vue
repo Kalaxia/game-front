@@ -42,4 +42,14 @@ export default {
         grid-column: ~"6/10";
         grid-row: ~"3/9";
     }
+
+    @media (max-width: 1400px) {
+        #planets-list {
+            grid-column: ~"3/9";
+        }
+
+        #planets-graph {
+            display: none;
+        }
+    }
 </style>
