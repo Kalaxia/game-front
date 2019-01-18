@@ -4,6 +4,7 @@ import store from './store';
 import { i18n } from './lib/i18n';
 
 import TopMenu from './components/organisms/menu/top';
+import LogoutButton from './components/atoms/player/logout-button';
 import BottomMenu from './components/organisms/menu/bottom';
 
 const vm = new Vue({
@@ -13,6 +14,7 @@ const vm = new Vue({
 
     components: {
         TopMenu,
+        LogoutButton,
         BottomMenu
     },
 

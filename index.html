@@ -7,6 +7,7 @@
     <body>
         <div id="app">
             <top-menu v-if="currentPlayer" :faction="currentPlayer.faction"></top-menu>
+            <logout-button id="logout"></logout-button>
             <router-view id="wrapper"></router-view>
             <bottom-menu :player="currentPlayer" :planet="currentPlanet"></bottom-menu>
         </div>

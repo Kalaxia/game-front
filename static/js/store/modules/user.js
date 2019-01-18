@@ -1,5 +1,6 @@
 import Player from '../../model/player';
 import Planet from '../../model/planet';
+import router from '../../router';
 
 export default {
     namespaced: true,
@@ -19,6 +20,10 @@ export default {
             const payload = { response, data: {} };
             await dispatch('api/responseMiddleware', payload, { root: true });
             state.player = new Player(payload.data);
+
+            if (!state.player.isActive) {
+                router.push('/registration');
+            }
         },
 
         initPlanet: async function({ state, dispatch, rootState }) {

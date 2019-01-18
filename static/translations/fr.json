@@ -91,13 +91,13 @@
         "human": "Humain"
     },
     "registration": {
-        "next_step": "Étape suivante",
+        "next": "Continuer",
         "validate": "Commencer la partie !",
         "faction": {
-            "title": "Choisissez votre faction !"
+            "title": "Choisissez votre <strong>faction</strong>"
         },
         "planet": {
-            "title": "Choisissez votre planète !"
+            "title": "Choisissez votre <strong>planète</strong>"
         }
     },
     "resources": {

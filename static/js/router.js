@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Overview from './components/pages/overview';
+import Registration from './components/pages/registration';
 import Faction from './components/pages/faction/faction';
 import Starmap from './components/pages/map/map';
 import System from './components/pages/map/system';
@@ -12,6 +13,7 @@ import Production from './components/pages/planet/production';
 
 const routes = [
     { path: '/', component: Overview },
+    { path: '/registration', component: Registration },
     { path: '/faction/:id', component: Faction },
     { path: '/map', component: Starmap },
     { path: '/map/systems/:id', component: System },

@@ -21,7 +21,7 @@ body {
     grid-auto-rows: minmax(10%, auto);
 }
 
-.top-menu, .bottom-menu {
+.top-menu, .bottom-menu, #logout {
     z-index: 3;
 }
 
@@ -33,4 +33,10 @@ body {
     grid-template-columns: repeat(10, 1fr);
     grid-gap: 0px;
     grid-template-rows: repeat(10, 1fr);
+}
+
+#logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
