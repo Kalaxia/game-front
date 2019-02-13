@@ -10,6 +10,7 @@ import Fleets from './components/pages/fleet/list';
 import Fleet from './components/pages/fleet/details';
 import Planet from './components/pages/planet/planet';
 import Production from './components/pages/planet/production';
+import Shipyard from './components/pages/planet/shipyard';
 
 const routes = [
     { path: '/', component: Overview },
@@ -20,7 +21,8 @@ const routes = [
     { path: '/fleets', component: Fleets },
     { path: '/fleets/:id', component: Fleet },
     { path: '/planet/:id', component: Planet },
-    { path: '/planet/:id/production', component: Production }
+    { path: '/planet/:id/production', component: Production },
+    { path: '/shipyard', component: Shipyard }
 ];
 
 Vue.use(VueRouter);

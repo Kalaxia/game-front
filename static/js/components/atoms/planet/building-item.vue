@@ -1,9 +1,8 @@
 <template>
-    <a v-if="building"
-       :href="link"
+    <router-link v-if="building"
+       :to="link"
        :class="['building', categoryClass, {constructing: isConstructing}]"
-       :style="{ backgroundImage: `url('/static/images/buildings/${buildingPicture}')`}">
-    </a>
+       :style="{ backgroundImage: `url('/static/images/buildings/${buildingPicture}')`}" />
     <a v-else class="building area" href="/views/base/buildings.html"></a>
 </template>
 
@@ -17,9 +16,9 @@ export default {
 
     computed: {
         link: function() {
-            return (this.building.status === 'operational' && typeof buildingsData[this.building.name].view !== 'undefined')
-            ? `/views/base/${buildingsData[this.building.name].view}`
-            : '/views/base/buildings.html'
+            return (this.building.status === 'operational' && typeof buildingsData[this.building.name].link !== 'undefined')
+            ? buildingsData[this.building.name].link
+            : '/buildings'
         },
         categoryClass: function() {
             return `category-${buildingsData[this.building.name].category}`

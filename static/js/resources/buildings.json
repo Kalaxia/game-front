@@ -14,7 +14,7 @@
     "bat.shipyard.a": {
         "picture": "building.png",
         "category": "shipyard",
-        "view": "shipyard.html"
+        "link": "/shipyard"
     },
     "bat.shipyard.b": {
         "picture": "building.png",
@@ -23,7 +23,7 @@
     "bat.trade.a": {
         "picture": "building.png",
         "category": "trade",
-        "view": "trade/dashboard.html"
+        "link": "/trade"
     },
     "bat.techno.a": {
         "picture": "building.png",

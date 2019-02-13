@@ -43,5 +43,13 @@ export default {
             await dispatch('api/responseMiddleware', payload, { root: true });
             state.currentPlanet = new Planet(payload.data);
         }
+    },
+
+    getters: {
+        getStoredResource: state => resource => {
+            return (typeof state.currentPlanet.storage.resources[resource] !== 'undefined')
+                ? state.currentPlanet.storage.resources[resource]
+                : 0;
+        }
     }
 };

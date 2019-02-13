@@ -8,6 +8,8 @@ class ShipModel {
         this.frame = data.frame;
         this.type = data.type;
         this.slots = data.slots;
+        this.stats = data.stats;
+        this.price = data.price;
     }
 
     static fetch(id) {
