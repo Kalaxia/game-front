@@ -9,7 +9,8 @@
             <top-menu v-if="currentPlayer" :faction="currentPlayer.faction"></top-menu>
             <logout-button id="logout"></logout-button>
             <router-view id="wrapper"></router-view>
-            <bottom-menu :player="currentPlayer" :planet="currentPlanet"></bottom-menu>
+            <player-menu v-if="currentPlayer" :player="currentPlayer"></player-menu>
+            <planet-menu v-if="currentPlanet" :planet="currentPlanet"></planet-menu>
         </div>
         
         <script type="text/javascript" src="/dist/js/app.js"></script>

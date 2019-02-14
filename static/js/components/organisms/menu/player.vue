@@ -1,5 +1,5 @@
 <template>
-    <div class="player-menu" v-if="player">
+    <div id="player-menu" v-if="player">
         <header>
             <colored-picto :src="'G_P_Mon_64px.png'" :color="player.faction.color" width="48" height="48" />
             <p>{{ player.wallet }}</p>
@@ -31,8 +31,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    .player-menu {
-        flex-basis: 30%;
+    #player-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
 
         & > header {
             width: 60px;

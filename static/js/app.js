@@ -5,7 +5,8 @@ import { i18n } from './lib/i18n';
 
 import TopMenu from './components/organisms/menu/top';
 import LogoutButton from './components/atoms/player/logout-button';
-import BottomMenu from './components/organisms/menu/bottom';
+import PlayerMenu from './components/organisms/menu/player';
+import PlanetMenu from './components/organisms/menu/planet';
 
 const vm = new Vue({
     i18n,
@@ -15,21 +16,22 @@ const vm = new Vue({
     components: {
         TopMenu,
         LogoutButton,
-        BottomMenu
+        PlayerMenu,
+        PlanetMenu
     },
 
-    created: async function() {
+    async beforeCreate() {
         await this.$store.commit('api/auth');
         await this.$store.dispatch('user/initPlayer');
-        this.$store.dispatch('user/initPlanet');
+        await this.$store.dispatch('user/initPlanet');
     },
 
     computed: {
-        currentPlayer: function() {
+        currentPlayer() {
             return this.$store.state.user.player;
         },
 
-        currentPlanet: function() {
+        currentPlanet() {
             return this.$store.state.user.currentPlanet;
         }
     }
