@@ -15,7 +15,7 @@ export default {
     },
 
     computed: {
-        planets: function() {
+        planets() {
             return this.$store.state.user.planets;
         }
     }

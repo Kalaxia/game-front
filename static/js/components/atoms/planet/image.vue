@@ -9,7 +9,7 @@ export default {
     props: ['type', 'width', 'height'],
 
     computed: {
-        image: function () {
+        image() {
             return {
                 arctic: 'PL_Ice_200px.png',
                 desert: 'PL_Gaz_200px.png',

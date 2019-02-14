@@ -4,7 +4,7 @@
             <h3>{{ $t(`profile.planets.title`) }}</h3>
         </header>
         <section>
-            <planet-item v-for="planet in planets" :key="planet.id" v-bind:planet="planet" />
+            <planet-item v-for="planet in planets" :key="planet.id" :planet="planet" />
         </section>
     </div>
 </template>

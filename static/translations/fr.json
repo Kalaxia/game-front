@@ -98,7 +98,8 @@
         },
         "planet": {
             "title": "Choisissez votre <strong>planète</strong>"
-        }
+        },
+        "start": "Commencer"
     },
     "resources": {
         "resources.a": "Liquide",
