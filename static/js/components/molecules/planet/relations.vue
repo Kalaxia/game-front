@@ -1,7 +1,6 @@
 <template>
-    <div id="planet-relations">
-        <h3>{{ $t('planet.relations') }}</h3>
-        <canvas class="chart-area" :width="width" :height="height"></canvas>
+    <div :id="`planet-${planet.id}-relations`" class="planet-relations">
+        <canvas :width="width" :height="height"></canvas>
     </div>
 </template>
 
@@ -14,14 +13,14 @@ export default {
     
     props: ['planet', 'width', 'height'],
 
-    data: function() {
+    data() {
         return {
             indicators: this.$i18n.t('diplomacy.relations.indicators')
         };
     },
 
-    mounted: function() {
-        const context = document.querySelector(".chart-area").getContext('2d');
+    mounted() {
+        const context = document.querySelector(`#planet-${this.planet.id}-relations > canvas`).getContext('2d');
 
         context.translate(0.5, 0.5);
         context.imageSmoothingEnabled = false;
@@ -49,7 +48,7 @@ export default {
     },
 
     methods: {
-        getRelationDatasets: function(relations) {
+        getRelationDatasets(relations) {
             const factionDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
             const playerDataset = { data: [], labels: [], scoreType: [], backgroundColor: [] };
             const labels = [];
@@ -95,7 +94,7 @@ export default {
             };
         },
 
-        getRelationshipIndicator: function(score, isPositive) {
+        getRelationshipIndicator(score, isPositive) {
             if (isPositive === false) {
                 score *= -1;
             }
@@ -116,7 +115,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less" scoped>
-
-</style>

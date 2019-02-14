@@ -34,7 +34,7 @@ export default {
         PlanetResources
     },
 
-    mounted: async function() {
+    async mounted() {
         const response = await fetch(`/api/planets/${this.$route.params.id}`, {
             method: 'GET',
             headers: this.$store.state.api.headers
@@ -56,7 +56,7 @@ export default {
         left: calc(50% - 150px);
     }
 
-    #planet-relations {
+    .planet-relations {
         display: flex;
         justify-content: flex-end;
         align-items: center;

@@ -1,14 +1,11 @@
 <template>
-    <div id="resource-production">
-        <header>
-            <h3>{{ $t('planet.production') }}</h3>
-        </header>
-        <section>
-            <canvas id="resource-density"></canvas>
+    <div :id="`resource-${id}-production`" class="resource-density-graph">
+        <section :style="{ width: `${size}px`, height: `${size}px` }">
+            <canvas></canvas>
             <div class="density-picto"
                 v-for="(resource, index) in resources"
                 :key="resource.name"
-                :style="{ bottom: getPictoBottom(index), right: getPictoRight(index) }">
+                :style="{ width: `${pictoSize}px`, bottom: getPictoBottom(index), right: getPictoRight(index) }">
                 <resource-item :resource="resource" />
             </div>
         </section>
@@ -23,17 +20,17 @@ import resourcesData from '../../../resources/resources';
 export default {
     name: 'resource-density-graph',
 
-    props: ['resources'],
+    props: ['id', 'resources', 'size'],
 
     components: {
         ResourceItem
     },
 
-    mounted: function() {
-        const ctx = document.getElementById('resource-density');
+    mounted() {
+        const ctx = document.querySelector(`#resource-${this.id}-production > section > canvas`);
 
-        ctx.style.height = '500px';
-        ctx.style.width = '500px';
+        ctx.style.height = `${this.size}px`;
+        ctx.style.width = `${this.size}px`;
 
         const myChart = new Chart(ctx, {
             type: 'polarArea',
@@ -57,41 +54,47 @@ export default {
                         showLabelBackdrop: false,
                     },
                     tooltips: {
-                    enabled: false,
+                        enabled: false,
                     },
                     hover: {
-                    display: false,
-                    mode: null,
+                        display: false,
+                        mode: null,
                     },
                 },
             }
         });
     },
 
+    computed: {
+        pictoSize() {
+            return Math.floor(this.size * 0.07);
+        }
+    },
+
     methods: {
-        getPictoAngle: function(index) {
-            return (( Math.PI ) * ( -index/3 - 1/6 ));
+        getPictoAngle(index) {
+            return (( Math.PI ) * ( -index / 3 - 1 / 6 ));
         },
 
-        getPictoBottom: function(index) {
+        getPictoBottom(index) {
             /**
              * 250: canvas height / 2
              * 10: border size
              * 32: picto size / 2
              */
-            return 250 - 10 - 32 + (Math.cos(this.getPictoAngle(index)) * 250) + 'px';
+            return (this.size / 2) - 10 - (this.pictoSize / 2) + (Math.cos(this.getPictoAngle(index)) * (this.size / 2)) + 'px';
         },
 
-        getPictoRight: function(index) {
+        getPictoRight(index) {
             /**
              * 250: canvas height / 2
              * 10: border size
              * 32: picto size / 2
              */
-            return 250 - 10 - 32 + (Math.sin(this.getPictoAngle(index)) * 250) + 'px';
+            return (this.size / 2) - 10 - (this.pictoSize / 2) + (Math.sin(this.getPictoAngle(index)) * (this.size / 2)) + 'px';
         },
 
-        getDensityDatasets: function() {
+        getDensityDatasets() {
             const dataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
             let added = 0;
             const numberOfResources = 6;
@@ -122,18 +125,20 @@ export default {
         margin-top: 0px;
     }
 
-    #resource-production > section {
+    .resource-density-graph > section {
         position: relative;
         background-color: #090A0A;
-        border-radius: 250px;
-        width: 500px;
-        height: 500px;
+        border-radius: 50%;
     }
 
     .density-picto {
         position: absolute;
         background-color: #1E2024;
-        border: 10px solid #090A0A;
+        border: 10% solid #090A0A;
         border-radius: 100%;
+
+        & > img {
+            width: 100%;
+        }
     }
 </style>

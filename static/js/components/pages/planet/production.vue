@@ -1,6 +1,6 @@
 <template>
     <div>
-        <resource-density-graph v-if="planet" :resources="planet.resources" />
+        <resource-density-graph v-if="planet" :id="planet.id" :resources="planet.resources" :size="500" />
         <resource-storage v-if="planet" :resources="planet.resources" :storage="planet.storage" />
     </div>
 </template>
@@ -14,7 +14,7 @@ import ResourceStorage from '../../organisms/resource/storage';
 export default {
     name: 'page-production',
 
-    data: function() {
+    data() {
         return {
             planet: null
         };
@@ -25,7 +25,7 @@ export default {
         ResourceStorage
     },
 
-    mounted: async function() {
+    async mounted() {
         const response = await fetch(`/api/planets/${this.$route.params.id}`, {
             method: 'GET',
             headers: this.$store.state.api.headers
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    #resource-production {
+    .resource-density-graph {
         grid-column: ~"2/6";
         grid-row: ~"3/8";
     }
