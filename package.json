@@ -4,7 +4,7 @@
   "description": "Kalaxia game front",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "webpack --mode=development",
     "prod": "webpack --mode=production"
   },
@@ -23,6 +23,7 @@
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.0.1",
     "file-loader": "^2.0.0",
+    "jest": "^24.1.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "vue-i18n": "^8.4.0",
