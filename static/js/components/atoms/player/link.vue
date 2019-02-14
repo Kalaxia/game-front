@@ -1,7 +1,7 @@
 <template>
-    <a :href="`/views/profile.html?id=${player.id}`" :style="{ color: player.faction.color }">
+    <router-link :to="`/profile/${player.id}`" :style="{ color: player.faction.color }">
         {{ player.pseudo }}
-    </a>    
+    </router-link>    
 </template>
 
 <script>
@@ -11,7 +11,3 @@ export default {
     props: ['player']
 }
 </script>
-
-<style lang="less" scoped>
-
-</style>
