@@ -40,6 +40,9 @@ export default {
 
         this.$store.commit('map/setSize', this.map.size);
 
+        if (this.currentPlanet !== null) {
+            this.$store.commit('map/setTargetedSystemId', this.currentPlanet.system.id);
+        }
         if (this.$route.query.id) {
             this.$store.state.map.fleet = await getFleet(this.$route.query.id);
             await getFleetRange(this.$store.state.map.fleet);
