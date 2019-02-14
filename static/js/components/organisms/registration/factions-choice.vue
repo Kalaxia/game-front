@@ -12,7 +12,7 @@
         </section>
         <footer>
             <transition name="next">
-                <button v-if="isFactionSelected" :style="{backgroundColor: selectedFaction.color, color: selectedFaction.color}">
+                <button v-if="isFactionSelected" :style="{backgroundColor: selectedFaction.color, color: selectedFaction.color}" @click="$emit('selectFaction', selectedFaction)">
                     <span>{{ $t('registration.next') }}</span>
                 </button>
             </transition>
@@ -27,7 +27,7 @@ import FactionItem from '../../molecules/registration/faction-item';
 export default {
     name: 'factions-choice',
 
-    data: function() {
+    data() {
         return {
             selectedFaction: null,
             factions: new Array()
@@ -38,18 +38,18 @@ export default {
         FactionItem
     },
 
-    mounted: async function() {
+    async mounted() {
         this.factions = await getFactions();
     },
 
     computed: {
-        isFactionSelected: function() {
+        isFactionSelected() {
             return this.selectedFaction !== null;
         }
     },
 
     methods: {
-        onFactionSelection: function(faction) {
+        onFactionSelection(faction) {
             this.selectedFaction = faction;
         }
     }

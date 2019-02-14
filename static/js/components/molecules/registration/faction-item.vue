@@ -15,7 +15,7 @@ export default {
     props: ['faction', 'selectedFaction'],
 
     computed: {
-        style: function() {
+        style() {
             return {
                 padding: (this.selectedFaction === this.faction) ? '5px' : '2px',
                 backgroundColor: this.faction.color,

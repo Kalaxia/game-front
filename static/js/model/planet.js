@@ -22,19 +22,6 @@ class Planet {
         this.shipGroups = new Array();
     }
 
-    static fetchFactionChoicesPlanets(factionId) {
-        return fetch(`/api/factions/${factionId}/planet-choices`, {
-              method: 'GET'
-          })
-          .then(data => {
-              const planets = new Array();
-              for (const planetData of data) {
-                  planets.push(new Planet(planetData));
-              }
-              return planets;
-          });
-    }
-
     fetchShips() {
         return fetch(`/api/planets/${this.id}/ships`, {
             method: 'GET'

@@ -2,6 +2,7 @@ export default {
     namespaced: true,
     
     state: {
+        targetedSystemId: null,
         selectedSystemId: null,
         fleet: null,
         scale: 80,
@@ -9,14 +10,14 @@ export default {
     },
 
     getters: {
-        lastStep: function(state) {
+        lastStep(state) {
             if (state.fleet === null || state.fleet.journey === null || state.fleet.journey.steps.length === 0) {
                 return null;
             }
             return state.fleet.journey.steps[state.fleet.journey.steps.length - 1];
         },
 
-        previousX: function(state, getters) {
+        previousX(state, getters) {
             if (state.fleet === null) {
                 return null;
             }
@@ -29,7 +30,7 @@ export default {
                     : state.fleet.map_pos_x;
         },
         
-        previousY: function(state, getters) {
+        previousY(state, getters) {
             if (state.fleet === null) {
                 return null;
             }
@@ -42,7 +43,7 @@ export default {
                     : state.fleet.map_pos_y;
         },
         
-        previousPlanet: function(state, getters) {
+        previousPlanet(state, getters) {
             if (state.fleet === null) {
                 return null;
             }
@@ -55,7 +56,7 @@ export default {
                     : null;
         },
 
-        range: function(state, getters) {
+        range(state, getters) {
             return (x, y, planetId) => {
                 const rangeData = state.fleet.range;
                 if (getters.previousPlanet !== null) {
@@ -74,20 +75,24 @@ export default {
     },
 
     mutations: {
-        setScale: function(state, scale) {
+        setScale(state, scale) {
             state.scale = scale;
         },
 
-        setSize: function(state, size) {
+        setSize(state, size) {
             state.size = size;
         },
 
-        addStep: function(state, step) {
+        setTargetedSystemId(state, id) {
+            state.targetedSystemId = id;
+        },
+
+        addStep(state, step) {
             state.fleet.journey.steps.push(step);
             state.selectedSystemId = null;
         },
     
-        removeLastStep: function(state) {
+        removeLastStep(state) {
             if (state.fleet === null || state.fleet.journey === null || state.fleet.journey.steps.length === 0) {
                 return;
             }

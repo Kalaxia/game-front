@@ -7,12 +7,28 @@ export default {
 
     state: {
         player: null,
-        planets: [],
+        planets: new Array(),
         currentPlanet: null,
     },
 
+    mutations: {
+        addPlanet(state, planet) {
+            if (state.planets === null) {
+                state.planets = new Array();
+            }
+            state.planets.push(planet);
+            if (state.planets.length === 1) {
+                state.currentPlanet = planet;
+            }
+        },
+
+        setFaction(state, faction) {
+            state.player.faction = faction;
+        }
+    },
+
     actions: {
-        initPlayer: async function({ state, dispatch, rootState }) {
+        async initPlayer({ state, dispatch, rootState }) {
             const response = await fetch('/api/me', {
                 method: 'GET',
                 headers: rootState.api.headers
@@ -26,7 +42,7 @@ export default {
             }
         },
 
-        initPlanet: async function({ state, dispatch, rootState }) {
+        async initPlanet({ state, dispatch, rootState }) {
             let response = await fetch(`/api/players/${state.player.id}/planets`, {
                 method: 'GET',
                 headers: rootState.api.headers

@@ -31,8 +31,21 @@ body {
     }
 }
 
-.top-menu, .bottom-menu, #logout {
+.top-menu, #player-menu, #planet-menu, #logout {
     z-index: 3;
+}
+
+#player-menu {
+    grid-column: ~"1/4";
+    grid-row: 10;
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+#planet-menu {
+    grid-column: ~"5/11";
+    grid-row: 10;
+    margin-right: 10px;
 }
 
 #wrapper {

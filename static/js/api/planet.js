@@ -25,3 +25,18 @@ export const fetchHangarShipGroups = async (planet) => {
         planet.shipGroups.push(new ShipGroup(groupData));
     }
 }
+
+export const getFactionPlanetChoices = async (faction) => {
+    const response = await fetch(`/api/factions/${faction.id}/planet-choices`, {
+        method: 'GET',
+        headers: store.state.api.headers
+    });
+    const payload = { response, data: [] };
+    await store.dispatch('api/responseMiddleware', payload);
+
+    const planets = new Array();
+    for (const planetData of payload.data) {
+        planets.push(new Planet(planetData));
+    }
+    return planets;
+}
