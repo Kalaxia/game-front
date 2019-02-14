@@ -5,7 +5,7 @@
             <div class="planet-data">
                 <PlanetPicto :type="planet.type" :width="24" :height="24" />
                 <router-link :to="`/planet/${planet.id}`">{{ planet.name }}</router-link>
-                <PlanetCoords :planet="planet" :system="system" />
+                <PlanetCoords :planet="planet" />
             </div>
 
             <div v-if="planet.player" class="player-data">
@@ -40,7 +40,7 @@ import PlanetPicto from '../../atoms/planet/picto';
 export default {
     name: 'map-planet-item',
 
-    props: ['planet', 'system'],
+    props: ['planet'],
 
     components: {
         Avatar,
@@ -50,7 +50,7 @@ export default {
     },
 
     computed: {
-        borderColor: function() {
+        borderColor() {
             if (this.planet.player !== null) {
                 return this.planet.player.faction.color;
             }

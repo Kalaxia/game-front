@@ -1,7 +1,7 @@
 <template>
     <div v-if="planet">
         <h3>{{ planet.name }}</h3>
-        <planet-coords :planet="planet" :system="planet.system" />
+        <planet-coords :planet="planet" />
         <player-link :player="planet.player" />
     </div>
 </template>
