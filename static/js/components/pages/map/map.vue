@@ -1,7 +1,7 @@
 <template>
     <div>
         <minimap :map="map" />
-        <starmap :map="map" />
+        <starmap :map="map" :playerPlanets="playerPlanets" />
         <journey-planer v-if="journey" />
     </div>
 </template>
@@ -21,7 +21,7 @@ import { getFleet, getFleetRange } from '../../../api/fleet';
 export default {
     name: 'page-map',
 
-    data: function() {
+    data() {
         return {
             map: null,
         };
@@ -35,7 +35,7 @@ export default {
         JourneyRange
     },
 
-    mounted: async function() {
+    async mounted() {
         this.map = await getMap();
 
         this.$store.commit('map/setSize', this.map.size);
@@ -51,7 +51,7 @@ export default {
         }
     },
 
-    beforeRouteUpdate: async function(to, from, next) {
+    async beforeRouteUpdate(to, from, next) {
         if (to.query.id) {
             this.$store.state.map.fleet = await getFleet(to.query.id);
             await getFleetRange(this.$store.state.map.fleet);
@@ -66,18 +66,29 @@ export default {
         next();
     },
 
-    beforeRouteLeave: async function(to, from, next) {
+    async beforeRouteLeave(to, from, next) {
         this.$store.state.map.fleet = null;
         
         next();
     },
 
     computed: {
-        journey: function() {
-            if (this.$store.state.map.fleet === null) {
-                return null;
-            }
-            return this.$store.state.map.fleet.journey;
+        journey() {
+            return (this.$store.state.map.fleet !== null) ? this.$store.state.map.fleet.journey : null;
+        },
+
+        playerPlanets() {
+            return this.$store.state.user.planets;
+        },
+
+        currentPlanet() {
+            return this.$store.state.user.currentPlanet;
+        }
+    },
+
+    watch: {
+        currentPlanet(planet) {
+            this.$store.commit('map/setTargetedSystemId', planet.system.id);
         }
     }
 }

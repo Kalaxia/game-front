@@ -1,5 +1,5 @@
 <template>
-    <div :class="['system', {mine: isMine}]" :style="style" @click="selectSystem" @contextmenu="selectSystem">
+    <div :id="`system-${system.id}`" :class="['system', {mine: isPlayerSystem}]" :style="style" @click="selectSystem" @contextmenu="selectSystem">
 
     </div>
 </template>
@@ -8,23 +8,19 @@
 export default {
     name: 'map-system',
 
-    props: ['system'],
+    props: ['system', 'isPlayerSystem'],
 
     computed: {
-        style: function() {
+        style() {
             return {
                 top: this.system.coord_y * this.$store.state.map.scale - 10 + 'px',
                 left: this.system.coord_x * this.$store.state.map.scale - 10 + 'px'
             };
         },
-
-        isMine: function() {
-            return this.system.id === this.$store.state.user.currentPlanet.system.id;
-        }
     },
 
     methods: {
-        selectSystem: function() {
+        selectSystem() {
             if (this.$store.state.map.fleet === null) {
                 return;
             }

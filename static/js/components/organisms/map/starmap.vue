@@ -7,7 +7,7 @@
             <journey-range v-if="journey" key="journey-range" />
             <system-menu v-if="selectedSystemId" key="system-menu" />
 
-            <system @dblclick.native="redirectToSystem(system.id)" v-for="system in map.systems" :key="system.id" :system="system"/>
+            <system @dblclick.native="redirectToSystem(system.id)" v-for="system in map.systems" :key="system.id" :system="system" :isPlayerSystem="playerSystems.indexOf(system.id) > -1"/>
         </transition-group>
         <map-loader v-else />
     </div>
@@ -26,14 +26,19 @@ const dragData = {
     offsetY: null,
     coordX: null,
     coordY: null
-}
-
-let centered = false;
+};
 
 export default {
     name: 'starmap',
 
-    props: ['map'],
+    props: ['map', 'playerPlanets'],
+
+    data() {
+        return {
+            playerSystems: [],
+            centeredSystemId: 0,
+        };
+    },
 
     components: {
         System,
@@ -43,42 +48,63 @@ export default {
         JourneyStep
     },
 
-    mounted: function() {
+    created() {
+        this.processPlayerPlanets();
+    },
+
+    mounted() {
         document.onmousedown = this.startMapMove;
         document.onmouseup = this.stopMapMove;
     },
 
-    updated: function() {
-        if (this.mapReady && centered === false) {
-            this.goToCurrentPlanet();
+    updated() {
+        if (this.mapReady && this.centeredSystemId !== this.targetedSystemId) {
+            this.goToTargetedSystem();
         }
     },
 
-    beforeDestroy: function() {
-        centered = false;
+    beforeDestroy() {
+        this.centeredSystemId = 0;
         document.onmousedown = null;
         document.onmouseup = null;
     },
 
     computed: {
-        mapReady: function() {
-            return this.map !== null && this.$store.state.user.currentPlanet !== null;
+        mapReady() {
+            return this.map !== null && this.playerSystems.length > 0;
         },
 
-        journey: function() {
-            if (this.$store.state.map.fleet === null) {
-                return null;
-            }
-            return this.$store.state.map.fleet.journey;
+        journey() {
+            return (this.$store.state.map.fleet !== null) ? this.$store.state.map.fleet.journey : null;
         },
 
-        selectedSystemId: function() {
+        selectedSystemId() {
             return this.$store.state.map.selectedSystemId;
+        },
+
+        targetedSystemId() {
+            return this.$store.state.map.targetedSystemId;
+        }
+    },
+
+    watch: {
+        playerPlanets(playerPlanets) {
+            this.processPlayerPlanets();
+        },
+
+        targetedSystemId(systemId) {
+            this.goToTargetedSystem();
         }
     },
 
     methods: {
-        startMapMove: function(e) {
+        processPlayerPlanets() {
+            for (const planet of this.playerPlanets) {
+                this.playerSystems.push(planet.system.id);
+            }
+        },
+
+        startMapMove(e) {
             // only left click
             if (e.button !== 0) {
                 return false;
@@ -95,7 +121,7 @@ export default {
             document.onmousemove = this.moveMap;
         },
 
-        moveMap: function(e) {
+        moveMap(e) {
             if (!dragData.drag) {
                 return;
             }
@@ -110,25 +136,25 @@ export default {
             return false;
         },
 
-        stopMapMove: function() {
+        stopMapMove() {
             dragData.drag = false;
             document.onmousemove = null;
         },
 
-        redirectToSystem: function(systemId) {
+        redirectToSystem(systemId) {
             this.$router.push(`/map/systems/${systemId}`);
         },
 
-        goToCurrentPlanet: function() {
+        goToTargetedSystem() {
             const starmap = document.querySelector('#starmap');
-            const system = document.querySelector('.system.mine');
+            const system = document.querySelector(`#system-${this.targetedSystemId}`);
             const systemX = parseInt(system.style.left);
             const systemY = parseInt(system.style.top);
 
             starmap.style.top = parseInt(window.innerHeight) / 2 - systemY + 'px';
             starmap.style.left = parseInt(window.innerWidth) / 2 - systemX + 'px';
 
-            centered = true;
+            this.centeredSystemId = this.targetedSystemId;
         }
     }
 }
