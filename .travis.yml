@@ -1,0 +1,22 @@
+language: node
+
+services:
+  - docker
+
+before_install:
+  - docker build -t kalaxia/front . 
+  - docker run kalaxia/front -v `pwd`:"/srv/app" /bin/sh -c "npm test"
+
+script:
+  - npm test
+
+deploy:
+  - provider: script
+    script: bash deploy/prod.sh
+    on:
+      tags: true
+  - provider: script
+    script: bash deploy/preprod.sh
+    on:
+      branch: develop
+  

@@ -50,7 +50,10 @@
       "json",
       "vue"
     ],
-    "moduleDirectories": ["node_modules", "src"],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
