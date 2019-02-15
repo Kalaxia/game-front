@@ -20,12 +20,17 @@
   },
   "homepage": "https://github.com/Kalaxia/game-front#readme",
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.1.0",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^2.0.1",
     "file-loader": "^2.0.0",
     "jest": "^24.1.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "vue-i18n": "^8.4.0",
+    "vue-jest": "^3.0.3",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.21",
@@ -38,5 +43,17 @@
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",
     "vuex": "^3.0.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleDirectories": ["node_modules", "src"],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
   }
 }
