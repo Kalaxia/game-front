@@ -1,10 +1,9 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './static/js/app.js',
+    app: './src/app.js',
   },
   output: {
     filename: '[name].js',
@@ -12,6 +11,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.vue'],
+    modules: [
+      path.resolve(__dirname, 'assets'),
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'static'),
+      path.resolve(__dirname, 'node_modules')
+    ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
@@ -40,7 +45,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CompressionPlugin()
   ],
   mode: 'production'
 };

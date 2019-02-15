@@ -1,4 +1,4 @@
-config/config.js
+config.js
 .jshintrc
 node_modules
 dist
