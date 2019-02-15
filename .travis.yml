@@ -6,6 +6,7 @@ services:
   - docker
 
 before_install:
+  - cp config.dist.js config.js
   - docker build -t kalaxia/front . 
 
 script:
