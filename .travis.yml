@@ -5,7 +5,7 @@ services:
 
 before_install:
   - docker build -t kalaxia/front . 
-  - docker run kalaxia/front -v `pwd`:"/srv/app" /bin/sh -c "npm test"
+  - docker run kalaxia/front -v ${pwd}:/srv/app /bin/sh -c "npm test"
 
 script:
   - npm test
