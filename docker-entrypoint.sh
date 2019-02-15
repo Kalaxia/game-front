@@ -7,3 +7,5 @@ then
 else
     npm run dev
 fi
+
+exec "$@"
