@@ -9,8 +9,7 @@ before_install:
   - docker build -t kalaxia/front . 
 
 script:
-  - docker run -it kalaxia/front -v ${TRAVIS_BUILD_DIR}:/srv/app -e "NODE_ENV=dev" -w /srv/app ls -la && npm test
-  - npm test
+  - docker run -it kalaxia/front -e "NODE_ENV=dev" npm test
 
 deploy:
   - provider: script
