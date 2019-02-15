@@ -1,13 +1,15 @@
-language: node
+language: node_js
+node_js:
+  - node
 
 services:
   - docker
 
 before_install:
   - docker build -t kalaxia/front . 
-  - docker run -it kalaxia/front -v ${TRAVIS_BUILD_DIR}:/srv/app npm test
 
 script:
+  - docker run -it kalaxia/front -v ${TRAVIS_BUILD_DIR}:/srv/app -e "NODE_ENV=dev" -w /srv/app ls -la && npm test
   - npm test
 
 deploy:

@@ -3,7 +3,7 @@ npm install
 
 if [ "$NODE_ENV" == "production" ]
 then
-    npm run build && npm run start
+    npm run prod
 else
     npm run dev
 fi
