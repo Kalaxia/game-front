@@ -1,7 +1,3 @@
-language: node_js
-node_js:
-  - node
-
 services:
   - docker
 
@@ -10,7 +6,7 @@ before_install:
   - docker build -t kalaxia/front . 
 
 script:
-  - docker run -it -e "NODE_ENV=test" kalaxia/front npm test
+  - docker run -it -e "NODE_ENV=test" kalaxia/front npm run test-ci
 
 deploy:
   - provider: script

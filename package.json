@@ -4,6 +4,7 @@
   "description": "Kalaxia game front",
   "main": "index.js",
   "scripts": {
+    "test-ci": "jest --runInBand",
     "test": "jest",
     "dev": "webpack --mode=development",
     "prod": "webpack --mode=production"
