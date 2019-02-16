@@ -24,8 +24,10 @@ const vm = new Vue({
 
     async beforeCreate() {
         await this.$store.dispatch('api/auth');
-        await this.$store.dispatch('user/initPlayer');
-        await this.$store.dispatch('user/initPlanet');
+        if (this.$store.state.api.isAuthenticated) {
+            await this.$store.dispatch('user/initPlayer');
+            await this.$store.dispatch('user/initPlanet');
+        }
     },
 
     computed: {
