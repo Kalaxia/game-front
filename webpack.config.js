@@ -1,12 +1,17 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
     app: './src/app.js',
   },
   output: {
-    filename: '[name].js',
+    filename: '[name]-[hash].js',
+    chunkFilename: '[id]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist/js')
   },
   resolve: {
@@ -43,8 +48,16 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new VueLoaderPlugin(),
+    new WebpackAssetsManifest(),
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    })
   ],
   mode: 'production'
 };
