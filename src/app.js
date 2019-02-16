@@ -23,7 +23,7 @@ const vm = new Vue({
     },
 
     async beforeCreate() {
-        await this.$store.commit('api/auth');
+        await this.$store.dispatch('api/auth');
         await this.$store.dispatch('user/initPlayer');
         await this.$store.dispatch('user/initPlanet');
     },
