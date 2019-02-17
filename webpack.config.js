@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -52,6 +53,9 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.PORTAL_URL': process.env.PORTAL_URL
+    }),
     new CleanWebpackPlugin(['dist']),
     new VueLoaderPlugin(),
     new WebpackAssetsManifest(),

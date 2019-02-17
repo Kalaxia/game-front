@@ -2,11 +2,10 @@ services:
   - docker
 
 before_install:
-  - cp config.dist.json config.json
   - docker build -t kalaxia/front . 
 
 script:
-  - docker run -it -e "NODE_ENV=test" kalaxia/front npm run test-ci
+  - docker run -it -e "NODE_ENV=test" -e "PORTAL_URL=https://www.kalaxia.com" kalaxia/front npm run test-ci
 
 deploy:
   - provider: script

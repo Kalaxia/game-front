@@ -1,5 +1,3 @@
-import config from '../../../config';
-
 export default {
     namespaced: true,
     
@@ -14,7 +12,7 @@ export default {
         logout() {
             localStorage.removeItem('security.jwt');
             localStorage.removeItem('current_planet');
-            window.location = `${config.portal_url}/dashboard`;
+            window.location = `${process.env.PORTAL_URL}/dashboard`;
         },
 
         authenticate(state, isAuthenticated) {
@@ -26,7 +24,7 @@ export default {
         async auth({ state, commit }) {
             const urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('jwt') && localStorage.getItem('security.jwt') === null) {
-                window.location = `${config.portal_url}/dashboard`;
+                window.location = `${process.env.PORTAL_URL}/dashboard`;
                 return;
             } else if (urlParams.has('jwt')) {
                 localStorage.setItem('security.jwt', urlParams.get('jwt'));
