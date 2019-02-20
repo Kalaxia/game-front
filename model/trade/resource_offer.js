@@ -32,7 +32,7 @@ class ResourceOffer extends Offer {
     // };
 
     getGoodPicto() {
-        return `/static/images/resources/${resourcesData[this.resource].picto}`;
+        return `/images/resources/${resourcesData[this.resource].picto}`;
     };
 
     getGoodClass() {
@@ -44,8 +44,8 @@ class ResourceOffer extends Offer {
     }
 
     getPrice() {
-        return `${Number(this.getTotalPrice()).toFixed(2)} <img src="/static/images/picto/G_P_Arr_64px.png" />
-            ${this.price} <div><sup><img src="/static/images/picto/G_P_Mon_64px.png"></sup>
+        return `${Number(this.getTotalPrice()).toFixed(2)} <img src="/images/picto/G_P_Arr_64px.png" />
+            ${this.price} <div><sup><img src="/images/picto/G_P_Mon_64px.png"></sup>
             <span>&frasl;</span>
             <sub>trade.unit_short</sub></div>`
         ;

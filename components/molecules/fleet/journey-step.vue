@@ -82,6 +82,6 @@ export default {
 
     .line {
         position: absolute;
-        background-image: url('/static/images/map/line_step.png');
+        background-image: url('/images/map/line_step.png');
     }
 </style>

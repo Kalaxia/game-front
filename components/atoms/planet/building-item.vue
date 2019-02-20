@@ -2,7 +2,7 @@
     <router-link v-if="building"
        :to="link"
        :class="['building', categoryClass, {constructing: isConstructing}]"
-       :style="{ backgroundImage: `url('/static/images/buildings/${buildingPicture}')`}" />
+       :style="{ backgroundImage: `url('/images/buildings/${buildingPicture}')`}" />
     <a v-else class="building area" href="/views/base/buildings.html"></a>
 </template>
 
@@ -49,7 +49,7 @@ export default {
         overflow: hidden;
         
         &.area {
-            background-image: url('/static/images/buildings/area.png');
+            background-image: url('/images/buildings/area.png');
         }
 
         &.category-resource {
@@ -71,7 +71,7 @@ export default {
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
-            background-image: url('/static/images/buildings/constructing.svg');
+            background-image: url('/images/buildings/constructing.svg');
             background-repeat: no-repeat;
             background-position:center;
             background-size: 56px 56px;

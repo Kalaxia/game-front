@@ -1,6 +1,6 @@
 <template>
     <div class="faction-banner" :style="{ backgroundColor: faction.color, width: width + 'px', height: height + 'px' }">
-        <img :src="`/static/images/factions/${faction.banner}`" :alt="faction.banner"/>
+        <img :src="`/images/factions/${faction.banner}`" :alt="faction.banner"/>
     </div>
 </template>
 

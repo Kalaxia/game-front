@@ -92,7 +92,7 @@ let availableBuildings = [];
 export const initBaseBuildings = () => {
     const planet = App.getCurrentPlanet();
     document.querySelector('.population-points').innerHTML =
-        `<strong>${planet.settings.building_points}</strong><img src="/static/images/buildings/build.svg"/>`
+        `<strong>${planet.settings.building_points}</strong><img src="/images/buildings/build.svg"/>`
     ;
     document.querySelector('#planet-buildings > header > h3').innerHTML =
         Dictionnary.translations.buildings.title.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`)
@@ -149,7 +149,7 @@ const newBuilding = data => {
     }
 
     building.innerHTML =
-        `<header>${constructionOverlay}<img src="/static/images/buildings/${buildingsData[data.name].picture}"/></header>
+        `<header>${constructionOverlay}<img src="/images/buildings/${buildingsData[data.name].picture}"/></header>
             <section><h5>${Dictionnary.translations.buildings[data.name]}</h5>${buildingInfo}</section>${footer}
         `
     ;

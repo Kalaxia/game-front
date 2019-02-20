@@ -16,8 +16,8 @@ html {
   width: 20px;
   height: 20px;
   z-index: 40;
-  -webkit-mask: url('/static/images/map/Star_64px.svg') no-repeat center;
-  mask: url('/static/images/map/Star_64px.svg') no-repeat center;
+  -webkit-mask: url('/images/map/Star_64px.svg') no-repeat center;
+  mask: url('/images/map/Star_64px.svg') no-repeat center;
   background-color: #A0A0A0;
   cursor: pointer;
 }
@@ -91,7 +91,7 @@ html {
     height: 8px;
     z-index: -100;
     animation: line 3s linear infinite;
-    background-image: url(../../static/images/map/line_step.png);
+    background-image: url(../../images/map/line_step.png);
     position: absolute;
     transform-origin: 50% 50%;
 }

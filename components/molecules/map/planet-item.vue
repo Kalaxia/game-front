@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <header>
-                        <img :src="`/static/images/factions/${planet.player.faction.banner}`" :alt="planet.player.faction.banner" width="48"/>
+                        <img :src="`/images/factions/${planet.player.faction.banner}`" :alt="planet.player.faction.banner" width="48"/>
                     </header>
                     <section>{{ $t('general.faction') }}</section>
                     <footer>{{ planet.player.faction.name }}</footer>

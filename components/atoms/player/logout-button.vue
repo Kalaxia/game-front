@@ -1,5 +1,5 @@
 <template>
-    <img src="/static/images/picto/G_P_Logout_64px.png" @click="logout()" alt="logout" />
+    <img src="/images/picto/G_P_Logout_64px.png" @click="logout()" alt="logout" />
 </template>
 
 <script>

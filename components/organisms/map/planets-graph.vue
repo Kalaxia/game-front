@@ -1,6 +1,6 @@
 <template>
     <div id="planets-graph">
-        <img src="/static/images/picto/Pc_SS_Star_GR_64px.png" alt="star" class="star" />
+        <img src="/images/picto/Pc_SS_Star_GR_64px.png" alt="star" class="star" />
         <div v-if="system">
             <div v-for="planet in system.planets" :key="planet.id">
                 <div class="orbit" :style="orbitStyle(planet)">

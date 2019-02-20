@@ -5,7 +5,7 @@
                 <h1>{{ $t(`ships.types.${model.type}`) }} <strong>{{ model.name }}</strong></h1>
             </header>
             <section>
-                <img :src="`/static/images/shipyard/frame/${model.picture}`" :alt="model.name" />
+                <img :src="`/images/shipyard/frame/${model.picture}`" :alt="model.name" />
             </section>
             <footer>
                 <ship-stat v-for="stat in ['armor', 'speed']" :key="`model-details-stat-${stat}`" :stat="stat" :frameStat="frameStat(stat)" :finalStat="model.stats[stat]" />
@@ -16,7 +16,7 @@
 
             <div>
                 {{ nbShips }}
-                <img :src="`/static/images/shipyard/frame/${model.picto}`" :alt="model.name" />
+                <img :src="`/images/shipyard/frame/${model.picto}`" :alt="model.name" />
             </div>
             <button class="button" @click="produce" :style="{ color: factionColor }"><span class="big">Construire</span></button>
         </div>

@@ -2,7 +2,7 @@
     <div id="planets-list">
         <header>
             <h3>
-                <img src="/static/images/picto/Pc_SS_GR_64px.png" />
+                <img src="/images/picto/Pc_SS_GR_64px.png" />
                 {{ $t('system.title') }}
             </h3>
         </header>

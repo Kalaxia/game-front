@@ -36,7 +36,7 @@ const addShipModel = (list, model) => {
     const element = document.createElement('div');
     const picture =
         (model.frame.picture !== '')
-        ? `<img src="/static/images/shipyard/frame/${model.frame.picture}" />`
+        ? `<img src="/images/shipyard/frame/${model.frame.picture}" />`
         : '#'
     ;
     element.classList.add('ship-model');
@@ -67,7 +67,7 @@ const displayShipModel = modelId => ShipModel.fetch(modelId).then(model => {
     ;
     shipConstructor.querySelector(':scope > section > section > div:first-child > header > h3').innerText = model.frame.name;
     shipConstructor.querySelector(':scope > section > section > div:first-child > section').innerHTML =
-        `<img src="/static/images/shipyard/frame/${model.frame.picture}" alt="${model.frame.name}"/>`
+        `<img src="/images/shipyard/frame/${model.frame.picture}" alt="${model.frame.name}"/>`
     ;
     displayShipStats(
         model,
@@ -162,7 +162,7 @@ export const displayFrames = () => {
 
     for (const frame of ShipFrame.getFrames()) {
         const element = document.createElement('div');
-        const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame/${frame.picture}" />` : '#';
+        const picture = (frame.picture !== '') ? `<img src="/images/shipyard/frame/${frame.picture}" />` : '#';
         element.classList.add('frame');
         element.setAttribute('data-frame-slug', frame.slug)
         element.addEventListener('click', chooseFrame);
@@ -200,7 +200,7 @@ const chooseFrame = event => {
 
 const displaySlots = frame => {
     const vizualizer = document.querySelector('#ship-vizualizer > section');
-    const picture = (frame.picture !== '') ? `<img src="/static/images/shipyard/frame/${frame.picture}" />` : '#';
+    const picture = (frame.picture !== '') ? `<img src="/images/shipyard/frame/${frame.picture}" />` : '#';
     vizualizer.innerHTML = `<div id="ship-image">${picture}</div>`;
 
     for (const slotPosition in frame.slots) {
@@ -257,7 +257,7 @@ const displayModules = event => {
         element.addEventListener('click', affectModule);
         element.addEventListener('mouseenter', () => { displayModuleData(module) });
         element.addEventListener('mouseleave', removeModuleData);
-        element.innerHTML = `<div class="${module.shape}" style="background-image: url('/static/images/shipyard/${picture}');${transform}"></div>`;
+        element.innerHTML = `<div class="${module.shape}" style="background-image: url('/images/shipyard/${picture}');${transform}"></div>`;
         list.append(element);
     }
 };
@@ -361,7 +361,7 @@ const displayPrice = (list, price) => {
     const infos = price.getInfos();
     const element = document.createElement('div');
     element.classList.add('price');
-    element.innerHTML = `<header>${infos.name}</header><section>${price.amount} <img src="/static/images/resources/${infos.picto}"/></section>`;
+    element.innerHTML = `<header>${infos.name}</header><section>${price.amount} <img src="/images/resources/${infos.picto}"/></section>`;
     list.append(element);
 };
 

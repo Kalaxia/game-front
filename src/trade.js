@@ -48,39 +48,39 @@ const showOfferDetails = (row, offer) => {
         `<div id="offer-infos">
             <header>
                 <div>
-                    <img src="/static/images/picto/${planetsData[offer.location.type].picto}"/>
+                    <img src="/images/picto/${planetsData[offer.location.type].picto}"/>
                     <em>${Dictionnary.translations.trade.planet}</em>
                     <strong>${offer.location.name}</strong>
                     <strong>[${offer.location.system.x}.${offer.location.system.y}]</strong>
                 </div>
                 <div>
-                    <img src="/static/images/factions/${offer.location.player.faction.banner}"/>
+                    <img src="/images/factions/${offer.location.player.faction.banner}"/>
                     <em>${Dictionnary.translations.trade.faction}</em>
                     <strong>${offer.location.player.faction.name}</strong>
                 </div>
                 <div>
-                    <img src="/static/images/avatars/Hombre_v3t.png"/>
+                    <img src="/images/avatars/Hombre_v3t.png"/>
                     <em>${Dictionnary.translations.trade[((offer.operation === OPERATION_BUY) ? 'buyer' : 'seller')]}</em>
                     <strong>${(offer.location.player.id === App.getCurrentPlayer().id) ? Dictionnary.translations.trade.yourself : offer.location.player.pseudo}</strong>
                 </div>
                 <div>
-                    <img src="/static/images/picto/G_P_Char_OL_64px.png"/>
+                    <img src="/images/picto/G_P_Char_OL_64px.png"/>
                     <em>${Dictionnary.translations.trade.race}</em>
                     <strong>${Dictionnary.translations.races.human}</strong>
                 </div>
             </header>
             <section>
                 <div id="planets">
-                    <div><img src="/static/images/picto/${planetsData[offer.location.type].image}"/></div>
+                    <div><img src="/images/picto/${planetsData[offer.location.type].image}"/></div>
                     <div>?</div>
                 </div>
                 <div id="travel-details">
                     <div class="travel-point"></div>
-                    <img src="/static/images/picto/G_P_S2_64px.png"/>
+                    <img src="/images/picto/G_P_S2_64px.png"/>
                     <div class="travel-point"></div>
                 </div>
                 <div id="good-picto">
-                    <img src="/static/images/picto/G_P_Lot_64px.png"/>
+                    <img src="/images/picto/G_P_Lot_64px.png"/>
                 </div>
             </section>
             <footer></footer>
@@ -91,7 +91,7 @@ const showOfferDetails = (row, offer) => {
                 <h4>${Dictionnary.translations.trade.types.resources}</h4>
                 <div id="good-details">
                     <div id="good-type-picto">
-                        <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
+                        <img src="/images/resources/${resourcesData[offer.resource].picto}"/>
                     </div>
                     <div id="operation-details">
                         <em>${Dictionnary.translations.trade.operation}</em>
@@ -105,22 +105,22 @@ const showOfferDetails = (row, offer) => {
                         <em>${Dictionnary.translations.trade.lot_contents}</em>
                         <strong>
                             ${offer.lotQuantity}
-                            <img src="/static/images/resources/${resourcesData[offer.resource].picto}"/>
+                            <img src="/images/resources/${resourcesData[offer.resource].picto}"/>
                         </strong>
                         <em>${Dictionnary.translations.trade.available_lots}</em>
                         <strong>
                             ${ offer.quantity / offer.lotQuantity }
-                            <img src="/static/images/picto/G_P_Lot_64px.png"/>
+                            <img src="/images/picto/G_P_Lot_64px.png"/>
                         </strong>
                         <em>${Dictionnary.translations.trade.lot_price}</em>
                         <strong>
                             ${ Number(offer.price * offer.lotQuantity).toFixed(2) }
-                            <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                            <img src="/images/picto/G_P_Mon_64px.png"/>
                         </strong>
                         <em>${Dictionnary.translations.trade.unit_price}</em>
                         <strong>
                             ${ Number(offer.price).toFixed(2) }
-                            <img src="/static/images/picto/G_P_Mon_64px.png"/>
+                            <img src="/images/picto/G_P_Mon_64px.png"/>
                         </strong>
                     </div>
                     <div id="offer-actions">
@@ -210,7 +210,7 @@ const initResourcesSaleForm = () => {
 };
 
 const updateResourcesSaleForm = resource => {
-    const pictoPath = `/static/images/resources/${resourcesData[resource].picto}`;
+    const pictoPath = `/images/resources/${resourcesData[resource].picto}`;
     const storedQuantity = App.getCurrentPlanet().storage.resources[resource];
 
     document.querySelector('#resource-info h4').innerText = Dictionnary.translations.resources[resource];
@@ -261,7 +261,7 @@ const initResourceSelector = container => {
         const element = document.createElement('div');
         element.setAttribute('data-resource', resource);
         element.addEventListener('click', event => { selectResource(event.currentTarget); });
-        element.innerHTML = `<img src="/static/images/resources/${data['picto']}"/>`;
+        element.innerHTML = `<img src="/images/resources/${data['picto']}"/>`;
         if (selectedResource === null) {
             element.classList.add('selected');
             selectedResource = resource;
@@ -291,7 +291,7 @@ const initResourceQuantity = (container, selectedResource) => {
                        min="1"
                        max="${storageQuantity}"
                        value="${storageQuantity}">
-                <img src="/static/images/resources/${picto}"/>
+                <img src="/images/resources/${picto}"/>
             </div>
             <div><button type="button" onclick="document.querySelector('#quantity-input').value = ${storageQuantity};">${Dictionnary.translations.trade.max}</button></div>
         </section>
@@ -318,7 +318,7 @@ const initLotQuantity = (container, selectedResource) => {
                        min="1"
                        max="${storageQuantity}"
                        value="${storageQuantity}">
-                <img src="/static/images/resources/${picto}"/>
+                <img src="/images/resources/${picto}"/>
             </div>
             <div>
                 <button type="button" onclick="document.querySelector('#lot-quantity-input').value = 1;">${Dictionnary.translations.trade.min}</button>
@@ -354,7 +354,7 @@ const initResourceInfo = (container, selectedResource) => {
     resourceInfo.id = 'resource-info';
     resourceInfo.innerHTML =
         `<header><h4>${Dictionnary.translations.resources[selectedResource]}</h4></header>
-        <section><img src="/static/images/resources/${picto}"/></section>`
+        <section><img src="/images/resources/${picto}"/></section>`
     ;
     container.appendChild(resourceInfo);
 };
@@ -390,7 +390,7 @@ const initFactionContainer = (container, id, factions) => {
 
     for (const faction of factions) {
         const factionContainer = document.createElement('div');
-        factionContainer.innerHTML = `<img src="/static/images/factions/${faction.banner}" alt="${faction.name}"/>`;
+        factionContainer.innerHTML = `<img src="/images/factions/${faction.banner}" alt="${faction.name}"/>`;
 
         factionsList.appendChild(factionContainer);
     }
@@ -407,7 +407,7 @@ const initPriceInput = container => {
             <input id="price-input" type="number" min="0.01" value="1.0" step="0.01">
 
             <div>
-                <sup><img src="/static/images/picto/G_P_Mon_64px.png"/></sup>
+                <sup><img src="/images/picto/G_P_Mon_64px.png"/></sup>
                 <span>&frasl;</span>
                 <sub>${Dictionnary.translations.trade.unit_short}</sub>
             </div>
@@ -425,7 +425,7 @@ const initDiscountInput = container => {
             <input id="discount-input" type="number" min="0.01" value="1.0" step="0.01">
 
             <div>
-                <sup><img src="/static/images/picto/G_P_Mon_64px.png"/></sup>
+                <sup><img src="/images/picto/G_P_Mon_64px.png"/></sup>
                 <span>&frasl;</span>
                 <sub>${Dictionnary.translations.trade.unit_short}</sub>
             </div>

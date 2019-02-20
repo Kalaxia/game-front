@@ -18,7 +18,7 @@ export default {
     
     computed: {
         resourcePicto: function() {
-            return `/static/images/resources/${this.planetResource.picto}`;
+            return `/images/resources/${this.planetResource.picto}`;
         },
         resourceName: function() {
             return this.$i18n.t('planet.resources')[this.planetResource.name];

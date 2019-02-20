@@ -1,6 +1,6 @@
 <template>
     <router-link class="faction-banner" :to="`/faction/${faction.id}`" :alt="faction.name">
-        <img :src="`/static/images/factions/${faction.banner}`" :alt="faction.name" />
+        <img :src="`/images/factions/${faction.banner}`" :alt="faction.name" />
     </router-link>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
     <router-link v-if="link" :to="link">
-        <img :src="`/static/images/picto/${image}`" />
+        <img :src="`/images/picto/${image}`" />
     </router-link>
     <a v-else href="#" @click="notImplemented">
-        <img :src="`/static/images/picto/${image}`" />
+        <img :src="`/images/picto/${image}`" />
     </a>
 </template>
 

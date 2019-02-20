@@ -13,7 +13,7 @@ export default {
             return {
                 width: `${this.width}px`,
                 height: `${this.height}px`,
-                maskImage: `url('/static/images/picto/${this.src}')`,
+                maskImage: `url('/images/picto/${this.src}')`,
                 maskSize: 'cover',
                 backgroundColor: this.color
             }

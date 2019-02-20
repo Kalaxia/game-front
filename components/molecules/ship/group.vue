@@ -23,7 +23,7 @@ export default {
 
     computed: {
         framePicture: function() {
-            return `/static/images/shipyard/frame/${framesData[this.group.frame].picture}`;
+            return `/images/shipyard/frame/${framesData[this.group.frame].picture}`;
         }
     }
 }

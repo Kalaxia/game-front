@@ -634,35 +634,35 @@
 }
 
 .picto.lot {
-    background-image: url('/static/images/picto/G_P_Lot_64px.png');
+    background-image: url('/images/picto/G_P_Lot_64px.png');
 }
 .picto.arrow {
-    background-image: url('/static/images/picto/G_P_Arr_64px.png');
+    background-image: url('/images/picto/G_P_Arr_64px.png');
 }
 .picto.money {
-    background-image: url('/static/images/picto/G_P_Mon_64px.png');
+    background-image: url('/images/picto/G_P_Mon_64px.png');
 }
 .picto.ship {
-    background-image: url('/static/images/picto/G_P_S_64px.png');
+    background-image: url('/images/picto/G_P_S_64px.png');
 }
 .picto.model {
-    background-image: url('/static/images/picto/G_P_Ov_64px.png');
+    background-image: url('/images/picto/G_P_Ov_64px.png');
 }
 
 .selected .picto.lot {
-    background-image: url('/static/images/picto/G_P_Lot_64px_BK.png');
+    background-image: url('/images/picto/G_P_Lot_64px_BK.png');
 }
 .selected .picto.arrow {
-    background-image: url('/static/images/picto/G_P_Arr_64px_BK.png');
+    background-image: url('/images/picto/G_P_Arr_64px_BK.png');
 }
 .selected .picto.money {
-    background-image: url('/static/images/picto/G_P_Mon_BK_64px.png');
+    background-image: url('/images/picto/G_P_Mon_BK_64px.png');
 }
 .selected .picto.ship {
-    background-image: url('/static/images/picto/G_P_S_BK_64px.png');
+    background-image: url('/images/picto/G_P_S_BK_64px.png');
 }
 .selected .picto.model {
-    background-image: url('/static/images/picto/G_P_Ov_BK_64px.png');
+    background-image: url('/images/picto/G_P_Ov_BK_64px.png');
 }
 
 #sell-form > section > section > form > header > div img {

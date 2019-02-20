@@ -667,7 +667,7 @@ html, body {
 #modules > section > .module > .circle {
     width: 80px;
     height: 80px;
-    background-image: url(/static/images/shipyard/module.png);
+    background-image: url(/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
     background-position: center;
@@ -677,7 +677,7 @@ html, body {
 #modules > section > .module > .square {
     width: 80px;
     height: 80px;
-    background-image: url(/static/images/shipyard/module.png);
+    background-image: url(/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
     background-position: center;
@@ -687,7 +687,7 @@ html, body {
 #modules > section > .module > .rectangle {
     width: 100px;
     height: 80px;
-    background-image: url(/static/images/shipyard/module.png);
+    background-image: url(/images/shipyard/module.png);
     background-repeat: no-repeat;
     background-size: 60px;
     background-position: center;
@@ -699,7 +699,7 @@ html, body {
   width: 100px;
   height: 57.74px;
   margin: 28.87px 0px;
-  background-image: url(/static/images/shipyard/module.png);
+  background-image: url(/images/shipyard/module.png);
   background-size: auto 115.4701px;
   background-position: center;
 }

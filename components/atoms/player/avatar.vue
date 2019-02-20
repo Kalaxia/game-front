@@ -1,6 +1,6 @@
 <template>
     <div class="avatar">
-        <img :src="`/static/images/avatars/portrait-mauve.png`" :style="style" :alt="player.pseudo" />
+        <img :src="`/images/avatars/portrait-mauve.png`" :style="style" :alt="player.pseudo" />
     </div>
 </template>
 

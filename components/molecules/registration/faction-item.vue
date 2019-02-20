@@ -1,7 +1,7 @@
 <template>
     <div class="faction-container" :style="style" @click="$emit('select-faction', faction)">
         <div class="faction-item">
-            <img :src="`/static/images/factions/${faction.banner}`" :alt="faction.name"/>
+            <img :src="`/images/factions/${faction.banner}`" :alt="faction.name"/>
             <p>{{ faction.description }}</p>
             <h5>{{ faction.name }}</h5>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <img :src="`/static/images/picto/${image}`" :width="width" :height="height" :alt="type" />  
+    <img :src="`/images/picto/${image}`" :width="width" :height="height" :alt="type" />  
 </template>
 
 <script>
