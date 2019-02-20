@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/box.less';
+    @import '~less/atoms/box.less';
 
     a {
         display: block;

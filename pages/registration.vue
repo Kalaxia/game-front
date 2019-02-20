@@ -13,10 +13,6 @@ import Starmap from '~/components/organisms/map/starmap';
 import FactionsChoice from '~/components/organisms/registration/factions-choice';
 import PlanetsChoice from '~/components/organisms/registration/planets-choice';
 
-import { getMap } from '~/api/map';
-import { getFactionPlanetChoices } from '~/api/planet';
-import { createPlayer } from '~/api/player';
-
 export default {
     name: 'registration',
 
@@ -51,12 +47,12 @@ export default {
             this.faction = faction;
             this.step = 2;
             this.$store.commit('user/setFaction', faction);
-            this.planetChoices = await getFactionPlanetChoices(faction);
+            this.planetChoices = await this.$repositories.faction.getFactionPlanetChoices(faction);
         },
 
         async confirmPlanet(planet) {
             this.$store.commit('user/addPlanet', planet);
-            await createPlayer();
+            await this.$repositories.player.createPlayer();
             this.$router.push('/map');
         }
     }

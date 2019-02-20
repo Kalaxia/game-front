@@ -11,7 +11,6 @@
 
 <script>
 import JourneyStep from '~/model/fleet/journeyStep';
-import { getSystem } from '~/api/map';
 import PlanetPicto from '~/components/atoms/planet/picto';
 
 export default {
@@ -21,21 +20,21 @@ export default {
         PlanetPicto
     },
 
-    data: function() {
+    data() {
         return {
             system: null
         };
     },
 
-    mounted: async function() {
-        this.system = await getSystem(this.$store.state.map.selectedSystemId);
+    async mounted() {
+        this.system = await this.$repositories.map.getSystem(this.$store.state.map.selectedSystemId);
 
         this.$store.watch((state) => state.map.selectedSystemId, async () => {
             if (this.$store.state.map.selectedSystemId === null) {
                 this.system = null;
                 return;
             }
-            this.system = await getSystem(this.$store.state.map.selectedSystemId);
+            this.system = await this.$repositories.map.getSystem(this.$store.state.map.selectedSystemId);
         });
     },
 
@@ -69,11 +68,11 @@ export default {
     },
 
     computed: {
-        selectedSystemId: function() {
+        selectedSystemId() {
             return this.$store.state.map.selectedSystemId;
         },
 
-        style: function() {
+        style() {
             const scale = this.$store.state.map.scale;
 
             return {
@@ -82,7 +81,7 @@ export default {
             };
         },
 
-        anglesData: function() {
+        anglesData() {
             const numberOfElement = this.system.planets.length;
 			
 			let angleStep;
@@ -103,7 +102,7 @@ export default {
             };
         },
 
-        menuElementStyle: function() {
+        menuElementStyle() {
             return (index, planet) => {
                 const angleData = this.anglesData;
                 const style = {
@@ -117,7 +116,7 @@ export default {
             };
         },
 
-        planetPictoStyle: function() {
+        planetPictoStyle() {
             return {
                 transform: `skew(${-this.anglesData.skew}deg) rotate(-240deg)`
             };

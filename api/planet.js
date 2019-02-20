@@ -1,42 +1,43 @@
-import store from '../store';
-import ShipGroup from '../model/ship/group';
-import Planet from '../model/planet';
+import ShipGroup from '~/model/ship/group';
+import Planet from '~/model/planet';
+import Repository from '~/api/repository';
 
-export const getPlanet = async (id) => {
-    const response = await fetch(`/api/planets/${id}`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
+class PlanetRepository extends Repository
+{
+    async getPlanet(id) {
+        const payload = await this.call('GET', `/api/planets/${id}`);
 
-    return new Planet(payload.data);
+        return new Planet(payload.data);
+    };
+
+    async getPlayerPlanets(playerId) {
+        const payload = await this.call('GET', `/api/players/${playerId}/planets`);
+
+        const planets = [];
+        for (const data of payload.data) {
+            planets.push(new Planet(data));
+        }
+        return planets;
+    }
+
+    async fetchHangarShips(planet) {
+        const payload = await this.call('GET', `/api/planets/${planet.id}/ships/groups`);
+        
+        planet.shipGroups = new Array();
+        for (const groupData of payload.data) {
+            planet.shipGroups.push(new ShipGroup(groupData));
+        }
+    }
+
+    async getFactionPlanetChoices(faction) {
+        const payload = await this.call('GET', `/api/factions/${faction.id}/planet-choices`);
+
+        const planets = new Array();
+        for (const planetData of payload.data) {
+            planets.push(new Planet(planetData));
+        }
+        return planets;
+    }
 };
 
-export const fetchHangarShipGroups = async (planet) => {
-    const response = await fetch(`/api/planets/${planet.id}/ships/groups`, { 
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: [] };
-    await store.dispatch('api/responseMiddleware', payload);
-    planet.shipGroups = new Array();
-    for (const groupData of payload.data) {
-        planet.shipGroups.push(new ShipGroup(groupData));
-    }
-}
-
-export const getFactionPlanetChoices = async (faction) => {
-    const response = await fetch(`/api/factions/${faction.id}/planet-choices`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: [] };
-    await store.dispatch('api/responseMiddleware', payload);
-
-    const planets = new Array();
-    for (const planetData of payload.data) {
-        planets.push(new Planet(planetData));
-    }
-    return planets;
-}
+export default PlanetRepository;

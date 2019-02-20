@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import { getFleetRange, sendOnJourney } from '~/api/fleet';
-
 import JourneyStep from '~/model/fleet/journeyStep';
 
 const OFFSET_SIZE_TARGET = -17; // -7 :  (widthExtene - widthIntern)/2 + boder width
@@ -25,23 +23,23 @@ export default {
     name: 'fleet-journey-planer',
 
     methods: {
-        sendFleet: async function(event) {
+        async sendFleet(event) {
             if (this.$store.state.map.fleet.journey.steps.length === 0) {
                 return false;
             }
-            await sendOnJourney(this.$store.state.map.fleet);
+            await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
 
             this.$router.push('/map');
         },
 
-        addPointMap: function(event) {
+        async addPointMap(event) {
             if (event.type === 'contextmenu') {
                 event.preventDefault();
             }
             if (!event.target.classList.contains('range')) {
                 return false;
             }
-            this.$store.state.map.selectedSystemId = null;
+            this.$store.commit('map/setSelectedSystemId', null);
 
             const map = document.querySelector("#starmap");
             const scale = this.$store.state.map.scale;
@@ -67,13 +65,13 @@ export default {
             this.$store.commit('map/addStep', new JourneyStep(stepData));
         },
 
-        removeLastStep: function() {
+        removeLastStep() {
             this.$store.commit('map/removeLastStep');
         }
     },
 
-    mounted: async function() {
-        await getFleetRange(this.$store.state.map.fleet);
+    async mounted() {
+        await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
 
         if (this.$store.state.map.fleet.isOnJourney()) {
             return false;

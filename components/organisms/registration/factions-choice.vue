@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { getFactions } from '~/api/faction';
 import FactionItem from '~/components/molecules/registration/faction-item';
 
 export default {
@@ -39,7 +38,7 @@ export default {
     },
 
     async mounted() {
-        this.factions = await getFactions();
+        this.factions = await this.$repositories.faction.getFactions();
     },
 
     computed: {
@@ -57,7 +56,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/box.less';
+    @import '~less/atoms/box.less';
 
     #factions-choice {
         & > header {

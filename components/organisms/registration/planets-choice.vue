@@ -58,8 +58,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/box.less';
-    @import '~/assets/less/atoms/button.less';
+    @import '~less/atoms/box.less';
+    @import '~less/atoms/button.less';
 
     #planets-choice {
         z-index: 100;

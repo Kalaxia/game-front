@@ -14,8 +14,6 @@ import Player from '~/model/player';
 
 import Member from '~/components/atoms/faction/member';
 
-import { getFactionMembers } from '~/api/faction';
-
 export default {
     name: 'faction-members',
 
@@ -25,14 +23,14 @@ export default {
         Member
     },
 
-    data: function () {
+    data() {
         return {
             members: []
         };
     },
 
-    mounted: async function () {
-        await getFactionMembers(this.faction);
+    async mounted() {
+        await this.$repositories.faction.getFactionMembers(this.faction);
     }
 }
 </script>

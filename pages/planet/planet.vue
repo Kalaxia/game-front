@@ -20,7 +20,7 @@ import PlanetResources from '~/components/molecules/planet/resources';
 export default {
     name: 'page-planet',
 
-    data: function() {
+    data() {
         return {
             planet: null
         };

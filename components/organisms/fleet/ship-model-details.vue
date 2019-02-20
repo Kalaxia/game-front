@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/button.less';
+    @import '~less/atoms/button.less';
 
     #ship-model-details {
         display: flex;

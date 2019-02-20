@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/variables.less';
+    @import '~less/variables.less';
 
     .ship-stat {
         display: flex;

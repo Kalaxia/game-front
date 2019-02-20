@@ -1,4 +1,5 @@
 const pkg = require('./package');
+const path = require('path');
 
 module.exports = {
   mode: 'universal',
@@ -35,18 +36,22 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/api.js',
     '~/plugins/i18n.js',
   ],
 
   router: {
-    middleware: []
+    middleware: ['auth']
   },
 
   /*
   ** Nuxt.js modules
   */
   modules: [,
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    ['nuxt-env', {
+      keys: ['PORTAL_URL']
+    }]
   ],
 
   /*
@@ -57,7 +62,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+      config.resolve.modules.push(path.resolve(__dirname, 'assets'));
     }
   }
 }

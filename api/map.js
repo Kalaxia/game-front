@@ -1,25 +1,19 @@
-import store from '../store';
-import Map from '../model/map';
-import System from '../model/system';
+import Map from '~/model/map';
+import System from '~/model/system';
+import Repository from '~/api/repository';
 
-export const getMap = async () => {
-    const response = await fetch('/api/map', {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
+class MapRepository extends Repository {
+    async getMap() {
+        const payload = await this.call('GET', '/api/map');
 
-    return new Map(payload.data);
+        return new Map(payload.data);
+    }
+
+    async getSystem(id) {
+        const payload = await this.call('GET', `/api/systems/${id}`);
+
+        return new System(payload.data);
+    }
 };
 
-export const getSystem = async (id) => {
-    const response = await fetch(`/api/systems/${id}`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
-
-    return new System(payload.data);
-};
+export default MapRepository;

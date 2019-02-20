@@ -46,9 +46,6 @@ import Fleet from '~/model/fleet/fleet';
 import FleetData from '~/components/molecules/fleet/data';
 import ShipGroup from '~/components/molecules/ship/group';
 
-import { getFleetShipGroups, transferShips, removeFleet } from '~/api/fleet';
-import { fetchHangarShipGroups } from '~/api/planet';
-
 export default {
     name: 'fleet-details',
 
@@ -70,30 +67,30 @@ export default {
         ShipGroup
     },
 
-    mounted: function() {
-        getFleetShipGroups(this.fleet);
-        fetchHangarShipGroups(this.fleet.location);
+    mounted() {
+        this.$repositories.fleet.getFleetShipGroups(this.fleet);
+        this.$repositories.planet.fetchHangarShipGroups(this.fleet.location);
     },
 
     methods: {
-        remove: async function() {
+        async remove() {
             if (!confirm(this.$i18n.t('fleet.confirm_removal'))) {
                 return false;
             }
-            await removeFleet(this.fleet);
+            await this.$repositories.fleet.removeFleet(this.fleet);
             
             this.$router.push('/fleets');
         },
 
-        move: function() {
+        async move() {
             this.$router.push({ path: '/map', query: { id: this.fleet.id} });
         },
 
-        transferShips: function(shipGroup, quantity, event) {
+        transferShips(shipGroup, quantity, event) {
             if (event.ctrlKey) {
                 quantity *= 5;
             }
-            transferShips(this.fleet, shipGroup, quantity);
+            this.$repositories.fleet.transferShips(this.fleet, shipGroup, quantity);
         }
     }
 }

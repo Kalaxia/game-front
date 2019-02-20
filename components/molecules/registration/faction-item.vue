@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/box.less';
+    @import '~less/atoms/box.less';
 
     .faction-container {
         clip-path: @smallRectClipPath;

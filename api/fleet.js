@@ -1,104 +1,66 @@
-import store from '~/store';
 import Ship from '~/model/ship/ship';
 import ShipGroup from '~/model/ship/group';
 import Fleet from '~/model/fleet/fleet';
 import FleetRange from '~/model/fleet/range';
+import Repository from '~/api/repository';
 
-export const createFleet = async (planetId) => {
-    const response = await fetch(`/api/fleets`, {
-        method: 'POST',
-        body: JSON.stringify({ planet_id: planetId }),
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {} };
-    await store.dispatch('api/responseMiddleware', payload);
-    
-    return new Fleet(payload.data);
-};
-
-export const getFleet = async (id) => {
-    const response = await fetch(`/api/fleets/${id}`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {} };
-    await store.dispatch('api/responseMiddleware', payload);
-    
-    return new Fleet(payload.data);
-};
-
-export const getFleetShips = async (fleet) => {
-    const response = await fetch(`/api/fleets/${this.id}/ships`, { 
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {} };
-    await store.dispatch('api/responseMiddleware', payload);
-
-    fleet.ships = new Array();
-    for (const shipData of payload.data) {
-        fleet.ships.push(new Ship(shipData));
+class FleetRepository extends Repository
+{
+    async createFleet (planetId) {
+        const payload = await this.call('POST', `/api/fleets`, { planet_id: planetId });
+        
+        return new Fleet(payload.data);
     }
-};
 
-export const getFleetShipGroups = async (fleet) => {
-    const response = await fetch(`/api/fleets/${fleet.id}/ships/groups`, { 
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: [] };
-    await store.dispatch('api/responseMiddleware', payload);
-
-    fleet.shipGroups = new Array();
-    for (const groupData of payload.data) {
-        fleet.shipGroups.push(new ShipGroup(groupData));
+    async getFleet(id) {
+        const payload = await this.call('GET', `/api/fleets/${id}`);
+        
+        return new Fleet(payload.data);
     }
-};
 
-export const transferShips = async (fleet, shipGroup, quantity) => {
-    const response = await fetch(`/api/fleets/${fleet.id}/ships`, {
-        method: 'PATCH',
-        body: JSON.stringify({
+    async getFleetShips(fleet) {
+        const payload = await this.call('GET', `/api/fleets/${this.id}/ships`);
+
+        fleet.ships = new Array();
+        for (const shipData of payload.data) {
+            fleet.ships.push(new Ship(shipData));
+        }
+    }
+
+    async getFleetShipGroups(fleet) {
+        const payload = await this.call('GET', `/api/fleets/${fleet.id}/ships/groups`);
+
+        fleet.shipGroups = new Array();
+        for (const groupData of payload.data) {
+            fleet.shipGroups.push(new ShipGroup(groupData));
+        }
+    }
+
+    async transferShips(fleet, shipGroup, quantity) {
+        const payload = await this.call('PATH', `/api/fleets/${fleet.id}/ships`, {
             'model-id': shipGroup.id,
             quantity: quantity
-        }),
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
+        });
 
-    fleet.updateShipGroups(shipGroup, payload.data.quantity);
-    fleet.location.updateShipGroups(shipGroup, -payload.data.quantity);
-};
+        fleet.updateShipGroups(shipGroup, payload.data.quantity);
+        fleet.location.updateShipGroups(shipGroup, -payload.data.quantity);
+    }
 
-export const removeFleet = async (fleet) => {
-    await fetch(`/api/fleets/${fleet.id}`, {
-        method: 'DELETE',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
+    async removeFleet(fleet) {
+        const payload = await this.call('DELETE', `/api/fleets/${fleet.id}`);
+    }
+
+    async getFleetRange(fleet) {
+        const payload = await this.call('GET', `/api/fleets/${fleet.id}/range`);
+
+        fleet.range = new FleetRange(payload.data);
+    }
+
+    async sendOnJourney(fleet) {
+        const payload = await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
+
+        fleet.journey.steps = payload.data;
+    }
 }
 
-export const getFleetRange = async (fleet) => {
-    const response = await fetch(`/api/fleets/${fleet.id}/range`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
-
-    fleet.range = new FleetRange(payload.data);
-};
-
-export const sendOnJourney = async (fleet) => {
-    const response = await fetch(`/api/fleets/${fleet.id}/journey`, {
-        method: 'POST',
-        body: JSON.stringify(fleet.journey.format()),
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
-
-    fleet.journey.steps = payload.data;
-};
+export default FleetRepository;

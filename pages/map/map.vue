@@ -15,9 +15,6 @@ import JourneyRange from '~/components/molecules/fleet/journey-range';
 
 import Journey from '~/model/fleet/journey';
 
-import { getMap } from '~/api/map';
-import { getFleet, getFleetRange } from '~/api/fleet';
-
 export default {
     name: 'page-map',
 
@@ -36,7 +33,7 @@ export default {
     },
 
     async mounted() {
-        this.map = await getMap();
+        this.map = await this.$repositories.map.getMap();
 
         this.$store.commit('map/setSize', this.map.size);
 
@@ -44,33 +41,35 @@ export default {
             this.$store.commit('map/setTargetedSystemId', this.currentPlanet.system.id);
         }
         if (this.$route.query.id) {
-            this.$store.state.map.fleet = await getFleet(this.$route.query.id);
-            await getFleetRange(this.$store.state.map.fleet);
-            this.$store.state.map.fleet.journey = new Journey({
+            const fleet = await this.$repositories.fleet.getFleet(this.$route.query.id);
+            await this.$repositories.fleet.getFleetRange(fleet);
+            fleet.journey = new Journey({
                 id: null,
                 created_at: Date.now(),
                 ended_at: Date.now()
             });
+            this.$store.commit('map/setFleet', fleet);
         }
     },
 
     async beforeRouteUpdate(to, from, next) {
         if (to.query.id) {
-            this.$store.state.map.fleet = await getFleet(to.query.id);
-            await getFleetRange(this.$store.state.map.fleet);
-            this.$store.state.map.fleet.journey = new Journey({
+            const fleet = await this.$repositories.fleet.getFleet(to.query.id);
+            await this.$repositories.fleet.getFleetRange(fleet);
+            fleet.journey = new Journey({
                 id: null,
                 created_at: Date.now(),
                 ended_at: Date.now()
             });
+            this.$store.commit('map/setFleet', fleet)
         } else {
-            this.$store.state.map.fleet = null;
+            this.$store.commit('map/setFleet', null);
         }
         next();
     },
 
     async beforeRouteLeave(to, from, next) {
-        this.$store.state.map.fleet = null;
+        this.$store.commit('map/setFleet', null);
         
         next();
     },

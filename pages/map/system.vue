@@ -6,8 +6,6 @@
 </template>
 
 <script>
-import { getSystem } from '~/api/map';
-
 import PlanetsList from '~/components/organisms/map/planets-list';
 import PlanetsGraph from '~/components/organisms/map/planets-graph';
 
@@ -26,11 +24,11 @@ export default {
     },
 
     async mounted() {
-        this.system = await getSystem(this.$route.params.id);
+        this.system = await this.$repositories.map.getSystem(this.$route.params.id);
     },
 
     async beforeRouteUpdate(to, from, next) {
-        this.system = await getSystem(to.params.id);
+        this.system = await this.$repositories.map.getSystem(to.params.id);
 
         next();
     }

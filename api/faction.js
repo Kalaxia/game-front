@@ -1,43 +1,33 @@
 import Faction from '~/model/faction';
 import Player from '~/model/player';
-import store from '~/store';
+import Repository from '~/api/repository';
 
-export const getFaction = async (id) => {
-    const response = await fetch(`/api/factions/${id}`, { 
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {} };
-    await store.dispatch('api/responseMiddleware', payload);
+class FactionRepository extends Repository
+{
+    async getFaction(id) {
+        const payload = await this.call('GET', `/api/factions/${id}`);
 
-    return new Faction(payload.data);
-};
-
-export const getFactions = async() => {
-    const response = await fetch(`/api/factions`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
-
-    const factions = new Array();
-    for (const factionData of payload.data) {
-        factions.push(new Faction(factionData));
+        return new Faction(payload.data);
     }
-    return factions;
-};
 
-export const getFactionMembers = async (faction) => {
-    const response = await fetch(`/api/factions/${faction.id}/members`, {
-        method: 'GET',
-        headers: store.state.api.headers
-    });
-    const payload = { response, data: {}};
-    await store.dispatch('api/responseMiddleware', payload);
+    async getFactions() {
+        const payload = await this.call('GET', `/api/factions`);
 
-    faction.members = new Array();
-    for (const member of payload.data) {
-        faction.members.push(new Player(member));
+        const factions = new Array();
+        for (const factionData of payload.data) {
+            factions.push(new Faction(factionData));
+        }
+        return factions;
+    }
+
+    async getFactionMembers(faction) {
+        const payload = await this.call('GET', `/api/factions/${faction.id}/members`);
+
+        faction.members = new Array();
+        for (const member of payload.data) {
+            faction.members.push(new Player(member));
+        }
     }
 };
+
+export default FactionRepository;

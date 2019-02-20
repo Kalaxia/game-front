@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { getFaction, getFactionMembers } from '~/api/faction';
-
 import Faction from '~/model/faction';
 
 import FactionData from '~/components/organisms/faction/faction';
@@ -18,7 +16,7 @@ import FactionRelations from '~/components/molecules/faction/relations';
 export default {
     name: 'page-faction',
 
-    data: function() {
+    data() {
         return {
             faction: null
         };
@@ -30,13 +28,13 @@ export default {
         FactionRelations,
     },
 
-    mounted: async function() {
-        this.faction = await getFaction(this.$route.params.id);
+    async mounted() {
+        this.faction = await this.$repositories.faction.getFaction(this.$route.params.id);
     },
 
-    beforeRouteUpdate: async function(to, from, next) {
-        this.faction = await getFaction(to.params.id);
-        await getFactionMembers(this.faction);
+    async beforeRouteUpdate(to, from, next) {
+        this.faction = await this.$repositories.faction.getFaction(to.params.id);
+        await this.$repositories.faction.getFactionMembers(this.faction);
 
         next();
     }

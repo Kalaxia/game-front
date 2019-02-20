@@ -24,7 +24,7 @@ export default {
             if (this.$store.state.map.fleet === null) {
                 return;
             }
-            this.$store.state.map.selectedSystemId = this.system.id;
+            this.$store.commit('map/setSelectedSystemId', this.system.id);
         }
     }
 }

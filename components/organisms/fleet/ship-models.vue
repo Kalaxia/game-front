@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { getPlayerShipModels } from '~/api/ships';
 import ShipModel from '~/components/molecules/fleet/ship-model';
 import framesData from '~/resources/ship_frames';
 
@@ -37,7 +36,7 @@ export default {
     },
 
     async mounted() {
-        const models = await getPlayerShipModels();
+        const models = await this.$repositories.ship.getPlayerShipModels();
 
         for (const key in models) {
             models[key] = Object.assign({}, framesData[models[key].frame], models[key]);
@@ -65,8 +64,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/box.less';
-    @import '~/assets/less/atoms/button.less';
+    @import '~less/atoms/box.less';
+    @import '~less/atoms/button.less';
 
     #ship-models {
         background-color: grey;

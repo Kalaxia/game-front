@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~/assets/less/atoms/ship/type.less';
+    @import '~less/atoms/ship/type.less';
 
     #fleet-details {
         grid-column: ~"3/9";
