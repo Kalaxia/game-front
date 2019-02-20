@@ -6,7 +6,7 @@
   "scripts": {
     "test-ci": "jest --runInBand",
     "test": "jest",
-    "dev": "webpack --mode=development",
+    "dev": "nuxt",
     "prod": "NODE_ENV=production webpack"
   },
   "repository": {
@@ -25,29 +25,28 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^24.1.0",
     "babel-preset-env": "^1.7.0",
-    "clean-webpack-plugin": "^1.0.1",
-    "css-loader": "^2.0.1",
+    "css-loader": "^2.1.0",
     "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
     "jest": "^24.1.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "terser-webpack-plugin": "^1.2.2",
-    "vue-i18n": "^8.4.0",
+    "vue-i18n": "^8.8.2",
     "vue-jest": "^3.0.3",
-    "vue-loader": "^15.4.2",
+    "vue-loader": "^15.6.4",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.5.21",
-    "webpack": "^4.27.1",
-    "webpack-assets-manifest": "^3.1.1",
-    "webpack-cli": "^3.1.2"
+    "vue-template-compiler": "^2.6.6",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^3.0.0-beta.8",
     "chart.js": "^2.7.3",
-    "gsap": "^2.0.2",
-    "vue": "^2.5.21",
+    "gsap": "^2.1.0",
+    "nuxt": "^2.4.3",
+    "vue": "^2.6.6",
     "vue-router": "^3.0.2",
-    "vuex": "^3.0.1"
+    "vuex": "^3.1.0"
   },
   "jest": {
     "moduleFileExtensions": [
