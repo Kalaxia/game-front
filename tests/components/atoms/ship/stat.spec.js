@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import ShipStat from 'components/atoms/ship/stat';
+import ShipStat from '~/components/atoms/ship/stat';
 
 describe('atoms:ShipStat', () => {
     describe('with module enhancement', () => {
