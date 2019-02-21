@@ -4,8 +4,7 @@ import Fleet from '~/model/fleet/fleet';
 import FleetRange from '~/model/fleet/range';
 import Repository from '~/api/repository';
 
-class FleetRepository extends Repository
-{
+export default class FleetRepository extends Repository {
     async createFleet (planetId) {
         const payload = await this.call('POST', `/api/fleets`, { planet_id: planetId });
         
@@ -16,6 +15,16 @@ class FleetRepository extends Repository
         const payload = await this.call('GET', `/api/fleets/${id}`);
         
         return new Fleet(payload.data);
+    }
+
+    async getFleets() {
+        const payload = await this.call('GET', `/api/fleets`);
+
+        const fleets = new Array();
+        for (const data of payload.data) {
+            fleets.push(new Fleet(data));
+        }
+        return fleets;
     }
 
     async getFleetShips(fleet) {
@@ -47,7 +56,7 @@ class FleetRepository extends Repository
     }
 
     async removeFleet(fleet) {
-        const payload = await this.call('DELETE', `/api/fleets/${fleet.id}`);
+        await this.call('DELETE', `/api/fleets/${fleet.id}`);
     }
 
     async getFleetRange(fleet) {
@@ -61,6 +70,4 @@ class FleetRepository extends Repository
 
         fleet.journey.steps = payload.data;
     }
-}
-
-export default FleetRepository;
+};

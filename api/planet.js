@@ -2,7 +2,7 @@ import ShipGroup from '~/model/ship/group';
 import Planet from '~/model/planet';
 import Repository from '~/api/repository';
 
-class PlanetRepository extends Repository
+export default class PlanetRepository extends Repository
 {
     async getPlanet(id) {
         const payload = await this.call('GET', `/api/planets/${id}`);
@@ -20,7 +20,7 @@ class PlanetRepository extends Repository
         return planets;
     }
 
-    async fetchHangarShips(planet) {
+    async getHangarShipGroups(planet) {
         const payload = await this.call('GET', `/api/planets/${planet.id}/ships/groups`);
         
         planet.shipGroups = new Array();
@@ -38,6 +38,8 @@ class PlanetRepository extends Repository
         }
         return planets;
     }
-};
 
-export default PlanetRepository;
+    async updateSettings(planet) {
+        await this.call('PUT', `/api/planets/${this.id}/settings`, planet.settings);
+    }
+};

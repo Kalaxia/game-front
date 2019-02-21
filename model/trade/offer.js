@@ -17,19 +17,4 @@ export class Offer {
         this.createdAt = new Date(createdAt);
         this.acceptedAt = (acceptedAt !== null) ? new Date(acceptedAt) : null;
     }
-
-    static fetchAll(operation) {
-        return fetch('/api/offers', {
-            method: 'POST',
-            body: JSON.stringify({
-                operation: operation
-            })
-        });
-    }
-
-    static cancel(id) {
-        return fetch(`/api/offers/${id}`, {
-            method: 'DELETE'
-        });
-    }
 };

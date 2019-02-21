@@ -2,7 +2,7 @@ import Map from '~/model/map';
 import System from '~/model/system';
 import Repository from '~/api/repository';
 
-class MapRepository extends Repository {
+export default class MapRepository extends Repository {
     async getMap() {
         const payload = await this.call('GET', '/api/map');
 
@@ -15,5 +15,3 @@ class MapRepository extends Repository {
         return new System(payload.data);
     }
 };
-
-export default MapRepository;

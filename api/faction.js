@@ -2,7 +2,7 @@ import Faction from '~/model/faction';
 import Player from '~/model/player';
 import Repository from '~/api/repository';
 
-class FactionRepository extends Repository
+export default class FactionRepository extends Repository
 {
     async getFaction(id) {
         const payload = await this.call('GET', `/api/factions/${id}`);
@@ -29,5 +29,3 @@ class FactionRepository extends Repository
         }
     }
 };
-
-export default FactionRepository;

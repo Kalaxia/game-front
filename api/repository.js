@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-class Repository {
+export default class Repository {
     constructor(store) {
         this.store = store;
     }
@@ -35,5 +35,3 @@ class Repository {
         return this.store.state.api.headers;
     }
 };
-
-export default Repository;

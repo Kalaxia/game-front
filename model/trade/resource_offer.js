@@ -12,21 +12,6 @@ class ResourceOffer extends Offer {
         this.getTotalPrice = this.getTotalPrice.bind(this);
     }
 
-    create() {
-        return fetch(`/api/planets/${this.location.id}/offers`, {
-            method: "POST",
-            body: JSON.stringify({
-                operation: this.operation,
-                good_type: this.goodType,
-                planet: this.location,
-                quantity: this.quantity,
-                lot_quantity: this.lotQuantity,
-                price: this.price,
-                resource: this.resource,
-            })
-        });
-    }
-
     // getGoodName() {
     //     return Dictionnary.translations.resources[this.resource];
     // };

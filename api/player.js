@@ -1,13 +1,18 @@
 import Repository from '~/api/repository';
 import Player from '~/model/player';
 
-class PlayerRepository extends Repository
-{
+export default class PlayerRepository extends Repository {
     async createPlayer() {
-        const payload = await this.call('POST', `/api/players`, {
+        await this.call('POST', `/api/players`, {
             faction_id: store.state.user.player.faction.id,
             planet_id: store.state.user.planets[0].id
         });
+    }
+
+    async getPlayer(id) {
+        const payload = await this.call('GET', `/api/players/${id}`);
+
+        return new Player(payload.data);
     }
 
     async getCurrentPlayer() {
@@ -16,5 +21,3 @@ class PlayerRepository extends Repository
         return new Player(payload.data);
     }
 };
-
-export default PlayerRepository;

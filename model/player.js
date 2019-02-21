@@ -12,13 +12,4 @@ export default class Player {
         this.createdAt = data.created_at;
         this.updatedAt = data.updated_at;
     }
-
-    static fetchPlayer(id) {
-        return fetch(`/api/players/${id}`, {
-            method: 'GET'
-        })
-        .then(data => {
-            return new Player(data);
-        });
-    }
 }

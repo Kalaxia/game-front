@@ -22,18 +22,6 @@ class Planet {
         this.shipGroups = new Array();
     }
 
-    fetchShips() {
-        return fetch(`/api/planets/${this.id}/ships`, {
-            method: 'GET'
-        })
-        .then(data => {
-            this.ships = new Array();
-            for (const shipData of data) {
-                this.ships.push(new Ship(shipData));
-            }
-        });
-    };
-
     updateShipGroups(shipGroup, nbShips) {
         let index = -1;
         for (const sg of this.shipGroups) {
@@ -48,13 +36,6 @@ class Planet {
         } else if (index >= 0 && this.shipGroups[index].quantity === 0) {
             this.shipGroups.splice(index, 1);
         }
-    }
-
-    updateSettings() {
-        return fetch(`/api/planets/${this.id}/settings`, {
-            method: 'PUT',
-            body: JSON.stringify(this.settings)
-        });
     }
 }
 
