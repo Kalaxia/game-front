@@ -2,3 +2,4 @@
 node_modules
 .nuxt
 yarn-error.log
+static/sw.js
