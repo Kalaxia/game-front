@@ -1,5 +1,4 @@
 #!/bin/sh
-npx npmc@latest install
 npm install
 
 if [ "$NODE_ENV" == "production" ]
