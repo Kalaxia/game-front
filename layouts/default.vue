@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <top-menu v-if="currentPlayer" :faction="currentPlayer.faction"></top-menu>
         <logout-button id="logout"></logout-button>
         <nuxt id="wrapper" />
