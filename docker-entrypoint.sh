@@ -1,4 +1,5 @@
 #!/bin/sh
+npm -v
 npm install
 
 if [ "$NODE_ENV" == "production" ]
