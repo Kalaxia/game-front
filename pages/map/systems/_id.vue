@@ -1,7 +1,7 @@
 <template>
     <div>
-        <PlanetsList :system="system" />
-        <PlanetsGraph :system="system" />
+        <PlanetsList v-if="system" :system="system" />
+        <PlanetsGraph v-if="system" :system="system" />
     </div>
 </template>
 

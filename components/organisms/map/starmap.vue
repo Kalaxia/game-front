@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import System from '~/components/molecules/map/system';
 import SystemMenu from '~/components/molecules/map/system-menu';
 import MapLoader from '~/components/atoms/map/loader';
@@ -35,6 +36,7 @@ export default {
 
     data() {
         return {
+            ready: false,
             playerSystems: [],
             centeredSystemId: 0,
         };
@@ -58,7 +60,7 @@ export default {
     },
 
     updated() {
-        if (this.mapReady && this.centeredSystemId !== this.targetedSystemId) {
+        if (this.mapReady && this.centeredSystemId !== this.targetedSystemId && this.targetedSystemId !== null) {
             this.goToTargetedSystem();
         }
     },
@@ -93,7 +95,10 @@ export default {
         },
 
         targetedSystemId(systemId) {
-            this.goToTargetedSystem();
+            if (systemId === null || !this.mapReady) {
+                return;
+            }
+            Vue.nextTick(this.goToTargetedSystem);
         }
     },
 

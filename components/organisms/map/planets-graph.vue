@@ -24,13 +24,13 @@ export default {
         PlanetPicto
     },
 
-    mounted: function() {
+    mounted() {
         this.render();
     },
 
     methods: {
 
-        planetStyle: function(planet) {
+        planetStyle(planet) {
             const radius = planet.orbit.radius / 2;
             // formula : timeToRotate = 2*PI *sqrt(radius^3/(6.674*10^-11 . starMass)) with radius in meters, starMass in kg and time in seconds
             // note : the powers of 10 have been simplified to reduce the values as much as possible
@@ -50,7 +50,7 @@ export default {
             };
         },
 
-        orbitStyle: function(planet) {
+        orbitStyle(planet) {
             return {
                 top: `calc(50% - ${(planet.orbit.radius / 2) + 1}px)`,
                 left: `calc(50% - ${(planet.orbit.radius / 2) + 1}px)`,
@@ -60,11 +60,11 @@ export default {
             };
         },
 
-        redirectToPlanet: function(id) {
+        redirectToPlanet(id) {
             this.$router.push(`/planet/${id}`);
         },
 
-        render: function() {
+        render() {
             this.$forceUpdate();
             requestAnimationFrame(this.render.bind(this));
         }

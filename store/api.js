@@ -11,7 +11,7 @@ export const state = () => ({
 export const mutations = {
     logout() {
         Cookie.remove('security_token');
-        commit('setToken', null);
+        state.token = null;
         window.location = `${this.$env.portalUrl}/dashboard`;
     },
 

@@ -33,7 +33,7 @@ export default {
     },
 
     async mounted() {
-        this.map = await getMap();
+        this.map = await this.$repositories.map.getMap();
     },
 
     computed: {

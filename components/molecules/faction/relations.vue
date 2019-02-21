@@ -3,7 +3,7 @@
         <div v-for="relation in faction.relations" :key="relation.id" :id="`relation-${relation.faction.id}`" class="faction">
             <header>
                 <h4 :style="{color: relation.faction.color}">{{ relation.faction.name }}</h4>
-                <router-link :to="`/faction/${relation.faction.id}`">
+                <router-link :to="(isMyFaction(relation.faction.id)) ? '/faction' : `/faction/${relation.faction.id}`">
                     <faction-banner :faction="relation.faction" width="80" height="130" />
                 </router-link>
             </header>
@@ -24,6 +24,12 @@ export default {
 
     components: {
         FactionBanner
+    },
+
+    methods: {
+        isMyFaction(factionId) {
+            return (factionId === this.$store.state.user.player.faction.id);
+        }
     }
 }
 </script>

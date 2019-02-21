@@ -4,7 +4,7 @@ import Repository from '~/api/repository';
 
 export default class PlanetRepository extends Repository
 {
-    async getPlanet(id) {
+    async get(id) {
         const payload = await this.call('GET', `/api/planets/${id}`);
 
         return new Planet(payload.data);

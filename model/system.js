@@ -10,7 +10,13 @@ class System {
         }
         this.planets = new Array();
         for (const planetData of data.planets) {
-            this.planets.push(new Planet(planetData));
+            const planet = new Planet(planetData);
+            planet.system = {
+                id: this.id,
+                x: this.x,
+                y: this.y
+            };
+            this.planets.push(planet);
         }
     }
 

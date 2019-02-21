@@ -36,7 +36,7 @@ export default {
     },
 
     async mounted() {
-        const models = await this.$repositories.ship.getPlayerShipModels();
+        const models = await this.$repositories.ship.model.getPlayerModels();
 
         for (const key in models) {
             models[key] = Object.assign({}, framesData[models[key].frame], models[key]);

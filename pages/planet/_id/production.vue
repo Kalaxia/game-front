@@ -26,14 +26,7 @@ export default {
     },
 
     async mounted() {
-        const response = await fetch(`/api/planets/${this.$route.params.id}`, {
-            method: 'GET',
-            headers: this.$store.state.api.headers
-        });
-        const payload = { response, data: {}};
-        await this.$store.dispatch('api/responseMiddleware', payload);
-
-        this.planet = new Planet(payload.data);
+        this.planet = await this.$repositories.planet.get(this.$route.params.id);
     }
 }
 </script>

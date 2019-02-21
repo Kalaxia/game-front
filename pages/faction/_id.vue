@@ -1,7 +1,6 @@
 <template>
     <div>
         <faction-data id="faction-data" v-if="faction" :faction="faction" />
-        <faction-members id="faction-members" v-if="faction" :faction="faction" />
         <faction-relations id="faction-relations" v-if="faction" :faction="faction" />
     </div>
 </template>
@@ -10,7 +9,6 @@
 import Faction from '~/model/faction';
 
 import FactionData from '~/components/organisms/faction/faction';
-import FactionMembers from '~/components/molecules/faction/members';
 import FactionRelations from '~/components/molecules/faction/relations';
 
 export default {
@@ -24,7 +22,6 @@ export default {
 
     components: {
         FactionData,
-        FactionMembers,
         FactionRelations,
     },
 
@@ -34,7 +31,6 @@ export default {
 
     async beforeRouteUpdate(to, from, next) {
         this.faction = await this.$repositories.faction.getFaction(to.params.id);
-        await this.$repositories.faction.getFactionMembers(this.faction);
 
         next();
     }

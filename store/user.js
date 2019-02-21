@@ -44,7 +44,7 @@ export const actions = {
 
     async initPlanet({ state, commit }) {
         commit('setPlanets', await this.$repositories.planet.getPlayerPlanets(state.player.id));
-        commit('setCurrentPlanet', await this.$repositories.planet.getPlanet(state.planets[0].id));
+        commit('setCurrentPlanet', await this.$repositories.planet.get(state.planets[0].id));
     }
 };
 

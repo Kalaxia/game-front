@@ -23,14 +23,7 @@ export default {
     },
 
     async mounted() {
-        const response = await fetch(`/api/fleets/${this.$route.params.id}`, { 
-            method: 'GET',
-            headers: this.$store.state.api.headers
-        });
-        const payload = { response, data: {} };
-        await this.$store.dispatch('api/responseMiddleware', payload);
-
-        this.fleet = new Fleet(payload.data);
+        this.fleet = await this.$repositories.fleet.getFleet(this.$route.params.id);
     }
 }
 </script>

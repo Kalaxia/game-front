@@ -22,16 +22,7 @@ export default {
     },
 
     async mounted() {
-        const response = await fetch(`/api/fleets`, {
-            method: 'GET',
-            headers: this.$store.state.api.headers
-        });
-        const payload = { response, data: {} };
-        await this.$store.dispatch('api/responseMiddleware', payload);
-        
-        for (const fleetData of payload.data) {
-            this.fleets.push(new Fleet(fleetData));
-        }
+        this.fleets = await this.$repositories.fleet.getFleets();
     }
 };
 </script>

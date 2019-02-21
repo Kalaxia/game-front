@@ -26,7 +26,6 @@
 <script>
 import ShipStat from '~/components/atoms/ship/stat';
 import ResourcePrice from '~/components/molecules/resource/price-gauge';
-import framesData from '~/resources/ship_frames';
 
 export default {
     name: 'ship-model-details',
@@ -62,7 +61,7 @@ export default {
 
     methods: {
         frameStat(stat) {
-            return (typeof framesData[this.model.frame].stats[stat] !== 'undefined') ? framesData[this.model.frame].stats[stat] : 0;
+            return (typeof this.model.frame.stats[stat] !== 'undefined') ? this.model.frame.stats[stat] : 0;
         }
     }
 }

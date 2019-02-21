@@ -56,7 +56,7 @@ export default {
         }
     },
 
-    data: function() {
+    data() {
         return {
             hangarShips: [],
         };
@@ -69,7 +69,7 @@ export default {
 
     mounted() {
         this.$repositories.fleet.getFleetShipGroups(this.fleet);
-        this.$repositories.planet.fetchHangarShipGroups(this.fleet.location);
+        this.$repositories.planet.getHangarShipGroups(this.fleet.location);
     },
 
     methods: {
