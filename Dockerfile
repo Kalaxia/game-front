@@ -6,6 +6,6 @@ COPY . /srv/app
 COPY docker-entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh && chown root:root /entrypoint.sh \
-    && npm i -g npm
+    && apk add yarn
 
 ENTRYPOINT ["/entrypoint.sh"]

@@ -1,3 +1,4 @@
 .jshintrc
 node_modules
 .nuxt
+yarn-error.log
