@@ -9,8 +9,7 @@
     }
   },
   "scripts": {
-    "test-ci": "jest --runInBand",
-    "test": "jest",
+    "test": "jest --runInBand",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
