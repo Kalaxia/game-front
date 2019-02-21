@@ -1,12 +1,13 @@
 #!/bin/sh
-yarn install
+npx npmc@latest install
+npm install
 
 if [ "$NODE_ENV" == "production" ]
 then
-    yarn run build && yarn run start
+    npm run build && npm run start
 elif [ "$NODE_ENV" == "test" ]
 then
-    yarn run test
+    npm run test
 else
-    yarn run dev
+    npm run dev
 fi
