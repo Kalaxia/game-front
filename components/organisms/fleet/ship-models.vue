@@ -3,7 +3,7 @@
         <div>
             <section>
                 <div class="ship-models-container">
-                    <ship-model v-for="model in models" :key="model.id" :model="model" @select="$emit('selectModel', $event)" :isSelected="isSelected(model)"/>
+                    <ship-model v-for="model in models" :key="model.id" :model="model" @click.native="$emit('selectModel', model)" :isSelected="isSelected(model)"/>
                 </div>
             </section>
             <footer>

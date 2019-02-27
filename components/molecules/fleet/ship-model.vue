@@ -1,5 +1,5 @@
 <template>
-    <div class="ship-model-container" @click="$emit('select', model)" :style="style">
+    <div class="ship-model-container" :style="style">
         <div class="ship-model" :style="style" :class="{ selected: isSelected }">
             <header>
                 <colored-picto class="type-picto" :src="`ships/${picto}`" :color="pictoColor" width="32" height="32" />

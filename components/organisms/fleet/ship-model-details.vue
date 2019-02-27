@@ -62,6 +62,10 @@ export default {
     methods: {
         frameStat(stat) {
             return (typeof this.model.frame.stats[stat] !== 'undefined') ? this.model.frame.stats[stat] : 0;
+        },
+
+        produce() {
+            
         }
     }
 }
