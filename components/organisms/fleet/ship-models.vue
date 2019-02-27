@@ -1,18 +1,14 @@
 <template>
     <div id="ship-models">
-        <div>
-            <section>
-                <div class="ship-models-container">
-                    <ship-model v-for="model in models" :key="model.id" :model="model" @click.native="$emit('selectModel', model)" :isSelected="isSelected(model)"/>
-                </div>
-            </section>
-            <footer>
-                <div v-if="hasCurrentPlayerData" class="button" :style="{ color: factionColor }">
-                    <span class="big">créer</span>
-                    un modèle de vaisseau
-                </div>
-            </footer>
-        </div>
+        <section>
+            <ship-model v-for="model in models" :key="model.id" :model="model" @click.native="$emit('selectModel', model)" :isSelected="isSelected(model)"/>
+        </section>
+        <footer>
+            <div v-if="hasCurrentPlayerData" class="button" :style="{ color: factionColor }">
+                <span class="big">créer</span>
+                un modèle de vaisseau
+            </div>
+        </footer>
     </div>
 </template>
 
@@ -68,41 +64,31 @@ export default {
     @import '~less/atoms/button.less';
 
     #ship-models {
-        background-color: grey;
-        padding: 2px;
-        clip-path: @smallRectClipPath;
+        border: 2px solid grey;
+        border-radius: 10px;
+        padding: 10px 20px 5px 20px;
 
-        & > div {
+        display: flex;
+        flex-direction: column;
+
+        & >  section {
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 10px;
+
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-start;
+            align-items: flex-start;
+            align-content: flex-start;
+            flex-wrap: wrap;
             background-color: black;
-            clip-path: @smallRectClipPath;
-            padding: 10px 20px 5px 20px;
-            height: calc(100% - 15px);
+        }
 
-            & >  section {
-                background-color: white;
-                padding: 2px;
-                clip-path: @smallRectClipPath;
-                height: 80%;
-
-                & > .ship-models-container {
-                    padding: 10px;
-                    height: calc(100% - 10px);
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-                    align-content: flex-start;
-                    flex-wrap: wrap;
-                    background-color: black;
-                    clip-path: @smallRectClipPath;
-                    overflow: hidden;
-                }
-            }
-
-            & > footer {
-                display: flex;
-                justify-content: center;
-                padding-top: 10px;
-            }
+        & > footer {
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
         }
     }
 </style>
