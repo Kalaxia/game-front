@@ -10,14 +10,10 @@ export default class PlayerRepository extends Repository {
     }
 
     async getPlayer(id) {
-        const payload = await this.call('GET', `/api/players/${id}`);
-
-        return new Player(payload.data);
+        return new Player(await this.call('GET', `/api/players/${id}`));
     }
 
     async getCurrentPlayer() {
-        const payload = await this.call('GET', '/api/me');
-
-        return new Player(payload.data);
+        return new Player(await this.call('GET', '/api/me'));
     }
 };

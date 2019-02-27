@@ -5,41 +5,39 @@ import Repository from '~/api/repository';
 export default class PlanetRepository extends Repository
 {
     async get(id) {
-        const payload = await this.call('GET', `/api/planets/${id}`);
-
-        return new Planet(payload.data);
+        return new Planet(await this.call('GET', `/api/planets/${id}`));
     };
 
     async getPlayerPlanets(playerId) {
-        const payload = await this.call('GET', `/api/players/${playerId}/planets`);
+        const data = await this.call('GET', `/api/players/${playerId}/planets`);
 
         const planets = [];
-        for (const data of payload.data) {
-            planets.push(new Planet(data));
+        for (const planet of data) {
+            planets.push(new Planet(planet));
         }
         return planets;
     }
 
     async getHangarShipGroups(planet) {
-        const payload = await this.call('GET', `/api/planets/${planet.id}/ships/groups`);
+        const data = await this.call('GET', `/api/planets/${planet.id}/ships/groups`);
         
         planet.shipGroups = new Array();
-        for (const groupData of payload.data) {
+        for (const groupData of data) {
             planet.shipGroups.push(new ShipGroup(groupData));
         }
     }
 
     async getFactionPlanetChoices(faction) {
-        const payload = await this.call('GET', `/api/factions/${faction.id}/planet-choices`);
+        const data = await this.call('GET', `/api/factions/${faction.id}/planet-choices`);
 
         const planets = new Array();
-        for (const planetData of payload.data) {
+        for (const planetData of data) {
             planets.push(new Planet(planetData));
         }
         return planets;
     }
 
-    async updateSettings(planet) {
-        await this.call('PUT', `/api/planets/${this.id}/settings`, planet.settings);
+    updateSettings(planet) {
+        return this.call('PUT', `/api/planets/${this.id}/settings`, planet.settings);
     }
 };

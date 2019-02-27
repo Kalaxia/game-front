@@ -2,8 +2,8 @@ import Repository from '~/api/repository';
 import ResourceOffer from '~/model/trade/resource_offer';
 
 export default class OfferRepository extends Repository {
-    async create(offer) {
-        await this.call('POST', `/api/planets/${offer.location.id}/offers`, {
+    create(offer) {
+        return this.call('POST', `/api/planets/${offer.location.id}/offers`, {
             operation: offer.operation,
             good_type: offer.goodType,
             planet: offer.location,
@@ -15,11 +15,11 @@ export default class OfferRepository extends Repository {
     }
 
     async getAll(operation) {
-        const payload = this.call('POST', '/api/offers', { operation });
+        const data = await this.call('POST', '/api/offers', { operation });
 
         const offers = new Array();
-        for (data of payload.data) {
-            offers.push(new ResourceOffer(data));
+        for (offer of data) {
+            offers.push(new ResourceOffer(offer));
         }
         return offers;
     }

@@ -5,34 +5,34 @@ import ShipModule from '~/model/ship/module';
 
 export default class ShipModelRepository extends Repository {
     async get(id) {
-        const payload = await this.call('GET', `/api/me/ship-models/${id}`);
+        const data = await this.call('GET', `/api/me/ship-models/${id}`);
 
-        payload.data.frame = ShipFrame.createFromSlug(data.frame);
-        for (const key in payload.data.slots) {
-            if (payload.data.slots[key].module === '') {
+        data.frame = ShipFrame.createFromSlug(data.frame);
+        for (const key in data.slots) {
+            if (data.slots[key].module === '') {
                 continue;
             }
-            payload.data.slots[key].module = ShipModule.createFromSlug(payload.data.slots[key].module);
+            data.slots[key].module = ShipModule.createFromSlug(data.slots[key].module);
         }
         return new ShipModel(data);
     }
 
     async getPlayerModels() {
-        const payload = await this.call('GET', '/api/me/ship-models');
+        const data = await this.call('GET', '/api/me/ship-models');
 
         const models = new Array();
-        for (const data of payload.data) {
-            data.frame = ShipFrame.createFromSlug(data.frame);
-            models.push(new ShipModel(data));
+        for (const model of data) {
+            model.frame = ShipFrame.createFromSlug(model.frame);
+            models.push(new ShipModel(model));
         }
         return models;
     }
 
     async create(model) {
-        const payload = await this.call('POST', '/api/me/ship-models', model.format());
+        const data = await this.call('POST', '/api/me/ship-models', model.format());
 
-        model.id = payload.data.id;
-        model.type = payload.data.type;
-        model.slots = payload.data.slots;
+        model.id = data.id;
+        model.type = data.type;
+        model.slots = data.slots;
     }
 };

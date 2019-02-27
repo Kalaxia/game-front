@@ -4,14 +4,10 @@ import Repository from '~/api/repository';
 
 export default class MapRepository extends Repository {
     async getMap() {
-        const payload = await this.call('GET', '/api/map');
-
-        return new Map(payload.data);
+        return new Map(await this.call('GET', '/api/map'));
     }
 
     async getSystem(id) {
-        const payload = await this.call('GET', `/api/systems/${id}`);
-
-        return new System(payload.data);
+        return new System(await this.call('GET', `/api/systems/${id}`));
     }
 };

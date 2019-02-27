@@ -5,7 +5,7 @@ class System {
         this.id = data.id;
         this.x = data.coord_x;
         this.y = data.coord_y;
-        if (data.planets === null) {
+        if (!data.planets) {
             return;
         }
         this.planets = new Array();

@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 export default class Repository {
     constructor(store) {
         this.store = store;
@@ -18,17 +16,16 @@ export default class Repository {
     }
 
     async processResponse(response) {
-        let result = { data: {}, error: null };
         if (response.status === 401) {
             await this.store.commit('api/logout');
             return;
         }
         if (response.ok && response.status !== 204) {
-            result.data = await response.json();
+            return await response.json();
         } else if (!response.ok) {
-            result.error = response.error();
+            throw response.error();
         }
-        return result;
+        return null;
     }
 
     getHeaders() {

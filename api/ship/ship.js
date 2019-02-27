@@ -11,11 +11,11 @@ export default class ShipRepository extends Repository
     }
 
     async getConstructingShips(planetId) {
-        const payload = await this.call('GET', `/api/planets/${planetId}/ships/constructing`);
+        const data = await this.call('GET', `/api/planets/${planetId}/ships/constructing`);
 
         const ships = new Array();
-        for (const data of payload.data) {
-            ships.push(new Ship(data));
+        for (const ship of data) {
+            ships.push(new Ship(ship));
         }
         return ships;
     }

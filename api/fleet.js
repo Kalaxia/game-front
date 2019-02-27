@@ -6,53 +6,49 @@ import Repository from '~/api/repository';
 
 export default class FleetRepository extends Repository {
     async createFleet (planetId) {
-        const payload = await this.call('POST', `/api/fleets`, { planet_id: planetId });
-        
-        return new Fleet(payload.data);
+        return new Fleet(await this.call('POST', `/api/fleets`, { planet_id: planetId }));
     }
 
     async getFleet(id) {
-        const payload = await this.call('GET', `/api/fleets/${id}`);
-        
-        return new Fleet(payload.data);
+        return new Fleet(await this.call('GET', `/api/fleets/${id}`));
     }
 
     async getFleets() {
-        const payload = await this.call('GET', `/api/fleets`);
+        const data = await this.call('GET', `/api/fleets`);
 
         const fleets = new Array();
-        for (const data of payload.data) {
-            fleets.push(new Fleet(data));
+        for (const fleet of data) {
+            fleets.push(new Fleet(fleet));
         }
         return fleets;
     }
 
     async getFleetShips(fleet) {
-        const payload = await this.call('GET', `/api/fleets/${this.id}/ships`);
+        const data = await this.call('GET', `/api/fleets/${this.id}/ships`);
 
         fleet.ships = new Array();
-        for (const shipData of payload.data) {
+        for (const shipData of data) {
             fleet.ships.push(new Ship(shipData));
         }
     }
 
     async getFleetShipGroups(fleet) {
-        const payload = await this.call('GET', `/api/fleets/${fleet.id}/ships/groups`);
+        const data = await this.call('GET', `/api/fleets/${fleet.id}/ships/groups`);
 
         fleet.shipGroups = new Array();
-        for (const groupData of payload.data) {
+        for (const groupData of data) {
             fleet.shipGroups.push(new ShipGroup(groupData));
         }
     }
 
     async transferShips(fleet, shipGroup, quantity) {
-        const payload = await this.call('PATH', `/api/fleets/${fleet.id}/ships`, {
+        const data = await this.call('PATH', `/api/fleets/${fleet.id}/ships`, {
             'model-id': shipGroup.id,
             quantity: quantity
         });
 
-        fleet.updateShipGroups(shipGroup, payload.data.quantity);
-        fleet.location.updateShipGroups(shipGroup, -payload.data.quantity);
+        fleet.updateShipGroups(shipGroup, data.quantity);
+        fleet.location.updateShipGroups(shipGroup, -data.quantity);
     }
 
     async removeFleet(fleet) {
@@ -60,14 +56,10 @@ export default class FleetRepository extends Repository {
     }
 
     async getFleetRange(fleet) {
-        const payload = await this.call('GET', `/api/fleets/${fleet.id}/range`);
-
-        fleet.range = new FleetRange(payload.data);
+        fleet.range = new FleetRange(await this.call('GET', `/api/fleets/${fleet.id}/range`));
     }
 
     async sendOnJourney(fleet) {
-        const payload = await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
-
-        fleet.journey.steps = payload.data;
+        fleet.journey.steps = await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
     }
 };
