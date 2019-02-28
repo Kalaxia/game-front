@@ -9,7 +9,7 @@ export default {
     props: ['src', 'color', 'width', 'height'],
 
     computed: {
-        style: function() {
+        style() {
             return {
                 width: `${this.width}px`,
                 height: `${this.height}px`,

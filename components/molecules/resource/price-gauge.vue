@@ -1,15 +1,15 @@
 <template>
     <div class="resource-price-gauge">
-        <div class="gauge">
+        <div class="gauge-container">
             <div>
                 <div>{{ price.amount }} <resource-item :resource="{ name: price.resource }" /></div>
-                <span>x {{ coeff }}</span>
+                <strong>x {{ coeff }}</strong>
             </div>
             <div>
-                <meter :value="currentQuantity" :max="storedResource"></meter>
+                <gauge :levels="gaugeLevels" :background="gaugeBackground" />
             </div>
         </div>
-        <div class="total">
+        <div class="total" :style="{ color: resourceColor }">
             {{ currentQuantity }} <resource-item :resource="{ name: price.resource }" />
         </div>
     </div>
@@ -17,6 +17,9 @@
 
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
+import resourcesData from '~/resources/resources';
+import { shadeColor } from '~/lib/colors';
+import Gauge from '~/components/atoms/gauge';
 
 export default {
     name: 'resource-price-gauge',
@@ -24,7 +27,8 @@ export default {
     props: ['price', 'coeff'],
 
     components: {
-        ResourceItem
+        ResourceItem,
+        Gauge
     },
 
     computed: {
@@ -34,8 +38,29 @@ export default {
 
         storedResource() {
             return this.$store.getters['user/getStoredResource'](this.price.resource);
+        },
+
+        resourceColor() {
+            return resourcesData[this.price.resource].color;
+        },
+
+        gaugeLevels() {
+            return [
+                {
+                    value: this.price.amount / this.storedResource * 100,
+                    color: this.resourceColor
+                },
+                {
+                    value: this.currentQuantity / this.storedResource * 100,
+                    color: shadeColor(this.resourceColor, '-0.2')
+                },
+            ]
+        },
+
+        gaugeBackground() {
+            return shadeColor(this.resourceColor, '-0.4');
         }
-    }
+    },
 }
 </script>
 
@@ -44,27 +69,44 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 5px 0px;
+        border-top: 1px solid #2D2D2D;
+        border-bottom: 1px solid #2D2D2D;
 
-        & > .gauge {
+        & > .gauge-container {
+            flex-grow: 1;
+
             & > div:first-child {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-end;
 
                 & > div {
+                    font-size: 0.9em;
                     & > img {
-                        height: 22px;
+                        height: 18px;
                     }
+                }
+            }
+
+            & > div:last-child {
+                & > .gauge {
+                    width: 100%;
+                    height: 10px;
+                    margin-top: 2px;
                 }
             }
         }
 
         & > .total {
+            width: 80px;
             display: flex;
+            justify-content: flex-end;
             align-items: flex-end;
 
             & > img {
-                height: 24px;
+                height: 18px;
+                margin-left: 10px;
             }
         }
     }

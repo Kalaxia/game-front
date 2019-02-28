@@ -22,7 +22,7 @@ export default {
     props: ['group'],
 
     computed: {
-        framePicture: function() {
+        framePicture() {
             return `/images/shipyard/frame/${framesData[this.group.frame].picture}`;
         }
     }
