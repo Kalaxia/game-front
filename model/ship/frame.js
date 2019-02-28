@@ -6,6 +6,7 @@ class ShipFrame {
     constructor(data) {
         this.slug = data.slug;
         this.picture = data.picture;
+        this.picto = data.picto;
         this.slots = data.slots;
         this.stats = data.stats;
         this.price = data.price;
@@ -13,7 +14,6 @@ class ShipFrame {
 
     static createFromSlug(slug) {
         const frame = new ShipFrame(framesData[slug]);
-        //frame.name = ships.frames[slug];
         frame.slug = slug;
         frame.slots = ShipSlot.formatArray(frame.slots);
         frame.price = Price.format(frame.price);

@@ -32,13 +32,7 @@ export default {
     },
 
     async mounted() {
-        const models = await this.$repositories.ship.model.getPlayerModels();
-
-        for (const key in models) {
-            models[key] = Object.assign({}, framesData[models[key].frame], models[key]);
-        }
-
-        this.models = models;
+        this.models = await this.$repositories.ship.model.getPlayerModels();
     },
 
     computed: {
@@ -71,7 +65,7 @@ export default {
         display: flex;
         flex-direction: column;
 
-        & >  section {
+        & > section {
             border: 2px solid white;
             border-radius: 10px;
             padding: 10px;
@@ -83,6 +77,7 @@ export default {
             align-content: flex-start;
             flex-wrap: wrap;
             background-color: black;
+            overflow-y: scroll;
         }
 
         & > footer {
