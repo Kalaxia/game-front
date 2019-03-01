@@ -37,32 +37,32 @@ export default {
     },
 
     methods: {
-        hourlyProduction: function() {
+        hourlyProduction() {
             return this.resource.density * 10;
         }
     },
 
     computed: {
-        isFull: function() {
+        isFull() {
             return this.storage.resources[this.resource.name] === this.storage.capacity;
         },
 
-        quantity: function() {
+        quantity() {
             return this.storage.resources[this.resource.name];
         },
 
-        color: function() {
+        color() {
             return resourcesData[this.resource.name].color;
         },
 
-        filledCapacity: function() {
+        filledCapacity() {
             return (this.quantity / this.storage.capacity) * 100;
         },
 
-        fullCapacityAt: function() {
+        fullCapacityAt() {
             return (this.storage.capacity !== this.storage.resources[this.resource.name])
                 ? "-" + Math.floor((this.storage.capacity - this.storage.resources[this.resource.name]) / this.hourlyProduction()) +
-                  "h" + (60 - Date.now().getMinutes()) + "min"
+                  "h" + (60 - (new Date()).getMinutes()) + "min"
                 : this.$i18n.t('planet.storage.full')
             ;
         }
