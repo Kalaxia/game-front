@@ -26,6 +26,7 @@
                         </div>
                     </div>
                 </template>
+                <gauge-selector @change="nbShips = $event" :color="factionColor" :min="1" :max="model.maxAvailable" :initialValue="1" />
             </header>
             <section>
                 <div class="ship-indicator">
@@ -55,6 +56,7 @@ import ResourcePrice from '~/components/molecules/resource/price-gauge';
 import ResourcePicto from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import resourcesData from '~/resources/resources';
+import GaugeSelector from '~/components/atoms/gauge-selector';
 
 export default {
     name: 'ship-model-details',
@@ -71,7 +73,8 @@ export default {
         ShipStat,
         ResourcePrice,
         ResourcePicto,
-        ColoredPicto
+        ColoredPicto,
+        GaugeSelector
     },
 
     computed: {
@@ -126,10 +129,10 @@ export default {
             & > header > h1 {
                 font-weight: normal;
                 
-                & > strong {
-                    font-size: 1.2em;
-                    font-weight: bold;
-                }
+                // & > strong {
+                //     font-size: 1.2em;
+                //     font-weight: bold;
+                // }
             }
 
             & > section {
@@ -143,6 +146,7 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            flex-grow: 1;
 
             & > header {
                 & > .price {
@@ -178,6 +182,10 @@ export default {
                             margin-left: 10px;
                         }
                     }
+                }
+
+                & > .gauge-selector {
+                    width: 100%;
                 }
             }
 

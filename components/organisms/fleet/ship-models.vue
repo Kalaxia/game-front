@@ -33,6 +33,12 @@ export default {
 
     async mounted() {
         this.models = await this.$repositories.ship.model.getPlayerModels();
+
+        if (this.currentPlanet !== null) {
+            for (const model of this.models) {
+                model.maxAvailable = this.getMaxAvailable(model);
+            }
+        }
     },
 
     computed: {
@@ -43,12 +49,41 @@ export default {
         factionColor() {
             return this.$store.state.user.player.faction.color;
         },
+
+        currentPlanet() {
+            return this.$store.state.user.currentPlanet;
+        }
+    },
+
+    watch: {
+        currentPlanet(planet) {
+            for (const model of this.models) {
+                model.maxAvailable = this.getMaxAvailable(model);
+            }
+        }
     },
 
     methods: {
         isSelected(model) {
             return (this.selectedModel !== null) ? model.id === this.selectedModel.id : false;
         },
+
+        getMaxAvailable(model) {
+            let max = 50;
+            for (const price of model.price) {
+                let nbShips;
+                switch (price.type) {
+                    case 'resource':
+                        nbShips = Math.ceil(this.$store.getters['user/getStoredResource'](price.resource) / price.amount);
+                    case 'credits':
+                        nbShips = Math.ceil(this.$store.state.user.player.wallet / price.amount);
+                }
+                if (nbShips < max) {
+                    max = nbShips;
+                }
+            }
+            return max;
+        }
     }
 }
 </script>
