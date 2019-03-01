@@ -49,7 +49,7 @@ export default {
         move(event) {
             const width = event.clientX - dragData.start + dragData.gaugeWidth;
 
-            const newValue = Math.ceil(this.max * width / this.$refs.container.offsetWidth);
+            const newValue = Math.floor(this.max * width / this.$refs.container.offsetWidth);
 
             if (newValue < this.min || newValue > this.max) {
                 return;

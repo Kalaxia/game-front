@@ -74,9 +74,11 @@ export default {
                 let nbShips;
                 switch (price.type) {
                     case 'resource':
-                        nbShips = Math.ceil(this.$store.getters['user/getStoredResource'](price.resource) / price.amount);
+                        nbShips = Math.floor(this.$store.getters['user/getStoredResource'](price.resource) / price.amount);
+                        break;
                     case 'credits':
-                        nbShips = Math.ceil(this.$store.state.user.player.wallet / price.amount);
+                        nbShips = Math.floor(this.$store.state.user.player.wallet / price.amount);
+                        break;
                 }
                 if (nbShips < max) {
                     max = nbShips;
