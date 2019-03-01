@@ -42,7 +42,7 @@
                 </div>
             </section>
             <footer>
-                <button class="button" @click="produce" :style="{ color: factionColor }">
+                <button class="button" @click="produce()" :style="{ color: factionColor }">
                     <span class="big">Construire</span>
                 </button>
             </footer>
@@ -102,8 +102,8 @@ export default {
             return resourcesData[resource].color;
         },
 
-        produce() {
-
+        async produce() {
+            await this.$repositories.ship.ship.create(this.model, this.$store.state.user.currentPlanet, this.nbShips);
         }
     }
 }

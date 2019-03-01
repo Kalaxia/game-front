@@ -3,9 +3,9 @@ import Ship from '~/model/ship/ship';
 
 export default class ShipRepository extends Repository
 {
-    async create(ship, quantity) {
-        await ('POST', `/api/planets/${ship.hangar.id}/ships`, {
-            model: ship.model,
+    create(model, planet, quantity) {
+        return this.call('POST', `/api/planets/${planet.id}/ships`, {
+            model: model,
             quantity: parseInt(quantity)
         });
     }
