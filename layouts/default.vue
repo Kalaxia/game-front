@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <top-menu v-if="currentPlayer" :faction="currentPlayer.faction"></top-menu>
-        <logout-button id="logout"></logout-button>
+        <top-menu :faction="currentPlayer.faction" />
+        <logout-button id="logout" />
         <nuxt id="wrapper" />
-        <player-menu v-if="currentPlayer" :player="currentPlayer"></player-menu>
-        <planet-menu v-if="currentPlanet" :planet="currentPlanet"></planet-menu>
+        <player-menu :player="currentPlayer" />
+        <planet-menu :planet="currentPlanet" />
     </div>
 </template>
 
@@ -20,13 +20,6 @@ export default {
         LogoutButton,
         PlayerMenu,
         PlanetMenu
-    },
-
-    async beforeCreate() {
-        if (this.$store.state.api.isAuthenticated) {
-            await this.$store.dispatch('user/initPlayer');
-            await this.$store.dispatch('user/initPlanet');
-        }
     },
 
     computed: {

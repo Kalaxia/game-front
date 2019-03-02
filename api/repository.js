@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export default class Repository {
     constructor(store) {
         this.store = store;

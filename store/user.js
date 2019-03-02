@@ -16,6 +16,14 @@ export const mutations = {
         }
     },
 
+    spend(state, price) {
+        if (price.type === 'credits') {
+            state.player.wallet -= price.amount;
+        } else if (price.type === 'resource') {
+            state.currentPlanet.storage.resources[price.resource] -= price.amount;
+        }
+    },
+
     setFaction(state, faction) {
         state.player.faction = faction;
     },

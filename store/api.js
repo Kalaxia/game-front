@@ -12,7 +12,9 @@ export const mutations = {
     logout() {
         Cookie.remove('security_token');
         state.token = null;
-        window.location = `${this.$env.portalUrl}/dashboard`;
+        if (process.client) {
+            window.location = `${this.$env.portalUrl}/dashboard`;
+        }
     },
 
     authenticate(state, isAuthenticated) {

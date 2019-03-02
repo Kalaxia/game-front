@@ -1,8 +1,6 @@
-import Ship from './ship/ship.js';
-import ShipGroup from './ship/group.js';
 import System from './system.js';
 
-class Planet {
+export default class Planet {
     constructor(data) {
         this.id = data.id;
         this.name = data.name;
@@ -37,6 +35,8 @@ class Planet {
             this.shipGroups.splice(index, 1);
         }
     }
-}
 
-export default Planet;
+    toJSON() {
+        return Object.assign({}, this);
+    }
+};

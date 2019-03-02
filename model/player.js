@@ -12,4 +12,8 @@ export default class Player {
         this.createdAt = data.created_at;
         this.updatedAt = data.updated_at;
     }
+
+    toJSON() {
+        return Object.assign({}, this);
+    }
 }

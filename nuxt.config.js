@@ -40,10 +40,6 @@ module.exports = {
     '~/plugins/i18n.js',
   ],
 
-  router: {
-    middleware: ['auth']
-  },
-
   /*
   ** Nuxt.js modules
   */
