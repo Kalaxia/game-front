@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+const fetch = (typeof process.env.TESTING === 'undefined') ? require('node-fetch') : require('jest-fetch-mock');
 
 export default class Repository {
     constructor(store) {
