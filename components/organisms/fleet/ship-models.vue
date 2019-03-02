@@ -1,7 +1,11 @@
 <template>
     <div id="ship-models">
         <section>
-            <ship-model v-for="model in models" :key="model.id" :model="model" @click.native="$emit('selectModel', model)" :isSelected="isSelected(model)"/>
+            <ship-model v-for="model in models"
+                :key="model.id"
+                :model="model"
+                @click.native="$emit('selectModel', model)"
+                :isSelected="isSelected(model)"/>
         </section>
         <footer>
             <div v-if="hasCurrentPlayerData" class="button" :style="{ color: factionColor }">
@@ -35,9 +39,7 @@ export default {
         this.models = await this.$repositories.ship.model.getPlayerModels();
 
         if (this.currentPlanet !== null) {
-            for (const model of this.models) {
-                model.maxAvailable = this.getMaxAvailable(model);
-            }
+            this.processMaxAvailable();
         }
     },
 
@@ -57,15 +59,19 @@ export default {
 
     watch: {
         currentPlanet(planet) {
-            for (const model of this.models) {
-                model.maxAvailable = this.getMaxAvailable(model);
-            }
-        }
+            this.processMaxAvailable();
+        },
     },
 
     methods: {
         isSelected(model) {
             return (this.selectedModel !== null) ? model.id === this.selectedModel.id : false;
+        },
+
+        processMaxAvailable() {
+            for (const model of this.models) {
+                model.maxAvailable = this.getMaxAvailable(model);
+            }
         },
 
         getMaxAvailable(model) {

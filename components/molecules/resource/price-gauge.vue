@@ -51,7 +51,7 @@ export default {
                     color: this.resourceColor
                 },
                 {
-                    value: this.currentQuantity / this.storedResource * 100,
+                    value: this.price.amount * (this.coeff - 1) / this.storedResource * 100,
                     color: shadeColor(this.resourceColor, '-0.2')
                 },
             ]

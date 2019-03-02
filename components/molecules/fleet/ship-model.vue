@@ -1,5 +1,5 @@
 <template>
-    <div class="ship-model-container" :style="style">
+    <div class="ship-model-container" :style="style" :class="{ disabled: model.maxAvailable === 0 }">
         <div class="ship-model" :style="style" :class="{ selected: isSelected }">
             <header>
                 <colored-picto class="type-picto" :src="`ships/${picto}`" :color="pictoColor" width="32" height="32" />
@@ -17,7 +17,7 @@
                     <div v-for="(price, index) in model.price" :key="`model-${model.id}-price-${index}`">
                         <resource-item v-if="price.resource" :resource="{ name: price.resource }" />
                         <colored-picto v-else :src="pricePicto(price)" :color="pictoColor" width="18" height="18" />
-                        <span>{{ price.amount }}</span>
+                        <span :class="{ missing: isMissingPrice(price) }">{{ price.amount }}</span>
                     </div>
                 </div>
             </section>
@@ -48,7 +48,7 @@ export default {
         },
 
         pictoColor() {
-            return (this.isSelected) ? 'black' : 'white';
+            return (this.isSelected) ? 'black' : (this.model.maxAvailable === 0 ) ? '#4D4D4D' : 'white';
         },
 
         style() {
@@ -74,6 +74,15 @@ export default {
                 return 'G_P_Mon_64px.png';
             }
             return 'Pc_GenieMilitaire.png';
+        },
+
+        isMissingPrice(price) {
+            if (price.type === 'resource' && this.$store.getters['user/getStoredResource'](price.resource) < price.amount) {
+                return true;
+            } else if (price.type === 'credits' && this.$store.state.user.player.wallet < price.amount) {
+                return true;
+            }
+            return false;
         }
     }
 }
@@ -88,61 +97,86 @@ export default {
         padding: 1px;
         margin: 5px;
         cursor: pointer;
-    }
 
-    .ship-model {
-        padding: 5px 10px;
-        background-color: black;
-        clip-path: @smallRectClipPath;
+        & > .ship-model {
+            padding: 5px 10px;
+            background-color: black;
+            clip-path: @smallRectClipPath;
 
-        & > header {
-            font-variant: small-caps;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            & > header {
+                font-variant: small-caps;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-            h4, h5 {
-                margin: 0px;
-            }
-        }
-
-        & > section {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 10px;
-            padding-bottom: 5px;
-
-            & > div {
-                flex-basis: 48%;
-
-                &:first-child {
-                    border-right: 1px solid white;
+                h4, h5 {
+                    margin: 0px;
                 }
+            }
+
+            & > section {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 10px;
+                padding-bottom: 5px;
 
                 & > div {
-                    display: flex;
-                    align-items: center;
-                    padding: 5px;
+                    flex-basis: 48%;
 
-                    & > img {
-                        width: 18px;
-                        height: 18px;
+                    &:first-child {
+                        border-right: 1px solid white;
                     }
 
-                    & > span {
-                        margin-left: 5px;
-                        font-size: 0.8em;
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                        padding: 5px;
+
+                        & > img {
+                            width: 18px;
+                            height: 18px;
+                        }
+
+                        & > span {
+                            margin-left: 5px;
+                            font-size: 0.8em;
+                        }
                     }
+                }
+            }
+
+            &.selected {
+                color: black;
+
+                & > section > div:first-child {
+                    border-color: black;
                 }
             }
         }
 
-        &.selected {
-            color: black;
+        &.disabled {
+            background-color: #4D4D4D;
+            color: #4D4D4D;
 
-            & > section > div:first-child {
-                border-color: black;
+            & > .ship-model {
+                & > section {
+                    & > div {
+                        &:first-child {
+                            border-right: 1px solid #4D4D4D;
+                        }
+                    }
+
+                    & > .price {
+                        & > div {
+                            & > span.missing {
+                                color: red;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
+
+    
 </style>

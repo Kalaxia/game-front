@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </template>
-                <gauge-selector @change="nbShips = $event" :color="factionColor" :min="1" :max="model.maxAvailable" :initialValue="1" />
+                <gauge-selector @change="nbShips = $event" :color="factionColor" :min="1" :max="max" :initialValue="1" />
             </header>
             <section>
                 <div class="ship-indicator">
@@ -65,7 +65,8 @@ export default {
 
     data() {
         return {
-            nbShips: 1
+            nbShips: 1,
+            max: 1,
         };
     },
 
@@ -75,6 +76,10 @@ export default {
         ResourcePicto,
         ColoredPicto,
         GaugeSelector
+    },
+
+    created() {
+        this.max = this.maxAvailable;
     },
 
     computed: {
@@ -90,6 +95,10 @@ export default {
 
         factionColor() {
             return this.$store.state.user.player.faction.color;
+        },
+
+        maxAvailable() {
+            return this.model.maxAvailable;
         }
     },
 
@@ -104,6 +113,12 @@ export default {
 
         async produce() {
             await this.$repositories.ship.ship.create(this.model, this.$store.state.user.currentPlanet, this.nbShips);
+
+            for (const price of this.model.price) {
+                this.$store.commit('user/spend', price);
+            }
+            this.$emit('build');
+            this.max = this.model.maxAvailable;
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div id="shipyard">
-        <ship-models :selectedModel="selectedModel" @selectModel="selectModel" />
-        <ship-model-details v-if="selectedModel" :model="selectedModel" />
+        <ship-models :selectedModel="selectedModel" @selectModel="selectModel" ref="list" />
+        <ship-model-details v-if="selectedModel" :model="selectedModel" @build="build()" />
     </div>
 </template>
 
@@ -25,7 +25,18 @@ export default {
 
     methods: {
         selectModel(model) {
+            if (model.maxAvailable === 0) {
+                return;
+            }
             this.selectedModel = model;
+        },
+
+        build() {
+            this.$refs.list.processMaxAvailable();
+
+            if (this.selectedModel.maxAvailable === 0) {
+                this.selectedModel = null;
+            }
         }
     }
 }
