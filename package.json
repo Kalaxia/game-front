@@ -4,6 +4,7 @@
   "description": "Kalaxia game front",
   "scripts": {
     "test": "jest --runInBand",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -25,6 +26,7 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^24.1.0",
     "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.3",
     "css-loader": "^2.1.0",
     "file-loader": "^2.0.0",
     "jest": "^24.1.0",
@@ -70,6 +72,11 @@
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
-    }
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
   }
 }

@@ -10,6 +10,7 @@ then
 elif [ "$NODE_ENV" == "test" ]
 then
     npm run test
+    npm run coveralls
 else
     npm run dev
 fi
