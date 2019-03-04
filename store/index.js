@@ -26,6 +26,9 @@ export const actions = {
             redirect(`${app.$env.PORTAL_URL}/dashboard`);
         }
         await dispatch('user/initPlayer', null, { root: true });
+        if (!rootState.user.player.isActive) {
+            return redirect('/registration');
+        }
         await dispatch('user/initPlanet', null, { root: true });
     }
 };

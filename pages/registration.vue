@@ -47,12 +47,16 @@ export default {
             this.faction = faction;
             this.step = 2;
             this.$store.commit('user/setFaction', faction);
-            this.planetChoices = await this.$repositories.faction.getFactionPlanetChoices(faction);
+            this.planetChoices = await this.$repositories.planet.getFactionPlanetChoices(faction);
         },
 
         async confirmPlanet(planet) {
             this.$store.commit('user/addPlanet', planet);
-            await this.$repositories.player.createPlayer();
+            await this.$repositories.player.createPlayer(
+                this.$store.state.user.player.faction.id,
+                this.$store.state.user.planets[0].id
+            );
+            this.$store.commit('user/activate', true);
             this.$router.push('/map');
         }
     }

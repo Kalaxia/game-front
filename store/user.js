@@ -16,6 +16,10 @@ export const mutations = {
         }
     },
 
+    activate(state, isActive) {
+        state.player.isActive = isActive;
+    },
+
     spend(state, price) {
         if (price.type === 'credits') {
             state.player.wallet -= price.amount;
@@ -44,10 +48,6 @@ export const mutations = {
 export const actions = {
     async initPlayer({ state, commit }) {
         commit('setPlayer', await this.$repositories.player.getCurrentPlayer());
-
-        if (!state.player.isActive) {
-            this.app.router.push('/registration');
-        }
     },
 
     async initPlanet({ state, commit }) {
