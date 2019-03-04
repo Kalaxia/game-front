@@ -1,5 +1,6 @@
 import Repository from '~/api/repository';
 import Ship from '~/model/ship/ship';
+import ShipConstructionGroup from '~/model/ship/construction_group';
 
 export default class ShipRepository extends Repository
 {
@@ -8,6 +9,12 @@ export default class ShipRepository extends Repository
             model: model,
             quantity: parseInt(quantity)
         });
+    }
+
+    async getCurrentlyConstructingShips(planetId) {
+        const data = await this.call('GET', `/api/planets/${planetId}/ships/currently-constructing`);
+        
+        return (data.model !== null) ? new ShipConstructionGroup(data): null;
     }
 
     async getConstructingShips(planetId) {
