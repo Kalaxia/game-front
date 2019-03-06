@@ -25,6 +25,12 @@ module.exports = {
   */
   loading: { color: '#fff' },
 
+  watchers: {
+    webpack: {
+      aggregateTimeout: 300,
+      poll: 1000
+    }
+  },
   /*
   ** Global CSS
   */
