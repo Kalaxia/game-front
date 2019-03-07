@@ -44,6 +44,7 @@ module.exports = {
   plugins: [
     '~/plugins/api.js',
     '~/plugins/i18n.js',
+    '~/plugins/resources.js',
   ],
 
   /*
