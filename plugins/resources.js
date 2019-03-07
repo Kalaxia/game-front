@@ -10,7 +10,6 @@ export default async ({ app }, inject) => {
         app.$repositories.repository.call('GET', `/api/resources/ship_frames.json`),
         app.$repositories.repository.call('GET', `/api/resources/ship_modules.json`),
     ]);
-    console.log(buildings);
     inject('resources', {
         buildings,
         journey_range,

@@ -1,4 +1,3 @@
-import modulesData from '~/resources/ship_modules';
 import Price from '~/model/price.js';
 
 class ShipModule {
@@ -18,14 +17,14 @@ class ShipModule {
         this.price = data.price;
     }
 
-    static createFromSlug(slug) {
-        const moduleData = modulesData[slug];
-        //moduleData.name = translatedData.name;
-        //moduleData.description = translatedData.description;
-        moduleData.slug = slug;
-        moduleData.price = Price.format(moduleData.price);
-        return new ShipModule(moduleData);
-    }
+    // static createFromSlug(slug) {
+    //     const moduleData = modulesData[slug];
+    //     //moduleData.name = translatedData.name;
+    //     //moduleData.description = translatedData.description;
+    //     moduleData.slug = slug;
+    //     moduleData.price = Price.format(moduleData.price);
+    //     return new ShipModule(moduleData);
+    // }
 
     static getAll() {
         const modules = new Array();

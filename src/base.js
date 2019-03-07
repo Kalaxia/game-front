@@ -87,33 +87,6 @@ const updateGauge = setting => App.getCurrentPlanet().updateSettings().then(() =
 });
 
 /** BUILDINGS **/
-let availableBuildings = [];
-
-export const initBaseBuildings = () => {
-    const planet = App.getCurrentPlanet();
-    document.querySelector('.population-points').innerHTML =
-        `<strong>${planet.settings.building_points}</strong><img src="/images/buildings/build.svg"/>`
-    ;
-    document.querySelector('#planet-buildings > header > h3').innerHTML =
-        Dictionnary.translations.buildings.title.replace("%planet%", `<a href="/views/map/planet.html?id=${planet.id}">${planet.name}</a>`)
-    ;
-    availableBuildings = planet.available_buildings;
-    initBuildings(planet.buildings, planet.nb_buildings);
-};
-
-const initBuildings = (buildings, maxBuildings) => {
-    var list = document.querySelector('#planet-buildings > section');
-    for (let building of buildings) {
-        list.appendChild(newBuilding(building));
-    }
-    if (maxBuildings <= buildings.length) {
-        return;
-    }
-    let area = newBuilding({name: "area"});
-    area.addEventListener('click', showAvailableBuildings);
-    list.appendChild(area);
-}
-
 var timers = [];
 
 const newBuilding = data => {

@@ -1,7 +1,7 @@
 <template>
     <div v-if="planet">
         <building-item v-for="building in planet.buildings" :building="building" :key="building.id" />
-        <building-item v-if="canConstruct" />
+        <building-item v-if="planet.canConstruct" />
     </div>
 </template>
 
@@ -16,12 +16,6 @@ export default {
     components: {
         BuildingItem
     },
-
-    computed: {
-        canConstruct: function() {
-            return this.planet.nb_buildings > this.planet.buildings.length;
-        }
-    }
 }
 </script>
 

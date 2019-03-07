@@ -18,7 +18,6 @@
 
 <script>
 import ShipModel from '~/components/molecules/fleet/ship-model';
-import framesData from '~/resources/ship_frames';
 
 export default {
     name: 'ship-models',

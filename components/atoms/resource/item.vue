@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import resourcesData from '~/resources/resources';
-
 export default {
     name: 'resource-item',
 
@@ -12,7 +10,7 @@ export default {
     
     data: function() {
         return {
-            planetResource: Object.assign({}, this.resource, resourcesData[this.resource.name])
+            planetResource: Object.assign({}, this.resource, this.$resources.resources[this.resource.name])
         }
     },
     

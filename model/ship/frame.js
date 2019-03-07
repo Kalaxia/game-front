@@ -1,4 +1,3 @@
-import framesData from '~/resources/ship_frames';
 import Price from '~/model/price.js';
 import ShipSlot from './slot.js';
 
@@ -12,14 +11,14 @@ class ShipFrame {
         this.price = data.price;
     }
 
-    static createFromSlug(slug) {
-        const frame = new ShipFrame(framesData[slug]);
-        frame.slug = slug;
-        frame.slots = ShipSlot.formatArray(frame.slots);
-        frame.price = Price.format(frame.price);
-        frame.initSlots();
-        return frame;
-    }
+    // static createFromSlug(data) {
+    //     const frame = new ShipFrame(framesData[slug]);
+    //     frame.slug = slug;
+    //     frame.slots = ShipSlot.formatArray(frame.slots);
+    //     frame.price = Price.format(frame.price);
+    //     frame.initSlots();
+    //     return frame;
+    // }
 
     static getFrames() {
         const frames = new Array();

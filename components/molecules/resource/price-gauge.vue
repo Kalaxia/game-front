@@ -17,7 +17,6 @@
 
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
-import resourcesData from '~/resources/resources';
 import { shadeColor } from '~/lib/colors';
 import Gauge from '~/components/atoms/gauge';
 
@@ -41,7 +40,7 @@ export default {
         },
 
         resourceColor() {
-            return resourcesData[this.price.resource].color;
+            return this.$resources.resources[this.price.resource].color;
         },
 
         gaugeLevels() {

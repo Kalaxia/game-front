@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import resourcesData from '~/resources/resources';
 import ResourceItem from '~/components/atoms/resource/item';
 
 export default {
@@ -52,7 +51,7 @@ export default {
         },
 
         color() {
-            return resourcesData[this.resource.name].color;
+            return this.$resources.resources[this.resource.name].color;
         },
 
         filledCapacity() {

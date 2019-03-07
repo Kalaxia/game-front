@@ -55,7 +55,6 @@ import ShipStat from '~/components/atoms/ship/stat';
 import ResourcePrice from '~/components/molecules/resource/price-gauge';
 import ResourcePicto from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
-import resourcesData from '~/resources/resources';
 import GaugeSelector from '~/components/atoms/gauge-selector';
 
 export default {
@@ -108,7 +107,7 @@ export default {
         },
 
         resourceColor(resource) {
-            return resourcesData[resource].color;
+            return this.$resources.resources[resource].color;
         },
 
         async produce() {

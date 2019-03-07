@@ -36,6 +36,10 @@ export default class Planet {
         }
     }
 
+    canConstruct() {
+        return this.planet.nb_buildings > this.planet.buildings.length;
+    }
+
     toJSON() {
         return Object.assign({}, this);
     }
