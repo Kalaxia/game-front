@@ -1,5 +1,4 @@
 import { Offer, GOOD_TYPE_RESOURCES } from './offer.js';
-import resourcesData from '~/resources/resources';
 
 class ResourceOffer extends Offer {
     constructor(id, operation, location, createdAt, acceptedAt, quantity, lotQuantity, price, resource) {
@@ -15,10 +14,6 @@ class ResourceOffer extends Offer {
     // getGoodName() {
     //     return Dictionnary.translations.resources[this.resource];
     // };
-
-    getGoodPicto() {
-        return `/images/resources/${resourcesData[this.resource].picto}`;
-    };
 
     getGoodClass() {
         return '-';

@@ -1,5 +1,11 @@
 <template>
     <div id="planet-menu">
+        <div v-if="constructingShips">
+            {{ constructingShips.quantity }}
+            {{ constructingShips.model.name }}
+            {{ constructingShips.constructionState.points }}
+            {{ constructingShips.constructionState.current_points }}
+        </div>
         <div>
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
             <h5 :class="planet.type" >{{ planet.name }}</h5>
@@ -21,11 +27,21 @@ export default {
 
     props: ['planet'],
 
+    data() {
+        return {
+            constructingShips: null
+        };
+    },
+
     components: {
         PlanetPicto,
         PlanetImage,
         PlanetCoords
     },
+
+    async mounted() {
+        this.constructingShips = await this.$repositories.ship.ship.getCurrentlyConstructingShips(this.planet.id);
+    }
 }
 </script>
 

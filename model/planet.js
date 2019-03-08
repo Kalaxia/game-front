@@ -15,7 +15,7 @@ export default class Planet {
         this.settings = data.settings;
         this.relations = data.relations;
         this.resources = data.resources;
-        this.storage = data.storage;
+        this.storage = (data.storage !== null) ? data.storage : { resources: [] };
         this.ships = new Array();
         this.shipGroups = new Array();
     }
@@ -34,6 +34,10 @@ export default class Planet {
         } else if (index >= 0 && this.shipGroups[index].quantity === 0) {
             this.shipGroups.splice(index, 1);
         }
+    }
+
+    canConstruct() {
+        return this.planet.nb_buildings > this.planet.buildings.length;
     }
 
     toJSON() {

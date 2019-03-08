@@ -15,7 +15,6 @@
 <script>
 import Chart from 'chart.js';
 import ResourceItem from '~/components/atoms/resource/item';
-import resourcesData from '~/resources/resources';
 
 export default {
     name: 'resource-density-graph',
@@ -99,7 +98,7 @@ export default {
             let added = 0;
             const numberOfResources = 6;
             for (const key in this.resources) {
-                const resource = Object.assign({}, this.resources[key], resourcesData[this.resources[key].name]);
+                const resource = Object.assign({}, this.resources[key], this.$resources.resources[this.resources[key].name]);
 
                 dataset.data.push(resource.density);
                 dataset.backgroundColor.push(resource.color);

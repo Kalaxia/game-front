@@ -6,9 +6,12 @@ import PlayerRepository from '~/api/player';
 import ShipRepository from '~/api/ship/ship';
 import ShipModelRepository from '~/api/ship/model';
 import OfferRepository from '~/api/trade/offer';
+import Repository from '~/api/repository';
+import BuildingRepository from '../api/building';
 
 export default ({ store }, inject) => {
     inject('repositories', {
+        building: new BuildingRepository(store),
         faction: new FactionRepository(store),
         fleet: new FleetRepository(store),
         map: new MapRepository(store),
@@ -21,5 +24,6 @@ export default ({ store }, inject) => {
         trade: {
             offer: new OfferRepository(store),
         },
+        repository: new Repository(store)
     });
 };

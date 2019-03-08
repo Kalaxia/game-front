@@ -42,6 +42,27 @@ export const mutations = {
 
     setCurrentPlanet(state, planet) {
         state.currentPlanet = planet;
+    },
+
+    build(state, building) {
+        state.currentPlanet.buildings.push(building);
+
+        for (const i in state.currentPlanet.available_buildings) {
+            if (state.currentPlanet.available_buildings[i].name === building.name) {
+                state.currentPlanet.available_buildings.splice(i, 1);
+                break;
+            }
+        }
+    },
+
+    cancelBuilding(state, data) {
+        for (const i in state.currentPlanet.buildings) {
+            if (state.currentPlanet.buildings[i].id === data.id) {
+                state.currentPlanet.buildings.splice(i, 1);
+                break;
+            }
+        }
+        state.currentPlanet.available_buildings.push(data.availableBuilding);
     }
 };
 

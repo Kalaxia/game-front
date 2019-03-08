@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import framesData from '~/resources/ship_frames';
-
 export default {
     name: 'ship-group',
 
@@ -23,7 +21,7 @@ export default {
 
     computed: {
         framePicture() {
-            return `/images/shipyard/frame/${framesData[this.group.frame].picture}`;
+            return `/images/shipyard/frame/${this.$resources.ship_frames[this.group.frame].picture}`;
         }
     }
 }

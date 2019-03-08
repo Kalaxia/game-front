@@ -3,14 +3,17 @@
         "not_implemented": "Cette fonctionnalité n'est pas encore implémentée."
     },
     "buildings": {
-        "title": "Bâtiments de %planet%",
+        "build": "Construire",
+        "cancel": "Annuler",
+        "title": "Bâtiments de {planet}",
+        "available_buildings": "Bâtiments disponibles",
         "area": "Emplacement disponible",
-        "bat.prod.a": "Mine de Lithium",
-        "bat.prod.b": "Ferme céréalière",
-        "bat.shipyard.a": "Usine de chasseurs",
-        "bat.shipyard.b": "Chantier naval",
-        "bat.techno.a": "Laboratoire expérimental",
-        "bat.trade.a": "Comptoir commercial"
+        "hypodronic-farm": "Ferme à vaporisateurs",
+        "ore-mine": "Mine de Lithium",
+        "shipyard": "Usine de chasseurs",
+        "spatial-shipyard": "Chantier naval",
+        "technolab": "Laboratoire expérimental",
+        "trade-post": "Comptoir commercial"
     },
     "credits": "Crédits",
     "diplomacy": {
