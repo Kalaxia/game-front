@@ -15,8 +15,11 @@
             </template>
         </section>
         <footer>
-            <button class="big button" :style="{ color: factionColor }" @click="$emit('build', building)">
+            <button v-if="building.price" class="big button" :style="{ color: factionColor }" @click="$emit('build', building)">
                 Construire
+            </button>
+            <button v-if="building.id" class="big button" :style="{ color: factionColor }" @click="$emit('cancel', building)">
+                Annuler
             </button>
         </footer>
     </div>

@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 export default async ({ app }, inject) => {
     const [ buildings, journey_range, journey_times, planet_types, resources, ship_frames, ship_modules ] = await Promise.all([
         app.$repositories.repository.call('GET', `/api/resources/buildings.json`),

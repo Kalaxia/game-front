@@ -1,7 +1,7 @@
 <template>
     <div id="buildings">
         <buildings-list @select="selectedBuilding = $event" />
-        <building-details @build="build" v-if="selectedBuilding" :building="selectedBuilding" />
+        <building-details @build="build" @cancel="cancel" v-if="selectedBuilding" :building="selectedBuilding" />
     </div>
 </template>
 
@@ -25,7 +25,20 @@ export default {
 
     methods: {
         async build(building) {
-            await this.$repositories.building.create(this.$store.state.user.currentPlanet, building);
+            const b = await this.$repositories.building.create(this.$store.state.user.currentPlanet, building);
+
+            this.$store.commit('user/build', b);
+            this.selectedBuilding = b;
+        },
+
+        async cancel(building) {
+            await this.$repositories.building.cancel(this.$store.state.user.currentPlanet, building);
+
+            this.$store.commit('user/cancelBuilding', {
+                id: building.id,
+                availableBuilding: Object.assign({}, this.$resources.buildings[building.name], { name: building.name })
+            });
+            this.selectedBuilding = building;
         }
     }
 }
