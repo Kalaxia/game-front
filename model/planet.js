@@ -15,7 +15,7 @@ export default class Planet {
         this.settings = data.settings;
         this.relations = data.relations;
         this.resources = data.resources;
-        this.storage = data.storage;
+        this.storage = (data.storage !== null) ? data.storage : { resources: [] };
         this.ships = new Array();
         this.shipGroups = new Array();
     }

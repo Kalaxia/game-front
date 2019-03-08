@@ -1,33 +1,34 @@
 <template>
-    <router-link v-if="building"
+    <nuxt-link v-if="building"
        :to="link"
        :class="['building', categoryClass, {constructing: isConstructing}]"
        :style="{ backgroundImage: `url('/images/buildings/${buildingPicture}')`}" />
-    <a v-else class="building area" href="/views/base/buildings.html"></a>
+    <nuxt-link v-else class="building area" to="/buildings" />
 </template>
 
 <script>
-import buildingsData from '~/resources/buildings';
-
 export default {
     name: 'building-item',
     
     props: ['building'],
 
     computed: {
-        link: function() {
-            return (this.building.status === 'operational' && typeof buildingsData[this.building.name].link !== 'undefined')
-            ? buildingsData[this.building.name].link
-            : '/buildings'
+        link() {
+            return (this.building.status === 'operational' && typeof this.$resources.buildings[this.building.name].link !== 'undefined')
+                ? this.$resources.buildings[this.building.name].link
+                : '/buildings';
         },
-        categoryClass: function() {
-            return `category-${buildingsData[this.building.name].category}`
+
+        categoryClass() {
+            return `category-${this.$resources.buildings[this.building.name].category}`
         },
-        isConstructing: function() {
+
+        isConstructing() {
             return this.building.status === 'constructing';
         },
-        buildingPicture: function() {
-            return buildingsData[this.building.name].picture;
+
+        buildingPicture() {
+            return this.$resources.buildings[this.building.name].picture;
         }
     }
 }
