@@ -15,7 +15,7 @@
             </template>
         </section>
         <footer>
-            <button class="big button" :style="{ color: factionColor }">
+            <button class="big button" :style="{ color: factionColor }" @click="$emit('build', building)">
                 Construire
             </button>
         </footer>
@@ -40,7 +40,7 @@ export default {
         factionColor() {
             return this.$store.state.user.player.faction.color;
         }
-    }
+    },
 }
 </script>
 

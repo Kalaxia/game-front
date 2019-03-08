@@ -1,7 +1,7 @@
 <template>
     <div id="buildings">
         <buildings-list @select="selectedBuilding = $event" />
-        <building-details v-if="selectedBuilding" :building="selectedBuilding" />
+        <building-details @build="build" v-if="selectedBuilding" :building="selectedBuilding" />
     </div>
 </template>
 
@@ -21,6 +21,12 @@ export default {
     components: {
         BuildingDetails,
         BuildingsList
+    },
+
+    methods: {
+        async build(building) {
+            await this.$repositories.building.create(this.$store.state.user.currentPlanet, building);
+        }
     }
 }
 </script>
