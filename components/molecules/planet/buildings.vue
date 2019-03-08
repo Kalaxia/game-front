@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BuildingItem from '~/components/atoms/planet/building-item';
+import BuildingItem from '~/components/atoms/building/item';
 
 export default {
     name: 'planet-buildings',

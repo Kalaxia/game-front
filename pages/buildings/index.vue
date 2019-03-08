@@ -1,6 +1,6 @@
 <template>
     <div id="buildings">
-        <buildings-list @select="selectedBuilding = $event" />
+        <buildings-list @select="selectedBuilding = $event" :selectedBuilding="selectedBuilding" />
         <building-details @build="build" @cancel="cancel" v-if="selectedBuilding" :building="selectedBuilding" />
     </div>
 </template>

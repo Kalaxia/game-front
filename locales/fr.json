@@ -3,7 +3,10 @@
         "not_implemented": "Cette fonctionnalité n'est pas encore implémentée."
     },
     "buildings": {
-        "title": "Bâtiments de %planet%",
+        "build": "Construire",
+        "cancel": "Annuler",
+        "title": "Bâtiments de {planet}",
+        "available_buildings": "Bâtiments disponibles",
         "area": "Emplacement disponible",
         "hypodronic-farm": "Ferme à vaporisateurs",
         "ore-mine": "Mine de Lithium",
