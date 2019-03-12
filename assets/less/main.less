@@ -46,6 +46,22 @@ body, #__nuxt, #__layout {
     grid-column: ~"5/11";
     grid-row: 10;
     margin-right: 10px;
+
+    .module {
+        margin: 5px 10px;
+
+        & > header {
+            position: relative;
+
+            & > div {
+                padding: 8px;
+                background-color: #2D2D2D;
+                border: 2px solid black;
+                border-radius: 50%;
+                margin-top: -20px;
+            }
+        }
+    }
 }
 
 #wrapper {

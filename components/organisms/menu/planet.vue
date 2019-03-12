@@ -1,5 +1,6 @@
 <template>
     <div id="planet-menu">
+        <population-points class="module" :planet="planet" />
         <div v-if="constructingShips">
             {{ constructingShips.quantity }}
             {{ constructingShips.model.name }}
@@ -21,6 +22,7 @@
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetCoords from '~/components/atoms/planet/coords';
+import PopulationPoints from '~/components/molecules/menu/population-points';
 
 export default {
     name: 'planet-menu',
@@ -36,7 +38,8 @@ export default {
     components: {
         PlanetPicto,
         PlanetImage,
-        PlanetCoords
+        PlanetCoords,
+        PopulationPoints
     },
 
     async mounted() {
@@ -93,6 +96,12 @@ export default {
 
         & > a > .planet-image {
             margin-top: 15px;
+        }
+
+        & > .module {
+            background-color: #2D2D2D;
+            border-radius: 5px;
+            padding: 5px 10px;
         }
     }
 </style>
