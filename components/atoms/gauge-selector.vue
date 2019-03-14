@@ -23,7 +23,7 @@ const dragData = {
 export default {
     name: 'gauge-selector',
 
-    props: ['min', 'max', 'initialValue', 'color'],
+    props: ['min', 'max', 'available', 'initialValue', 'color'],
 
     data() {
         return {
@@ -51,7 +51,7 @@ export default {
 
             const newValue = Math.floor(this.max * width / this.$refs.container.offsetWidth);
 
-            if (newValue < this.min || newValue > this.max) {
+            if (newValue < this.min || newValue > this.max || (this.available !== null && newValue > this.value && this.available === 0)) {
                 return;
             }
 
@@ -66,6 +66,8 @@ export default {
 
             document.onmousemove = null;
             document.onmouseup = null;
+
+            this.$emit('stop', this.value);
         }
     }
 }
