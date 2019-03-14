@@ -1,5 +1,5 @@
 <template>
-    <div v-if="planet" id="menu-population-points">
+    <nuxt-link :to="`/planet/${planet.id}/population`" v-if="planet" id="menu-population-points">
         <header>
             <div>
                 <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="18" :height="18" />
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </section>
-    </div>
+    </nuxt-link>
 </template>
 
 <script>

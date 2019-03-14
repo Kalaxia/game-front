@@ -38,6 +38,6 @@ export default class PlanetRepository extends Repository
     }
 
     updateSettings(planet) {
-        return this.call('PUT', `/api/planets/${this.id}/settings`, planet.settings);
+        return this.call('PUT', `/api/planets/${planet.id}/settings`, planet.settings);
     }
 };

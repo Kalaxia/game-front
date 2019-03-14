@@ -44,6 +44,10 @@ export const mutations = {
         state.currentPlanet = planet;
     },
 
+    setPlanetSetting(state, payload) {
+        state.currentPlanet.settings[payload.setting] = payload.value;
+    },
+
     build(state, building) {
         state.currentPlanet.buildings.push(building);
 
