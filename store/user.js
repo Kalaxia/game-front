@@ -102,5 +102,9 @@ export const getters = {
         return (typeof state.currentPlanet.storage.resources[resource] !== 'undefined')
             ? state.currentPlanet.storage.resources[resource]
             : 0;
+    },
+
+    factionColors: state => {
+        return state.player.faction.colors;
     }
 };
