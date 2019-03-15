@@ -12,8 +12,8 @@
         </section>
         <footer>
             <transition name="next">
-                <button v-if="isFactionSelected" :style="{backgroundColor: selectedFaction.color, color: selectedFaction.color}" @click="$emit('selectFaction', selectedFaction)">
-                    <span>{{ $t('registration.next') }}</span>
+                <button v-if="isFactionSelected" :style="{ borderColor: selectedFaction.color }" @click="$emit('selectFaction', selectedFaction)">
+                    {{ $t('registration.next') }}
                 </button>
             </transition>
         </footer>
@@ -56,8 +56,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '~less/atoms/box.less';
-
     #factions-choice {
         & > header {
             text-align: center;
@@ -85,23 +83,19 @@ export default {
             padding-top: 40px;
 
             & > button {
-                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 5px;
                 width: 200px;
                 height: 50px;
                 font-size: 1.5em;
                 font-variant: small-caps;
-                padding: 2px;
-                clip-path: @smallBoxClipPath;
-
-                & > span {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    height: 100%;
-                    background-color: #000;
-                    clip-path: @smallBoxClipPath;
-                }
+                border: 2px solid;
+                border-radius: 25px;
+                background-color: black;
+                color: white;
+                cursor: pointer;
             }
 
             .next-enter-active, .next-leave-active {

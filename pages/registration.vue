@@ -1,7 +1,8 @@
 <template>
     <div>
         <factions-choice v-if="step === 1" @selectFaction="selectFaction" />
-        <template v-if="step === 2 && planetChoices.length > 0">
+        <character-form v-if="step === 2" @createCharacter="createCharacter" />
+        <template v-if="step === 3 && planetChoices.length > 0">
             <starmap :map="map" :playerPlanets="planetChoices" />
             <planets-choice :planets="planetChoices" @confirmPlanet="confirmPlanet" />
         </template>
@@ -9,6 +10,7 @@
 </template>
 
 <script>
+import CharacterForm from '~/components/organisms/registration/character-form';
 import Starmap from '~/components/organisms/map/starmap';
 import FactionsChoice from '~/components/organisms/registration/factions-choice';
 import PlanetsChoice from '~/components/organisms/registration/planets-choice';
@@ -27,6 +29,7 @@ export default {
     },
 
     components: {
+        CharacterForm,
         FactionsChoice,
         PlanetsChoice,
         Starmap
@@ -50,13 +53,21 @@ export default {
             this.planetChoices = await this.$repositories.planet.getFactionPlanetChoices(faction);
         },
 
+        createCharacter(data) {
+            this.step = 3;
+
+            this.$store.commit('user/setGender', data.gender);
+            this.$store.commit('user/setAvatar', data.avatar);
+            this.$store.commit('user/setPseudo', data.pseudo);
+        },
+
         async confirmPlanet(planet) {
-            this.$store.commit('user/addPlanet', planet);
             await this.$repositories.player.createPlayer(
-                this.$store.state.user.player.faction.id,
-                this.$store.state.user.planets[0].id
+                this.$store.state.user.player,
+                planet.id
             );
-            this.$store.commit('user/activate', true);
+            this.$store.commit('user/setCurrentPlayer', await this.$repositories.player.getCurrentPlayer());
+            this.$store.commit('user/addPlanet', await this.$repositories.planet.get(planet.id))
             this.$router.push('/map');
         }
     }
@@ -77,5 +88,10 @@ export default {
     #planets-choice {
         grid-column: ~"3/9";
         grid-row: ~"6/10";
+    }
+
+    #character-form {
+        grid-column: ~"3/9";
+        grid-row: ~"3/9";
     }
 </style>

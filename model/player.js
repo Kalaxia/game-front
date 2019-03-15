@@ -6,6 +6,8 @@ export default class Player {
     constructor(data) {
         this.id = data.id;
         this.pseudo = data.pseudo;
+        this.avatar = data.avatar;
+        this.gender = data.gender;
         this.isActive = data.is_active;
         this.wallet = data.wallet;
         this.faction = (data.faction !== null) ? new Faction(data.faction) : null;
