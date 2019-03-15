@@ -46,7 +46,7 @@ export default {
             return {
                 top: `calc((50% - ${(planet.orbit.radius / 2) + 1}px) + ${radius + (Math.cos(angle) * radius)}px - 16px)`,
                 left: `calc((50% - ${(planet.orbit.radius / 2) + 1}px) + ${radius + (Math.sin(angle) * radius)}px - 16px)`,
-                backgroundColor: (planet.player !== null) ? planet.player.faction.color : null
+                backgroundColor: (planet.player !== null) ? planet.player.faction.colors['main'] : null
             };
         },
 
@@ -56,7 +56,7 @@ export default {
                 left: `calc(50% - ${(planet.orbit.radius / 2) + 1}px)`,
                 width: `${planet.orbit.radius}px`,
                 height: `${planet.orbit.radius}px`,
-                borderColor: (planet.player !== null) ? planet.player.faction.color : null
+                borderColor: (planet.player !== null) ? planet.player.faction.colors['main'] : null
             };
         },
 

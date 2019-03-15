@@ -2,7 +2,7 @@
     <div id="faction-relations">
         <div v-for="relation in faction.relations" :key="relation.id" :id="`relation-${relation.faction.id}`" class="faction">
             <header>
-                <h4 :style="{color: relation.faction.color}">{{ relation.faction.name }}</h4>
+                <h4 :style="{color: relation.faction.colors['main']}">{{ relation.faction.name }}</h4>
                 <router-link :to="(isMyFaction(relation.faction.id)) ? '/faction' : `/faction/${relation.faction.id}`">
                     <faction-banner :faction="relation.faction" width="80" height="130" />
                 </router-link>

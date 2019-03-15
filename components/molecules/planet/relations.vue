@@ -57,11 +57,11 @@ export default {
                 let dataset, color, name = null;
                 if (relation.faction !== null) {
                     dataset = factionDataset;
-                    color = relation.faction.color;
+                    color = relation.faction.colors['main'];
                     name = relation.faction.name;
                 } else {
                     dataset = playerDataset;
-                    color = relation.player.faction.color;
+                    color = relation.player.faction.colors['main'];
                     name = relation.player.pseudo;
                 }
                 dataset.data.push(Math.abs(relation.score));

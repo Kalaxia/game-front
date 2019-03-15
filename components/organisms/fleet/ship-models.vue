@@ -8,7 +8,7 @@
                 :isSelected="isSelected(model)"/>
         </section>
         <footer>
-            <div v-if="hasCurrentPlayerData" class="button" :style="{ color: factionColor }">
+            <div v-if="hasCurrentPlayerData" class="button" :style="{ color: factionColors['main'] }">
                 <span class="big">créer</span>
                 un modèle de vaisseau
             </div>
@@ -18,6 +18,7 @@
 
 <script>
 import ShipModel from '~/components/molecules/fleet/ship-model';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ship-models',
@@ -47,13 +48,13 @@ export default {
             return this.$store.state.user.player !== null;
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        },
-
         currentPlanet() {
             return this.$store.state.user.currentPlanet;
-        }
+        },
+
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     watch: {

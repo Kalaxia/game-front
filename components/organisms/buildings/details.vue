@@ -3,7 +3,7 @@
         <header>
             <building-image :building="building" width="76px" />
 
-            <h3 :style="{ color: factionColor }">{{ $t('buildings')[building.name] }}</h3>
+            <h3 :style="{ color: factionColors['main'] }">{{ $t('buildings')[building.name] }}</h3>
         </header>
         <section>
             <template v-for="(price, index) in building.price">
@@ -16,10 +16,10 @@
             <construction-state v-if="building.construction_state" :building="building" :pictoSize="32" gaugeHeight="24px" />
         </section>
         <footer>
-            <button v-if="building.price" class="button" :style="{ color: factionColor }" @click="$emit('build', building)">
+            <button v-if="building.price" class="button" :style="{ color: factionColors['main'] }" @click="$emit('build', building)">
                 <span class="big">{{ $t('buildings.build') }}</span>
             </button>
-            <button v-if="building.construction_state" class="button" :style="{ color: factionColor }" @click="$emit('cancel', building)">
+            <button v-if="building.construction_state" class="button" :style="{ color: factionColors['main'] }" @click="$emit('cancel', building)">
                 <span class="big">{{ $t('buildings.cancel') }}</span>
             </button>
         </footer>
@@ -30,6 +30,7 @@
 import BuildingImage from '~/components/atoms/building/image';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import ConstructionState from '~/components/atoms/building/construction-state';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'building-details',
@@ -43,9 +44,9 @@ export default {
     },
 
     computed: {
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 }
 </script>

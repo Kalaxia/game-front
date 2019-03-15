@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="`/profile/${player.id}`" :style="{ color: player.faction.color }">
+    <router-link :to="`/profile/${player.id}`" :style="{ color: player.faction.colors['main'] }">
         {{ player.pseudo }}
     </router-link>    
 </template>
