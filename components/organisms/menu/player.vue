@@ -1,6 +1,6 @@
 <template>
     <div id="player-menu" v-if="player">
-        <header>
+        <header v-if="player.isActive">
             <colored-picto :src="'G_P_Mon_64px.png'" :color="player.faction.color" width="48" height="48" />
             <p>{{ player.wallet }}</p>
         </header>

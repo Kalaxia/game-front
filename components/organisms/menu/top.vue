@@ -1,14 +1,16 @@
 <template>
     <div class="top-menu">
-        <Item image="B_Merc_64px.png" :color="faction.color" />
-        <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.color" />
-        <Item image="G_P_Science_64px.png" :color="faction.color" />
-
-        <FactionBanner :faction="faction" />
-
-        <Item link="/" image="G_P_Ov_64px.png" :color="faction.color" />
-        <Item link="/map" image="G_P_Map_64px.png" :color="faction.color" />
-        <Item link="/profile" image="G_P_Rank_64px.png" :color="faction.color" />
+        <template v-if="isActive">
+            <Item image="B_Merc_64px.png" :color="faction.color" />
+            <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.color" />
+            <Item image="G_P_Science_64px.png" :color="faction.color" />
+        </template>
+        <FactionBanner :faction="faction" :isLink="isActive" />
+        <template v-if="isActive">
+            <Item link="/" image="G_P_Ov_64px.png" :color="faction.color" />
+            <Item link="/map" image="G_P_Map_64px.png" :color="faction.color" />
+            <Item link="/profile" image="G_P_Rank_64px.png" :color="faction.color" />
+        </template>
     </div>
 </template>
 
@@ -24,6 +26,12 @@ export default {
     components: {
         Item,
         FactionBanner
+    },
+
+    computed: {
+        isActive() {
+            return this.$store.state.user.player.isActive;
+        }
     }
 }
 </script>

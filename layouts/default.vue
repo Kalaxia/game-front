@@ -3,7 +3,7 @@
         <top-menu v-if="currentPlayer.faction" :faction="currentPlayer.faction" />
         <logout-button id="logout" />
         <nuxt id="wrapper" />
-        <player-menu v-if="currentPlayer.isActive" :player="currentPlayer" />
+        <player-menu v-if="currentPlayer.avatar" :player="currentPlayer" />
         <planet-menu v-if="currentPlanet" :planet="currentPlanet" />
     </div>
 </template>

@@ -1,14 +1,17 @@
 <template>
-    <router-link class="faction-banner" :to="`/faction`" :alt="faction.name">
+    <nuxt-link v-if="isLink" class="faction-banner" :to="`/faction`" :alt="faction.name">
         <img :src="`/images/factions/${faction.banner}`" :alt="faction.name" />
-    </router-link>
+    </nuxt-link>
+    <div v-else class="faction-banner">
+        <img :src="`/images/factions/${faction.banner}`" :alt="faction.name" />
+    </div>
 </template>
 
 <script>
 export default {
     name: 'faction-banner',
 
-    props: ['faction']
+    props: ['faction', 'isLink']
 }
 </script>
 
