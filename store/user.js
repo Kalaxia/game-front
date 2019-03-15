@@ -36,6 +36,18 @@ export const mutations = {
         state.player = player;
     },
 
+    setGender(state, gender) {
+        state.player.gender = gender;
+    },
+
+    setAvatar(state, avatar) {
+        state.player.avatar = avatar;
+    },
+
+    setPseudo(state, pseudo) {
+        state.player.pseudo = pseudo;
+    },
+
     setPlanets(state, planets) {
         state.planets = planets;
     },

@@ -1,6 +1,6 @@
 <template>
     <div class="avatar">
-        <img :src="`/images/avatars/portrait-mauve.png`" :style="style" :alt="player.pseudo" />
+        <img :src="`/images/avatars/${this.player.gender}/${this.player.avatar}.png`" :style="style" :alt="player.pseudo" />
     </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
     props: ['player', 'width', 'height'],
 
     computed: {
-        style: function() {
+        style() {
             return {
                 width: `${this.width - 6}px`,
                 height: `${this.height - 6}px`,
