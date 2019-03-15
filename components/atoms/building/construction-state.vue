@@ -29,7 +29,7 @@ export default {
     computed: {
         constructionLevel() {
             return [{
-                color: this.$store.getters('user/factionsColors')['main'],
+                color: this.$store.getters['user/factionColors']['main'],
                 value: Math.floor(this.building.construction_state.current_points / this.building.construction_state.points * 100)
             }];
         }
