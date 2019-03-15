@@ -1,5 +1,5 @@
 <template>
-    <div class="faction-banner" :style="{ backgroundColor: faction.color, width: width + 'px', height: height + 'px' }">
+    <div class="faction-banner" :style="{ backgroundColor: faction.colors['main'], width: width + 'px', height: height + 'px' }">
         <img :src="`/images/factions/${faction.banner}`" :alt="faction.banner"/>
     </div>
 </template>

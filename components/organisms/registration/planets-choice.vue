@@ -12,7 +12,7 @@
         </section>
         <footer>
             <transition name="next">
-                <button v-if="isPlanetSelected" class="big button" :style="{ borderColor: factionColor, color: factionColor }" @click="$emit('confirmPlanet', selectedPlanet)">
+                <button v-if="isPlanetSelected" class="big button" :style="{ borderColor: factionColors['main'], color: factionColors['main'] }" @click="$emit('confirmPlanet', selectedPlanet)">
                     <span>{{ $t('registration.start') }}</span>
                 </button>
             </transition>
@@ -22,6 +22,7 @@
 
 <script>
 import PlanetItem from '~/components/molecules/registration/planet-item';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'planets-choice',
@@ -43,9 +44,9 @@ export default {
             return this.selectedPlanet !== null;
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     methods: {

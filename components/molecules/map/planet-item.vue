@@ -52,7 +52,7 @@ export default {
     computed: {
         borderColor() {
             if (this.planet.player !== null) {
-                return this.planet.player.faction.color;
+                return this.planet.player.faction.colors['main'];
             }
             return null;
         }

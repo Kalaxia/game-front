@@ -1,7 +1,7 @@
 <template>
     <div class="info">
         <faction-banner :faction="faction" width="80" height="130"/>
-        <h1 :style="{ color: faction.color }">{{ faction.name }}</h1>
+        <h1 :style="{ color: faction.colors['main'] }">{{ faction.name }}</h1>
     </div>
 </template>
 

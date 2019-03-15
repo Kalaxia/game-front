@@ -56,7 +56,7 @@ export default {
                 return;
             }
             return {
-                backgroundColor: this.$store.state.user.player.faction.color
+                backgroundColor: this.$store.state.user.player.faction.colors['main']
             };
         }
     },

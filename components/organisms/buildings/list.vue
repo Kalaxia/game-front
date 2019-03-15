@@ -1,7 +1,7 @@
 <template>
     <div id="buildings-list">
         <section>
-            <h3 :style="{ color: factionColor }">{{ $t('buildings.title', { planet: currentPlanet.name }) }}</h3>
+            <h3 :style="{ color: factionColors['main'] }">{{ $t('buildings.title', { planet: currentPlanet.name }) }}</h3>
             <building-item
                 @click.native="$emit('select', building)"
                 v-for="building in buildings"
@@ -10,7 +10,7 @@
                 :isSelected="selectedBuilding === building" />
         </section>
         <section>
-            <h3 :style="{ color: factionColor }">{{ $t('buildings.available_buildings') }}</h3>
+            <h3 :style="{ color: factionColors['main'] }">{{ $t('buildings.available_buildings') }}</h3>
             <building-item
                 @click.native="$emit('select', building)"
                 v-for="building in availableBuildings"
@@ -23,6 +23,7 @@
 
 <script>
 import BuildingItem from '~/components/molecules/building/item';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'buildings-list',
@@ -45,9 +46,9 @@ export default {
             return this.$store.state.user.currentPlanet;
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     }
 }
 </script>

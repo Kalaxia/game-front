@@ -12,7 +12,7 @@
         </section>
         <footer>
             <transition name="next">
-                <button v-if="isFactionSelected" :style="{ borderColor: selectedFaction.color }" @click="$emit('selectFaction', selectedFaction)">
+                <button v-if="isFactionSelected" :style="{ borderColor: selectedFaction.colors['main'] }" @click="$emit('selectFaction', selectedFaction)">
                     {{ $t('registration.next') }}
                 </button>
             </transition>

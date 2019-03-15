@@ -1,15 +1,15 @@
 <template>
     <div class="top-menu">
         <template v-if="isActive">
-            <Item image="B_Merc_64px.png" :color="faction.color" />
-            <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.color" />
-            <Item image="G_P_Science_64px.png" :color="faction.color" />
+            <Item image="B_Merc_64px.png" :color="faction.colors['main']" />
+            <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.colors['main']" />
+            <Item image="G_P_Science_64px.png" :color="faction.colors['main']" />
         </template>
         <FactionBanner :faction="faction" :isLink="isActive" />
         <template v-if="isActive">
-            <Item link="/" image="G_P_Ov_64px.png" :color="faction.color" />
-            <Item link="/map" image="G_P_Map_64px.png" :color="faction.color" />
-            <Item link="/profile" image="G_P_Rank_64px.png" :color="faction.color" />
+            <Item link="/" image="G_P_Ov_64px.png" :color="faction.colors['main']" />
+            <Item link="/map" image="G_P_Map_64px.png" :color="faction.colors['main']" />
+            <Item link="/profile" image="G_P_Rank_64px.png" :color="faction.colors['main']" />
         </template>
     </div>
 </template>

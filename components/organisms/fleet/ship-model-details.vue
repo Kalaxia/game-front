@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </template>
-                <gauge-selector @change="nbShips = $event" :color="factionColor" :min="1" :max="max" :initialValue="1" />
+                <gauge-selector @change="nbShips = $event" :color="factionColors['main']" :min="1" :max="max" :initialValue="1" />
             </header>
             <section>
                 <div class="ship-indicator">
@@ -42,7 +42,7 @@
                 </div>
             </section>
             <footer>
-                <button class="button" @click="produce()" :style="{ color: factionColor }">
+                <button class="button" @click="produce()" :style="{ color: factionColors['main'] }">
                     <span class="big">Construire</span>
                 </button>
             </footer>
@@ -56,6 +56,7 @@ import ResourcePrice from '~/components/molecules/resource/price-gauge';
 import ResourcePicto from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import GaugeSelector from '~/components/atoms/gauge-selector';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ship-model-details',
@@ -92,13 +93,13 @@ export default {
             return prices;
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        },
-
         maxAvailable() {
             return this.model.maxAvailable;
-        }
+        },
+
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     methods: {

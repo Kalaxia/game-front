@@ -1,7 +1,7 @@
 <template>
     <div id="population-points">
         <header>
-            <h3 :style="{ color: factionColor }">Points de population</h3>
+            <h3 :style="{ color: factionColors['main'] }">Points de population</h3>
             <p>
                 Les points de population répartissent la force de travail de votre peuple dans les différents secteurs d'activité de votre planète.
                 Vous disposez d'un nombre de points proportionnel à la démographie planétaire.
@@ -14,11 +14,11 @@
                     :max="population"
                     :initialValue="value"
                     :available="availablePoints"
-                    :color="factionColor"
+                    :color="factionColors['main']"
                     @change="changeSetting(setting, $event)"
                     @stop="updateSetting(setting, $event)"/>
                 <div>
-                    <span :style="{ color: factionColor }">{{ value }}</span>
+                    <span :style="{ color: factionColors['main'] }">{{ value }}</span>
                     <colored-picto :src="settingsPicto(setting)" color="white" :width="32" :height="32" />
                 </div>
             </div>
@@ -26,7 +26,7 @@
         <footer>
             <p>
                 <span>Points disponibles : </span>
-                <strong :style="{ color: factionColor }">{{ availablePoints }}</strong>
+                <strong :style="{ color: factionColors['main'] }">{{ availablePoints }}</strong>
                 <colored-picto src="G_P_Clas_BK_64px.png" color="white" :width="32" :height="32" />
             </p>
         </footer>
@@ -36,6 +36,7 @@
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
 import GaugeSelector from '~/components/atoms/gauge-selector';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'population-points',
@@ -64,9 +65,9 @@ export default {
             return Math.floor(this.planet.population / 100000);
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        },
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     methods: {

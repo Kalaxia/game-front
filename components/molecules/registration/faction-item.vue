@@ -18,7 +18,7 @@ export default {
         style() {
             return {
                 padding: (this.selectedFaction === this.faction) ? '5px' : '2px',
-                backgroundColor: this.faction.color,
+                backgroundColor: this.faction.colors['main'],
             };
         }
     }

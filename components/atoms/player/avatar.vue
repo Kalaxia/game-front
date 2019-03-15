@@ -15,7 +15,7 @@ export default {
             return {
                 width: `${this.width - 6}px`,
                 height: `${this.height - 6}px`,
-                border: `3px solid ${this.player.faction.color}`
+                border: `3px solid ${this.player.faction.colors['main']}`
             }
         }
     }

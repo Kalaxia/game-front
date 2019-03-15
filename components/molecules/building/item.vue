@@ -1,5 +1,5 @@
 <template>
-    <div class="building-item" :style="{ borderColor: (isSelected) ? factionColor : 'grey'}">
+    <div class="building-item" :style="{ borderColor: (isSelected) ? factionColors['main'] : 'grey'}">
         <building-image :building="building" width="56px" />
         <div>
             <h5>{{ $t('buildings')[building.name] }}</h5>
@@ -19,6 +19,7 @@ import Gauge from '~/components/atoms/gauge';
 import BuildingImage from '~/components/atoms/building/image';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import ConstructionState from '~/components/atoms/building/construction-state';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'building-item',
@@ -33,15 +34,15 @@ export default {
     },
 
     computed: {
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     methods: {
         constructionLevel(constructionState) {
             return [{
-                color: this.factionColor,
+                color: this.$store.getters['user/factionColors']['main'],
                 value: Math.floor(constructionState.current_points / constructionState.points * 100)
             }];
         }

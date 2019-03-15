@@ -13,11 +13,11 @@
         </section>
         <section class="pseudo" v-if="selectedAvatar">
             <h2>Entrez votre pseudo</h2>
-            <input v-model="pseudo" type="text" :style="{ borderColor: factionColor }" />
+            <input v-model="pseudo" type="text" :style="{ borderColor: factionColors['main'] }" />
         </section>
         <footer v-if="pseudo.length > 3">
             <button 
-                :style="{ borderColor: factionColor }"
+                :style="{ borderColor: factionColors['main'] }"
                 @click="$emit('createCharacter', { avatar: selectedAvatar, gender, pseudo })">
                     Confirmer
             </button>
@@ -28,6 +28,7 @@
 <script>
 import { shadeColor } from '~/lib/colors';
 import { shuffle } from '~/lib/array';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'character-form',
@@ -55,14 +56,16 @@ export default {
             return shuffle(avatars);
         },
 
-        factionColor() {
-            return this.$store.state.user.player.faction.color;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     },
 
     methods: {
         avatarBorderColor(gender) {
-            return (gender === 'male') ? this.factionColor : shadeColor(this.factionColor, 0.4);
+            const factionColors = this.$store.getters['user/factionColors'];
+
+            return (gender === 'male') ? factionColors['main'] : shadeColor(factionColors['main'], 0.4);
         },
 
         selectAvatar(data) {

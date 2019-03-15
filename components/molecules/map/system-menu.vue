@@ -109,7 +109,7 @@ export default {
                     transform: `rotate(${180 + angleData.angleStart + angleData.angleStep*index}deg) skew(${angleData.skew}deg)`,
                 };
                 if (planet.player !== null) {
-                    style.backgroundColor = planet.player.faction.color;
+                    style.backgroundColor = planet.player.faction.colors['main'];
                 }
 
                 return style;
