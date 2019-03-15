@@ -1,6 +1,6 @@
 <template>
     <router-link :to="`/player/${member.id}`" :alt="member.pseudo">
-        <img src="/images/avatars/Hombre_v3t.png" />
+        <img :src="`/images/avatars/${member.gender}/${member.avatar}.png`" />
         <div>
             <p>{{ member.pseudo }}</p>
             <em>{{ $t('player.titles.governor') }}</em>
