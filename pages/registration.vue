@@ -62,12 +62,12 @@ export default {
         },
 
         async confirmPlanet(planet) {
-            this.$store.commit('user/addPlanet', planet);
             await this.$repositories.player.createPlayer(
-                this.$store.state.user.player.faction.id,
-                this.$store.state.user.planets[0].id
+                this.$store.state.user.player,
+                planet.id
             );
-            this.$store.commit('user/activate', true);
+            this.$store.commit('user/setCurrentPlayer', await this.$repositories.player.getCurrentPlayer());
+            this.$store.commit('user/addPlanet', await this.$repositories.planet.get(planet.id))
             this.$router.push('/map');
         }
     }

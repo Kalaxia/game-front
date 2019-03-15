@@ -2,9 +2,12 @@ import Repository from '~/api/repository';
 import Player from '~/model/player';
 
 export default class PlayerRepository extends Repository {
-    async createPlayer(factionId, planetId) {
+    async createPlayer(player, planetId) {
         await this.call('POST', `/api/players`, {
-            faction_id: factionId,
+            gender: player.gender,
+            avatar: player.avatar,
+            pseudo: player.pseudo,
+            faction_id: player.faction.id,
             planet_id: planetId
         });
     }

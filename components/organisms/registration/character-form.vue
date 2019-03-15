@@ -82,6 +82,7 @@ export default {
         
         & > .avatars {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             padding-top: 20px;
@@ -89,7 +90,7 @@ export default {
             & > .avatar {
                 border-radius: 50%;
                 border: 4px solid white;
-                margin: 0px 10px;
+                margin: 10px;
                 overflow: hidden;
                 transition: border-width 0.2s ease-out;
                 cursor: pointer;
