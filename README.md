@@ -1,6 +1,7 @@
 Kalaxia game front
 ==================
 
+[![Build Status](https://travis-ci.org/Kalaxia/game-front.svg?branch=develop)](https://travis-ci.org/Kalaxia/game-front)
 [![Coverage Status](https://coveralls.io/repos/github/Kalaxia/game-front/badge.svg?branch=develop)](https://coveralls.io/github/Kalaxia/game-front?branch=develop)
 
 This project contains the Kalaxia game front engine.
