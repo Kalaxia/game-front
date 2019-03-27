@@ -51,7 +51,7 @@ export default {
 
             const newValue = Math.floor(this.max * width / this.$refs.container.offsetWidth);
 
-            if (newValue < this.min || newValue > this.max || (this.available !== null && newValue > this.value && this.available === 0)) {
+            if (newValue < this.min || newValue > this.max || (this.available !== null && newValue > this.value && (newValue - this.value) > this.available)) {
                 return;
             }
 
