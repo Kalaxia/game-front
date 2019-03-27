@@ -4,7 +4,7 @@
         <div class="info">
             <div class="storage">
                 <div class="status">
-                    <span :class="{full: isFull}">{{ quantity }}</span> / {{ storage.capacity }}
+                    <span :class="{full: isFull}">{{ quantity }}</span> / {{ capacity }}
                 </div>
                 <div class="storage-line">
                     <div :class="['storage-display', resource.name]">
@@ -43,11 +43,15 @@ export default {
 
     computed: {
         isFull() {
-            return this.storage.resources[this.resource.name] === this.storage.capacity;
+            return this.quantity > 0 && this.quantity === this.capacity;
         },
 
         quantity() {
-            return this.storage.resources[this.resource.name];
+            return (this.storage.resources[this.resource.name]) ? this.storage.resources[this.resource.name] : 0;
+        },
+
+        capacity() {
+            return (this.storage.capacity) ? this.storage.capacity : 5000;
         },
 
         color() {
@@ -55,12 +59,12 @@ export default {
         },
 
         filledCapacity() {
-            return (this.quantity / this.storage.capacity) * 100;
+            return (this.quantity > 0) ? (this.quantity / this.capacity) * 100 : 0;
         },
 
         fullCapacityAt() {
-            return (this.storage.capacity !== this.storage.resources[this.resource.name])
-                ? "-" + Math.floor((this.storage.capacity - this.storage.resources[this.resource.name]) / this.hourlyProduction()) +
+            return (this.capacity !== this.quantity)
+                ? "-" + Math.floor((this.capacity - this.quantity) / this.hourlyProduction()) +
                   "h" + (60 - (new Date()).getMinutes()) + "min"
                 : this.$i18n.t('planet.storage.full')
             ;
