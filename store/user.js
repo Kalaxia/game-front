@@ -22,6 +22,9 @@ export const mutations = {
 
     spend(state, price) {
         if (price.type === 'credits') {
+            if (state.player.wallet < price.amount) {
+                throw 'alerts.not_enough_money';
+            }
             state.player.wallet -= price.amount;
         } else if (price.type === 'resource') {
             state.currentPlanet.storage.resources[price.resource] -= price.amount;

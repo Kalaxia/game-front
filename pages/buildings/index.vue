@@ -25,10 +25,23 @@ export default {
 
     methods: {
         async build(building) {
-            const b = await this.$repositories.building.create(this.$store.state.user.currentPlanet, building);
+            try {
+                for (const price of building.price) {
+                    if (price.type !== 'points') {
+                        this.$store.commit('user/spend', price);
+                    }
+                }
+                const b = await this.$repositories.building.create(this.$store.state.user.currentPlanet, building);
 
-            this.$store.commit('user/build', b);
-            this.selectedBuilding = b;
+                this.$store.commit('user/build', b);
+                this.selectedBuilding = b;
+            } catch(error) {
+                console.log(error);
+                // this.$store.commit('notifications/add', {
+                //     type: 'error',
+                //     message: error
+                // });
+            }
         },
 
         async cancel(building) {

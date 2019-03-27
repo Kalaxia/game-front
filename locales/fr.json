@@ -1,6 +1,7 @@
 {
     "alerts": {
-        "not_implemented": "Cette fonctionnalité n'est pas encore implémentée."
+        "not_implemented": "Cette fonctionnalité n'est pas encore implémentée.",
+        "not_enough_money": "Vous n'avez pas assez d'argent"
     },
     "buildings": {
         "build": "Construire",
