@@ -1,7 +1,7 @@
 <template>
     <div>
         <planet-shape v-if="planet" :id="planet.id" :type="planet.type" width="300" height="300" />
-        <planet-buildings :planet="planet" />
+        <planet-buildings v-if="isCurrentPlanet" :planet="planet" />
         <planet-relations v-if="planet" :planet="planet" width="300" height="300" />
     </div>
 </template>
@@ -30,6 +30,12 @@ export default {
 
     async mounted() {
         this.planet = await this.$repositories.planet.get(this.$route.params.id);
+    },
+
+    computed: {
+        isCurrentPlanet() {
+            return this.planet !== null && this.planet.id === this.$store.state.user.currentPlanet.id;
+        }
     }
 }
 </script>
