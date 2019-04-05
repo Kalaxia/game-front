@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#090A0A;}
+</style>
+<g id="Lock_64">
+	<path id="XMLID_2420_" class="st0" d="M0,0"/>
+	<path id="XMLID_2441_" class="st0" d="M64,0"/>
+	<path id="XMLID_2442_" class="st0" d="M64,64"/>
+	<path id="XMLID_2447_" class="st0" d="M0,64"/>
+</g>
+<g id="Lock_64_1_">
+	<path id="XMLID_4_" class="st0" d="M0,0"/>
+	<path id="XMLID_3_" class="st0" d="M64,0"/>
+	<path id="XMLID_2_" class="st0" d="M64,64"/>
+	<path id="XMLID_1_" class="st0" d="M0,64"/>
+</g>
+<g id="Weapon_:_Energy">
+	<polygon id="XMLID_2651_" points="36.8,34.9 36.5,32.7 53.9,31.8 32.2,24.3 26.5,22.3 27.2,29.1 27.5,31.3 10.1,32.2 31.8,39.7 
+		37.5,41.7 	"/>
+	<path id="XMLID_2648_" d="M32,5.7L58.3,32L32,58.3L5.7,32L32,5.7 M32,0L0,32l32,32l32-32L32,0L32,0z"/>
+</g>
+</svg>

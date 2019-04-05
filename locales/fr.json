@@ -114,6 +114,7 @@
         "resources.f": "Minerai"
     },
     "ships": {
+        "back_to_frames": "Changer de châssis",
         "cancel": "Annuler",
         "construction_list": "Chaîne d'usinage",
         "create": "Lancer la fabrication",
@@ -123,7 +124,6 @@
             "fighter": "Chasseur",
             "bomber": "Bombardier"
         },
-        "missing_name": "Il faut donner un nom à votre nouveau modèle !",
         "modules_list": "Modules",
         "modules": {
             "laser-gun": {
