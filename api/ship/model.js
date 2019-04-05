@@ -22,7 +22,6 @@ export default class ShipModelRepository extends Repository {
 
         const models = new Array();
         for (const model of data) {
-            model.frame = ShipFrame.createFromSlug(model.frame);
             models.push(new ShipModel(model));
         }
         return models;
