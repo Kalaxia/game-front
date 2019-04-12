@@ -1,5 +1,5 @@
 <template>
-    <div class="offer">
+    <div class="offer" :style="{ backgroundColor: factionColors['main'] }">
         <div>
             {{ offer.location.player.pseudo }}
         </div>
@@ -22,6 +22,7 @@
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
 import FactionBanner from '~/components/atoms/faction/banner';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'offer-item',
@@ -31,6 +32,12 @@ export default {
     components: {
         FactionBanner,
         ResourceItem
+    },
+
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     }
 }
 </script>
@@ -43,6 +50,16 @@ export default {
         padding: 5px 10px;
         border-radius: 20px;
         text-align: center;
+        transition: background-color 0.2s ease-out;
+        cursor: pointer;
+
+        &:not(:hover):not(.selected) {
+            background-color: transparent !important;
+
+            &:nth-child(even) {
+                background-color: #242424 !important;
+            }
+        }
 
         & > div {
             display: flex;

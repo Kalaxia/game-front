@@ -5,22 +5,32 @@
                 <colored-picto src="G_P_Char_BK_64px.png" :width="24" :height="24" color="white" />
             </div>
             <div>
-                F
+                <colored-picto src="trade/Faction.svg" :width="24" :height="24" color="white" />
             </div>
             <div class="resource">
-                <colored-picto src="G_P_Lot_64px.png" :width="24" :height="24" color="white" />
+                <colored-picto src="trade/Lot.svg" :width="24" :height="24" color="white" />
             </div>
             <div class="quantity">
-                <colored-picto src="G_P_Lot_64px.png" :width="24" :height="24" color="white" />
+                <colored-picto src="trade/Lots.svg" :width="24" :height="24" color="white" />
+                (<colored-picto src="trade/Lot.svg" :width="18" :height="18" color="white" />)
             </div>
             <div class="price">
-                <colored-picto src="G_P_Mon_64px.png" :width="24" :height="24" color="white" />
-                /u
+                <colored-picto src="trade/PricePerUnit.svg" :width="32" :height="24" color="white" />
             </div>
         </header>
         <section>
-            <offer-item v-for="offer in offers" :key="offer.id" :offer="offer" />
+            <offer-item
+                v-for="offer in offers"
+                :key="offer.id"
+                :offer="offer"
+                :class="{ selected: offer === selectedOffer }"
+                @click.native="$emit('selectOffer', offer)" />
         </section>
+        <footer v-if="selectedOffer">
+            <button @click="$emit('unselectOffer')" class="button big" :style="{ color: factionColors['main'] }">
+                Créer une offre
+            </button>
+        </footer>
     </div>
 </template>
 
@@ -32,7 +42,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'offers-list',
 
-    props: ['offers'],
+    props: ['offers', 'selectedOffer'],
 
     components: {
         ColoredPicto,
@@ -48,7 +58,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    @import '~less/atoms/button.less';
+
     #offers-list {
+        display: flex;
+        flex-direction: column;
         padding: 0px 20px;
 
         & > header {
@@ -84,8 +98,13 @@ export default {
                 }
 
                 &.quantity {
+                    display: flex;
                     flex-basis: 20%;
                     flex-grow: 0;
+
+                    & > div:first-child {
+                        margin-right: 5px;
+                    }
                 }
 
                 &.price {
@@ -100,11 +119,13 @@ export default {
         }
 
         & > section {
+            flex-grow: 1;
             overflow-y: auto;
+        }
 
-            & > .offer:nth-child(even) {
-                background-color: #242424;
-            }
+        & > footer {
+            display: flex;
+            justify-content: center;
         }
     }
 </style>

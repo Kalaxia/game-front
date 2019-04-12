@@ -101,6 +101,10 @@ export const actions = {
 };
 
 export const getters = {
+    currentPlayer: state => state.player,
+
+    currentPlanet: state => state.currentPlanet,
+
     getStoredResource: state => resource => {
         return (typeof state.currentPlanet.storage.resources[resource] !== 'undefined')
             ? state.currentPlanet.storage.resources[resource]

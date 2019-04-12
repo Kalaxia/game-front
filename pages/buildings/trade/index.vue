@@ -1,19 +1,21 @@
 <template>
     <div id="trade-post">
-        <offers-list :offers="offers" />
+        <offers-list :offers="offers" :selectedOffer="selectedOffer" @selectOffer="selectedOffer = $event" @unselectOffer="selectedOffer = null" />
         <div id="offer-search">
             <h1 :style="{ color: factionColors['main'] }">
                 <colored-picto src="B_Merc_64px.png" :width="32" :height="32" color="white" />
-                <span>Comptoir commercial</span>
+                <span>{{ $t('trade.trading_post') }}</span>
             </h1>
         </div>
-        <offer-creation />
+        <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" />
+        <offer-creation v-else />
     </div>
 </template>
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
 import OffersList from '~/components/organisms/trade/offers-list';
+import OfferDetails from '~/components/organisms/trade/offer-details';
 import OfferCreation from '~/components/organisms/trade/offer-creation';
 import { OPERATION_SELL } from '~/model/trade/offer';
 import { mapGetters } from 'vuex';
@@ -24,7 +26,14 @@ export default {
     components: {
         ColoredPicto,
         OffersList,
+        OfferDetails,
         OfferCreation
+    },
+
+    data() {
+        return {
+            selectedOffer: null
+        }
     },
 
     async asyncData({ app }) {
@@ -35,8 +44,17 @@ export default {
 
     computed: {
         ...mapGetters({
-            factionColors: 'user/factionColors'
+            factionColors: 'user/factionColors',
+            currentPlanet: 'user/currentPlanet'
         })
+    },
+
+    methods: {
+        async acceptOffer(nbLots) {
+            await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
+
+            this.selectedOffer = null;
+        }
     }
 }
 </script>
@@ -67,7 +85,8 @@ export default {
         }
     }
 
-    #offer-creation {
+    #offer-creation,
+    #offer-details {
         grid-column: ~"7/10";
         grid-row: ~"3/9";
     }

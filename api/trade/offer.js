@@ -14,6 +14,13 @@ export default class OfferRepository extends Repository {
         });
     }
 
+    accept(offer, nbLots, planetId) {
+        return this.call('POST', `/api/offers/${offer.id}/accept`, {
+            nb_lots: nbLots,
+            planet_id: planetId
+        })
+    }
+
     async getAll(operation) {
         const data = await this.call('POST', '/api/offers', { operation });
 

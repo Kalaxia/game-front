@@ -21,7 +21,8 @@
                     :initialValue="100"
                     :color="resourceColor"
                     :max="currentResourceAvailable"
-                    @change="quantity = $event" />
+                    @change="quantity = $event"
+                    @stop="checkQuantity" />
             </div>
             <div class="lot-quantity">
                 <h5>Quantité par lot</h5>
@@ -99,6 +100,14 @@ export default {
     methods: {
         checkLotQuantity() {
             this.lotQuantity = Math.floor(this.quantity / this.nbLots);
+
+            this.checkQuantity();
+        },
+
+        checkQuantity() {
+            while (this.quantity % this.lotQuantity > 0) {
+                this.quantity--;
+            }
         },
 
         async create() {
