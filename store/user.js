@@ -107,7 +107,7 @@ export const getters = {
             : 0;
     },
 
-    factionColors: state => {
-        return state.player.faction.colors;
-    }
+    storedResources: state => state.currentPlanet.storage.resources,
+
+    factionColors: state => state.player.faction.colors
 };
