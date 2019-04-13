@@ -8,22 +8,17 @@
 export default {
     name: 'player-avatar',
     
-    props: ['player', 'width', 'height'],
+    props: ['player', 'width', 'height', 'disableBorder'],
 
     computed: {
         style() {
             return {
                 width: `${this.width - 6}px`,
                 height: `${this.height - 6}px`,
-                border: `3px solid ${this.player.faction.colors['main']}`
+                border: (!this.disableBorder) ? `3px solid ${this.player.faction.colors['main']}` : null,
+                borderRadius: (!this.disableBorder) ? '50%' : 0
             }
         }
     }
 }
 </script>
-
-<style lang="less" scoped>
-    img {
-        border-radius: 50%;
-    }
-</style>

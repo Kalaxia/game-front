@@ -2,7 +2,7 @@
     <div class="gauge" :style="{ backgroundColor: background }">
         <div v-for="(level, index) in levels"
             :key="`gauge-level-${index}`"
-            :style="{ backgroundColor: level.color, width: `${level.value}%` }"></div>
+            :style="{ backgroundColor: level.color, minWidth: `${level.value}%` }"></div>
     </div>
 </template>
 

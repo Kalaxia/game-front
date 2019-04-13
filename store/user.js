@@ -86,6 +86,19 @@ export const mutations = {
             }
         }
         state.currentPlanet.available_buildings.push(data.availableBuilding);
+    },
+
+    updateStorageResource(state, data) {
+        if (typeof state.currentPlanet.storage.resources[data.resource] !== 'undefined') {
+            state.currentPlanet.storage.resources[data.resource] += data.quantity;
+        } else if (data.quantity > 0) {
+            state.currentPlanet.storage.resources[data.resource] = data.quantity;
+        } else {
+            state.currentPlanet.storage.resources[data.resource] = 0;
+        }
+        if (state.currentPlanet.storage.resources[data.resource] > state.currentPlanet.storage.capacity) {
+            state.currentPlanet.storage.resources[data.resource] = state.currentPlanet.storage.capacity;
+        }
     }
 };
 
@@ -101,13 +114,17 @@ export const actions = {
 };
 
 export const getters = {
+    currentPlayer: state => state.player,
+
+    currentPlanet: state => state.currentPlanet,
+
     getStoredResource: state => resource => {
         return (typeof state.currentPlanet.storage.resources[resource] !== 'undefined')
             ? state.currentPlanet.storage.resources[resource]
             : 0;
     },
 
-    factionColors: state => {
-        return state.player.faction.colors;
-    }
+    storedResources: state => state.currentPlanet.storage.resources,
+
+    factionColors: state => state.player.faction.colors
 };
