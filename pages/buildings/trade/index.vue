@@ -8,7 +8,7 @@
             </h1>
         </div>
         <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" @cancelOffer="cancelOffer" />
-        <offer-creation v-else />
+        <offer-creation v-else @addOffer="addOffer" />
     </div>
 </template>
 
@@ -50,6 +50,10 @@ export default {
     },
 
     methods: {
+        addOffer(offer) {
+            this.offers.push(offer);
+        },
+
         async acceptOffer(nbLots) {
             await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
 

@@ -120,6 +120,17 @@ export default {
                 parseFloat(this.price),
                 this.selectedResource
             );
+            this.$emit('addOffer', new ResourceOffer(
+                offer.id,
+                offer.operation,
+                offer.location,
+                offer.created_at,
+                offer.accepted_at,
+                offer.quantity,
+                offer.lot_quantity,
+                offer.price,
+                offer.resource
+            ));
         }
     }
 }
