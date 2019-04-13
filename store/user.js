@@ -126,5 +126,7 @@ export const getters = {
 
     storedResources: state => state.currentPlanet.storage.resources,
 
+    isStorageEmpty: state => state.currentPlanet.storage.resources.length === 0,
+
     factionColors: state => state.player.faction.colors
 };

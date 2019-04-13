@@ -8,7 +8,7 @@
             </h1>
         </div>
         <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" @cancelOffer="cancelOffer" />
-        <offer-creation v-else @addOffer="addOffer" />
+        <offer-creation v-else-if="!isStorageEmpty" @addOffer="addOffer" />
     </div>
 </template>
 
@@ -44,6 +44,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            isStorageEmpty: 'user/isStorageEmpty',
             factionColors: 'user/factionColors',
             currentPlanet: 'user/currentPlanet'
         })
