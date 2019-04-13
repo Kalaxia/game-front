@@ -120,6 +120,10 @@ export default {
                 parseFloat(this.price),
                 this.selectedResource
             );
+            this.$store.commit('user/updateStorageResource', {
+                resource: this.selectedResource,
+                quantity: -this.quantity
+            });
             this.$emit('addOffer', new ResourceOffer(
                 offer.id,
                 offer.operation,

@@ -57,7 +57,13 @@ export default {
         async acceptOffer(nbLots) {
             await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
 
-            this.selectedOffer.quantity -= nbLots * this.selectedOffer.lotQuantity;
+            const quantity =  nbLots * this.selectedOffer.lotQuantity;
+            this.selectedOffer.quantity -= quantity;
+
+            this.$store.commit('user/updateStorageResource', {
+                resource: this.selectedOffer.resource,
+                quantity: quantity
+            });
 
             if (this.selectedOffer.quantity === 0) {
                 this.removeOffer(this.selectedOffer);
@@ -69,6 +75,11 @@ export default {
             await this.$repositories.trade.offer.cancel(this.selectedOffer);
 
             this.removeOffer(this.selectedOffer);
+
+            this.$store.commit('user/updateStorageResource', {
+                resource: this.selectedOffer.resource,
+                quantity: this.selectedOffer.quantity
+            });
 
             this.selectedOffer = null;
         },
