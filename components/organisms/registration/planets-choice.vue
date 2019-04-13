@@ -63,6 +63,7 @@ export default {
     @import '~less/atoms/button.less';
 
     #planets-choice {
+        overflow-y: auto;
         z-index: 100;
 
         & > header {

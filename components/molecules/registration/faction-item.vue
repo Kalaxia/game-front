@@ -50,6 +50,7 @@ export default {
         }
 
         & > p {
+            flex-grow: 1;
             margin-top: 30px;
             font-variant: small-caps;
             font-size: 1.1em;
@@ -60,6 +61,26 @@ export default {
             font-variant: small-caps;
             font-size: 1.2em;
             text-align: center;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .faction-item {
+            padding: 10px 20px;
+            height: calc(100% - 20px);
+
+            & > img {
+                height: 64px;
+            }
+
+            & > p {
+                font-size: 0.9em;
+                margin-top: 10px;
+            }
+
+            & > h5 {
+                font-size: 0.9em;
+            }
         }
     }
 </style>

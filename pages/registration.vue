@@ -94,4 +94,25 @@ export default {
         grid-column: ~"3/9";
         grid-row: ~"3/9";
     }
+
+    @media (max-width: 800px) {
+        #factions-choice {
+            grid-column: ~"2/10";
+            grid-row: ~"1/10";
+        }
+
+        #character-form {
+            grid-column: ~"2/10";
+            grid-row: ~"2/10";
+        }
+
+        #starmap {
+            display: none;
+        }
+
+        #planets-choice {
+            grid-column: ~"2/10";
+            grid-row: ~"2/10";
+        }
+    }
 </style>

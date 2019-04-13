@@ -106,4 +106,25 @@ export default {
             }
         }
     }
+
+    @media (max-width: 800px) {
+        #factions-choice {
+            & > header {
+                & > h1 {
+                    font-size: 1.2em;
+                    margin-bottom: 20px;
+                }
+            }
+
+            & > footer {
+                padding-top: 20px;
+
+                & > button {
+                    width: 150px;
+                    height: 30px;
+                    font-size: 1.1em;
+                }
+            }
+        }
+    }
 </style>

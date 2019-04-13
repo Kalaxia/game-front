@@ -88,4 +88,19 @@ export default {
             justify-content: space-between;
         }
     }
+
+    @media (max-width: 800px) {
+        .planet-item {
+            & > header {
+                & > .planet-image {
+                    width: 64px !important;
+                    height: 64px !important;
+                }
+            }
+
+            & > footer {
+                flex-direction: column;
+            }
+        }
+    }
 </style>

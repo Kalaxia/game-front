@@ -154,4 +154,47 @@ export default {
             }
         }
     }
+
+    @media (max-width: 800px) {
+        #character-form {
+            overflow-y: auto;
+
+            & > header {
+                & > h1 {
+                    margin-top: 30px;
+                    font-size: 1.1em;
+                    margin-bottom: 0px;
+                }
+            }
+
+            & > .avatars {
+                padding-top: 10px;
+
+                & > .avatar {
+                    & > img {
+                        width: 64px;
+                        height: 64px;
+                    }
+
+                    &.selected {
+                        border-width: 6px;
+
+                        & > img {
+                            width: 62px;
+                            height: 62px;
+                        }
+                    }
+                }
+            }
+
+            & > .pseudo {
+                padding-top: 10px;
+
+                & > h2 {
+                    font-size: 1.1em;
+                    margin: 0px;
+                }
+            }
+        }
+    }
 </style>
