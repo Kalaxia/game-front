@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="actions">
-                <button v-if="currentPlayer.id === offer.location.player.id" @click="cancel" class="button big" :style="{ color: factionColors['main'] }">{{ $t('trade.cancel_offer') }}</button>
+                <button v-if="currentPlayer.id === offer.location.player.id" @click="$emit('cancelOffer')" class="button big" :style="{ color: factionColors['main'] }">{{ $t('trade.cancel_offer') }}</button>
                 <button v-else @click="$emit('acceptOffer', nbLots)" class="button big" :style="{ color: factionColors['main'] }">{{ $t('trade.accept_offer') }}</button>
             </div>
         </div>

@@ -7,7 +7,7 @@
                 <span>{{ $t('trade.trading_post') }}</span>
             </h1>
         </div>
-        <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" />
+        <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" @cancelOffer="cancelOffer" />
         <offer-creation v-else />
     </div>
 </template>
@@ -53,7 +53,28 @@ export default {
         async acceptOffer(nbLots) {
             await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
 
+            this.selectedOffer.quantity -= nbLots * this.selectedOffer.lotQuantity;
+
+            if (this.selectedOffer.quantity === 0) {
+                this.removeOffer(this.selectedOffer);
+            }
             this.selectedOffer = null;
+        },
+
+        async cancelOffer() {
+            await this.$repositories.trade.offer.cancel(this.selectedOffer);
+
+            this.removeOffer(this.selectedOffer);
+
+            this.selectedOffer = null;
+        },
+
+        removeOffer(offer) {
+            for (const i in this.offers) {
+                if (this.offers[i].id === offer.id) {
+                    this.offers.splice(i, 1);
+                }
+            }
         }
     }
 }
