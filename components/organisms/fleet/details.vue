@@ -3,8 +3,8 @@
         <header>
             <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
             <div class="toolbar">
-                <button @click="remove">{{ $t('fleet.remove') }}</button>
-                <button @click="move">{{ $t('fleet.move') }}</button>
+                <button class="button" :style="{ color: factionColors['main'] }" @click="remove">{{ $t('fleet.remove') }}</button>
+                <button class="button" :style="{ color: factionColors['main'] }" @click="move">{{ $t('fleet.move') }}</button>
             </div>
         </header>
         <section>
@@ -45,6 +45,7 @@
 import Fleet from '~/model/fleet/fleet';
 import FleetData from '~/components/molecules/fleet/data';
 import ShipGroup from '~/components/molecules/ship/group';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'fleet-details',
@@ -72,6 +73,12 @@ export default {
         this.$repositories.planet.getHangarShipGroups(this.fleet.location);
     },
 
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
+    },
+
     methods: {
         async remove() {
             if (!confirm(this.$i18n.t('fleet.confirm_removal'))) {
@@ -97,6 +104,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    @import '~less/atoms/button.less';
+
     #fleet-details > header {
         display: flex;
         justify-content: space-between;
