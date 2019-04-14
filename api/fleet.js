@@ -42,7 +42,7 @@ export default class FleetRepository extends Repository {
     }
 
     async transferShips(fleet, shipGroup, quantity) {
-        const data = await this.call('PATH', `/api/fleets/${fleet.id}/ships`, {
+        const data = await this.call('PATCH', `/api/fleets/${fleet.id}/ships`, {
             'model-id': shipGroup.id,
             quantity: quantity
         });
