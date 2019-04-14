@@ -32,8 +32,8 @@ export default {
     methods: {
         picto(stat) {
             return {
-                armor: 'ships/Pc_Combats_Plating.png',
-                speed: 'ships/Pc_Combats_Dodge.png'
+                armor: 'ships/Plating.png',
+                speed: 'ships/Dodge.png'
             }[stat];
         }
     }

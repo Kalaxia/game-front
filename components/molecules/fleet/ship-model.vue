@@ -8,7 +8,7 @@
             </header>
             <section>
                 <div class="stats">
-                    <div v-for="(value, stat) in model.stats" :key="`model-${model.id}-${stat}`">
+                    <div v-for="(value, stat) in modelStats(model)" :key="`model-${model.id}-${stat}`">
                         <colored-picto :src="statPicto(stat)" :color="pictoColor" width="18" height="18" />
                         <span>{{ value }}</span>
                     </div>
@@ -62,10 +62,20 @@ export default {
     },
 
     methods: {
+        modelStats(model) {
+            const stats = {};
+            for (const stat in model.stats) {
+                if (stat === 'armor' || stat === 'speed' || stat === 'size') {
+                    stats[stat] = model.stats[stat];
+                }
+            }
+            return stats;
+        },
+
         statPicto(stat) {
             return {
-                armor: 'ships/Pc_Combats_Plating.png',
-                speed: 'ships/Pc_Combats_Dodge.png'
+                armor: 'ships/Plating.svg',
+                speed: 'ships/Dodge.svg'
             }[stat];
         },
 

@@ -38,6 +38,21 @@ export default {
     async mounted() {
         this.models = await this.$repositories.ship.model.getPlayerModels();
 
+        for (const model of this.models) {
+            model.frame = this.$resources.ship_frames[model.frame];
+
+            for (const slot of model.slots) {
+                slot.module = this.$resources.ship_modules[slot.module];
+
+                for (const stat in slot.module.stats) {
+                    if (typeof model.stats[stat] !== 'undefined') {
+                        model.stats[stat] += slot.module.stats[stat];
+                    }
+                    model.stats[stat] = slot.module.stats[stat];
+                }
+            }
+        }
+
         if (this.currentPlanet !== null) {
             this.processMaxAvailable();
         }
