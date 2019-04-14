@@ -56,10 +56,10 @@ export default class FleetRepository extends Repository {
     }
 
     async getFleetRange(fleet) {
-        fleet.range = new FleetRange(await this.call('GET', `/api/fleets/${fleet.id}/range`));
+        return new FleetRange(await this.call('GET', `/api/fleets/${fleet.id}/range`));
     }
 
-    async sendOnJourney(fleet) {
-        fleet.journey.steps = await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
+    sendOnJourney(fleet) {
+        return this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
     }
 };

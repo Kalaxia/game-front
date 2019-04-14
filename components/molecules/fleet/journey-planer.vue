@@ -27,7 +27,8 @@ export default {
             if (this.$store.state.map.fleet.journey.steps.length === 0) {
                 return false;
             }
-            await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+            const steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+            this.$store.commit('map/fleetJourneySteps', steps);
 
             this.$router.push('/map');
         },
@@ -71,7 +72,8 @@ export default {
     },
 
     async mounted() {
-        await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        this.$store.commit('map/fleetRange', range);
 
         if (this.$store.state.map.fleet.isOnJourney()) {
             return false;

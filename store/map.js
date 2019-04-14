@@ -102,5 +102,13 @@ export const mutations ={
             return;
         }
         state.fleet.journey.steps.pop();
+    },
+
+    fleetRange(state, range) {
+        state.fleet.range = range;
+    },
+
+    fleetJourneySteps(state, steps) {
+        state.fleet.journey.steps = steps;
     }
 };
