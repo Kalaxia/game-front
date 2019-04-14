@@ -65,6 +65,10 @@ export default {
                 resource: this.selectedOffer.resource,
                 quantity: quantity
             });
+            this.$store.commit('user/spend', {
+                type: 'credits',
+                amount: this.selectedOffer.price * quantity
+            });
 
             if (this.selectedOffer.quantity === 0) {
                 this.removeOffer(this.selectedOffer);
