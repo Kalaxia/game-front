@@ -51,7 +51,7 @@ export default {
                 id: building.id,
                 availableBuilding: Object.assign({}, this.$resources.buildings[building.name], { name: building.name })
             });
-            this.selectedBuilding = building;
+            this.selectedBuilding = null;
         }
     }
 }

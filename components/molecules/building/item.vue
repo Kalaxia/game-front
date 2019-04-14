@@ -6,7 +6,7 @@
             <div v-if="building.price" class="prices">
                 <div v-for="(price, index) in building.price" :key="`building-item-price-${index}`">
                     <span>{{ price.amount }}</span>
-                    <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieMilitaire.png'" color="white" :width="24" :height="24"/>
+                    <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="24" :height="24"/>
                 </div>
             </div>
             <construction-state v-if="building.construction_state" :building="building" :pictoSize="24" gaugeHeight="15px" />

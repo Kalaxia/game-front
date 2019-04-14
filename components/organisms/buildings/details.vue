@@ -9,7 +9,7 @@
             <template v-for="(price, index) in building.price">
                 <div :key="`building-price-${index}`" v-if="price.type !== 'resource'" class="price">
                     <span>{{ price.amount }}</span>
-                    <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieMilitaire.png'" color="white" :width="32" :height="32"/>
+                    <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="32" :height="32"/>
                 </div>
             </template>
 
