@@ -55,7 +55,7 @@ export default {
     async beforeRouteUpdate(to, from, next) {
         if (to.query.id) {
             const fleet = await this.$repositories.fleet.getFleet(to.query.id);
-            await this.$repositories.fleet.getFleetRange(fleet);
+            fleet.range = await this.$repositories.fleet.getFleetRange(fleet);
             fleet.journey = new Journey({
                 id: null,
                 created_at: Date.now(),

@@ -1,17 +1,25 @@
 <template>
     <div class="loader">
-        <div></div>
+        <div :style="{ backgroundColor: factionColors['main'] }"></div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-    name: 'map-loader'
+    name: 'map-loader',
+
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
+    }
 }
 </script>
 
 <style lang="less" scoped>
-    @color: #f5cc4e;
+    @color: #FFFFFF;
 
     .loader {
         display: flex;
@@ -23,7 +31,6 @@ export default {
         
         & > div {
             position: absolute;
-            background-color: #f5cc4d;
             width: 1em;
             height: 1em;
             border-radius: 50%;
