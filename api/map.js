@@ -10,4 +10,8 @@ export default class MapRepository extends Repository {
     async getSystem(id) {
         return new System(await this.call('GET', `/api/systems/${id}`));
     }
+
+    getSectorSystems(sector) {
+        return this.call('GET', `/api/systems?sector=${sector}`);
+    }
 };
