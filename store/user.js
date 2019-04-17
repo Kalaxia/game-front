@@ -2,10 +2,19 @@ export const state = () => ({
     player: null,
     planets: new Array(),
     currentPlanet: null,
-    locale: 'fr'
+    locale: 'fr',
+    screen: {
+        width: 0,
+        height: 0
+    }
 });
 
 export const mutations = {
+    screenDimensions(state, dimensions) {
+        state.screen.width = dimensions.width;
+        state.screen.height = dimensions.height;
+    },
+
     addPlanet(state, planet) {
         if (state.planets === null) {
             state.planets = new Array();
@@ -114,6 +123,8 @@ export const actions = {
 };
 
 export const getters = {
+    screenDimensions: state => state.screen,
+
     currentPlayer: state => state.player,
 
     currentPlanet: state => state.currentPlanet,
