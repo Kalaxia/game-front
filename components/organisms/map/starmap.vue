@@ -1,5 +1,5 @@
 <template>
-    <div id="starmap" :style="{ top: '20px', left: '20px' }">
+    <div id="starmap" :style="{ top: '20px', left: '20px' }" ref="starmap">
         <transition-group v-if="mapReady" name="system-list" tag="div">
             <div id="journey-steps" v-if="journey" key="journey-steps">
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
@@ -7,7 +7,11 @@
             <journey-range v-if="journey" key="journey-range" />
             <system-menu v-if="selectedSystemId" key="system-menu" />
 
-            <system @dblclick.native="redirectToSystem(system.id)" v-for="system in map.systems" :key="system.id" :system="system" :isPlayerSystem="playerSystems.indexOf(system.id) > -1"/>
+            <system v-for="system in map.systems"
+                :key="`system-${system.id}`"
+                :system="system"
+                @dblclick.native="redirectToSystem(system.id)"
+                :isPlayerSystem="playerSystems.indexOf(system.id) > -1"/>
         </transition-group>
         <map-loader v-else />
     </div>
@@ -20,6 +24,7 @@ import SystemMenu from '~/components/molecules/map/system-menu';
 import MapLoader from '~/components/atoms/map/loader';
 import JourneyRange from '~/components/molecules/fleet/journey-range';
 import JourneyStep from '~/components/molecules/fleet/journey-step';
+import { mapGetters } from 'vuex';
 
 const dragData = {
     drag: false,
@@ -37,6 +42,8 @@ export default {
     data() {
         return {
             ready: false,
+            loadedSectors: [],
+            sectorSize: 10,
             playerSystems: [],
             centeredSystemId: 0,
         };
@@ -72,6 +79,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            screenDimensions: 'user/screenDimensions'
+        }),
+
         mapReady() {
             return this.map !== null && this.playerSystems.length > 0;
         },
@@ -103,6 +114,50 @@ export default {
     },
 
     methods: {
+        expandSystems() {
+            const map = this.$refs.starmap;
+
+            const coordX = parseInt(map.style.left);
+            const coordY = parseInt(map.style.top);
+
+            const mapScale = this.$store.state.map.scale;
+
+            const coords = {
+                startX: Math.abs(coordX / mapScale),
+                startY: Math.abs(coordY / this.map.size),
+                finalX: (Math.abs(coordX) + this.screenDimensions.width) / mapScale,
+                finalY: (Math.abs(coordY) + this.screenDimensions.height) / this.map.size
+            };
+            const sectors = {};
+
+            for (const key in coords) {
+                sectors[key] = Math.ceil(coords[key] / this.sectorSize);
+            }
+            const sectorsPerLine = this.map.size / this.sectorSize;
+            
+            for (let y = sectors.startY; y <= sectors.finalY; y++) {
+                const lineCoeff = y * sectorsPerLine;
+                const startX = sectors.startX + lineCoeff;
+                const finalX = sectors.finalX + lineCoeff;
+
+                for (let x = startX; x <= finalX; x++) {
+                    this.loadSector(x);
+                }
+            }
+        },
+
+        async loadSector(sector) {
+            if (this.loadedSectors.indexOf(sector) >= 0) {
+                return;
+            }
+            this.loadedSectors.push(sector);
+            const systems = await this.$repositories.map.getSectorSystems(sector);
+
+            for (const system of systems) {
+                this.map.systems[system.id] = system;
+            }
+        },
+
         processPlayerPlanets() {
             for (const planet of this.playerPlanets) {
                 this.playerSystems.push(planet.system.id);
@@ -114,7 +169,7 @@ export default {
             if (e.button !== 0) {
                 return false;
             }
-            const map = document.querySelector("#starmap");
+            const map = this.$refs.starmap;
             
             dragData.offsetX = e.clientX;
             dragData.offsetY = e.clientY;
@@ -133,10 +188,12 @@ export default {
             if (!e) {
                 e = window.event;
             }
-            const map = document.querySelector("#starmap");
+            const map = this.$refs.starmap;
 
             map.style.left = dragData.coordX + (e.clientX - dragData.offsetX) + 'px';
             map.style.top = dragData.coordY + (e.clientY - dragData.offsetY) + 'px';
+
+            this.expandSystems();
 
             return false;
         },
@@ -151,7 +208,7 @@ export default {
         },
 
         goToTargetedSystem() {
-            const starmap = document.querySelector('#starmap');
+            const starmap = this.$refs.starmap;
             const system = document.querySelector(`#system-${this.targetedSystemId}`);
             const systemX = parseInt(system.style.left);
             const systemY = parseInt(system.style.top);
@@ -160,6 +217,8 @@ export default {
             starmap.style.left = parseInt(window.innerWidth) / 2 - systemX + 'px';
 
             this.centeredSystemId = this.targetedSystemId;
+
+            this.expandSystems();
         }
     }
 }

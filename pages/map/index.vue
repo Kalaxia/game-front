@@ -32,6 +32,13 @@ export default {
         JourneyRange
     },
 
+    beforeMount() {
+        this.$store.commit('user/screenDimensions', {
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+    },
+
     async mounted() {
         this.map = await this.$repositories.map.getMap();
 
