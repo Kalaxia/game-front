@@ -119,6 +119,8 @@
         "construction_list": "Chaîne d'usinage",
         "create": "Lancer la fabrication",
         "create_model": "Créer un nouveau modèle",
+        "current_production": "Production <strong>actuelle</strong>",
+        "next_production": "Prochaine production",
         "frame": "Châssis",
         "frames": {
             "fighter": "Chasseur",
@@ -279,5 +281,6 @@
             "send_fleet" : "Commencer le voyage.",
             "remove_last_step" : "Annuler l'étape."
         }
-    }
+    },
+    "total": "Total"
 }

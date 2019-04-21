@@ -1,5 +1,4 @@
 import Repository from '~/api/repository';
-import Ship from '~/model/ship/ship';
 import ShipConstructionGroup from '~/model/ship/construction_group';
 
 export default class ShipRepository extends Repository
@@ -22,7 +21,7 @@ export default class ShipRepository extends Repository
 
         const ships = new Array();
         for (const ship of data) {
-            ships.push(new Ship(ship));
+            ships.push(new ShipConstructionGroup(ship));
         }
         return ships;
     }
