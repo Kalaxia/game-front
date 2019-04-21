@@ -1,11 +1,13 @@
 <template>
-    <div id="shipyard">
+    <div id="shipyard" v-if="constructingShips">
         <ship-models :selectedModel="selectedModel" @selectModel="selectModel" ref="list" />
         <ship-model-details v-if="selectedModel" :model="selectedModel" @build="build()" />
+        <constructing-ships v-if="!selectedModel" :constructingShips="constructingShips" />
     </div>
 </template>
 
 <script>
+import ConstructingShips from '~/components/organisms/fleet/constructing-ships';
 import ShipModels from '~/components/organisms/fleet/ship-models';
 import ShipModelDetails from '~/components/organisms/fleet/ship-model-details';
 
@@ -17,10 +19,17 @@ export default {
             selectedModel: null,
         };
     },
+
+    async asyncData ({ app, store }) {
+        return {
+            constructingShips: await app.$repositories.ship.ship.getConstructingShips(store.getters['user/currentPlanet'].id)
+        }
+    },
     
     components: {
         ShipModels,
-        ShipModelDetails
+        ShipModelDetails,
+        ConstructingShips
     },
 
     methods: {
@@ -43,13 +52,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    #ship-model-details {
-        grid-column: ~"5/9";
-        grid-row: ~"3/9";
+    #ship-model-details,
+    #constructing-ships {
+        grid-column: ~"6/10";
+        grid-row: ~"2/9";
+        margin-top: 20px;
     }
 
     #ship-models {
-        grid-column: ~"2/5";
-        grid-row: ~"3/9";
+        grid-column: ~"2/6";
+        grid-row: ~"2/9";
+        margin-top: 20px;
     }
 </style>
