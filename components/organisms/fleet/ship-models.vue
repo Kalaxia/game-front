@@ -8,7 +8,7 @@
                 :isSelected="isSelected(model)"/>
         </section>
         <footer>
-            <nuxt-link v-if="hasCurrentPlayerData" to="/buildings/shipyard/new-model" class="button link" :style="{ color: factionColors['main'] }">
+            <nuxt-link v-if="hasCurrentPlayerData" to="/buildings/shipyard/new-model" class="button" :style="{ color: factionColors['main'] }">
                 <span class="big">créer</span>
                 un modèle de vaisseau
             </nuxt-link>
