@@ -45,7 +45,9 @@
                             <colored-picto src="Pc_GenieMilitaire.png" :color="factionColors['white']" :width="18" :height="18" />
                         </div>
                     </div>
-                    <gauge :levels="gaugeLevels" :background="factionColors['black']" :style="{ borderColor: factionColors['white'] }" />
+                    <gauge :levels="[{ value: (nextProduction.constructionState.current_points / nextProduction.constructionState.points) * 100, color: factionColors['white'] }]"
+                        :background="factionColors['black']"
+                        :style="{ borderColor: factionColors['white'] }" />
                 </footer>
             </div>
             <div :style="{ borderColor: factionColors['white'] }">
@@ -70,7 +72,7 @@
                     </div>
                     <gauge :levels="gaugeLevels" :background="factionColors['black']" :style="{ borderColor: factionColors['white'] }" />
                     <div class="percent">
-                        {{ (currentProduction.constructionState.current_points / currentProduction.constructionState.points) * 100 }}%
+                        {{ currentProductionPercent }}%
                     </div>
                 </footer>
             </div>
@@ -102,6 +104,10 @@ export default {
 
         currentProduction () {
             return this.constructingShips[0];
+        },
+
+        currentProductionPercent() {
+            return Math.floor((this.currentProduction.constructionState.current_points / this.currentProduction.constructionState.points) * 100);
         },
 
         nextProduction () {
