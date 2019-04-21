@@ -1,13 +1,10 @@
 <template>
     <div id="planet-menu">
-        <population-points class="module" :planet="planet" />
-        <div v-if="constructingShips">
-            {{ constructingShips.quantity }}
-            {{ constructingShips.model.name }}
-            {{ constructingShips.constructionState.points }}
-            {{ constructingShips.constructionState.current_points }}
+        <div class="modules">
+            <population-points :planet="planet" class="module" />
+            <constructing-ships v-if="constructingShips" class="module" :constructingShips="constructingShips" />
         </div>
-        <div>
+        <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
             <h5 :class="planet.type" >{{ planet.name }}</h5>
             <planet-coords :planet="planet" />
@@ -22,6 +19,7 @@
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetCoords from '~/components/atoms/planet/coords';
+import ConstructingShips from '~/components/molecules/menu/constructing-ships';
 import PopulationPoints from '~/components/molecules/menu/population-points';
 
 export default {
@@ -39,6 +37,7 @@ export default {
         PlanetPicto,
         PlanetImage,
         PlanetCoords,
+        ConstructingShips,
         PopulationPoints
     },
 
@@ -56,7 +55,7 @@ export default {
         padding-right: 10px;
         padding-bottom: 20px;
 
-        & > div {
+        & > .column {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -98,10 +97,16 @@ export default {
             margin-top: 15px;
         }
 
-        & > .module {
-            background-color: #2D2D2D;
-            border-radius: 5px;
-            padding: 5px 10px;
+        & > .modules {
+            display: flex;
+            align-items: stretch;
+
+            & > .module {
+                text-decoration: none;
+                background-color: #2D2D2D;
+                border-radius: 5px;
+                padding: 5px 10px;
+            }
         }
     }
 </style>
