@@ -8,7 +8,7 @@ import { TimelineLite, Linear } from 'gsap';
 export default {
     name: 'fleet-journey-range',
 
-    mounted: function() {
+    mounted () {
         const { range } = this.$refs;
 
         const timeline = new TimelineLite({
@@ -23,7 +23,7 @@ export default {
     },
 
     computed: {
-        style: function() {
+        style () {
             const scale = this.$store.state.map.scale;
             const range = this.$store.state.map.fleet.range.planetToPlanet;
             const diameter = range * scale;

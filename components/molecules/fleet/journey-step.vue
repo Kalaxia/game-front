@@ -19,7 +19,7 @@ export default {
 
     props: ['step'],
 
-    mounted: function() {
+    mounted () {
         const { line } = this.$refs;
 
         const timeline = new TimelineLite({
@@ -33,7 +33,7 @@ export default {
     },
 
     computed: {
-        pointStyle: function() {
+        pointStyle () {
             const scale = this.$store.state.map.scale;
 
             return {
@@ -42,7 +42,7 @@ export default {
             };
         },
 
-	    lineStyle: function() {
+	    lineStyle () {
             const scale = this.$store.state.map.scale;
             const angle = Math.atan2(this.step.endY - this.step.startY, this.step.endX - this.step.startX) * 180 / Math.PI;
             const distance = scale * Math.pow(

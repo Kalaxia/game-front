@@ -15,12 +15,22 @@
 </template>
 
 <script>
-import JourneyStep from '~/model/fleet/journeyStep';
+import JourneyStep, { ORDER_PASS, ORDER_CONQUER } from '~/model/fleet/journeyStep';
 
 const OFFSET_SIZE_TARGET = -17; // -7 :  (widthExtene - widthIntern)/2 + boder width
 
 export default {
     name: 'fleet-journey-planer',
+
+    async mounted() {
+        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        this.$store.commit('map/fleetRange', range);
+
+        if (this.$store.state.map.fleet.isOnJourney()) {
+            return false;
+        }
+        document.querySelector('body').addEventListener('click', this.addPointMap);
+    },
 
     methods: {
         async sendFleet(event) {
@@ -34,13 +44,12 @@ export default {
         },
 
         async addPointMap(event) {
-            if (event.type === 'contextmenu') {
+            if (event.type === 'click') {
                 event.preventDefault();
             }
             if (!event.target.classList.contains('range')) {
                 return false;
             }
-            this.$store.commit('map/setSelectedSystemId', null);
 
             const map = document.querySelector("#starmap");
             const scale = this.$store.state.map.scale;
@@ -55,6 +64,7 @@ export default {
                 planet_final: null,
                 map_pos_x_final: x,
                 map_pos_y_final: y,
+                order: ORDER_PASS
             };
             
             const distance = Math.sqrt(Math.pow(x - stepData.map_pos_x_start, 2) + Math.pow(y - stepData.map_pos_y_start, 2));
@@ -69,16 +79,6 @@ export default {
         removeLastStep() {
             this.$store.commit('map/removeLastStep');
         }
-    },
-
-    async mounted() {
-        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
-        this.$store.commit('map/fleetRange', range);
-
-        if (this.$store.state.map.fleet.isOnJourney()) {
-            return false;
-        }
-        document.querySelector('body').addEventListener('contextmenu', this.addPointMap);
     }
 }
 </script>
