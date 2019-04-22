@@ -11,11 +11,11 @@ export default class Journey {
             steps: new Array()
         };
         for (const step of this.steps) {
-            console.log(step);
             data.steps.push({
                 x: step.endX,
                 y: step.endY,
                 planetId: (step.endLocation !== null) ? step.endLocation.id : 0,
+                order: step.order
             })
         }
         return data;
