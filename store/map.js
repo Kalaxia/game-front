@@ -1,6 +1,6 @@
 export const state = () => ({
     targetedSystemId: null,
-    selectedSystemId: null,
+    selectedPlanets: [],
     fleet: null,
     scale: 80,
     size: 0
@@ -69,6 +69,12 @@ export const getters = {
                 : rangeData.position_to_position;
         };
     },
+
+    selectedPlanets(state) {
+        return state.selectedPlanets;
+    },
+    
+    fleet: state => state.fleet,
 };
 
 export const mutations ={
@@ -78,10 +84,6 @@ export const mutations ={
 
     setSize(state, size) {
         state.size = size;
-    },
-
-    setSelectedSystemId(state, id) {
-        state.selectedSystemId = id;
     },
 
     setTargetedSystemId(state, id) {
@@ -94,7 +96,13 @@ export const mutations ={
 
     addStep(state, step) {
         state.fleet.journey.steps.push(step);
-        state.selectedSystemId = null;
+        if (step.endLocation !== null) {
+            state.selectedPlanets.push(step.endLocation.id);
+        }
+    },
+
+    stepOrder (state, payload) {
+        state.fleet.journey.steps[state.fleet.journey.steps.indexOf(payload.step)].order = payload.order;
     },
 
     removeLastStep(state) {

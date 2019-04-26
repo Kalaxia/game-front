@@ -1,26 +1,64 @@
 <template>
     <div id="journey-planer">
         <header>
-            <h3>{{ $t('journey.planer.title') }}</h3>
+            <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
+            <button class="button" :style="{ color: factionColors['main'] }" @click="sendFleet">{{ $t('journey.planer.send_fleet') }}</button>
         </header>
         <section>
-            <strong>{{ $t('journey.planer.estimated_time') }}</strong>
-            <span class="time">{{ $t('journey.planer.no_time') }}</span>
+            <div v-if="fleet.journey.steps.length === 0">
+                <p>{{ $t('journey.planer.empty_steps') }}</p>
+            </div>
+            <journey-step-recap v-for="step in fleet.journey.steps" :key="step.number" :step="step" @selectStepOrder="selectedStep = step" />
         </section>
         <footer>
-            <button @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
-            <button @click="sendFleet">{{ $t('journey.planer.send_fleet') }}</button>
+            <div>
+                <strong>{{ $t('journey.planer.estimated_time') }}</strong>
+                <span class="time">{{ $t('journey.planer.no_time') }}</span>
+            </div>
+            <button class="button" :style="{ color: factionColors['white'] }" @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
         </footer>
+        <journey-step-order-panel v-if="selectedStep" :step="selectedStep" @unselectStep="selectedStep = null"/>
     </div>
 </template>
 
 <script>
-import JourneyStep from '~/model/fleet/journeyStep';
+import JourneyStepRecap from '~/components/molecules/fleet/journey-step-recap';
+import JourneyStepOrderPanel from '~/components/molecules/fleet/journey-step-order-panel';
+import JourneyStep, { ORDER_PASS } from '~/model/fleet/journeyStep';
+import { mapGetters } from 'vuex';
 
 const OFFSET_SIZE_TARGET = -17; // -7 :  (widthExtene - widthIntern)/2 + boder width
 
 export default {
     name: 'fleet-journey-planer',
+
+    components: {
+        JourneyStepRecap,
+        JourneyStepOrderPanel,
+    },
+
+    data () {
+        return {
+            selectedStep: null
+        };
+    },
+
+    async mounted() {
+        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        this.$store.commit('map/fleetRange', range);
+
+        if (this.$store.state.map.fleet.isOnJourney()) {
+            return false;
+        }
+        document.querySelector('body').addEventListener('click', this.addPointMap);
+    },
+
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors',
+            fleet: 'map/fleet'
+        })
+    },
 
     methods: {
         async sendFleet(event) {
@@ -34,13 +72,12 @@ export default {
         },
 
         async addPointMap(event) {
-            if (event.type === 'contextmenu') {
+            if (event.type === 'click') {
                 event.preventDefault();
             }
             if (!event.target.classList.contains('range')) {
                 return false;
             }
-            this.$store.commit('map/setSelectedSystemId', null);
 
             const map = document.querySelector("#starmap");
             const scale = this.$store.state.map.scale;
@@ -55,6 +92,7 @@ export default {
                 planet_final: null,
                 map_pos_x_final: x,
                 map_pos_y_final: y,
+                order: ORDER_PASS
             };
             
             const distance = Math.sqrt(Math.pow(x - stepData.map_pos_x_start, 2) + Math.pow(y - stepData.map_pos_y_start, 2));
@@ -69,23 +107,33 @@ export default {
         removeLastStep() {
             this.$store.commit('map/removeLastStep');
         }
-    },
-
-    async mounted() {
-        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
-        this.$store.commit('map/fleetRange', range);
-
-        if (this.$store.state.map.fleet.isOnJourney()) {
-            return false;
-        }
-        document.querySelector('body').addEventListener('contextmenu', this.addPointMap);
     }
 }
 </script>
 
 <style lang="less" scoped>
+    @import '~less/atoms/button.less';
+
     #journey-planer {
-        background-color: #A0A0A0;
+        background-color: rgba(0,0,0,0.6);
         padding: 10px 20px;
+
+        & > header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        & > section {
+            border-bottom: 1px solid grey;
+
+        }
+
+        & > footer {
+            & > div {
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+        }
     }
 </style>

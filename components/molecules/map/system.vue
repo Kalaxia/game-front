@@ -1,18 +1,17 @@
 <template>
     <div :id="`system-${system.id}`"
         :class="['system', {mine: isPlayerSystem, expanded: system.planets}]"
-        :style="style"
-        @click="selectSystem"
-        @contextmenu="selectSystem">
+        :style="style">
         <section v-if="isExpanded">
-            <nuxt-link v-for="(planet, index) in system.planets"
+            <div v-for="(planet, index) in system.planets"
+                :id="`planet-${planet.id}`"
                 :key="`system-${system.id}-planet-${planet.id}`"
-                :to="`/planet/${planet.id}`"
+                @click="selectPlanet(planet)"
                 class="system-planet"
                 :style="{ transform: `rotate(${45 * (index + 1)}deg)`, backgroundColor: planetColor(planet), zIndex: index }"
-                @mouseenter.native="setHoveredPlanet(planet)"
-                @mouseleave.native="setHoveredPlanet(null)">
-            </nuxt-link>
+                @mouseenter="setHoveredPlanet(planet)"
+                @mouseleave="setHoveredPlanet(null)">
+            </div>
             <div v-if="system.planets.length < 8"
                 class="system-planet padding"
                 :style="{ transform: `rotate(${45 * (system.planets.length + 1)}deg)`, zIndex: 10 }">
@@ -34,6 +33,9 @@
 <script>
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlayerAvatar from '~/components/atoms/player/avatar';
+import JourneyStep, { ORDER_PASS } from '~/model/fleet/journeyStep';
+import { shadeColor } from '~/lib/colors';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'map-system',
@@ -52,10 +54,15 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors',
+            selectedPlanets: 'map/selectedPlanets'
+        }),
+
         style() {
             return {
-                top: (this.system.coord_y * this.$store.state.map.scale) - 10 + 'px',
-                left: (this.system.coord_x * this.$store.state.map.scale) - 10 + 'px',
+                top: (this.system.coord_y * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
+                left: (this.system.coord_x * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
                 borderColor: (this.isExpanded) ? 'white' : 'grey'
             };
         },
@@ -66,11 +73,28 @@ export default {
     },
 
     methods: {
-        selectSystem() {
+        selectPlanet(planet) {
             if (this.$store.state.map.fleet === null) {
-                return;
+                this.$router.push(`/planet/${planet.id}`);
             }
-            this.$store.commit('map/setSelectedSystemId', this.system.id);
+            const previousX = this.$store.getters['map/previousX'];
+            const previousY = this.$store.getters['map/previousY'];
+            const distance = Math.sqrt(Math.pow(this.system.x - previousX, 2) + Math.pow(this.system.y - previousY, 2));
+            
+            if (distance > this.$store.getters['map/range'](this.system.x, this.system.y, planet.id)) {
+                // TODO
+                throw 'out of range';
+            }
+            this.$store.commit('map/addStep', new JourneyStep({
+                id: this.$store.state.map.fleet.journey.steps.length,
+                map_pos_x_start: previousX,
+                map_pos_y_start: previousY,
+                planet_start: this.$store.getters['map/previousPlanet'],
+                map_pos_x_final: this.system.coord_x,
+                map_pos_y_final: this.system.coord_y,
+                planet_final: planet,
+                order: ORDER_PASS
+            }));
         },
 
         setHoveredPlanet(planet) {
@@ -80,10 +104,11 @@ export default {
         },
 
         planetColor(planet) {
-            if (!planet.player) {
-                return 'grey';
-            }
-            return planet.player.faction.colors['main'];
+            return shadeColor(this.factionColors[(!planet.player) ? 'grey' : 'main'], (this.isSelectedPlanet(planet)) ? 0.2 : 0);
+        },
+
+        isSelectedPlanet(planet) {
+            return this.selectedPlanets.indexOf(planet.id) >= 0;
         }
     }
 }

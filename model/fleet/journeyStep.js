@@ -1,3 +1,6 @@
+export const ORDER_PASS = 'pass';
+export const ORDER_CONQUER = 'conquer';
+
 export default class JourneyStep {
     constructor(data) {
         this.id = data.id;
@@ -11,5 +14,6 @@ export default class JourneyStep {
         this.arrivesAt = data.time_arrival;
         this.restTime = data.time_jump;
         this.number = data.step_number;
+        this.order = data.order;
     }
 }

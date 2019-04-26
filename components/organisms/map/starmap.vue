@@ -5,7 +5,6 @@
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
             </div>
             <journey-range v-if="journey" key="journey-range" />
-            <system-menu v-if="selectedSystemId" key="system-menu" />
 
             <system v-for="system in map.systems"
                 :key="`system-${system.id}`"
@@ -20,7 +19,6 @@
 <script>
 import Vue from 'vue';
 import System from '~/components/molecules/map/system';
-import SystemMenu from '~/components/molecules/map/system-menu';
 import MapLoader from '~/components/atoms/map/loader';
 import JourneyRange from '~/components/molecules/fleet/journey-range';
 import JourneyStep from '~/components/molecules/fleet/journey-step';
@@ -51,7 +49,6 @@ export default {
 
     components: {
         System,
-        SystemMenu,
         MapLoader,
         JourneyRange,
         JourneyStep
