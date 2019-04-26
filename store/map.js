@@ -70,9 +70,7 @@ export const getters = {
         };
     },
 
-    selectedPlanets(state) {
-        return state.selectedPlanets;
-    },
+    selectedPlanets: state => state.selectedPlanets,
     
     fleet: state => state.fleet,
 };
@@ -100,6 +98,8 @@ export const mutations ={
             state.selectedPlanets.push(step.endLocation.id);
         }
     },
+
+    selectedPlanets: (state, planets) => { state.planets = planets; }, 
 
     stepOrder (state, payload) {
         state.fleet.journey.steps[state.fleet.journey.steps.indexOf(payload.step)].order = payload.order;

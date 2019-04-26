@@ -67,6 +67,7 @@ export default {
             }
             const steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
             this.$store.commit('map/fleetJourneySteps', steps);
+            this.$store.commit('map/selectedPlanets', []);
 
             this.$router.push('/map');
         },
