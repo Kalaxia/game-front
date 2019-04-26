@@ -104,7 +104,7 @@ export default {
         },
 
         planetColor(planet) {
-            return shadeColor(this.factionColors[(!planet.player) ? 'grey' : 'main'], (this.isSelectedPlanet(planet)) ? 0.2 : 0);
+            return shadeColor((!planet.player) ? this.factionColors['grey'] : planet.player.faction.colors['main'], (this.isSelectedPlanet(planet)) ? 0.2 : 0);
         },
 
         isSelectedPlanet(planet) {
