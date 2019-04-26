@@ -1,26 +1,47 @@
 <template>
     <div id="journey-planer">
         <header>
-            <h3>{{ $t('journey.planer.title') }}</h3>
+            <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
+            <button class="button" :style="{ color: factionColors['main'] }" @click="sendFleet">{{ $t('journey.planer.send_fleet') }}</button>
         </header>
         <section>
-            <strong>{{ $t('journey.planer.estimated_time') }}</strong>
-            <span class="time">{{ $t('journey.planer.no_time') }}</span>
+            <div v-if="fleet.journey.steps.length === 0">
+                <p>{{ $t('journey.planer.empty_steps') }}</p>
+            </div>
+            <journey-step-recap v-for="step in fleet.journey.steps" :key="step.number" :step="step" @selectStepOrder="selectedStep = step" />
         </section>
         <footer>
-            <button @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
-            <button @click="sendFleet">{{ $t('journey.planer.send_fleet') }}</button>
+            <div>
+                <strong>{{ $t('journey.planer.estimated_time') }}</strong>
+                <span class="time">{{ $t('journey.planer.no_time') }}</span>
+            </div>
+            <button class="button" :style="{ color: factionColors['white'] }" @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
         </footer>
+        <journey-step-order-panel v-if="selectedStep" :step="selectedStep" @unselectStep="selectedStep = null"/>
     </div>
 </template>
 
 <script>
-import JourneyStep, { ORDER_PASS, ORDER_CONQUER } from '~/model/fleet/journeyStep';
+import JourneyStepRecap from '~/components/molecules/fleet/journey-step-recap';
+import JourneyStepOrderPanel from '~/components/molecules/fleet/journey-step-order-panel';
+import JourneyStep, { ORDER_PASS } from '~/model/fleet/journeyStep';
+import { mapGetters } from 'vuex';
 
 const OFFSET_SIZE_TARGET = -17; // -7 :  (widthExtene - widthIntern)/2 + boder width
 
 export default {
     name: 'fleet-journey-planer',
+
+    components: {
+        JourneyStepRecap,
+        JourneyStepOrderPanel,
+    },
+
+    data () {
+        return {
+            selectedStep: null
+        };
+    },
 
     async mounted() {
         const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
@@ -30,6 +51,13 @@ export default {
             return false;
         }
         document.querySelector('body').addEventListener('click', this.addPointMap);
+    },
+
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors',
+            fleet: 'map/fleet'
+        })
     },
 
     methods: {
@@ -84,8 +112,28 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    @import '~less/atoms/button.less';
+
     #journey-planer {
-        background-color: #A0A0A0;
+        background-color: rgba(0,0,0,0.6);
         padding: 10px 20px;
+
+        & > header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        & > section {
+            border-bottom: 1px solid grey;
+
+        }
+
+        & > footer {
+            & > div {
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+        }
     }
 </style>

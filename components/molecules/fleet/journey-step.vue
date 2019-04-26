@@ -1,13 +1,8 @@
 <template>
     <div class="step" :data-step-number="step.id">
-        <div class="point" :style="pointStyle">
-            <div class="point-inner-1"></div>
-            <div class="point-inner-2"></div>
-        </div>
+        <div class="point" :style="pointStyle"></div>
 
-        <div class="line" ref="line" :style="lineStyle">
-
-        </div>
+        <div class="line" ref="line" :style="lineStyle"></div>
     </div>
 </template>
 
@@ -37,8 +32,9 @@ export default {
             const scale = this.$store.state.map.scale;
 
             return {
-                top: (this.step.endY) * scale - 10 + 'px',
-                left: (this.step.endX) * scale - 10 + 'px'
+                top: (this.step.endY) * scale - 11 + 'px',
+                left: (this.step.endX) * scale - 11 + 'px',
+                backgroundColor: this.$store.getters['user/factionColors']['grey'],
             };
         },
 
@@ -77,11 +73,13 @@ export default {
         position: absolute;
         width: 20px;
         height: 20px;
-        background-color: red;
+        border: 2px solid grey;
+        border-radius: 50%;
     }
 
     .line {
         position: absolute;
         background-image: url('/images/map/line_step.png');
+        z-index:-1;
     }
 </style>
