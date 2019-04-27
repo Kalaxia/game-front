@@ -1,3 +1,4 @@
+import CombatRepository from '~/api/ship/combat';
 import FactionRepository from '~/api/faction';
 import FleetRepository from '~/api/fleet';
 import MapRepository from '~/api/map';
@@ -18,6 +19,7 @@ export default ({ store }, inject) => {
         planet: new PlanetRepository(store),
         player: new PlayerRepository(store),
         ship: {
+            combat: new CombatRepository(store),
             model: new ShipModelRepository(store),
             ship: new ShipRepository(store)
         },
