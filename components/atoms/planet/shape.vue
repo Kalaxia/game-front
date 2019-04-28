@@ -1,8 +1,5 @@
 <template>
-    <router-link :to="`/planet/${id}`"
-        class="shape"
-        :data-type="type"
-        :style="{ width: `${width}px` , height: `${height}px` }" />
+    <div class="shape" :data-type="type" :style="{ width: `${width}px` , height: `${height}px` }"></div>
 </template>
 
 <script>

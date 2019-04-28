@@ -1,6 +1,5 @@
-import Faction from './faction.js';
-
-let currentPlayer = null;
+import Faction from '~/model/faction';
+import Planet from '~/model/planet';
 
 export default class Player {
     constructor(data) {
@@ -11,6 +10,7 @@ export default class Player {
         this.isActive = data.is_active;
         this.wallet = data.wallet;
         this.faction = (data.faction !== null) ? new Faction(data.faction) : null;
+        this.currentPlanet = (data.current_planet !== null) ? new Planet(data.current_planet) : null;
         this.createdAt = data.created_at;
         this.updatedAt = data.updated_at;
     }

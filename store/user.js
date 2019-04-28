@@ -66,6 +66,7 @@ export const mutations = {
 
     setCurrentPlanet(state, planet) {
         state.currentPlanet = planet;
+        state.player.currentPlanet = planet;
     },
 
     setCurrentPlayer(state, player) {
@@ -118,7 +119,12 @@ export const actions = {
 
     async initPlanet({ state, commit }) {
         commit('setPlanets', await this.$repositories.planet.getPlayerPlanets(state.player.id));
-        commit('setCurrentPlanet', await this.$repositories.planet.get(state.planets[0].id));
+        commit('setCurrentPlanet', await this.$repositories.planet.get(state.player.currentPlanet.id));
+    },
+
+    async setCurrentPlanet({ commit }, planet) {
+        await this.$repositories.planet.setCurrentPlanet(planet.id);
+        commit('setCurrentPlanet', await this.$repositories.planet.get(planet.id))
     }
 };
 

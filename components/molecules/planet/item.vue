@@ -1,6 +1,6 @@
 <template>
     <div class="planet">
-        <planet-shape v-bind:id="planet.id" v-bind:type="planet.type" width="200" height="200" />
+        <planet-shape :id="planet.id" :type="planet.type" width="200" height="200" @click.native="goToPlanet" />
         <h3>{{ planet.name }}</h3>
         <production-link :planet="planet" />
     </div>
@@ -18,6 +18,14 @@ export default {
     components: {
         ProductionLink,
         PlanetShape
+    },
+
+    methods: {
+        async goToPlanet () {
+            await this.$store.dispatch('user/setCurrentPlanet', this.planet);
+
+            this.$router.push(`/planet/${this.planet.id}`);
+        }
     }
 }
 </script>

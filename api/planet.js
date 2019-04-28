@@ -37,6 +37,12 @@ export default class PlanetRepository extends Repository
         return planets;
     }
 
+    setCurrentPlanet(planet_id) {
+        return this.call('PATCH', `/api/me/current-planet`, {
+            planet_id
+        })
+    }
+
     updateSettings(planet) {
         return this.call('PUT', `/api/planets/${planet.id}/settings`, planet.settings);
     }
