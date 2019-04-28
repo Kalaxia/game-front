@@ -8,9 +8,10 @@
             </div>
         </header>
         <section>
-            <div v-for="(number, shipType) in losses" :key="shipType">
+            <div v-for="(number, shipType) in ships" :key="shipType">
                 <ship-type :type="shipType" :color="factionColors['white']" :size="24" />
-                <span>{{ number }}</span>
+                <span :style="{ color: party.player.faction.colors['main'] }">{{ number }}</span>
+                <span :style="{ color: factionColors['white'] }">{{ losses[shipType] }}</span>
             </div>
         </section>
 
@@ -25,7 +26,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'combat-report-party',
     
-    props: ['party', 'losses'],
+    props: ['party', 'ships', 'losses'],
 
     components: {
         PlayerAvatar,
