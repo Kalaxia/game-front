@@ -128,7 +128,7 @@ export default {
             const sectors = {};
 
             for (const key in coords) {
-                sectors[key] = Math.ceil(coords[key] / this.sectorSize);
+                sectors[key] = Math[(key === 'startY') ? 'floor' : 'ceil'](coords[key] / this.sectorSize);
             }
             const sectorsPerLine = this.map.size / this.sectorSize;
             

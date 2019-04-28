@@ -109,12 +109,9 @@ export default {
     }
 
     #wrapper {
-        -webkit-user-select: none;
-        user-select: none;
+        .unselectable
     }
-</style>
 
-<style lang="less" scoped>
     #minimap {
         grid-column: ~"1/3";
         grid-row: ~"1/3";
@@ -137,7 +134,8 @@ export default {
         .unselectable
     }
 
-    .bottom-menu {
+    #planet-menu,
+    #player-menu {
         z-index: 3;
         .unselectable
     }
