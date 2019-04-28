@@ -9,7 +9,7 @@
         <template v-if="isActive">
             <Item link="/" image="G_P_Ov_64px.png" :color="faction.colors['main']" />
             <Item link="/map" image="G_P_Map_64px.png" :color="faction.colors['main']" />
-            <Item link="/profile" image="G_P_Rank_64px.png" :color="faction.colors['main']" />
+            <Item image="G_P_Rank_64px.png" :color="faction.colors['main']" />
         </template>
     </div>
 </template>

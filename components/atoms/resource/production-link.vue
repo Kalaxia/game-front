@@ -1,30 +1,25 @@
 <template>
-    <router-link :to="`/planet/${planet.id}/production`">{{ $t('planet.production') }}</router-link>
+    <nuxt-link :to="`/planet/${planet.id}/production`" class="button" :style="{ color: factionColors['main'] }">
+        <span>{{ $t('planet.production') }}</span>
+    </nuxt-link>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'resource-production-link',
 
-    props: ['planet']
+    props: ['planet'],
+
+    computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
+    }
 }
 </script>
 
 <style lang="less" scoped>
-    a {
-        width: 200px;
-        display: block;
-        text-decoration: none;
-        text-align: center;
-        border-radius: 1000px;
-        border: 5px solid #EFEFEF;
-        color: #EFEFEF;
-        font-variant: small-caps;
-        font-family: Electrolize, sans-serif;
-
-        &:hover {
-            background-color: #EFEFEF;
-            color: #090A0A;
-        }
-    }
+    @import '~less/atoms/button.less';
 </style>

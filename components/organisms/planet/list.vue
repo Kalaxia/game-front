@@ -30,6 +30,7 @@ export default {
 
         & > section {
             display: flex;
+            flex-wrap: wrap;
         }
     }
 </style>
