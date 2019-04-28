@@ -5,7 +5,9 @@
             <p>{{ player.wallet }}</p>
         </header>
         <section>
-            <Avatar :player="player" width="126" height="126" />
+            <nuxt-link :to="`/player/${player.id}`" class="profile-link">
+                <Avatar :player="player" width="126" height="126" />
+            </nuxt-link>
             <div class="player-info">
                 <h4>{{ player.pseudo }}</h4>
                 <h5>{{ $t('player.titles.governor') }}</h5>
@@ -56,8 +58,11 @@ export default {
         }
     }
 
-    .avatar {
+    .profile-link {
         z-index: 2;
+    }
+
+    .avatar {
         background-color: #000;
         border-radius: 70px;
 
