@@ -1,5 +1,7 @@
 <template>
-    <player-profile :player="player" :planets="planets" />
+    <div>
+        <player-profile :player="player" :planets="planets" />
+    </div>
 </template>
 
 <script>
@@ -24,7 +26,7 @@ export default {
 
 <style lang="less" scoped>
     #player-profile {
-        grid-column: ~"3/9";
+        grid-column: ~"2/10";
         grid-row: ~"3/9";
     }
 </style>
