@@ -6,7 +6,7 @@ export default class Fleet {
     constructor(data) {
         this.id = data.id;
         this.player = new Player(data.player);
-        this.location = new Planet(data.location);
+        this.location = (data.location) ? new Planet(data.location) : null;
         this.journey = (data.journey !== null) ? new Journey(data.journey) : null;
         this.ships = new Array();
         this.shipGroups = new Array();
