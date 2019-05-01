@@ -44,7 +44,8 @@ export default {
     },
 
     async mounted() {
-        const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        //const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
+        const range = this.$resources.journey_range;
         this.$store.commit('map/fleetRange', range);
 
         if (this.$store.state.map.fleet.isOnJourney()) {

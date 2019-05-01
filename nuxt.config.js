@@ -4,6 +4,10 @@ const path = require('path');
 module.exports = {
   mode: 'universal',
 
+  env: {
+    apiUrl: process.env.API_URL
+  },
+
   /*
   ** Headers of the page
   */
@@ -45,6 +49,7 @@ module.exports = {
     '~/plugins/api.js',
     '~/plugins/i18n.js',
     '~/plugins/resources.js',
+    '~/plugins/websocket.js',
   ],
 
   /*
