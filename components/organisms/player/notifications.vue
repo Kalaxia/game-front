@@ -1,16 +1,18 @@
 <template>
     <div id="notifications">
-        <section class="list">
+        <transition-group name="notification-group" tag="section">
             <notification-group v-for="(n, type) in notifications"
-                :key="type"
+                :key="`notif-${type}`"
                 :type="type"
                 :notifications="n"
                 @selectType="selectedType = (selectedType !== type) ? $event : null"
                 :class="{ selected: selectedType === type }" />
-        </section>
-        <section class="details" v-if="selectedType">
-            <notification-group-details :notifications="notifications[selectedType]" />
-        </section>
+        </transition-group>
+        <transition appear>
+            <section class="details" v-if="selectedType">
+                <notification-group-details :notifications="notifications[selectedType]" />
+            </section>
+        </transition>
     </div>
 </template>
 
@@ -42,6 +44,19 @@ export default {
         display: flex;
         flex-direction: column-reverse;
         padding: 10px 20px;
+
+        .notification-group {
+            transition: all 1s;
+        }
+        
+        .notification-group-enter, .notification-group-leave-to {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .notification-group-leave-active {
+            opacity: 1;
+        }
 
         & > .details {
             position: absolute;

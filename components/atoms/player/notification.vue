@@ -14,6 +14,9 @@ export default {
         for (const link of this.$refs.notification.querySelectorAll('.link')) {
             link.onclick = () => { this.$router.push(link.getAttribute('data-link')); };
         }
+        for (const element of this.$refs.notification.querySelectorAll('.translate')) {
+            element.innerHTML = this.$i18n.t(element.innerText);
+        }
     },
     
     computed: {

@@ -106,12 +106,13 @@
         "start": "Commencer"
     },
     "resources": {
-        "resources.a": "Liquide",
-        "resources.b": "Minerai",
-        "resources.c": "Metal",
-        "resources.d": "Nourriture",
-        "resources.e": "Cristal",
-        "resources.f": "Minerai"
+        "liquid": "Liquide",
+        "ore": "Minerai",
+        "geode": "Géode",
+        "food": "Nourriture",
+        "cristal": "Cristal",
+        "red-ore": "Minerai",
+        "emerald": "Emeraude"
     },
     "ships": {
         "back_to_frames": "Changer de châssis",
@@ -274,7 +275,7 @@
             "fleet_defeat": "<header><h4>Défaite !</h4></header><section><p>La flotte {fleet__id} a été vaincue au combat par une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span></p></section><footer><span class='link' data-link='/combats/{report__id}'>Voir le rapport</span></footer>"
         },
         "trade": {
-            "accepted_offer": "<header><h4>Votre offre</h4></header><section><p>Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités pour un prix de {price}</p></section>"
+            "accepted_offer": "<header><h4>Votre offre</h4></header><section><p>Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price}</p></section>"
         }
     },
     "player": {
