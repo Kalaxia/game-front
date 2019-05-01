@@ -1,10 +1,10 @@
 <template>
     <div id="report-details">
-        <party :party="report.attacker" :ships="report.attacker_ships" :losses="report.attacker_losses" />
+        <party :party="report.attacker" :ships="report.attackerShips" :losses="report.attackerLosses" />
         <div class="data">
             <h4>{{ isVictory ? 'Victoire' : 'Défaite' }}</h4>
         </div>
-        <party :party="report.defender" :ships="report.defender_ships" :losses="report.defender_losses" />
+        <party :party="report.defender" :ships="report.defenderShips" :losses="report.defenderLosses" />
     </div>
 </template>
 
