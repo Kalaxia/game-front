@@ -49,7 +49,8 @@ export default {
         }
         if (this.$route.query.id) {
             const fleet = await this.$repositories.fleet.getFleet(this.$route.query.id);
-            fleet.range = await this.$repositories.fleet.getFleetRange(fleet);
+            // fleet.range = await this.$repositories.fleet.getFleetRange(fleet);
+            fleet.range = this.$resources.journey_range;
             fleet.journey = new Journey({
                 id: null,
                 created_at: Date.now(),
@@ -62,7 +63,8 @@ export default {
     async beforeRouteUpdate(to, from, next) {
         if (to.query.id) {
             const fleet = await this.$repositories.fleet.getFleet(to.query.id);
-            fleet.range = await this.$repositories.fleet.getFleetRange(fleet);
+            // fleet.range = await this.$repositories.fleet.getFleetRange(fleet);
+            fleet.range = this.$resources.journey_range;
             fleet.journey = new Journey({
                 id: null,
                 created_at: Date.now(),
