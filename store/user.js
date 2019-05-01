@@ -15,6 +15,10 @@ export const mutations = {
         state.screen.height = dimensions.height;
     },
 
+    addNotification(state, notification) {
+        state.player.notifications[notification.type].push(notification);
+    },
+
     addPlanet(state, planet) {
         if (state.planets === null) {
             state.planets = new Array();

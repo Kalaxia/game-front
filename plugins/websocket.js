@@ -12,14 +12,13 @@ export default async ({ app, store }, inject) => {
     ws.onmessage = ({ data }) => {
         const message = JSON.parse(data);
 
-        switch (message.type) {
-            case 'notification':
-                store.commit('notifications/add', message.data);
+        switch (message.action) {
+            case 'addNotification':
+                store.commit('user/addNotification', message.data);
                 break;
             default:
                 console.log(message);
                 break;
         }
-        
     }
 };
