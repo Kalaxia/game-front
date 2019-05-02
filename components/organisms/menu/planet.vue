@@ -3,7 +3,7 @@
         <div class="modules">
             <population-points :planet="planet" class="module" />
             <constructing-building class="module" :building="constructingBuilding" />
-            <constructing-ships v-if="constructingShips" class="module" :constructingShips="constructingShips" />
+            <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="constructingShips" />
         </div>
         <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
@@ -23,6 +23,7 @@ import PlanetCoords from '~/components/atoms/planet/coords';
 import ConstructingBuilding from '~/components/molecules/menu/constructing-building';
 import ConstructingShips from '~/components/molecules/menu/constructing-ships';
 import PopulationPoints from '~/components/molecules/menu/population-points';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'planet-menu',
@@ -49,6 +50,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            hasBuilding: 'user/hasBuilding',
+        }),
+
         constructingBuilding() {
             const buildings = this.$store.getters['user/currentPlanet'].buildings;
 

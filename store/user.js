@@ -160,6 +160,15 @@ export const getters = {
             : 0;
     },
 
+    hasBuilding: state => type => {
+        for (const building of state.currentPlanet.buildings) {
+            if (building.type === type && building.status === 'operational') {
+                return true;
+            }
+        }
+        return false;
+    },
+
     storedResources: state => state.currentPlanet.storage.resources,
 
     isStorageEmpty: state => state.currentPlanet.storage.resources.length === 0,

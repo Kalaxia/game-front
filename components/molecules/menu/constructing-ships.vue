@@ -6,15 +6,24 @@
             </div>
         </header>
         <section>
-            <div class="quantity">
-                <ship-type :type="constructingShips.model.type" :color="factionColors['white']" :size="24" />
-                <sup>x{{ constructingShips.quantity }}</sup>
-            </div>
-            <gauge :levels="gaugeLevels" :background="factionColors['black']" />
-            <div class="points">
-                <strong>{{ constructingShips.constructionState.current_points }}</strong>
-                <sup>/ {{ constructingShips.constructionState.points }}</sup>
-            </div>
+            <template v-if="constructingShips">
+                <div class="quantity">
+                    <ship-type :type="constructingShips.model.type" :color="factionColors['white']" :size="24" />
+                    <sup>x{{ constructingShips.quantity }}</sup>
+                </div>
+                <gauge :levels="gaugeLevels" :background="factionColors['black']" />
+                <div class="points">
+                    <strong>{{ constructingShips.constructionState.current_points }}</strong>
+                    <sup>/ {{ constructingShips.constructionState.points }}</sup>
+                </div>
+            </template>
+            <template v-else>
+                <div class="call-to-action">
+                    <button class="button">
+                        <colored-picto src="G_P_B_64px.png" :color="factionColors['mainLight']" :width="24" :height="24" />
+                    </button>
+                </div>
+            </template>
         </section>
     </nuxt-link>
 </template>
@@ -38,7 +47,7 @@ export default {
 
     computed: {
         ...mapGetters({
-            factionColors: 'user/factionColors'
+            factionColors: 'user/factionColors',
         }),
 
         gaugeLevels () {
@@ -57,6 +66,16 @@ export default {
     #menu-constructing-ships {
         & > section {
             width: 50px;
+
+            & > .call-to-action {
+                display: flex;
+                justify-content: center;
+                margin-top: 5px;
+
+                & > .button {
+                    padding: 5px;
+                }
+            }
 
             & > .quantity {
                 display: flex;

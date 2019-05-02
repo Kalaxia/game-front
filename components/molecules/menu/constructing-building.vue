@@ -5,7 +5,7 @@
                 <colored-picto src="G_P_B_64px.png" :color="factionColors['white']" :width="18" :height="18" />
             </div>
         </header>
-        <section :class="{ empty: building === null }">
+        <section>
             <template v-if="building">
                 <div class="building">
                     <colored-picto :src="buildingPicto" :color="factionColors['white']" :width="24" :height="24" />
@@ -17,9 +17,11 @@
                 </div>
             </template>
             <template v-else>
-                <button class="button">
-                    <colored-picto :src="buildingPicto" :color="factionColors['mainLight']" :width="24" :height="24" />
-                </button>
+                <div class="call-to-action">
+                    <button class="button">
+                        <colored-picto :src="buildingPicto" :color="factionColors['mainLight']" :width="24" :height="24" />
+                    </button>
+                </div>
             </template>
         </section>
     </nuxt-link>
@@ -66,14 +68,14 @@ export default {
         & > section {
             width: 50px;
 
-            &.empty {
+            & > .call-to-action {
                 display: flex;
                 justify-content: center;
-            }
-
-            & > .button {
                 margin-top: 5px;
-                padding: 5px;
+
+                & > .button {
+                    padding: 5px;
+                }
             }
 
             & > .building {
