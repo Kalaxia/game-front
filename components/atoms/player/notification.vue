@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .notification {
         margin: 10px 0px;
         padding-bottom: 10px;

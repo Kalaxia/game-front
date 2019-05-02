@@ -4,11 +4,13 @@
         "not_enough_money": "Vous n'avez pas assez d'argent"
     },
     "buildings": {
+        "area": "Emplacement disponible",
         "build": "Construire",
         "cancel": "Annuler",
+        "cancel_success": "La construction a été annulée",
         "title": "Bâtiments de {planet}",
         "available_buildings": "Bâtiments disponibles",
-        "area": "Emplacement disponible",
+        "launch_success": "La construction a été lancée avec succès !",
         "hypodronic-farm": "Ferme à vaporisateurs",
         "ore-mine": "Mine de Lithium",
         "shipyard": "Usine de chasseurs",
@@ -127,6 +129,8 @@
             "fighter": "Chasseur",
             "bomber": "Bombardier"
         },
+        "launch_success": "La production a été commandée avec succès",
+        "model_creation_success": "Le nouveau modèle a été créé avec succès",
         "modules_list": "Modules",
         "modules": {
             "laser-gun": {
@@ -190,6 +194,18 @@
         "accept_offer": "Accepter l'offre",
         "cancel_offer": "Annuler l'offre",
         "create_offer": "Créer une offre",
+        "notifications": {
+            "sell_resources_success": "Les ressources ont été achetées avec succès",
+            "sell_ships_success": "Les vaisseaux ont été achetés avec succès",
+            "sell_models_success": "Le plan de conception a été acheté avec succès",
+            "buy_resources_success": "Les ressources ont été achetées avec succès",
+            "buy_ships_success": "Les vaisseaux ont été achetés avec succès",
+            "buy_models_success": "Le plan de conception a été vendu avec succès",
+            "buy_offer_cancel": "L'offre d'achat a été retirée du marché",
+            "sell_offer_cancel": "L'offre de vente a été retirée du marché",
+            "buy_offer_creation": "L'offre d'achat a été mise sur le marché",
+            "sell_offer_creation": "L'offre de vente a été mise sur le marché"
+        },
         "discount": "Prix réduit",
         "excessing_resource": "Excédent de ressource",
         "faction": "Faction",
@@ -284,6 +300,7 @@
         }
     },
     "journey" : {
+        "sending_success": "La flotte est partie",
         "planet_order": "{order} sur {planet}",
         "orders": {
             "pass": {

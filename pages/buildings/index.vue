@@ -35,12 +35,15 @@ export default {
 
                 this.$store.commit('user/build', b);
                 this.selectedBuilding = b;
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: false,
+                    content: 'buildings.launch_success'
+                });
             } catch(error) {
-                console.log(error);
-                // this.$store.commit('notifications/add', {
-                //     type: 'error',
-                //     message: error
-                // });
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: error
+                });
             }
         },
 
@@ -52,6 +55,10 @@ export default {
                 availableBuilding: Object.assign({}, this.$resources.buildings[building.name], { name: building.name })
             });
             this.selectedBuilding = null;
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: 'buildings.cancel_success'
+            });
         }
     }
 }
