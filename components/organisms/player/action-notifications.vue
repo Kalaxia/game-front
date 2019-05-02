@@ -54,6 +54,7 @@ export default {
 
         & > div {
             .notification {
+                z-index: 3;
                 margin: 10px 0px;
                 font-variant: small-caps;
                 padding: 20px;

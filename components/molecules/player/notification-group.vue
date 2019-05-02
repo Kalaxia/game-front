@@ -1,6 +1,6 @@
 <template>
     <div class="notification-group" :style="{ borderColor: color }">
-        <div class="picto" @click="$emit('selectType', type)">
+        <div class="picto" @click="$emit('selectType', type)" :style="{ backgroundColor: factionColors['black'] }">
             <colored-picto :src="picto" :color="color" :width="24" :height="24" />
         </div>
         <div class="counter" :style="{ color: color }">{{ nbNotifications }}</div>
@@ -48,6 +48,7 @@ export default {
         display: flex;
         justify-content: flex-end;
         margin: 10px 0px;
+        z-index: 3;
 
         &:last-child {
             margin-bottom: 0px;

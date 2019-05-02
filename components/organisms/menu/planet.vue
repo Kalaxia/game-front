@@ -2,6 +2,7 @@
     <div id="planet-menu">
         <div class="modules">
             <population-points :planet="planet" class="module" />
+            <constructing-building class="module" :building="constructingBuilding" />
             <constructing-ships v-if="constructingShips" class="module" :constructingShips="constructingShips" />
         </div>
         <div class="column">
@@ -19,6 +20,7 @@
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetCoords from '~/components/atoms/planet/coords';
+import ConstructingBuilding from '~/components/molecules/menu/constructing-building';
 import ConstructingShips from '~/components/molecules/menu/constructing-ships';
 import PopulationPoints from '~/components/molecules/menu/population-points';
 
@@ -37,12 +39,25 @@ export default {
         PlanetPicto,
         PlanetImage,
         PlanetCoords,
+        ConstructingBuilding,
         ConstructingShips,
         PopulationPoints
     },
 
     async mounted() {
         this.constructingShips = await this.$repositories.ship.ship.getCurrentlyConstructingShips(this.planet.id);
+    },
+
+    computed: {
+        constructingBuilding() {
+            const buildings = this.$store.getters['user/currentPlanet'].buildings;
+
+            for (const b of buildings) {
+                if (b.status === 'constructing') {
+                    return b;
+                }
+            }
+        }
     }
 }
 </script>

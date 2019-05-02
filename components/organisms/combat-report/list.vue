@@ -32,8 +32,16 @@ export default {
 
 <style lang="less" scoped>
     #combat-reports {
+        display: flex;
+        flex-direction: column;
         border: 1px solid;
         border-radius: 10px;
         padding: 10px 20px;
+
+        & > section {
+            flex-grow: 1;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
     }
 </style>
