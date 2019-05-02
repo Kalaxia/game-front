@@ -1,4 +1,5 @@
 export const state = () => ({
+    actionNotifications: new Array(),
     player: null,
     planets: new Array(),
     currentPlanet: null,
@@ -17,6 +18,13 @@ export const mutations = {
 
     addNotification(state, notification) {
         state.player.notifications[notification.type].push(notification);
+    },
+
+    addActionNotification: (state, notification) => state.actionNotifications.push(notification),
+
+    removeActionNotification(state, notification) {
+        state.actionNotifications.splice(state.actionNotifications.indexOf(notification), 1);
+        clearTimeout(notification.timeout);
     },
 
     addPlanet(state, planet) {
@@ -129,7 +137,14 @@ export const actions = {
     async setCurrentPlanet({ commit }, planet) {
         await this.$repositories.planet.setCurrentPlanet(planet.id);
         commit('setCurrentPlanet', await this.$repositories.planet.get(planet.id))
-    }
+    },
+
+    addActionNotification({ state, commit }, notification) {
+        commit('addActionNotification', notification);
+        notification.timeout = setTimeout(() => {
+            commit('removeActionNotification', notification);
+        }, 5000);
+    },
 };
 
 export const getters = {
