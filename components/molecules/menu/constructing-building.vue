@@ -1,26 +1,25 @@
 <template>
-    <nuxt-link to="/buildings/shipyard" id="menu-constructing-ships">
+    <nuxt-link to="/buildings" id="menu-constructing-building">
         <header>
             <div>
-                <colored-picto src="Shipyard_64px.png" color="#E0E0E0" :width="18" :height="18" />
+                <colored-picto src="G_P_B_64px.png" :color="factionColors['white']" :width="18" :height="18" />
             </div>
         </header>
         <section>
-            <template v-if="constructingShips">
-                <div class="quantity">
-                    <ship-type :type="constructingShips.model.type" :color="factionColors['white']" :size="24" />
-                    <sup>x{{ constructingShips.quantity }}</sup>
+            <template v-if="building">
+                <div class="building">
+                    <colored-picto :src="buildingPicto" :color="factionColors['white']" :width="24" :height="24" />
                 </div>
                 <gauge :levels="gaugeLevels" :background="factionColors['black']" />
                 <div class="points">
-                    <strong>{{ constructingShips.constructionState.current_points }}</strong>
-                    <sup>/ {{ constructingShips.constructionState.points }}</sup>
+                    <strong>{{ building.construction_state.current_points }}</strong>
+                    <sup>/ {{ building.construction_state.points }}</sup>
                 </div>
             </template>
             <template v-else>
                 <div class="call-to-action">
                     <button class="button">
-                        <colored-picto src="G_P_B_64px.png" :color="factionColors['mainLight']" :width="24" :height="24" />
+                        <colored-picto :src="buildingPicto" :color="factionColors['mainLight']" :width="24" :height="24" />
                     </button>
                 </div>
             </template>
@@ -31,29 +30,31 @@
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
 import Gauge from '~/components/atoms/gauge';
-import ShipType from '~/components/atoms/ship/type';
 import { mapGetters } from 'vuex';
 
 export default {
-    name: 'constructing-ships-menu',
+    name: 'menu-constructing-building',
 
-    props: ['constructingShips'],
+    props: ['building'],
 
     components: {
         ColoredPicto,
-        Gauge,
-        ShipType
+        Gauge
     },
 
     computed: {
         ...mapGetters({
-            factionColors: 'user/factionColors',
+            factionColors: 'user/factionColors'
         }),
+
+        buildingPicto () {
+            return 'G_P_B_64px.png';
+        },
 
         gaugeLevels () {
             return [
                 {
-                    value: (this.constructingShips.constructionState.current_points / this.constructingShips.constructionState.points) * 100,
+                    value: (this.building.construction_state.current_points / this.building.construction_state.points) * 100,
                     color: this.factionColors['white']
                 }
             ];
@@ -62,8 +63,8 @@ export default {
 }
 </script>
 
-<style lang="less">
-    #menu-constructing-ships {
+<style lang="less" scoped>
+    #menu-constructing-building {
         & > section {
             width: 50px;
 
@@ -77,10 +78,9 @@ export default {
                 }
             }
 
-            & > .quantity {
+            & > .building {
                 display: flex;
-                justify-content: flex-end;
-                font-size: 0.9em;
+                justify-content: center;
             }
 
             & > .gauge {

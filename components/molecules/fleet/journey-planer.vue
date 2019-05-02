@@ -66,8 +66,9 @@ export default {
             if (this.$store.state.map.fleet.journey.steps.length === 0) {
                 return false;
             }
+            let steps;
             try {
-                const steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+                steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
             } catch(err) {
                 this.$store.dispatch('user/addActionNotification', {
                     isError: true,

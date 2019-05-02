@@ -2,7 +2,8 @@
     <div id="planet-menu">
         <div class="modules">
             <population-points :planet="planet" class="module" />
-            <constructing-ships v-if="constructingShips" class="module" :constructingShips="constructingShips" />
+            <constructing-building class="module" :building="constructingBuilding" />
+            <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="constructingShips" />
         </div>
         <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
@@ -19,8 +20,10 @@
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetCoords from '~/components/atoms/planet/coords';
+import ConstructingBuilding from '~/components/molecules/menu/constructing-building';
 import ConstructingShips from '~/components/molecules/menu/constructing-ships';
 import PopulationPoints from '~/components/molecules/menu/population-points';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'planet-menu',
@@ -37,12 +40,29 @@ export default {
         PlanetPicto,
         PlanetImage,
         PlanetCoords,
+        ConstructingBuilding,
         ConstructingShips,
         PopulationPoints
     },
 
     async mounted() {
         this.constructingShips = await this.$repositories.ship.ship.getCurrentlyConstructingShips(this.planet.id);
+    },
+
+    computed: {
+        ...mapGetters({
+            hasBuilding: 'user/hasBuilding',
+        }),
+
+        constructingBuilding() {
+            const buildings = this.$store.getters['user/currentPlanet'].buildings;
+
+            for (const b of buildings) {
+                if (b.status === 'constructing') {
+                    return b;
+                }
+            }
+        }
     }
 }
 </script>

@@ -36,6 +36,7 @@ export default {
         border: 2px solid;
         border-radius: 10px;
         padding: 10px 20px;
+        z-index: 3;
 
         & > .notification {
             border-bottom: 2px solid;
