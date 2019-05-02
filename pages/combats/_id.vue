@@ -12,7 +12,7 @@ export default {
     
     async asyncData({ app, params }) {
         return {
-            report: app.$repositories.ship.combat.get(params.id)
+            report: await app.$repositories.ship.combat.get(params.id)
         };
     },
 
