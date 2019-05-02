@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="result">
-            {{ isVictory ? 'Victoire' : 'Défaite' }}
+            <colored-picto :src="isVictory ? 'Victory.svg' : 'Defeat.svg'" :width="32" :height="32" :color="factionColors['mainLight']" />
         </div>
         <div class="party">
             <div class="data">
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import ColoredPicto from '~/components/atoms/colored-picto';
 import PlayerAvatar from '~/components/atoms/player/avatar';
 import { mapGetters } from 'vuex';
 
@@ -30,6 +31,7 @@ export default {
     props: ['report'],
 
     components: {
+        ColoredPicto,
         PlayerAvatar
     },
 
