@@ -46,6 +46,10 @@ export default {
             if (this.selectedModel.maxAvailable === 0) {
                 this.selectedModel = null;
             }
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `ships.launch_success`
+            });
         }
     }
 }

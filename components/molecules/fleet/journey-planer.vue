@@ -66,9 +66,22 @@ export default {
             if (this.$store.state.map.fleet.journey.steps.length === 0) {
                 return false;
             }
-            const steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+            try {
+                const steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+                return;
+            }
             this.$store.commit('map/fleetJourneySteps', steps);
             this.$store.commit('map/selectedPlanets', []);
+
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `journey.sending_success`
+            });
 
             this.$router.push('/map');
         },

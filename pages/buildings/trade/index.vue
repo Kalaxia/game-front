@@ -53,11 +53,23 @@ export default {
     methods: {
         addOffer(offer) {
             this.offers.push(offer);
+
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `trade.notifications.${offer.operation}_offer_creation`
+            });
         },
 
         async acceptOffer(nbLots) {
-            await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
-
+            try {
+                await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+                return;
+            }
             const quantity =  nbLots * this.selectedOffer.lotQuantity;
             this.selectedOffer.quantity -= quantity;
 
@@ -69,6 +81,10 @@ export default {
                 type: 'credits',
                 amount: this.selectedOffer.price * quantity
             });
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `trade.notifications.${this.selectedOffer.operation}_${this.selectedOffer.goodType}_success`
+            });
 
             if (this.selectedOffer.quantity === 0) {
                 this.removeOffer(this.selectedOffer);
@@ -77,13 +93,25 @@ export default {
         },
 
         async cancelOffer() {
-            await this.$repositories.trade.offer.cancel(this.selectedOffer);
+            try {
+                await this.$repositories.trade.offer.cancel(this.selectedOffer);
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+                return;
+            }
 
             this.removeOffer(this.selectedOffer);
 
             this.$store.commit('user/updateStorageResource', {
                 resource: this.selectedOffer.resource,
                 quantity: this.selectedOffer.quantity
+            });
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `trade.notifications.${this.selectedOffer.operation}_offer_cancel`
             });
 
             this.selectedOffer = null;

@@ -79,10 +79,21 @@ export default {
                 slots: this.selectedFrame.slots
             });
 
-            await this.$repositories.ship.model.create(shipModel);
-
+            try {
+                await this.$repositories.ship.model.create(shipModel);
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+                return;
+            }
             this.backToFrames();
             this.$router.push('/buildings/shipyard');
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `ships.model_creation_success`
+            });
         }
     }
 }
