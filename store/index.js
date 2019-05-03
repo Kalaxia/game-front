@@ -11,7 +11,7 @@ export const actions = {
             if (!process.server) {
                 return;
             }
-            if (req.headers.cookie) {
+            if (req.headers.cookie && !route.query.jwt) {
                 const parsed = cookie.parse(req.headers.cookie);
                 const token = parsed.security_token;
                 if (token === null || typeof token === 'undefined') {
