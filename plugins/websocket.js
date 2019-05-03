@@ -2,7 +2,7 @@ export default async ({ app, store }, inject) => {
     if (process.server) {
         return;
     }
-    const ws = new WebSocket(`ws://172.19.0.5/ws`);
+    const ws = new WebSocket(`ws://${window.location.host}/ws`);
     ws.onopen = () => {
         ws.send(JSON.stringify({
             action: 'authenticate',
