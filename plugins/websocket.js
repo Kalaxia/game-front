@@ -1,9 +1,8 @@
-export default async ({ app, store }, inject) => {
-    return;
+export default async ({ env, store }, inject) => {
     if (process.server) {
         return;
     }
-    const ws = new WebSocket(`ws://${window.location.host}/ws`);
+    const ws = new WebSocket(`${env.mode === 'prod' ? 'wss' : 'ws'}://${window.location.host}/ws`);
     ws.onopen = () => {
         ws.send(JSON.stringify({
             action: 'authenticate',

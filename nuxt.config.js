@@ -5,6 +5,7 @@ module.exports = {
   mode: 'universal',
 
   env: {
+    mode: process.env.NODE_ENV,
     apiUrl: process.env.API_URL
   },
 
