@@ -23,6 +23,26 @@ export default class FleetRepository extends Repository {
         return fleets;
     }
 
+    async getComingFleets(planetId) {
+        const data = await this.call('GET', `/api/planets/${planetId}/fleets/coming`);
+        
+        const fleets = new Array();
+        for (const fleet of data) {
+            fleets.push(new Fleet(fleet));
+        }
+        return fleets;
+    }
+
+    async getLeavingFleets(planetId) {
+        const data = await this.call('GET', `/api/planets/${planetId}/fleets/leaving`);
+        
+        const fleets = new Array();
+        for (const fleet of data) {
+            fleets.push(new Fleet(fleet));
+        }
+        return fleets;
+    }
+
     async getFleets() {
         const data = await this.call('GET', `/api/fleets`);
 

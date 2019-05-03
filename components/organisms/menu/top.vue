@@ -1,7 +1,7 @@
 <template>
     <div class="top-menu">
         <template v-if="isActive">
-            <Item image="B_Merc_64px.png" :color="faction.colors['main']" />
+            <Item link="/buildings/trade" image="B_Merc_64px.png" :color="faction.colors['main']" />
             <Item link="/fleets" image="G_P_Def_64px.png" :color="faction.colors['main']" />
             <Item image="G_P_Science_64px.png" :color="faction.colors['main']" />
         </template>

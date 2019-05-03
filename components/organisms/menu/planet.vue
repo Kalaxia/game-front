@@ -1,6 +1,7 @@
 <template>
     <div id="planet-menu">
         <div class="modules">
+            <moving-fleets :coming="comingFleets" :leaving="leavingFleets" />
             <population-points :planet="planet" class="module" />
             <constructing-building class="module" :building="constructingBuilding" />
             <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="constructingShips" />
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import MovingFleets from '~/components/molecules/menu/moving-fleets';
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetCoords from '~/components/atoms/planet/coords';
@@ -32,11 +34,14 @@ export default {
 
     data() {
         return {
+            comingFleets: [],
+            leavingFleets: [],
             constructingShips: null
         };
     },
 
     components: {
+        MovingFleets,
         PlanetPicto,
         PlanetImage,
         PlanetCoords,
@@ -45,8 +50,16 @@ export default {
         PopulationPoints
     },
 
-    async mounted() {
-        this.constructingShips = await this.$repositories.ship.ship.getCurrentlyConstructingShips(this.planet.id);
+    mounted() {
+        this.loadData();
+    },
+
+    watch: {
+        planet(newPlanet) {
+            if (newPlanet.id !== this.planet.id) {
+                this.loadData();
+            }
+        }
     },
 
     computed: {
@@ -62,6 +75,19 @@ export default {
                     return b;
                 }
             }
+        }
+    },
+
+    methods: {
+        async loadData() {
+            const [ leavingFleets, comingFleets, constructingShips ] = await Promise.all([
+                this.$repositories.fleet.getLeavingFleets(this.planet.id),
+                this.$repositories.fleet.getComingFleets(this.planet.id),
+                this.$repositories.ship.ship.getCurrentlyConstructingShips(this.planet.id)
+            ])
+            this.leavingFleets = leavingFleets;
+            this.comingFleets = comingFleets;
+            this.constructingShips = constructingShips;
         }
     }
 }
