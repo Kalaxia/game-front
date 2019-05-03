@@ -4,7 +4,9 @@
             <div id="journey-steps" v-if="journey" key="journey-steps">
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
             </div>
-            <journey-range v-if="journey" key="journey-range" />
+            <journey-range v-if="fleet && fleet.location" key="journey-range" />
+
+            <fleet-pin v-for="fleet in fleets" :key="fleet.id" :fleet="fleet" />
 
             <system v-for="system in map.systems"
                 :key="`system-${system.id}`"
@@ -17,6 +19,7 @@
 </template>
 
 <script>
+import FleetPin from '~/components/atoms/fleet/map-pin';
 import Vue from 'vue';
 import System from '~/components/molecules/map/system';
 import MapLoader from '~/components/atoms/map/loader';
@@ -35,7 +38,7 @@ const dragData = {
 export default {
     name: 'starmap',
 
-    props: ['map', 'playerPlanets'],
+    props: ['map', 'playerPlanets', 'fleets'],
 
     data() {
         return {
@@ -48,6 +51,7 @@ export default {
     },
 
     components: {
+        FleetPin,
         System,
         MapLoader,
         JourneyRange,
@@ -77,7 +81,8 @@ export default {
 
     computed: {
         ...mapGetters({
-            screenDimensions: 'user/screenDimensions'
+            screenDimensions: 'user/screenDimensions',
+            fleet: 'map/fleet'
         }),
 
         mapReady() {

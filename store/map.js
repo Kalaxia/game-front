@@ -1,3 +1,5 @@
+import FleetRange from '~/model/fleet/range';
+
 export const state = () => ({
     targetedSystemId: null,
     selectedPlanets: [],
@@ -113,7 +115,7 @@ export const mutations ={
     },
 
     fleetRange(state, range) {
-        state.fleet.range = range;
+        state.fleet.range = new FleetRange(range);
     },
 
     fleetJourneySteps(state, steps) {
