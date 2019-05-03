@@ -2,13 +2,14 @@
     <div id="report-details">
         <party :party="report.attacker" :ships="report.attackerShips" :losses="report.attackerLosses" />
         <div class="data">
-            <h4>{{ isVictory ? 'Victoire' : 'Défaite' }}</h4>
+            <colored-picto :src="isVictory ? 'Victory.svg' : 'Defeat.svg'" :width="64" :height="64" :color="factionColors['main']" />
         </div>
         <party :party="report.defender" :ships="report.defenderShips" :losses="report.defenderLosses" />
     </div>
 </template>
 
 <script>
+import ColoredPicto from '~/components/atoms/colored-picto'
 import Party from '~/components/molecules/combat-report/party';
 import { mapGetters } from 'vuex';
 
@@ -18,6 +19,7 @@ export default {
     props: ['report'],
 
     components: {
+        ColoredPicto,
         Party
     },
 

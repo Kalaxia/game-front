@@ -13,6 +13,16 @@ export default class FleetRepository extends Repository {
         return new Fleet(await this.call('GET', `/api/fleets/${id}`));
     }
 
+    async getTravellingFleets() {
+        const data = await this.call('GET', '/api/fleets/travelling');
+        
+        const fleets = new Array();
+        for (const fleet of data) {
+            fleets.push(new Fleet(fleet));
+        }
+        return fleets;
+    }
+
     async getFleets() {
         const data = await this.call('GET', `/api/fleets`);
 

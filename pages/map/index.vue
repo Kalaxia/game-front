@@ -1,7 +1,7 @@
 <template>
     <div>
         <minimap :map="map" />
-        <starmap :map="map" :playerPlanets="playerPlanets" />
+        <starmap :map="map" :playerPlanets="playerPlanets" :fleets="fleets" />
         <journey-planer v-if="journey" />
     </div>
 </template>
@@ -18,10 +18,12 @@ import Journey from '~/model/fleet/journey';
 export default {
     name: 'page-map',
 
-    data() {
-        return {
-            map: null,
-        };
+    async asyncData ({ app, params }) {
+        const [ map, fleets ] = await Promise.all([
+            app.$repositories.map.getMap(),
+            app.$repositories.fleet.getTravellingFleets()
+        ]);
+        return { map, fleets };
     },
 
     components: {
@@ -40,8 +42,6 @@ export default {
     },
 
     async mounted() {
-        this.map = await this.$repositories.map.getMap();
-
         this.$store.commit('map/setSize', this.map.size);
 
         if (this.currentPlanet !== null) {

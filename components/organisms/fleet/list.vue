@@ -1,5 +1,5 @@
 <template>
-    <div id="fleets-list">
+    <div id="fleets-list" :style="{ borderColor: factionColors['grey'] }">
         <header>
             <h3>{{ $t('fleet.own_fleets') }}</h3>
             <button class="button big" @click="createFleet" :style="{ color: factionColors['main'] }">{{ $t('fleet.create', { planet: currentPlanet.name }) }}</button>
@@ -44,6 +44,12 @@ export default {
     @import '~less/atoms/button.less';
 
     #fleets-list {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid;
+        border-radius: 10px;
+        padding: 10px 20px;
+
         & > header {
             display: flex;
             justify-content: space-between;
@@ -51,8 +57,11 @@ export default {
         }
 
         & > section {
+            flex-grow: 1;
             display: flex;
+            align-items: flex-start;
             flex-wrap: wrap;
+            overflow-y: auto;
         }
     }
 </style>
