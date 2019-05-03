@@ -1,4 +1,5 @@
 export default async ({ app, store }, inject) => {
+    return;
     if (process.server) {
         return;
     }
