@@ -1,23 +1,21 @@
 <template>
     <div class="full-storage-display">
-        <resource-item :resource="resource" />
-        <div class="info">
-            <div class="storage">
-                <div class="status">
-                    <span :class="{full: isFull}">{{ quantity }}</span> / {{ capacity }}
+        <resource-item :resource="{ name: resource }" />
+        <div class="storage">
+            <div class="status">
+                <span :class="{full: isFull}">{{ quantity }}</span> / {{ capacity }}
+            </div>
+            <div class="storage-line">
+                <div :class="['storage-display', resource]">
+                    <div class="storage-full" :style="{ width: `${ filledCapacity }%`, backgroundColor: color }"></div>
+                    <div class="storage-empty"></div>
                 </div>
-                <div class="storage-line">
-                    <div :class="['storage-display', resource.name]">
-                        <div class="storage-full" :style="{ width: `${ filledCapacity }%`, backgroundColor: color }"></div>
-                        <div class="storage-empty"></div>
-                    </div>
-                    <div :class="{full: isFull}">
-                        {{ fullCapacityAt }}
-                    </div>
+                <div v-if="density > 0" :class="{full: isFull}">
+                    {{ fullCapacityAt }}
                 </div>
-                <div class="hourly-production">
-                    +{{ hourlyProduction() }}/h
-                </div>
+            </div>
+            <div v-if="density > 0" class="hourly-production">
+                +{{ hourlyProduction() }}/h
             </div>
         </div>
     </div>
@@ -29,7 +27,7 @@ import ResourceItem from '~/components/atoms/resource/item';
 export default {
     name: 'resource-storage-item',
 
-    props: ['resource', 'storage'],
+    props: ['density', 'resource', 'capacity', 'quantity'],
 
     components: {
         ResourceItem
@@ -37,7 +35,7 @@ export default {
 
     methods: {
         hourlyProduction() {
-            return this.resource.density * 10;
+            return this.density * 10;
         }
     },
 
@@ -46,16 +44,8 @@ export default {
             return this.quantity > 0 && this.quantity === this.capacity;
         },
 
-        quantity() {
-            return (this.storage.resources[this.resource.name]) ? this.storage.resources[this.resource.name] : 0;
-        },
-
-        capacity() {
-            return (this.storage.capacity) ? this.storage.capacity : 5000;
-        },
-
         color() {
-            return this.$resources.resources[this.resource.name].color;
+            return this.$resources.resources[this.resource].color;
         },
 
         filledCapacity() {
@@ -75,11 +65,20 @@ export default {
 
 <style lang="less" scoped>
     .storage {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
         text-align: center;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        & > .storage-line {
+            flex-grow: 1;
+        }
     }
 
     .storage-display {
-
+        flex-grow: 1;
         border: 5px solid #EFEFEF;
         border-radius: 25px;
         height:25px;
@@ -102,14 +101,9 @@ export default {
         color: rgb(255, 0, 102);
     }
 
-    .info {
-        flex: 1;
-        margin-left: 10px;
-    }
-
     .full-storage-display {
         display: flex;
-        align-items:center;
+        align-items: center;
     }
 
     .full-storage-display > h5 {
