@@ -50,6 +50,7 @@ module.exports = {
     '~/plugins/api.js',
     '~/plugins/i18n.js',
     '~/plugins/resources.js',
+    '~/plugins/favicon.js',
     '~/plugins/websocket.js',
   ],
 
