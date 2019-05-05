@@ -1,7 +1,6 @@
 <template>
     <div>
         <planet-shape v-if="planet" :id="planet.id" :type="planet.type" width="300" height="300" />
-        <planet-buildings v-if="isCurrentPlanet" :planet="planet" />
         <planet-relations v-if="planet" :planet="planet" width="300" height="300" />
     </div>
 </template>
@@ -10,7 +9,6 @@
 import Planet from '~/model/planet';
 
 import PlanetShape from '~/components/atoms/planet/shape';
-import PlanetBuildings from '~/components/molecules/planet/buildings';
 import PlanetRelations from '~/components/molecules/planet/relations';
 
 export default {
