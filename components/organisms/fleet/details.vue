@@ -4,8 +4,8 @@
             <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
             <div class="toolbar">
                 <button class="button" v-if="fleet.location && fleet.location.player && fleet.location.player.id == currentPlayer.id" :style="{ color: factionColors['main'] }" @click="remove">{{ $t('fleet.remove') }}</button>
-                <button class="button" v-if="fleet.location" :style="{ color: factionColors['main'] }" @click="move">{{ $t('fleet.move') }}</button>
-                <nuxt-link :to="`/map/?id=${fleet.id}`" class="button" v-else :style="{ color: factionColors['main'] }">
+                <button class="button" v-if="fleet.location && fleet.shipGroups.length > 0" :style="{ color: factionColors['main'] }" @click="move">{{ $t('fleet.move') }}</button>
+                <nuxt-link :to="`/map/?id=${fleet.id}`" class="button" v-if="!fleet-location" :style="{ color: factionColors['main'] }">
                     Voir sur la carte
                 </nuxt-link>
             </div>

@@ -303,6 +303,9 @@
     "journey" : {
         "sending_success": "La flotte est partie",
         "planet_order": "{order} sur {planet}",
+        "errors": {
+            "empty_fleet": "Vous ne pouvez pas déplacer une flotte vide"
+        },
         "orders": {
             "pass": {
                 "title": "Stationnement",

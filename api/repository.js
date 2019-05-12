@@ -25,7 +25,8 @@ export default class Repository {
         if (response.ok && response.status !== 204) {
             return await response.json();
         } else if (!response.ok) {
-            throw response.error;
+            const data = await response.json();
+            throw data.message;
         }
         return null;
     }
