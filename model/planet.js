@@ -18,6 +18,7 @@ export default class Planet {
         this.storage = (data.storage !== null) ? data.storage : { resources: [] };
         this.ships = new Array();
         this.shipGroups = new Array();
+        this.constructingShips = null;
     }
 
     updateShipGroups(shipGroup, nbShips) {

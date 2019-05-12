@@ -112,12 +112,14 @@ export default {
         },
 
         async produce() {
-            await this.$repositories.ship.ship.create(this.model, this.$store.state.user.currentPlanet, this.nbShips);
+            const constructionGroup = await this.$repositories.ship.ship.create(this.model, this.$store.state.user.currentPlanet, this.nbShips);
 
-            for (const price of this.model.price) {
+            for (const p of this.model.price) {
+                const price = Object.assign({}, p);
+                price.amount *= this.nbShips;
                 this.$store.commit('user/spend', price);
             }
-            this.$emit('build');
+            this.$emit('build', constructionGroup);
             this.max = this.model.maxAvailable;
         }
     }

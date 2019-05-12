@@ -89,6 +89,8 @@ export const mutations = {
         state.currentPlanet.settings[payload.setting] = payload.value;
     },
 
+    addConstructingShips: (state, constructionGroup) => { state.currentPlanet.constructingShips = constructionGroup; },
+
     build(state, building) {
         state.currentPlanet.buildings.push(building);
 

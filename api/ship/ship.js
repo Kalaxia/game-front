@@ -3,11 +3,11 @@ import ShipConstructionGroup from '~/model/ship/construction_group';
 
 export default class ShipRepository extends Repository
 {
-    create(model, planet, quantity) {
-        return this.call('POST', `/api/planets/${planet.id}/ships`, {
+    async create(model, planet, quantity) {
+        return new ShipConstructionGroup(await this.call('POST', `/api/planets/${planet.id}/ships`, {
             model: model,
             quantity: parseInt(quantity)
-        });
+        }));
     }
 
     async getCurrentlyConstructingShips(planetId) {

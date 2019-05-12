@@ -1,7 +1,7 @@
 <template>
     <div id="shipyard" v-if="constructingShips">
         <ship-models :selectedModel="selectedModel" @selectModel="selectModel" ref="list" />
-        <ship-model-details v-if="selectedModel" :model="selectedModel" @build="build()" />
+        <ship-model-details v-if="selectedModel" :model="selectedModel" @build="build" />
         <constructing-ships v-if="!selectedModel && constructingShips.length > 0" :constructingShips="constructingShips" />
     </div>
 </template>
@@ -10,6 +10,7 @@
 import ConstructingShips from '~/components/organisms/fleet/constructing-ships';
 import ShipModels from '~/components/organisms/fleet/ship-models';
 import ShipModelDetails from '~/components/organisms/fleet/ship-model-details';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'page-shipyard',
@@ -32,6 +33,12 @@ export default {
         ConstructingShips
     },
 
+    computed: {
+        ...mapGetters({
+            currentPlanet: 'user/currentPlanet'
+        })
+    },
+
     methods: {
         selectModel(model) {
             if (model.maxAvailable === 0) {
@@ -40,12 +47,14 @@ export default {
             this.selectedModel = model;
         },
 
-        build() {
+        build(constructionGroup) {
             this.$refs.list.processMaxAvailable();
 
-            if (this.selectedModel.maxAvailable === 0) {
-                this.selectedModel = null;
+            this.constructingShips.push(constructionGroup);
+            if (this.currentPlanet.constructingShips === null) {
+                this.$store.commit('user/addConstructingShips', constructionGroup);
             }
+            this.selectedModel = null;
             this.$store.dispatch('user/addActionNotification', {
                 isError: false,
                 content: `ships.launch_success`

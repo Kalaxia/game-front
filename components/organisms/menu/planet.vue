@@ -4,7 +4,7 @@
             <moving-fleets :coming="comingFleets" :leaving="leavingFleets" />
             <population-points :planet="planet" class="module" />
             <constructing-building class="module" :building="constructingBuilding" />
-            <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="constructingShips" />
+            <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="currentPlanet.constructingShips" />
         </div>
         <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
@@ -35,8 +35,7 @@ export default {
     data() {
         return {
             comingFleets: [],
-            leavingFleets: [],
-            constructingShips: null
+            leavingFleets: []
         };
     },
 
@@ -55,20 +54,19 @@ export default {
     },
 
     watch: {
-        planet(newPlanet) {
-            if (newPlanet.id !== this.planet.id) {
-                this.loadData();
-            }
+        planet() {
+            this.loadData();
         }
     },
 
     computed: {
         ...mapGetters({
             hasBuilding: 'user/hasBuilding',
+            currentPlanet: 'user/currentPlanet'
         }),
 
         constructingBuilding() {
-            const buildings = this.$store.getters['user/currentPlanet'].buildings;
+            const buildings = this.currentPlanet.buildings;
 
             for (const b of buildings) {
                 if (b.status === 'constructing') {
@@ -80,6 +78,7 @@ export default {
 
     methods: {
         async loadData() {
+            console.log('ok');
             const [ leavingFleets, comingFleets, constructingShips ] = await Promise.all([
                 this.$repositories.fleet.getLeavingFleets(this.planet.id),
                 this.$repositories.fleet.getComingFleets(this.planet.id),
@@ -87,7 +86,8 @@ export default {
             ])
             this.leavingFleets = leavingFleets;
             this.comingFleets = comingFleets;
-            this.constructingShips = constructingShips;
+            this.$store.commit('user/addConstructingShips', constructingShips);
+            console.log(constructingShips);
         }
     }
 }
