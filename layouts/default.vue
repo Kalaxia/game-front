@@ -5,7 +5,7 @@
         <nuxt id="wrapper" />
         <player-menu v-if="currentPlayer.avatar" :player="currentPlayer" />
         <planet-menu v-if="currentPlanet" :planet="currentPlanet" />
-        <notifications-list :notifications="currentPlayer.notifications" />
+        <notifications-list v-if="currentPlayer.isActive" :notifications="currentPlayer.notifications" />
         <action-notifications :notifications="actionNotifications" />
     </div>
 </template>
