@@ -59,11 +59,16 @@ export default {
                     & > h4 {
                         margin: 0px;
                         font-size: 1.1em;
+                        padding-bottom: 5px;
                     }
                 }
 
                 & > section {
                     display: flex;
+
+                    & > img {
+                        width: 64px;
+                    }
 
                     & > .prices {
                         & > div {

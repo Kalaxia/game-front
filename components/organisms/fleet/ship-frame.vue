@@ -56,10 +56,19 @@ export default {
         }
 
         & > section {
+            width: 100%;
             flex-grow: 1;
 
             & > div {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
                 position: relative;
+
+                & > img {
+                    height: 100%;
+                }
             }
         }
     }

@@ -127,7 +127,8 @@
         "frame": "Châssis",
         "frames": {
             "fighter": "Chasseur",
-            "bomber": "Bombardier"
+            "bomber": "Bombardier",
+            "corvette": "Corvette"
         },
         "launch_success": "La production a été commandée avec succès",
         "model_creation_success": "Le nouveau modèle a été créé avec succès",
