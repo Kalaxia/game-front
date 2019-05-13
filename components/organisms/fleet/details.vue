@@ -170,6 +170,13 @@ export default {
         & > section {
             display: flex;
             overflow-x: auto;
+
+            & > .journey-step {
+                padding: 10px 20px;
+                border: 1px solid;
+                border-radius: 10px;
+                margin: 10px;
+            }
         }
     }
 </style>

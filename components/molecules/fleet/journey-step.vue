@@ -78,10 +78,6 @@ export default {
     .journey-step {
         width: 250px;
         height: 100px;
-        padding: 10px 20px;
-        border: 1px solid;
-        border-radius: 10px;
-        margin: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
