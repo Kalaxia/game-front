@@ -92,6 +92,9 @@ export const mutations ={
 
     setFleet(state, fleet) {
         state.fleet = fleet;
+        if (fleet !== null) {
+            state.targetedSystemId = (fleet.location) ? fleet.location.system.id : fleet.journey.currentStep.startLocation.system.id;
+        }
     },
 
     addStep(state, step) {

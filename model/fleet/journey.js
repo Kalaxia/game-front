@@ -6,7 +6,7 @@ export default class Journey {
         this.steps = new Array();
         this.createdAt = data.created_at;
         this.endedAt = data.ended_at;
-        this.currentStep = (data.current_step) ? new JourneyStep(data.current_step) : null;
+        this.currentStep = (data.current_step !== null) ? new JourneyStep(data.current_step) : null;
         if (data.steps) {
             this.steps = [];
             for (const step of data.steps) {
