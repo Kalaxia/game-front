@@ -9,9 +9,9 @@
 <script>
 import Starmap from '~/components/organisms/map/starmap';
 import Minimap from '~/components/molecules/map/minimap';
-import JourneyPlaner from '~/components/molecules/fleet/journey-planer';
-import JourneyStep from '~/components/molecules/fleet/journey-step';
-import JourneyRange from '~/components/molecules/fleet/journey-range';
+import JourneyPlaner from '~/components/molecules/map/journey-planer';
+import JourneyStep from '~/components/molecules/map/journey-step';
+import JourneyRange from '~/components/molecules/map/journey-range';
 
 import Journey from '~/model/fleet/journey';
 

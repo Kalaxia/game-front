@@ -23,8 +23,8 @@ import FleetPin from '~/components/atoms/fleet/map-pin';
 import Vue from 'vue';
 import System from '~/components/molecules/map/system';
 import MapLoader from '~/components/atoms/map/loader';
-import JourneyRange from '~/components/molecules/fleet/journey-range';
-import JourneyStep from '~/components/molecules/fleet/journey-step';
+import JourneyRange from '~/components/molecules/map/journey-range';
+import JourneyStep from '~/components/molecules/map/journey-step';
 import { mapGetters } from 'vuex';
 
 const dragData = {

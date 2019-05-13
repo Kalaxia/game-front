@@ -1,85 +1,122 @@
 <template>
-    <div class="step" :data-step-number="step.id">
-        <div class="point" :style="pointStyle"></div>
-
-        <div class="line" ref="line" :style="lineStyle"></div>
+    <div class="journey-step" :style="{ borderColor: factionColors['grey'] }">
+         <div class="location">
+            <template v-if="step.startLocation">
+                <planet-image :type="step.startLocation.type" width="32px" height="32px" />
+                <h5>{{ step.startLocation.name }}</h5>
+            </template>
+            <template v-else>
+                {{ step.startX }} - {{ step.startY }}
+            </template>
+        </div>
+        <div class="trip">
+            <section>
+                <div class="line" :style="{ borderColor: factionColors['grey'] }"></div>
+                <div class="picto">
+                    <order-picto :order="step.order" :color="factionColors['white']" :size="32" />
+                </div>
+                <div class="line" :style="{ borderColor: factionColors['grey'] }"></div>
+            </section>
+            <footer>
+                <span>{{ arrivesAt }}</span>
+            </footer>
+        </div>
+        <div class="location">
+            <template v-if="step.endLocation">
+                <planet-image :type="step.endLocation.type" width="32px" height="32px" />
+                <h5>{{ step.endLocation.name }}</h5>
+            </template>
+            <template v-else>
+                {{ step.finalX }} - {{ step.finalY }}
+            </template>
+        </div>
     </div>
 </template>
 
 <script>
-import { TimelineLite, Linear } from 'gsap';
+import PlanetImage from '~/components/atoms/planet/image';
+import OrderPicto from '~/components/atoms/fleet/order-picto';
+import { getRemainingTimeString } from '~/lib/time';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'fleet-journey-step',
 
     props: ['step'],
 
+    data () {
+        return {
+            timer: null,
+            arrivesAt: getRemainingTimeString(this.step.arrivesAt)
+        };
+    },
+
     mounted () {
-        const { line } = this.$refs;
+        this.timer = setInterval(() => {
+            this.arrivesAt = getRemainingTimeString(this.step.arrivesAt);
+        }, 1000);
+    },
 
-        const timeline = new TimelineLite({
-            onComplete: () => timeline.restart()
-        });
+    destroyed () {
+        clearInterval(this.timer);
+    },
 
-        timeline.to(line, 3, {
-            backgroundPosition: '56px 0px',
-            ease: Linear.easeNone
-        });
+    components: {
+        OrderPicto,
+        PlanetImage,
     },
 
     computed: {
-        pointStyle () {
-            const scale = this.$store.state.map.scale;
-
-            return {
-                top: (this.step.endY) * scale - 11 + 'px',
-                left: (this.step.endX) * scale - 11 + 'px',
-                backgroundColor: this.$store.getters['user/factionColors']['grey'],
-            };
-        },
-
-	    lineStyle () {
-            const scale = this.$store.state.map.scale;
-            const angle = Math.atan2(this.step.endY - this.step.startY, this.step.endX - this.step.startX) * 180 / Math.PI;
-            const distance = scale * Math.pow(
-                Math.pow(this.step.startX - this.step.endX, 2.0) +
-                Math.pow(this.step.startY - this.step.endY, 2.0)
-            , 0.5);
-
-            return {
-                transform: `rotate(${angle}deg)`,
-                width: `${distance}px`,
-                height: '8px',
-                top: (this.step.startY + this.step.endY) * scale / 2 - 4 + "px",
-                left: (this.step.startX + this.step.endX) * scale / 2 - distance / 2 + "px",
-            };
-        },
-    },
-
-    methods: {
-	    drawLinePosition (PosStartCenter,PosEndCenter, lineNode){
-            
-            lineNode.style.top = (PosStartCenter[1]+PosEndCenter[1])/2 - parseInt(lineNode.style.height)/2+ "px";
-            lineNode.style.left = (PosStartCenter[0]+PosEndCenter[0])/2 - parseInt(lineNode.style.width)/2 + "px";
-            
-            return lineNode;
-        }
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        })
     }
 }
 </script>
 
 <style lang="less" scoped>
-    .point {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        border: 2px solid grey;
-        border-radius: 50%;
-    }
+    .journey-step {
+        width: 250px;
+        height: 100px;
+        padding: 10px 20px;
+        border: 1px solid;
+        border-radius: 10px;
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    .line {
-        position: absolute;
-        background-image: url('/images/map/line_step.png');
-        z-index:-1;
+        & > .trip {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+
+            & > section {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & > .line {
+                    flex-grow: 1;
+                    border-top: 1px dashed;
+                    border-bottom: 1px dashed;
+                }
+            }
+
+            & > footer {
+                text-align: center;
+            }
+        }
+
+        & > .location {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & > h5 {
+                margin: 5px 0px;
+            }
+        }
     }
 </style>

@@ -5,7 +5,7 @@
             <div class="toolbar">
                 <button class="button" v-if="fleet.location && fleet.location.player && fleet.location.player.id == currentPlayer.id" :style="{ color: factionColors['main'] }" @click="remove">{{ $t('fleet.remove') }}</button>
                 <button class="button" v-if="fleet.location && fleet.shipGroups.length > 0" :style="{ color: factionColors['main'] }" @click="move">{{ $t('fleet.move') }}</button>
-                <nuxt-link :to="`/map/?id=${fleet.id}`" class="button" v-if="!fleet-location" :style="{ color: factionColors['main'] }">
+                <nuxt-link :to="`/map/?id=${fleet.id}`" class="button" v-if="!fleet.location" :style="{ color: factionColors['main'] }">
                     Voir sur la carte
                 </nuxt-link>
             </div>
@@ -45,31 +45,7 @@
                     <h3>{{ $t('fleet.statuses.traveling') }}</h3>
                 </header>
                 <section>
-                    <div v-for="step in fleet.journey.steps" :key="step.id" :style="{ borderColor: factionColors['grey'] }">
-                        <div class="location">
-                            <template v-if="step.startLocation">
-                                <planet-image :type="step.startLocation.type" width="32px" height="32px" />
-                                <h5>{{ step.startLocation.name }}</h5>
-                            </template>
-                            <template v-else>
-                                {{ step.startX }} - {{ step.startY }}
-                            </template>
-                        </div>
-                        <div class="line" :style="{ borderColor: factionColors['grey'] }"></div>
-                        <div class="picto">
-                            <order-picto :order="step.order" :color="factionColors['white']" :size="32" />
-                        </div>
-                        <div class="line" :style="{ borderColor: factionColors['grey'] }"></div>
-                        <div class="location">
-                            <template v-if="step.endLocation">
-                                <planet-image :type="step.endLocation.type" width="32px" height="32px" />
-                                <h5>{{ step.endLocation.name }}</h5>
-                            </template>
-                            <template v-else>
-                                {{ step.finalX }} - {{ step.finalY }}
-                            </template>
-                        </div>
-                    </div>
+                    <journey-step v-for="step in fleet.journey.steps" :key="step.id" :step="step" />
                 </section>
             </div>
         </section>
@@ -77,6 +53,7 @@
 </template>
 
 <script>
+import JourneyStep from '~/components/molecules/fleet/journey-step';
 import OrderPicto from '~/components/atoms/fleet/order-picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import Fleet from '~/model/fleet/fleet';
@@ -101,6 +78,7 @@ export default {
     },
 
     components: {
+        JourneyStep,
         OrderPicto,
         FleetData,
         PlanetImage,
@@ -109,7 +87,9 @@ export default {
 
     mounted() {
         this.$repositories.fleet.getFleetShipGroups(this.fleet);
-        this.$repositories.planet.getHangarShipGroups(this.fleet.location);
+        if (this.fleet.location !== null) {
+            this.$repositories.planet.getHangarShipGroups(this.fleet.location);
+        }
     },
 
     computed: {
@@ -190,34 +170,6 @@ export default {
         & > section {
             display: flex;
             overflow-x: auto;
-
-            & > div {
-                width: 250px;
-                height: 100px;
-                padding: 10px 20px;
-                border: 1px solid;
-                border-radius: 10px;
-                margin: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                & > .line {
-                    flex-grow: 1;
-                    border-top: 1px dashed;
-                    border-bottom: 1px dashed;
-                }
-
-                & > .location {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-
-                    & > h5 {
-                        margin: 5px 0px;
-                    }
-                }
-            }
         }
     }
 </style>

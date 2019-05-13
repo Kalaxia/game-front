@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import JourneyStepRecap from '~/components/molecules/fleet/journey-step-recap';
-import JourneyStepOrderPanel from '~/components/molecules/fleet/journey-step-order-panel';
+import JourneyStepRecap from '~/components/molecules/map/journey-step-recap';
+import JourneyStepOrderPanel from '~/components/molecules/map/journey-step-order-panel';
 import JourneyStep, { ORDER_PASS } from '~/model/fleet/journeyStep';
 import { mapGetters } from 'vuex';
 
