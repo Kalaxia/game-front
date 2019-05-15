@@ -52,6 +52,10 @@ export const mutations = {
         }
     },
 
+    wallet(state, wallet) {
+        state.player.wallet = wallet;
+    },
+
     setFaction(state, faction) {
         state.player.faction = faction;
     },

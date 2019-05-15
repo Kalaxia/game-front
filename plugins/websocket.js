@@ -16,6 +16,9 @@ export default async ({ env, store }, inject) => {
             case 'addNotification':
                 store.commit('user/addNotification', message.data);
                 break;
+            case 'updateWallet':
+                store.commit('user/wallet', message.data.wallet);
+                break;
             default:
                 console.log(message);
                 break;
