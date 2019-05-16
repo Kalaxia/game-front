@@ -6,10 +6,10 @@ export const transformArray = data => data.map(transform);
 
 export const transform = offer => {
     if (typeof offer.resource !== 'undefined') {
-        return new ResourceOffer(offer.id, offer.operation, offer.location, offer.created_at, offer.accepted_at, offer.quantity, offer.lot_quantity, offer.price, offer.resource);
+        return new ResourceOffer(offer);
     } else if (typeof offer.quantity !== 'undefined') {
-        return new ShipOffer(offer.id, offer.operation, offer.location, offer.created_at, offer.accepted_at, offer.quantity, offer.lot_quantity, offer.price, offer.model);
+        return new ShipOffer(offer);
     } else {
-        return new ModelOffer(offer.id, offer.operation, offer.location, offer.created_at, offer.accepted_at, offer.price, offer.model);
+        return new ModelOffer(offer);
     }
 };

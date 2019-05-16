@@ -42,7 +42,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'offers-list',
 
-    props: ['offers', 'selectedOffer'],
+    props: ['selectedOffer'],
 
     components: {
         ColoredPicto,
@@ -51,7 +51,8 @@ export default {
 
     computed: {
         ...mapGetters({
-            factionColors: 'user/factionColors'
+            factionColors: 'user/factionColors',
+            offers: 'trade/offers'
         })
     }
 }

@@ -18,7 +18,7 @@ export default class OfferRepository extends Repository {
         return this.call('POST', `/api/offers/${offer.id}/accept`, {
             nb_lots: nbLots,
             planet_id: planetId
-        })
+        });
     }
 
     async getAll(operation) {
@@ -26,17 +26,7 @@ export default class OfferRepository extends Repository {
 
         const offers = new Array();
         for (const offer of data) {
-            offers.push(new ResourceOffer(
-                offer.id,
-                offer.operation,
-                offer.location,
-                offer.created_at,
-                offer.accepted_at,
-                offer.quantity,
-                offer.lot_quantity,
-                offer.price,
-                offer.resource
-            ));
+            offers.push(new ResourceOffer(offer));
         }
         return offers;
     }

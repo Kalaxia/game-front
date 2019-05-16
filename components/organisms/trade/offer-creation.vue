@@ -124,17 +124,10 @@ export default {
                 resource: this.selectedResource,
                 quantity: -this.quantity
             });
-            this.$emit('addOffer', new ResourceOffer(
-                offer.id,
-                offer.operation,
-                offer.location,
-                offer.created_at,
-                offer.accepted_at,
-                offer.quantity,
-                offer.lot_quantity,
-                offer.price,
-                offer.resource
-            ));
+            this.$store.dispatch('user/addActionNotification', {
+                isError: false,
+                content: `trade.notifications.${offer.operation}_offer_creation`
+            });
         }
     }
 }

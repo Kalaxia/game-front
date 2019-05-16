@@ -23,7 +23,7 @@ describe('Offer Repository', () => {
     });
 
     it('can create an offer', async () => {
-        const offer = new ResourceOffer(null, OPERATION_SELL, { system: { id: 1, coord_x: 64, coord_y: 32 }});
+        const offer = new ResourceOffer({ operation: OPERATION_SELL, location: { system: { id: 1, coord_x: 64, coord_y: 32 }}});
         fetch.once(JSON.stringify(Object.assign({}, offer, { id: 1 })), 201);
 
         const data = await repository.create(offer);

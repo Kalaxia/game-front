@@ -1,11 +1,13 @@
 import { Offer, GOOD_TYPE_RESOURCES } from './offer.js';
 
 class ResourceOffer extends Offer {
-    constructor(id, operation, location, createdAt, acceptedAt, quantity, lotQuantity, price, resource) {
-        super(id, operation, GOOD_TYPE_RESOURCES, location, parseFloat(price), createdAt, acceptedAt);
-        this.quantity = parseInt(quantity);
-        this.lotQuantity = parseInt(lotQuantity);
-        this.resource = resource;
+    constructor(data) {
+        super(data);
+
+        this.goodType = GOOD_TYPE_RESOURCES;
+        this.quantity = data.quantity,
+        this.lotQuantity = data.lot_quantity,
+        this.resource = data.resource;
 
         this.getPrice = this.getPrice.bind(this);
         this.getTotalPrice = this.getTotalPrice.bind(this);

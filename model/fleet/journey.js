@@ -10,7 +10,7 @@ export default class Journey {
         if (data.steps) {
             this.steps = [];
             for (const step of data.steps) {
-                this.steps.unshift(new JourneyStep(step));
+                this.steps.push(new JourneyStep(step));
             }
         }
     }

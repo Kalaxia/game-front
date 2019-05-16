@@ -8,13 +8,12 @@ export const GOOD_TYPE_SHIPS = 'ships';
 export const GOOD_TYPE_MODELS = 'models';
 
 export class Offer {
-    constructor(id, operation, goodType, location, price, createdAt, acceptedAt) {
-        this.id = id;
-        this.operation = operation;
-        this.goodType = goodType;
-        this.location = new Planet(location);
-        this.price = price;
-        this.createdAt = new Date(createdAt);
-        this.acceptedAt = (acceptedAt !== null) ? new Date(acceptedAt) : null;
+    constructor(data) {
+        this.id = (data.id) ? data.id : null;
+        this.operation = data.operation;
+        this.location = new Planet(data.location);
+        this.price = data.price;
+        this.createdAt = new Date(data.created_at);
+        this.acceptedAt = (data.accepted_at !== null) ? new Date(data.accepted_at) : null;
     }
 };
