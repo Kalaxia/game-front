@@ -1,6 +1,6 @@
 <template>
     <div id="trade-post">
-        <offers-list :offers="offers" :selectedOffer="selectedOffer" @selectOffer="selectedOffer = $event" @unselectOffer="selectedOffer = null" />
+        <offers-list :selectedOffer="selectedOffer" @selectOffer="selectedOffer = $event" @unselectOffer="selectedOffer = null" />
         <div id="offer-search">
             <h1 :style="{ color: factionColors['main'] }">
                 <colored-picto src="B_Merc_64px.png" :width="32" :height="32" color="white" />
@@ -8,7 +8,7 @@
             </h1>
         </div>
         <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" @cancelOffer="cancelOffer" />
-        <offer-creation v-else-if="!isStorageEmpty" @addOffer="addOffer" />
+        <offer-creation v-else-if="!isStorageEmpty" />
     </div>
 </template>
 
@@ -36,10 +36,12 @@ export default {
         }
     },
 
-    async asyncData({ app }) {
-        return {
-            offers: await app.$repositories.trade.offer.getAll(OPERATION_SELL)
-        };
+    async created() {
+        this.$store.commit('trade/offers', await this.$repositories.trade.offer.getAll(OPERATION_SELL));
+    },
+
+    destroyed() {
+        this.$store.commit('trade/offers', []);
     },
 
     computed: {
@@ -51,15 +53,6 @@ export default {
     },
 
     methods: {
-        addOffer(offer) {
-            this.offers.push(offer);
-
-            this.$store.dispatch('user/addActionNotification', {
-                isError: false,
-                content: `trade.notifications.${offer.operation}_offer_creation`
-            });
-        },
-
         async acceptOffer(nbLots) {
             try {
                 await this.$repositories.trade.offer.accept(this.selectedOffer, nbLots, this.currentPlanet.id);
@@ -70,9 +63,11 @@ export default {
                 });
                 return;
             }
-            const quantity =  nbLots * this.selectedOffer.lotQuantity;
-            this.selectedOffer.quantity -= quantity;
-
+            const quantity = nbLots * this.selectedOffer.lotQuantity;
+            // this.$store.commit('trade/decreaseQuantity', {
+            //     offer: this.selectedOffer,
+            //     quantity,
+            // });
             this.$store.commit('user/updateStorageResource', {
                 resource: this.selectedOffer.resource,
                 quantity: quantity

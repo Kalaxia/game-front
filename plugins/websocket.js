@@ -1,3 +1,5 @@
+import ResourceOffer from '~/model/trade/resource_offer';
+
 export default async ({ env, store }, inject) => {
     if (process.server) {
         return;
@@ -18,6 +20,15 @@ export default async ({ env, store }, inject) => {
                 break;
             case 'updateWallet':
                 store.commit('user/wallet', message.data.wallet);
+                break;
+            case 'addTradeOffer':
+                store.commit('trade/addOffer', new ResourceOffer(message.data));
+                break;
+            case 'updateTradeOffer':
+                store.dispatch('trade/updateOffer', new ResourceOffer(message.data));
+                break;
+            case 'cancelTradeOffer':
+                store.dispatch('trade/removeOffer', new ResourceOffer(message.data));
                 break;
             default:
                 console.log(message);
