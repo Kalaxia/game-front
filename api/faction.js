@@ -1,4 +1,5 @@
 import Faction from '~/model/faction';
+import Motion from '~/model/faction/motion';
 import Player from '~/model/player';
 import Repository from '~/api/repository';
 
@@ -25,5 +26,23 @@ export default class FactionRepository extends Repository
         for (const member of data) {
             faction.members.push(new Player(member));
         }
+    }
+
+    async createMotion(faction, type, data) {
+        const motion = await this.call('POST', `/api/factions/${faction.id}/motions`, {
+            type,
+            data
+        });
+        return new Motion(motion);
+    }
+
+    async getFactionMotions(factionId) {
+        const data = await this.call('GET', `/api/factions/${factionId}/motions`);
+
+        const motions = new Array();
+        for (const motion of data) {
+            motions.push(new Motion(motion));
+        }
+        return motions;
     }
 };

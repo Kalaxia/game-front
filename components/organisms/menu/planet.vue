@@ -78,7 +78,6 @@ export default {
 
     methods: {
         async loadData() {
-            console.log('ok');
             const [ leavingFleets, comingFleets, constructingShips ] = await Promise.all([
                 this.$repositories.fleet.getLeavingFleets(this.planet.id),
                 this.$repositories.fleet.getComingFleets(this.planet.id),
@@ -87,7 +86,6 @@ export default {
             this.leavingFleets = leavingFleets;
             this.comingFleets = comingFleets;
             this.$store.commit('user/addConstructingShips', constructingShips);
-            console.log(constructingShips);
         }
     }
 }

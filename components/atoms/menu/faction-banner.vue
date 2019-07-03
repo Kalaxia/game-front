@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link v-if="isLink" class="faction-banner" :to="`/faction`" :alt="faction.name">
+    <nuxt-link v-if="isLink" class="faction-banner" :to="`/faction/${faction.id}`" :alt="faction.name">
         <img :src="`/images/factions/${faction.banner}`" :alt="faction.name" />
     </nuxt-link>
     <div v-else class="faction-banner">

@@ -36,6 +36,9 @@
         }
     },
     "faction": {
+        "regimes": {
+            "1": "République à Démocratie Directe"
+        },
         "members": {
             "title": "Membres"
         },
