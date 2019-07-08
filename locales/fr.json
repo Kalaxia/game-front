@@ -42,6 +42,14 @@
         "members": {
             "title": "Membres"
         },
+        "motions": {
+            "types": {
+                "planet_taxes": {
+                    "title": "Taxes planétaires",
+                    "description": "<p>Les impôts de faction sont une précieuse source de revenus, permettant de financer le fonctionnement de la faction etl'application des mesures prises.</p><p>Cette motion vise à ajuster le niveau de prélèvements par rotation stellaire à <strong>{taxes} crédits</strong>.</p>"
+                }
+            }
+        },
         "relations": {
             "title": "Relations Diplomatiques"
         }

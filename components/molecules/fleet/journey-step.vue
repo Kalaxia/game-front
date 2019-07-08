@@ -18,7 +18,7 @@
                 <div class="line" :style="{ borderColor: factionColors['grey'] }"></div>
             </section>
             <footer>
-                <span>{{ arrivesAt }}</span>
+                <timer :date="step.arrivesAt" />
             </footer>
         </div>
         <div class="location">
@@ -36,7 +36,7 @@
 <script>
 import PlanetImage from '~/components/atoms/planet/image';
 import OrderPicto from '~/components/atoms/fleet/order-picto';
-import { getRemainingTimeString } from '~/lib/time';
+import Timer from '~/components/atoms/timer';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -44,26 +44,10 @@ export default {
 
     props: ['step'],
 
-    data () {
-        return {
-            timer: null,
-            arrivesAt: getRemainingTimeString(this.step.arrivesAt)
-        };
-    },
-
-    mounted () {
-        this.timer = setInterval(() => {
-            this.arrivesAt = getRemainingTimeString(this.step.arrivesAt);
-        }, 1000);
-    },
-
-    destroyed () {
-        clearInterval(this.timer);
-    },
-
     components: {
         OrderPicto,
         PlanetImage,
+        Timer
     },
 
     computed: {

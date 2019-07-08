@@ -7,7 +7,9 @@ export default class Motion {
         this.type = data.type;
         this.data = data.data;
         this.faction = (data.faction) ? new Faction(data.faction) : null;
-        this.author = new Player(data.author);
+        this.author = (data.author) ? new Player(data.author) : null;
+        this.isApproved = data.is_approved;
+        this.isProcessed = data.is_processed;
         this.createdAt = new Date(data.created_at);
         this.endedAt = new Date(data.ended_at);
     }

@@ -1,5 +1,6 @@
 import Faction from '~/model/faction';
 import Motion from '~/model/faction/motion';
+import Vote from '~/model/faction/vote';
 import Player from '~/model/player';
 import Repository from '~/api/repository';
 
@@ -44,5 +45,21 @@ export default class FactionRepository extends Repository
             motions.push(new Motion(motion));
         }
         return motions;
+    }
+
+    async getMotion(factionId, motionId) {
+        return new Motion(await this.call('GET', `/api/factions/${factionId}/motions/${motionId}`));
+    }
+
+    async getVote(factionId, motionId) {
+        return new Vote(await this.call('GET', `/api/factions/${factionId}/motions/${motionId}/votes/me`));
+    }
+
+    getVotes(factionId, motionId) {
+        return this.call('GET', `/api/factions/${factionId}/motions/${motionId}/votes`);
+    }
+
+    async vote(factionId, motionId, option) {
+        return new Vote(await this.call('POST', `/api/factions/${factionId}/motions/${motionId}/votes`, { option }));
     }
 };

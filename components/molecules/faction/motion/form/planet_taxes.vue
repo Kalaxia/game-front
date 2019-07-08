@@ -1,6 +1,6 @@
 <template>
     <div class="planet-taxes-motion-form">
-        <input type="number" min="" max="" :value="taxes" v-on:input="updateTaxes($event.target.value)" />
+        <input type="number" min="100" max="20000" :value="taxes" v-on:input="updateTaxes($event.target.value)" />
     </div>
 </template>
 
@@ -18,9 +18,9 @@ export default {
 
     methods: {
         updateTaxes(taxes) {
-            this.taxes = taxes;
+            this.taxes = parseInt(taxes);
 
-            this.$emit('input', { taxes });
+            this.$emit('input', { taxes: this.taxes });
         }
     }
 }

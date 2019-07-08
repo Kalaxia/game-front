@@ -1,9 +1,7 @@
 <template>
     <div>
-        <div id="faction-overview">
-            <faction-data :faction="faction" />
-            <faction-political-overview :faction="faction" :motions="motions" />
-        </div>
+        <faction-data :faction="faction" />
+        <faction-political-overview :faction="faction" :motions="motions" />
         <faction-relations id="faction-relations" :faction="faction" />
     </div>
 </template>
@@ -34,9 +32,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    #faction-overview {
+    .faction-data {
         grid-row: ~"3/6";
-        grid-column: ~"2/10";
+        grid-column: ~"2/6";
+    }
+
+    .political-overview {
+        grid-row: ~"3/6";
+        grid-column: ~"6/10"
     }
 
     #faction-members {
