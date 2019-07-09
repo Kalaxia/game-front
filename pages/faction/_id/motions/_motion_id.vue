@@ -141,8 +141,10 @@ export default {
         padding: 10px 20px;
 
         & > section {
-            & > .gauge {
-                height: 20px;
+            & > .remaining-time {
+                & > .gauge {
+                    height: 20px;
+                }
             }
 
             & > .results {
