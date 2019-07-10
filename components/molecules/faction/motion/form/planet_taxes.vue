@@ -1,7 +1,7 @@
 <template>
     <div class="planet-taxes-motion-form">
         <header>
-            <div v-html="$t('faction.motions.types.planet_taxes.description')"></div>
+            <div v-html="$t('faction.motions.types.planet_taxes.description', { taxes })"></div>
         </header>
         <section>
             <input type="number" min="100" max="20000" :value="taxes" v-on:input="updateTaxes($event.target.value)" />
