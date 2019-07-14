@@ -46,6 +46,7 @@
             "create": "Créer une motion",
             "creation_wording": "Vous pouvez créer une motion au sein de votre faction. Cette motion sera ensuite soumise au vote de l'ensemble des membres. Si elle est acceptée, alors la mesure proposée sera appliquée.",
             "currently_voting": "Une motion est déjà en cours à ce sujet",
+            "motion_results": "Une motion a été votée",
             "send": "Lancer la motion",
             "success": "La motion a été créée avec succès !",
             "type": "Sujet de la motion",

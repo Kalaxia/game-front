@@ -32,7 +32,8 @@ export default {
         picto() {
             return {
                 trade: 'B_Merc_64px.png',
-                military: 'Combat.svg'
+                military: 'Combat.svg',
+                faction: 'trade/Faction.svg'
             }[this.type];
         },
 
