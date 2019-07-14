@@ -23,10 +23,11 @@ export default class FactionRepository extends Repository
     async getFactionMembers(faction) {
         const data = await this.call('GET', `/api/factions/${faction.id}/members`);
 
-        faction.members = new Array();
+        const members = new Array();
         for (const member of data) {
-            faction.members.push(new Player(member));
+            members.push(new Player(member));
         }
+        return members;
     }
 
     async createMotion(faction, type, data) {

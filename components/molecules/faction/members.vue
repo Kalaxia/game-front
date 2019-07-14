@@ -4,7 +4,7 @@
             <h3>{{ $t('faction.members.title') }}</h3>
         </header>
         <section>
-            <member v-for="member in faction.members" :member="member" :key="member.id" />
+            <member v-for="member in members" :member="member" :key="member.id" />
         </section>
     </div>
 </template>
@@ -17,21 +17,11 @@ import Member from '~/components/atoms/faction/member';
 export default {
     name: 'faction-members',
 
-    props: ['faction'],
+    props: ['faction', 'members'],
 
     components: {
         Member
     },
-
-    data() {
-        return {
-            members: []
-        };
-    },
-
-    async mounted() {
-        await this.$repositories.faction.getFactionMembers(this.faction);
-    }
 }
 </script>
 
