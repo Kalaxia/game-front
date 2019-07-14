@@ -4,7 +4,7 @@
             <div v-html="$t('faction.motions.types.planet_taxes.description', { taxes })"></div>
         </header>
         <section>
-            <input type="number" min="100" max="20000" :value="taxes" v-on:input="updateTaxes($event.target.value)" />
+            <input type="number" min="0" :value="taxes" v-on:input="updateTaxes($event.target.value)" />
             <colored-picto src="G_P_Mon_64px.png" :width="24" :height="24" :color="factionColors['main']" />
         </section>
     </div>
@@ -33,6 +33,10 @@ export default {
         ...mapGetters({
             factionColors: 'user/factionColors'
         })
+    },
+
+    beforeMount() {
+        this.$emit('input', { taxes: this.taxes });
     },
 
     methods: {

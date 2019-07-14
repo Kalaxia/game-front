@@ -47,11 +47,14 @@
             "creation_wording": "Vous pouvez créer une motion au sein de votre faction. Cette motion sera ensuite soumise au vote de l'ensemble des membres. Si elle est acceptée, alors la mesure proposée sera appliquée.",
             "currently_voting": "Une motion est déjà en cours à ce sujet",
             "send": "Lancer la motion",
+            "success": "La motion a été créée avec succès !",
             "type": "Sujet de la motion",
             "types": {
                 "planet_taxes": {
                     "title": "Taxes planétaires",
-                    "description": "<p>Les impôts de faction sont une précieuse source de revenus, permettant de financer le fonctionnement de la faction etl'application des mesures prises.</p><p>Cette motion vise à ajuster le niveau de prélèvements par rotation stellaire à <strong>{taxes} crédits</strong>.</p>"
+                    "description": "<p>Les impôts de faction sont une précieuse source de revenus, permettant de financer le fonctionnement de la faction etl'application des mesures prises.</p><p>Cette motion vise à ajuster le niveau de prélèvements par rotation stellaire à <strong>{taxes} crédits</strong>.</p>",
+                    "same_value": "La taxe planétaire est déjà fixée à ce montant",
+                    "invalid_value": "La taxe planétaire ne peut être négative"
                 },
                 "regime": {
                     "title": "Régime politique"
