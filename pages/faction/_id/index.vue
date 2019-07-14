@@ -1,5 +1,6 @@
 <template>
     <div>
+        <faction-menu v-if="currentPlayer.faction.id == faction.id" :faction="faction" />
         <faction-data :faction="faction" />
         <faction-political-overview v-if="currentPlayer.faction.id == faction.id" :faction="faction" :motions="motions" />
         <faction-relations id="faction-relations" :faction="faction" />
@@ -7,6 +8,7 @@
 </template>
 
 <script>
+import FactionMenu from '~/components/molecules/faction/menu';
 import Faction from '~/model/faction';
 import FactionData from '~/components/organisms/faction/faction';
 import FactionRelations from '~/components/molecules/faction/relations';
@@ -17,6 +19,7 @@ export default {
     name: 'page-faction',
 
     components: {
+        FactionMenu,
         FactionData,
         FactionRelations,
         FactionPoliticalOverview,
@@ -42,6 +45,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    .faction-menu {
+        grid-row: ~"3/7";
+        grid-column: 1;
+    }
+
     .faction-data {
         grid-row: ~"3/6";
         grid-column: ~"2/6";

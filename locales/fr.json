@@ -58,6 +58,12 @@
                 }
             }
         },
+        "settings": {
+            "planet_taxes": {
+                "title": "Taxes planétaires"
+            }
+        },
+        "treasury": "Trésorerie",
         "relations": {
             "title": "Relations Diplomatiques"
         }

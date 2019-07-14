@@ -1,5 +1,5 @@
 <template>
-    <div :style="style"></div>
+    <div class="picto" :style="style"></div>
 </template>
 
 <script>
