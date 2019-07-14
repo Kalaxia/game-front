@@ -244,6 +244,9 @@
         "max": "max",
         "max_lots": "%nb_lots% lots max",
         "offer": "Offre",
+        "offers": {
+            "invalid_price": "Le prix doit être entre 1 et 1000 crédits à l'unité"
+        },
         "operation": "Type d'offre",
         "operations": {
             "buy": "Achat",

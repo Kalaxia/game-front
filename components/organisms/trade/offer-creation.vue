@@ -36,7 +36,7 @@
             </div>
             <div class="price">
                 <h5>Prix</h5>
-                <input type="number" v-model="price" :style="{ color: resourceColor, borderColor: resourceColor }" />
+                <input type="number" v-model="price" min="1" max="1000" :style="{ color: resourceColor, borderColor: resourceColor }" />
             </div>
             <div class="recap">
                 <p>Quantité totale : <strong>{{ quantity }}</strong></p>
@@ -111,15 +111,23 @@ export default {
         },
 
         async create() {
-            const offer = await this.$repositories.trade.offer.create(
-                this.operation,
-                this.goodType,
-                this.$store.state.user.currentPlanet,
-                parseInt(this.quantity),
-                parseInt(this.lotQuantity),
-                parseFloat(this.price),
-                this.selectedResource
-            );
+            try {
+                const offer = await this.$repositories.trade.offer.create(
+                    this.operation,
+                    this.goodType,
+                    this.$store.state.user.currentPlanet,
+                    parseInt(this.quantity),
+                    parseInt(this.lotQuantity),
+                    parseFloat(this.price),
+                    this.selectedResource
+                );
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+                return;
+            }
             this.$store.commit('user/updateStorageResource', {
                 resource: this.selectedResource,
                 quantity: -this.quantity
