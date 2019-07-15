@@ -42,6 +42,9 @@ export default {
             model.frame = this.$resources.ship_frames[model.frame];
 
             for (const slot of model.slots) {
+                if (!slot.module) {
+                    continue;
+                }
                 slot.module = this.$resources.ship_modules[slot.module];
 
                 for (const stat in slot.module.stats) {

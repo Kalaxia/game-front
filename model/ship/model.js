@@ -13,7 +13,7 @@ class ShipModel {
         const slots = new Array();
         for (const slotPosition in this.slots) {
             const slot = this.slots[slotPosition];
-            slot.module = (slot.module !== null) ? slot.module.slug : null;
+            slot.module = (slot.module) ? slot.module.slug : null;
             slots.push(slot);
         }
         return {

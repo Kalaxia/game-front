@@ -82,6 +82,7 @@ export default {
             try {
                 await this.$repositories.ship.model.create(shipModel);
             } catch(err) {
+                console.log(err);
                 this.$store.dispatch('user/addActionNotification', {
                     isError: true,
                     content: err
