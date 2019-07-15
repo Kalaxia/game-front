@@ -9,7 +9,7 @@
                     <h4>{{ $t(`ships.frames.${frame.slug}`) }}</h4>
                 </header>
                 <section>
-                    <img :src="`/images/shipyard/frame/${frame.picto}`" />
+                    <img :src="`/images/shipyard/frame/${frame.picture}`" />
                     <div class="prices">
                         <div v-for="price in frame.price" :key="`${frame.slug}-price-${price.type}`">
                             <span>{{ price.amount }}</span>

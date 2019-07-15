@@ -155,9 +155,12 @@
         "next_production": "Prochaine production",
         "frame": "Châssis",
         "frames": {
-            "fighter": "Chasseur",
-            "bomber": "Bombardier",
-            "corvette": "Corvette"
+            "light-hunter": "Trappeur léger",
+            "battle-runner": "Fonceur",
+            "zartanyas-eye": "Oeil de Zartanya",
+            "fray-breaker": "Brise-mêlée",
+            "sullern-terror": "Terreur de Sullern",
+            "tenium-bane": "Fléau de Tenium"
         },
         "launch_success": "La production a été commandée avec succès",
         "model_creation_success": "Le nouveau modèle a été créé avec succès",
@@ -186,6 +189,26 @@
             "light-container": {
                 "name": "Container léger",
                 "description": "Une unité de stockage permettant d'accueillir tout type de ressources"
+            },
+            "laser-canon-helzir": {
+                "name": "Canon laser Helzir",
+                "description": "Un canon lourd qui saura entamer la coque de vaisseaux de plus grande classe"
+            },
+            "missile-launcher-botero": {
+                "name": "Lance-missiles Botero",
+                "description": "Quand un blindage vous oppose de la résistance, un bon missile règlera vos soucis"
+            },
+            "torpedo-launcher-bazuri": {
+                "name": "Lance-torpilles Bazuri",
+                "description": "Cette torpille peut éventrer la coque de vaisseaux lourds"
+            },
+            "laser-blaster-fury": {
+                "name": "Blaster laser Fury",
+                "description": "Cet intense faisceau laser écrase tout sur son passage"
+            },
+            "laser-canon-barrage": {
+                "name": "Canon laser Barrage",
+                "description": "Ce canon laser à tir de barrage écrasera les masses compactes de vaisseaux ennemis"
             }
         },
         "price": "Prix",

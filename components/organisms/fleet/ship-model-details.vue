@@ -31,7 +31,7 @@
             <section>
                 <div class="ship-indicator">
                     <span>{{ nbShips }}</span>
-                    <img :src="`/images/shipyard/frame/${model.frame.picto}`" :alt="model.name" />
+                    <img :src="`/images/shipyard/frame/${model.frame.picture}`" :alt="model.name" />
                 </div>
                 <colored-picto src="G_Pc_DblArr.png" color="white" :width="54" :height="22" />
                 <div class="ship-cost">
