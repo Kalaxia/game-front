@@ -5,5 +5,7 @@ export default class Building {
         this.planet = data.planet;
         this.status = data.status;
         this.construction_state = data.construction_state;
+        this.compartments = data.compartments;
+        this.resources = data.resources;
     }
 };

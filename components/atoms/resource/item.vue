@@ -1,5 +1,5 @@
 <template>
-    <img :src="resourcePicto" :alt="resourceName" />
+    <img class="resource-item" :src="resourcePicto" :alt="resourceName" />
 </template>
 
 <script>

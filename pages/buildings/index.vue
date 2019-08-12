@@ -1,26 +1,39 @@
 <template>
-    <div id="buildings">
-        <buildings-list @select="selectedBuilding = $event" :selectedBuilding="selectedBuilding" />
+    <div>
+        <buildings-list @select="selectBuilding($event, false)" :selectedBuilding="selectedBuilding" @displayAvailableBuildings="displayAvailableBuildings()" />
         <building-details @build="build" @cancel="cancel" v-if="selectedBuilding" :building="selectedBuilding" />
+        <building-construction-list v-if="!showAvailableBuildings" />
+        <available-buildings v-else @select="selectBuilding($event, true)" :selectedBuilding="selectedBuilding" />
     </div>
 </template>
 
 <script>
 import BuildingsList from '~/components/organisms/buildings/list';
 import BuildingDetails from '~/components/organisms/buildings/details';
+import BuildingConstructionList from '~/components/organisms/buildings/construction-list';
+import AvailableBuildings from '~/components/organisms/buildings/available-list';
 
 export default {
     name: 'page-buildings',
     
     data() {
         return {
-            selectedBuilding: null
+            selectedBuilding: null,
+            showAvailableBuildings: false
         };
     },
 
     components: {
+        AvailableBuildings,
         BuildingDetails,
-        BuildingsList
+        BuildingsList,
+        BuildingConstructionList
+    },
+
+    async asyncData({ app, params }) {
+        return {
+
+        };
     },
 
     methods: {
@@ -59,15 +72,38 @@ export default {
                 isError: false,
                 content: 'buildings.cancel_success'
             });
+        },
+
+        selectBuilding(building, showAvailableBuildings) {
+            this.selectedBuilding = building;
+            this.showAvailableBuildings = showAvailableBuildings;
+        },
+
+        displayAvailableBuildings() {
+            this.selectedBuilding = null;
+            this.showAvailableBuildings = true;
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-    #buildings {
-        grid-column: ~"2/10";
-        grid-row: ~"3/10";
-        display: flex;
-    }
+#buildings-list {
+    grid-column: ~"2/5";
+    grid-row: ~"2/9";
+    margin-top: 20px;
+}
+
+#building-details {
+    grid-column: ~"5/7";
+    grid-row: ~"2/9";
+    margin-top: 20px;
+}
+
+.construction-list,
+.available-buildings {
+    grid-column: ~"7/10";
+    grid-row: ~"2/9";
+    margin-top: 20px;
+}
 </style>

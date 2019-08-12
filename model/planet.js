@@ -9,9 +9,9 @@ export default class Planet {
         this.system = (data.system !== null) ? new System(data.system) : null;
         this.population = data.population;
         this.buildings = data.buildings;
-        this.nb_buildings = data.nb_buildings;
+        this.nbBuildings = data.nb_buildings;
         this.orbit = data.orbit;
-        this.available_buildings = data.available_buildings;
+        this.availableBuildings = data.available_buildings;
         this.settings = data.settings;
         this.relations = data.relations;
         this.resources = data.resources;
@@ -38,7 +38,7 @@ export default class Planet {
     }
 
     canConstruct() {
-        return this.planet.nb_buildings > this.planet.buildings.length;
+        return this.planet.nbBuildings > this.planet.buildings.length;
     }
 
     toJSON() {

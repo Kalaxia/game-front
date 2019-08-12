@@ -13,6 +13,7 @@
         "launch_success": "La construction a été lancée avec succès !",
         "hypodronic-farm": "Ferme à vaporisateurs",
         "ore-mine": "Mine de Lithium",
+        "cristal-synthetiser": "Synthétiseur de cristaux",
         "shipyard": "Usine de chasseurs",
         "spatial-shipyard": "Chantier naval",
         "technolab": "Laboratoire expérimental",
@@ -88,7 +89,10 @@
         "points_configuration": "Répartition des points",
         "available_population_points": "%points% points disponibles",
         "available_buildings": "Bâtiments disponibles",
-        "buildings": "Bâtiments",
+        "buildings": {
+            "extracted_resources": "Ressources extraites",
+            "price": "Coût de construction"
+        },
         "resources": "Ressources",
         "relations": "Relations diplomatiques",
         "settings": {

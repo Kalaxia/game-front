@@ -1,21 +1,37 @@
 <template>
     <div id="building-details">
         <header>
-            <building-image :building="building" width="76px" />
-
-            <h3 :style="{ color: factionColors['main'] }">{{ $t('buildings')[building.name] }}</h3>
+            <building-image :building="building" width="126px" />
         </header>
-        <section>
-            <template v-for="(price, index) in building.price">
-                <div :key="`building-price-${index}`" v-if="price.type !== 'resource'" class="price">
-                    <span>{{ price.amount }}</span>
-                    <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="32" :height="32"/>
-                </div>
-            </template>
+        <section :style="{ borderColor: factionColors['white'] }">
+            <h4 :style="{ color: factionColors['main'] }">{{ $t('buildings')[building.name] }}</h4>
 
-            <construction-state v-if="building.construction_state" :building="building" :pictoSize="32" gaugeHeight="24px" />
+            <div v-if="plan.resources" class="resources">
+                <header>
+                    <h4>{{ $t('planet.buildings.extracted_resources') }}</h4>
+                </header>
+                <section>
+                    <resource-item v-for="r in plan.resources" :key="r.name" :resource="{name: r}" />
+                </section>
+            </div>
+
+            <div class="price-container" v-if="!building.id">
+                <header>
+                    <h4>{{ $t('planet.buildings.price') }}</h4>
+                </header>
+                <section>
+                    <template v-for="(price, index) in building.price">
+                        <div :key="`building-price-${index}`" v-if="price.type !== 'resource'" class="price">
+                            <span>{{ price.amount }}</span>
+                            <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="32" :height="32"/>
+                        </div>
+                    </template>
+                </section>
+            </div>
+
         </section>
         <footer>
+            <construction-state v-if="building.construction_state" :building="building" :pictoSize="32" gaugeHeight="24px" />
             <button v-if="building.price" class="button" :style="{ color: factionColors['main'] }" @click="$emit('build', building)">
                 <span class="big">{{ $t('buildings.build') }}</span>
             </button>
@@ -27,6 +43,7 @@
 </template>
 
 <script>
+import ResourceItem from '~/components/atoms/resource/item';
 import BuildingImage from '~/components/atoms/building/image';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import ConstructionState from '~/components/atoms/building/construction-state';
@@ -40,13 +57,18 @@ export default {
     components: {
         BuildingImage,
         ColoredPicto,
-        ConstructionState
+        ConstructionState,
+        ResourceItem
     },
 
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors'
-        })
+        }),
+
+        plan() {
+            return this.$resources.buildings[this.building.name];
+        }
     },
 }
 </script>
@@ -68,10 +90,8 @@ export default {
 
         & > header {
             display: flex;
-
-            & > h3 {
-                margin-left: 20px;
-            }
+            justify-content: center;
+            padding-bottom: 20px;
         }
 
         & > section {
@@ -79,27 +99,55 @@ export default {
             width: 80%;
             margin: auto;
             display: flex;
+            flex-direction: column;
+            border-top: 2px solid;
 
-            & > .price {
-                display: flex;
-                align-content: flex-start;
-                align-items: center;
-                margin: 10px 20px;
+            & > h3 {
+                text-align: center;
+                font-variant: small-caps;
+            }
 
-                & > span {
-                    margin-right: 5px;
+            & > .resources {
+                & > section {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    & > .resource-item {
+                        width: 36px;
+                        height: 36px;
+                        margin: 10px;
+                    }
                 }
             }
 
-            & > .construction-state {
-                align-content: center;
-                width: 100%;
+            & > .price-container {
+
+                & > section {
+                    display: flex;
+
+                    & > .price {
+                        display: flex;
+                        align-content: flex-start;
+                        align-items: center;
+                        margin: 10px 20px;
+
+                        & > span {
+                            margin-right: 5px;
+                        }
+                    }
+                }
             }
         }
 
         & > footer {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+
+            & > .construction-state {
+                width: 100%;
+                margin-bottom: 20px;
+            }
         }
     }
 </style>
