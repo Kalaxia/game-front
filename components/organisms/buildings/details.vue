@@ -1,34 +1,44 @@
 <template>
     <div id="building-details">
         <header>
-            <building-image :building="building" width="126px" />
+            <building-header
+                :building="building"
+                :compartment="selectedCompartment"
+                :plan="plan"
+                @selectCompartment="$emit('selectCompartment', $event)"
+                @showAvailableCompartments="$emit('showAvailableCompartments')" />
         </header>
         <section :style="{ borderColor: factionColors['white'] }">
             <h4 :style="{ color: factionColors['main'] }">{{ $t('buildings')[building.name] }}</h4>
 
-            <div v-if="plan.resources" class="resources">
-                <header>
-                    <h4>{{ $t('planet.buildings.extracted_resources') }}</h4>
-                </header>
-                <section>
-                    <resource-item v-for="r in plan.resources" :key="r.name" :resource="{name: r}" />
-                </section>
-            </div>
+            <compartment-details
+                v-if="selectedCompartment"
+                :compartment="selectedCompartment"
+                @buildCompartment="$emit('buildCompartment')" />
+            <template v-else>
+                <div v-if="plan.resources" class="resources">
+                    <header>
+                        <h4>{{ $t('planet.buildings.extracted_resources') }}</h4>
+                    </header>
+                    <section>
+                        <resource-item v-for="r in plan.resources" :key="r.name" :resource="{name: r}" />
+                    </section>
+                </div>
 
-            <div class="price-container" v-if="!building.id">
-                <header>
-                    <h4>{{ $t('planet.buildings.price') }}</h4>
-                </header>
-                <section>
-                    <template v-for="(price, index) in building.price">
-                        <div :key="`building-price-${index}`" v-if="price.type !== 'resource'" class="price">
-                            <span>{{ price.amount }}</span>
-                            <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="32" :height="32"/>
-                        </div>
-                    </template>
-                </section>
-            </div>
-
+                <div class="price-container" v-if="!building.id">
+                    <header>
+                        <h4>{{ $t('planet.buildings.price') }}</h4>
+                    </header>
+                    <section>
+                        <template v-for="(price, index) in building.price">
+                            <div :key="`building-price-${index}`" v-if="price.type !== 'resource'" class="price">
+                                <span>{{ price.amount }}</span>
+                                <colored-picto :src="(price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieCivil.png'" color="white" :width="32" :height="32"/>
+                            </div>
+                        </template>
+                    </section>
+                </div>
+            </template>
         </section>
         <footer>
             <construction-state v-if="building.construction_state" :building="building" :pictoSize="32" gaugeHeight="24px" />
@@ -44,7 +54,8 @@
 
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
-import BuildingImage from '~/components/atoms/building/image';
+import BuildingHeader from '~/components/molecules/building/header';
+import CompartmentDetails from '~/components/molecules/building/compartment-details';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import ConstructionState from '~/components/atoms/building/construction-state';
 import { mapGetters } from 'vuex';
@@ -52,10 +63,11 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'building-details',
 
-    props: ['building'],
+    props: ['building', 'selectedCompartment'],
 
     components: {
-        BuildingImage,
+        BuildingHeader,
+        CompartmentDetails,
         ColoredPicto,
         ConstructionState,
         ResourceItem
@@ -101,8 +113,11 @@ export default {
             display: flex;
             flex-direction: column;
             border-top: 2px solid;
+            overflow-y: auto;
 
-            & > h3 {
+            & > h4 {
+                margin: 0px;
+                margin-top: 10px;
                 text-align: center;
                 font-variant: small-caps;
             }

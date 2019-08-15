@@ -19,6 +19,12 @@
         "technolab": "Laboratoire expérimental",
         "trade-post": "Comptoir commercial"
     },
+    "compartments": {
+        "ore-well": {
+            "title": "Puit de mine",
+            "description": "Permet de s'enfoncer plus loin dans les sols afin de s'approcher des gisements les plus profonds"
+        }
+    },
     "credits": "Crédits",
     "diplomacy": {
         "relations": {
@@ -90,6 +96,8 @@
         "available_population_points": "%points% points disponibles",
         "available_buildings": "Bâtiments disponibles",
         "buildings": {
+            "available_compartments": "Extensions disponibles",
+            "effects": "Effets",
             "extracted_resources": "Ressources extraites",
             "price": "Coût de construction"
         },

@@ -1,9 +1,21 @@
 <template>
     <div>
-        <buildings-list @select="selectBuilding($event, false)" :selectedBuilding="selectedBuilding" @displayAvailableBuildings="displayAvailableBuildings()" />
-        <building-details @build="build" @cancel="cancel" v-if="selectedBuilding" :building="selectedBuilding" />
-        <building-construction-list v-if="!showAvailableBuildings" />
-        <available-buildings v-else @select="selectBuilding($event, true)" :selectedBuilding="selectedBuilding" />
+        <buildings-list
+            :selectedBuilding="selectedBuilding"
+            @select="selectBuilding($event, false)"
+            @displayAvailableBuildings="displayAvailableBuildings" />
+        <building-details
+            v-if="selectedBuilding"
+            :building="selectedBuilding"
+            :selectedCompartment="selectedCompartment"
+            @build="build"
+            @buildCompartment="buildCompartment"
+            @cancel="cancel"
+            @showAvailableCompartments="displayAvailableCompartments"
+            @selectCompartment="selectedCompartment = $event" />
+        <building-construction-list v-if="!showAvailableBuildings && !showAvailableCompartments" />
+        <available-buildings v-if="showAvailableBuildings" @select="selectBuilding($event, true)" :selectedBuilding="selectedBuilding" />
+        <available-compartments v-if="showAvailableCompartments" :building="selectedBuilding" @selectCompartment="selectedCompartment = $event" />
     </div>
 </template>
 
@@ -11,7 +23,8 @@
 import BuildingsList from '~/components/organisms/buildings/list';
 import BuildingDetails from '~/components/organisms/buildings/details';
 import BuildingConstructionList from '~/components/organisms/buildings/construction-list';
-import AvailableBuildings from '~/components/organisms/buildings/available-list';
+import AvailableBuildings from '~/components/organisms/buildings/available-buildings';
+import AvailableCompartments from '~/components/organisms/buildings/available-compartments';
 
 export default {
     name: 'page-buildings',
@@ -19,12 +32,15 @@ export default {
     data() {
         return {
             selectedBuilding: null,
-            showAvailableBuildings: false
+            selectedCompartment: null,
+            showAvailableBuildings: false,
+            showAvailableCompartments: false,
         };
     },
 
     components: {
         AvailableBuildings,
+        AvailableCompartments,
         BuildingDetails,
         BuildingsList,
         BuildingConstructionList
@@ -60,6 +76,30 @@ export default {
             }
         },
 
+        async buildCompartment() {
+            try {
+                for (const price of this.selectedCompartment.price) {
+                    if (price.type !== 'points') {
+                        this.$store.commit('user/spend', price);
+                    }
+                }
+                const c = await this.$repositories.building.createCompartment(this.$store.state.user.currentPlanet, this.selectedBuilding, this.selectedCompartment);
+
+                this.$store.commit('user/buildCompartment', c);
+                this.selectedCompartment = c;
+                this.selectedBuilding.compartments.push(c);
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: false,
+                    content: 'buildings.launch_success'
+                });
+            } catch(error) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: error
+                });
+            }
+        },
+
         async cancel(building) {
             await this.$repositories.building.cancel(this.$store.state.user.currentPlanet, building);
 
@@ -76,12 +116,21 @@ export default {
 
         selectBuilding(building, showAvailableBuildings) {
             this.selectedBuilding = building;
+            this.selectedCompartment = null;
+            this.showAvailableCompartments = false;
             this.showAvailableBuildings = showAvailableBuildings;
         },
 
         displayAvailableBuildings() {
             this.selectedBuilding = null;
+            this.showAvailableCompartments = false;
             this.showAvailableBuildings = true;
+        },
+
+        displayAvailableCompartments() {
+            this.selectedCompartment = null;
+            this.showAvailableCompartments = true;
+            this.showAvailableBuildings = false;
         }
     }
 }
@@ -101,9 +150,11 @@ export default {
 }
 
 .construction-list,
-.available-buildings {
+.available-buildings,
+.available-compartments {
     grid-column: ~"7/10";
     grid-row: ~"2/9";
     margin-top: 20px;
+    margin-left: 20px;
 }
 </style>

@@ -1,4 +1,5 @@
 import System from './system.js';
+import Building from './building.js';
 
 export default class Planet {
     constructor(data) {
@@ -8,7 +9,7 @@ export default class Planet {
         this.player = data.player;
         this.system = (data.system !== null) ? new System(data.system) : null;
         this.population = data.population;
-        this.buildings = data.buildings;
+        this.buildings = [];
         this.nbBuildings = data.nb_buildings;
         this.orbit = data.orbit;
         this.availableBuildings = data.available_buildings;
@@ -19,6 +20,12 @@ export default class Planet {
         this.ships = new Array();
         this.shipGroups = new Array();
         this.constructingShips = null;
+
+        if (data.buildings !== null) {
+            for (const b of data.buildings) {
+                this.buildings.push(new Building(b));
+            }
+        }
     }
 
     updateShipGroups(shipGroup, nbShips) {
