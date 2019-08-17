@@ -106,6 +106,10 @@ export const mutations = {
         }
     },
 
+    buildCompartment(state, c) {
+        state.currentPlanet.buildings.filter(b => b === c.building).shift().compartments.push(c);
+    },
+
     cancelBuilding(state, data) {
         for (const i in state.currentPlanet.buildings) {
             if (state.currentPlanet.buildings[i].id === data.id) {

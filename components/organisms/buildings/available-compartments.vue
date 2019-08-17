@@ -30,8 +30,9 @@ export default {
 
         compartments() {
             const names = this.building.compartments.map(c => c.name);
+            console.log(names);
 
-            return this.plan.compartments.filter(c => names.indexOf(c) > 0).map(c => {
+            return this.plan.compartments.filter(c => names.indexOf(c) < 0).map(c => {
                 c.building = this.building;
                 return c;
             });

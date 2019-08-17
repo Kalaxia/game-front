@@ -4,6 +4,7 @@ export default class Building {
     constructor(data) {
         this.id = data.id;
         this.name = data.name;
+        this.type = data.type;
         this.planet = data.planet;
         this.status = data.status;
         this.construction_state = data.construction_state;

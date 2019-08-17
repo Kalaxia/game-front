@@ -21,7 +21,7 @@
                         <h4>{{ $t('planet.buildings.extracted_resources') }}</h4>
                     </header>
                     <section>
-                        <resource-item v-for="r in plan.resources" :key="r.name" :resource="{name: r}" />
+                        <resource-production v-for="r in presentResources" :key="r.name" :building="building" :resource="{name: r}" />
                     </section>
                 </div>
 
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import ResourceItem from '~/components/atoms/resource/item';
+import ResourceProduction from '~/components/molecules/resource/production';
 import BuildingHeader from '~/components/molecules/building/header';
 import CompartmentDetails from '~/components/molecules/building/compartment-details';
 import ColoredPicto from '~/components/atoms/colored-picto';
@@ -70,16 +70,23 @@ export default {
         CompartmentDetails,
         ColoredPicto,
         ConstructionState,
-        ResourceItem
+        ResourceProduction
     },
 
     computed: {
         ...mapGetters({
+            currentPlanet: 'user/currentPlanet',
             factionColors: 'user/factionColors'
         }),
 
         plan() {
             return this.$resources.buildings[this.building.name];
+        },
+
+        presentResources() {
+            const planetResources = this.currentPlanet.resources.map(r => r.name);
+
+            return this.plan.resources.filter(r => planetResources.indexOf(r) >= 0);
         }
     },
 }
@@ -90,7 +97,7 @@ export default {
 </style>
 
 
-<style lang="less" scoped>
+<style lang="less">
     #building-details {
         grid-column: ~"4/10";
         grid-row: ~"3/9";
@@ -124,13 +131,8 @@ export default {
 
             & > .resources {
                 & > section {
-                    display: flex;
-                    flex-wrap: wrap;
-
-                    & > .resource-item {
-                        width: 36px;
-                        height: 36px;
-                        margin: 10px;
+                    & > .resource-production {
+                        margin: 10px 0px;
                     }
                 }
             }

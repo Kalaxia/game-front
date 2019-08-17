@@ -87,7 +87,6 @@ export default {
 
                 this.$store.commit('user/buildCompartment', c);
                 this.selectedCompartment = c;
-                this.selectedBuilding.compartments.push(c);
                 this.$store.dispatch('user/addActionNotification', {
                     isError: false,
                     content: 'buildings.launch_success'

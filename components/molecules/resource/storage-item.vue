@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div v-if="density > 0" class="hourly-production">
-                +{{ hourlyProduction() }}/h
+                +{{ hourlyProduction }}/h
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@
 
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'resource-storage-item',
@@ -33,13 +34,30 @@ export default {
         ResourceItem
     },
 
-    methods: {
-        hourlyProduction() {
-            return this.density * 10;
-        }
-    },
-
     computed: {
+        ...mapGetters({
+            currentPlanet: 'user/currentPlanet'
+        }),
+
+        hourlyProduction() {
+            return this.currentPlanet.buildings
+                .filter(b => b.type === 'resource' && this.$resources.buildings[b.name].resources.indexOf(this.resource) > -1)
+                .reduce((acc, b) => {
+                    const baseQuantity = this.density * 10;
+                    
+                    return acc + b.compartments.reduce((acc, c) => {
+                        const plan = this.$resources.buildings[b.name].compartments.filter(c =>[c.name]).shift();
+                        const modifierFilter = m => m.type === 'resource' && m.resource === this.resource
+                        const bonus = plan.bonuses.filter(modifierFilter);
+                        const malus = plan.maluses.filter(modifierFilter);
+                        const percent = (bonus.length > 0 ? bonus.shift().percent : 0) - (malus.length > 0 ? malus.shift().percent : 0);
+                        const compartmentQuantity = Math.floor(baseQuantity * Math.abs(percent) / 100);
+
+                        return acc + ((percent > 0) ? compartmentQuantity : -compartmentQuantity); 
+                    }, baseQuantity);
+                }, 0);
+        },
+
         isFull() {
             return this.quantity > 0 && this.quantity === this.capacity;
         },
