@@ -98,12 +98,16 @@ export const mutations = {
     build(state, building) {
         state.currentPlanet.buildings.push(building);
 
-        for (const i in state.currentPlanet.available_buildings) {
-            if (state.currentPlanet.available_buildings[i].name === building.name) {
-                state.currentPlanet.available_buildings.splice(i, 1);
+        for (const i in state.currentPlanet.availableBuildings) {
+            if (state.currentPlanet.availableBuildings[i].name === building.name) {
+                state.currentPlanet.availableBuildings.splice(i, 1);
                 break;
             }
         }
+    },
+
+    buildCompartment(state, c) {
+        state.currentPlanet.buildings.filter(b => b === c.building).shift().compartments.push(c);
     },
 
     cancelBuilding(state, data) {
@@ -113,7 +117,7 @@ export const mutations = {
                 break;
             }
         }
-        state.currentPlanet.available_buildings.push(data.availableBuilding);
+        state.currentPlanet.availableBuildings.push(data.availableBuilding);
     },
 
     updateStorageResource(state, data) {

@@ -1,12 +1,12 @@
 <template>
     <div class="construction-state">
         <div>
-            <span>{{ building.construction_state.current_points }}</span>
+            <span>{{ building.constructionState.current_points }}</span>
             <colored-picto src="Pc_GenieCivil.png" color="white" :width="pictoSize" :height="pictoSize"/>
         </div>
         <gauge :levels="constructionLevel" background="#2D2D2D" :style="{ height: gaugeHeight }" />
         <div>
-            <span>{{ building.construction_state.points }}</span>
+            <span>{{ building.constructionState.points }}</span>
             <colored-picto src="Pc_GenieCivil.png" color="white" :width="pictoSize" :height="pictoSize"/>
         </div>
     </div>
@@ -30,7 +30,7 @@ export default {
         constructionLevel() {
             return [{
                 color: this.$store.getters['user/factionColors']['main'],
-                value: Math.floor(this.building.construction_state.current_points / this.building.construction_state.points * 100)
+                value: Math.floor(this.building.constructionState.current_points / this.building.constructionState.points * 100)
             }];
         }
     }

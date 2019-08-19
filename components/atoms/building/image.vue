@@ -1,6 +1,6 @@
 <template>
-    <div :style="style" :class="['building-image', categoryClass, {constructing: isConstructing}]">
-        <img :src="`/images/buildings/${picture}`" :alt="building.name" />
+    <div :style="style" :class="['building-image', {constructing: isConstructing && !disableConstructionPicto}]">
+        <div :style="`mask-image: url('/images/buildings/${picture}'); background-color: ${color}`"></div>
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
     name: 'building-image',
 
-    props: ['building', 'width'],
+    props: ['building', 'width', 'color', 'disableConstructionPicto'],
 
     computed: {
         picture() {
@@ -43,24 +43,12 @@ export default {
         align-items: center;
         border-radius: 50%;
         border: 2px solid black;
-        background-color: white;
 
-        & > img {
+        & > div {
             width: 80%;
             height: 80%;
-        }
-
-        &.category-resource {
-            background-color: #08C;
-        }
-        &.category-techno {
-            background-color: #F843B1;
-        }
-        &.category-trade {
-            background-color: #FFC928;
-        }
-        &.category-shipyard {
-            background-color: #FF2828;
+            mask-repeat: no-repeat;
+            mask-size: cover;
         }
 
         &.constructing:after {
