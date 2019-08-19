@@ -14,7 +14,7 @@
                     {{ fullCapacityAt }}
                 </div>
             </div>
-            <div v-if="density > 0" class="hourly-production">
+            <div v-if="density > 0 && hourlyProduction > 0" class="hourly-production">
                 +{{ hourlyProduction }}/h
             </div>
         </div>

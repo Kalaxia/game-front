@@ -12,8 +12,8 @@
                 </div>
                 <gauge :levels="gaugeLevels" :background="factionColors['black']" />
                 <div class="points">
-                    <strong>{{ building.construction_state.current_points }}</strong>
-                    <sup>/ {{ building.construction_state.points }}</sup>
+                    <strong>{{ building.constructionState.current_points }}</strong>
+                    <sup>/ {{ building.constructionState.points }}</sup>
                 </div>
             </template>
             <template v-else>
@@ -54,7 +54,7 @@ export default {
         gaugeLevels () {
             return [
                 {
-                    value: (this.building.construction_state.current_points / this.building.construction_state.points) * 100,
+                    value: (this.building.constructionState.current_points / this.building.constructionState.points) * 100,
                     color: this.factionColors['white']
                 }
             ];

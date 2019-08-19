@@ -1,22 +1,16 @@
 <template>
-    <div :style="style" :class="['building-image', {constructing: isConstructing}]">
-        <div :style="`mask-image: url('/images/buildings/${picture}'); background-color: ${factionColors['white']}`"></div>
+    <div :style="style" :class="['building-image', {constructing: isConstructing && !disableConstructionPicto}]">
+        <div :style="`mask-image: url('/images/buildings/${picture}'); background-color: ${color}`"></div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
     name: 'building-image',
 
-    props: ['building', 'width'],
+    props: ['building', 'width', 'color', 'disableConstructionPicto'],
 
     computed: {
-        ...mapGetters({
-            factionColors: 'user/factionColors'
-        }),
-
         picture() {
             return this.$resources.buildings[this.building.name].picture;
         },

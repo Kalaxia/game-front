@@ -1,8 +1,8 @@
 <template>
-    <div :class="['resource-production', {bonus: bonus > 0}]">
+    <div :class="['resource-production', {bonus: bonus > 0, malus: bonus < 0}]">
         <resource-item :resource="resource" />
         <span>
-            {{ production }} (<template v-if="bonus > 0">+</template>{{ bonus }} %)
+            {{ production }}/h <template v-if="bonus !== 0">(<template v-if="bonus > 0">+</template>{{ bonus }} %)</template>
         </span>
     </div>
 </template>
@@ -55,7 +55,10 @@ export default {
 .resource-production {
     display: flex;
     align-items: center;
-    color: @checkRed;
+
+    &.malus {
+        color: @checkRed;
+    }
 
     &.bonus {
         color: @checkGreen;

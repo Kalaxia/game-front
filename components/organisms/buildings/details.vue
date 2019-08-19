@@ -41,11 +41,11 @@
             </template>
         </section>
         <footer>
-            <construction-state v-if="building.construction_state" :building="building" :pictoSize="32" gaugeHeight="24px" />
+            <construction-state v-if="building.constructionState" :building="building" :pictoSize="32" gaugeHeight="24px" />
             <button v-if="building.price" class="button" :style="{ color: factionColors['main'] }" @click="$emit('build', building)">
                 <span class="big">{{ $t('buildings.build') }}</span>
             </button>
-            <button v-if="building.construction_state" class="button" :style="{ color: factionColors['main'] }" @click="$emit('cancel', building)">
+            <button v-if="building.constructionState" class="button" :style="{ color: factionColors['main'] }" @click="$emit('cancel', building)">
                 <span class="big">{{ $t('buildings.cancel') }}</span>
             </button>
         </footer>

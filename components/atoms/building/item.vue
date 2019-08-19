@@ -1,12 +1,13 @@
 <template>
     <nuxt-link v-if="building" :to="link" class="building">
-        <building-image :building="building" width="64px" />
+        <building-image :building="building" width="64px" :color="factionColors['white']" />
     </nuxt-link>
     <nuxt-link v-else class="building area" to="/buildings" />
 </template>
 
 <script>
 import BuildingImage from '~/components/atoms/building/image';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'building-item',
@@ -18,6 +19,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        }),
+
         link() {
             return (this.building.status === 'operational' && typeof this.$resources.buildings[this.building.name].link !== 'undefined')
                 ? this.$resources.buildings[this.building.name].link

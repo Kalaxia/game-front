@@ -16,10 +16,10 @@
                 <div :style="{ backgroundColor: factionColors['grey'] }"></div>
             </div>
             <div class="remaining" v-for="i in nbRemainingCompartments" :key="`remaining-${i}`" :style="{ borderColor: factionColors['grey'] }"></div>
-            <building-image :building="building" width="126px" />
+            <building-image :building="building" width="126px" :color="factionColors['white']" />
         </div>
         <div class="preview" v-else>
-            <building-image :building="building" width="126px" />
+            <building-image :building="building" width="126px" :color="factionColors['white']" />
         </div>
     </div>
 </template>

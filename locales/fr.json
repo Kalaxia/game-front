@@ -95,11 +95,16 @@
         "points_configuration": "Répartition des points",
         "available_population_points": "%points% points disponibles",
         "available_buildings": "Bâtiments disponibles",
+        "building": "Bâtiment",
         "buildings": {
             "available_compartments": "Extensions disponibles",
+            "compartment": "Compartiment : {building}",
+            "constructing": "En cours de construction",
             "effects": "Effets",
             "extracted_resources": "Ressources extraites",
-            "price": "Coût de construction"
+            "price": "Coût de construction",
+            "total_points": "Total",
+            "remaining_points": "Restant"
         },
         "resources": "Ressources",
         "relations": "Relations diplomatiques",

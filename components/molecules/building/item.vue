@@ -1,6 +1,6 @@
 <template>
     <div class="building-item" :style="{ borderColor: (isSelected) ? factionColors['main'] : 'grey'}">
-        <building-image :building="building" width="56px" />
+        <building-image :building="building" width="56px" :color="factionColors['white']" />
     </div>
 </template>
 
