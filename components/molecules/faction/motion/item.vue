@@ -1,23 +1,23 @@
 <template>
-    <nuxt-link :to="`/faction/${motion.faction.id}/motions/${motion.id}`" class="motion-item" :style="{ color: factionColors['white'], borderColor: factionColors['white'] }">
+    <nuxt-link :to="`/faction/${motion.faction.id}/motions/${motion.id}`" class="motion-item" :style="{ color: factionColors['white'], borderColor: factionColors['grey'] }">
         <header>
+            <player-link :player="motion.author" :width="48" />
             <h4>{{ $t(`faction.motions.types.${motion.type}.title`) }}</h4>
         </header>
-        <section>
+        <section v-if="!motion.isProcessed">
             <gauge :levels="gaugeLevels" :background="factionColors['black']" />
             <timer :date="motion.endedAt" />
         </section>
-        <footer>
-            <nuxt-link class="author" :to="`/player/${motion.author.id}`">
-                <player-avatar :player="motion.author" :width="48" :height="48" />
-                <span :style="{ color: factionColors['white'] }">{{ motion.author.pseudo }}</span>
-            </nuxt-link>
-        </footer>
+        <section v-else>
+            <div>
+                <span>{{ $t(`faction.motions.${(motion.isApproved) ? 'approved' : 'rejected'}`, { date: motion.endedAt.toLocaleDateString('fr-FR', { minute: 'numeric', hour: 'numeric' }) }) }}</span>
+            </div>
+        </section>
     </nuxt-link>
 </template>
 
 <script>
-import PlayerAvatar from '~/components/atoms/player/avatar';
+import PlayerLink from '~/components/atoms/player/link';
 import Gauge from '~/components/atoms/gauge';
 import Timer from '~/components/atoms/timer';
 import { mapGetters } from 'vuex';
@@ -29,7 +29,7 @@ export default {
 
     components: {
         Gauge,
-        PlayerAvatar,
+        PlayerLink,
         Timer
     },
 
@@ -54,12 +54,14 @@ export default {
 
 <style lang="less" scoped>
     .motion-item {
+        display: block;
         padding: 10px;
-        border: 2px solid;
-        border-radius: 10px;
+        border-top: 1px solid;
         text-decoration: none;
 
         & > header {
+            display: flex;
+            justify-content: space-between;
             & > h4 {
                 margin: 0px;
             }
@@ -74,18 +76,6 @@ export default {
             
             & > .timer {
                 text-align: center;
-            }
-        }
-
-        & > footer {
-            & > .author {
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-
-                & > span {
-                    padding-left: 5px;
-                }
             }
         }
     }

@@ -38,6 +38,16 @@ export default class FactionRepository extends Repository
         return new Motion(motion);
     }
 
+    async getPreviousMotions(factionId) {
+        const data = await this.call('GET', `/api/factions/${factionId}/motions/previous`);
+
+        const motions = new Array();
+        for (const motion of data) {
+            motions.push(new Motion(motion));
+        }
+        return motions;
+    }
+
     async getFactionMotions(factionId) {
         const data = await this.call('GET', `/api/factions/${factionId}/motions`);
 

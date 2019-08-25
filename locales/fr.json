@@ -50,10 +50,12 @@
             "title": "Membres"
         },
         "motions": {
+            "approved": "Approuvée le {date}",
             "create": "Créer une motion",
             "creation_wording": "Vous pouvez créer une motion au sein de votre faction. Cette motion sera ensuite soumise au vote de l'ensemble des membres. Si elle est acceptée, alors la mesure proposée sera appliquée.",
             "currently_voting": "Une motion est déjà en cours à ce sujet",
             "motion_results": "Une motion a été votée",
+            "rejected": "Rejetée le {date}",
             "send": "Lancer la motion",
             "success": "La motion a été créée avec succès !",
             "type": "Sujet de la motion",
@@ -67,7 +69,9 @@
                 "regime": {
                     "title": "Régime politique"
                 }
-            }
+            },
+            "voted_list": "Motions votées",
+            "voting_list": "Motions en cours de vote"
         },
         "settings": {
             "planet_taxes": {
