@@ -1,21 +1,24 @@
 <template>
     <div class="political-overview" :style="{ borderColor: factionColors['grey'] }">
         <header>
-            <h3>Motions en cours</h3>
+            <h3>{{ $t('faction.motions.voting_list') }}</h3>
         </header>
         <section>
-            <motion v-for="m in motions" :key="m.id" :motion="m" />
+            <motion-item v-for="m in motions" :key="m.id" :motion="m" />
         </section>
         <footer>
+            <nuxt-link :to="`/faction/${faction.id}/motions`" class="button" :style="{ color: factionColors['white'] }">
+                {{ $t('faction.motions.list_link') }}
+            </nuxt-link>
             <nuxt-link :to="`/faction/${faction.id}/motions/new`" class="button" :style="{ color: factionColors['main'] }">
-                Créer une nouvelle motion
+                {{ $t('faction.motions.create') }}
             </nuxt-link>
         </footer>
     </div>
 </template>
 
 <script>
-import Motion from '~/components/molecules/faction/motion/item.vue';
+import MotionItem from '~/components/molecules/faction/motion/item.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -24,7 +27,7 @@ export default {
     props: ['faction', 'motions'],
 
     components: {
-        Motion
+        MotionItem
     },
 
     computed: {
@@ -52,20 +55,19 @@ export default {
         }
 
         & > section {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
             flex-grow: 1;
-            
-            & > .motion-item {
-                margin: 5px 10px;
-            }
         }
 
         & > footer {
             margin-top: 20px;
             margin-bottom: 10px;
             align-self: center;
+            display: flex;
+            align-items: center;
+
+            & > .button {
+                margin: 10px;
+            }
         }
     }
 </style>
