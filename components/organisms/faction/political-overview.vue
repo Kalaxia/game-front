@@ -1,17 +1,17 @@
 <template>
     <div class="political-overview" :style="{ borderColor: factionColors['grey'] }">
         <header>
-            <h3>Motions en cours</h3>
+            <h3>{{ $t('faction.motions.voting_list') }}</h3>
         </header>
         <section>
             <motion-item v-for="m in motions" :key="m.id" :motion="m" />
         </section>
         <footer>
             <nuxt-link :to="`/faction/${faction.id}/motions`" class="button" :style="{ color: factionColors['white'] }">
-                Toutes les motions
+                {{ $t('faction.motions.list_link') }}
             </nuxt-link>
             <nuxt-link :to="`/faction/${faction.id}/motions/new`" class="button" :style="{ color: factionColors['main'] }">
-                Nouvelle motion
+                {{ $t('faction.motions.create') }}
             </nuxt-link>
         </footer>
     </div>

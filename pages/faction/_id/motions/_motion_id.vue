@@ -1,10 +1,16 @@
 <template>
     <div>
+        <div class="back-button">
+            <nuxt-link :to="`/faction/${motion.faction.id}/motions`" :style="{ color: factionColors['white'] }">
+                {{ $t('faction.motions.list_link') }}
+            </nuxt-link>
+        </div>
         <div class="motion-details" :style="{ borderColor: factionColors['grey'] }">
             <header>
                 <h1>{{ $t(`faction.motions.types.${motion.type}.title`) }}</h1>
-                <div v-html="$t(`faction.motions.types.${motion.type}.description`, motion.data)"></div>
+                <player-link :player="motion.author" :width="56" />
             </header>
+            <section class="description" v-html="$t(`faction.motions.types.${motion.type}.description`, motion.data)"></section>
             <section>
                 <template v-if="!motion.isProcessed">
                     <div class="remaining-time">
@@ -58,6 +64,7 @@
 <script>
 import Gauge from '~/components/atoms/gauge';
 import Timer from '~/components/atoms/timer';
+import PlayerLink from '~/components/atoms/player/link';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -83,7 +90,8 @@ export default {
 
     components: {
         Gauge,
-        Timer
+        Timer,
+        PlayerLink
     },
 
     computed: {
@@ -133,12 +141,28 @@ export default {
 </script>
 
 <style lang="less" scoped>
+    .back-button {
+        grid-row: 2;
+        grid-column: ~"2/10";
+
+        & > a {
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+    }
+
     .motion-details {
         grid-row: ~"3/9";
         grid-column: ~"2/10";
         border: 2px solid;
         border-radius: 10px;
         padding: 10px 20px;
+
+        & > header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
         & > section {
             & > .remaining-time {

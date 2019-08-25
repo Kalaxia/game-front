@@ -35,6 +35,8 @@ export default {
         padding: 20px;
         border: 2px solid;
         border-radius: 10px;
+        display: flex;
+        flex-direction: column;
 
         & > header {
             & > h3 {
@@ -45,6 +47,7 @@ export default {
         & > section {
             margin-top: 20px;
             border-bottom: 1px solid;
+            overflow-y: auto;
         }
     }
 </style>
