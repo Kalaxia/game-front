@@ -1,6 +1,7 @@
 <template>
     <div id="starmap" :style="{ top: '20px', left: '20px' }" ref="starmap">
         <transition-group v-if="mapReady" name="system-list" tag="div">
+            <map-territories :territories="territories" key="territories" />
             <div id="journey-steps" v-if="journey" key="journey-steps">
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
             </div>
@@ -13,6 +14,7 @@
                 :system="system"
                 @dblclick.native="redirectToSystem(system.id)"
                 :isPlayerSystem="playerSystems.indexOf(system.id) > -1"/>
+
         </transition-group>
         <map-loader v-else />
     </div>
@@ -25,6 +27,7 @@ import System from '~/components/molecules/map/system';
 import MapLoader from '~/components/atoms/map/loader';
 import JourneyRange from '~/components/molecules/map/journey-range';
 import JourneyStep from '~/components/molecules/map/journey-step';
+import MapTerritories from '~/components/organisms/map/territories';
 import { mapGetters } from 'vuex';
 
 const dragData = {
@@ -38,7 +41,7 @@ const dragData = {
 export default {
     name: 'starmap',
 
-    props: ['map', 'playerPlanets', 'fleets'],
+    props: ['map', 'territories', 'playerPlanets', 'fleets'],
 
     data() {
         return {
@@ -54,6 +57,7 @@ export default {
         FleetPin,
         System,
         MapLoader,
+        MapTerritories,
         JourneyRange,
         JourneyStep
     },
