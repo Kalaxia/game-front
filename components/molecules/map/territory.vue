@@ -49,7 +49,7 @@ export default {
 
 <style lang="less" scoped>
     .territory{
-        fill-opacity: 0.8;
+        fill-opacity: 0.6;
         stroke: white;
         stroke-width: 3px;
     }

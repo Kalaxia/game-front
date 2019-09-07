@@ -1,10 +1,12 @@
 import Planet from "./planet";
+import Faction from "./faction";
 
 class System {
     constructor(data) {
         this.id = data.id;
         this.x = data.coord_x;
         this.y = data.coord_y;
+        this.faction = (data.faction) ? new Faction(data.faction) : null;
         if (!data.planets) {
             return;
         }
