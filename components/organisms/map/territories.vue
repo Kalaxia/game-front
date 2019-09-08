@@ -3,6 +3,7 @@
         <svg class="map-territories" :style="style">
             <map-territory v-for="t in territories" :key="t.id" :territory="t" />
         </svg>
+        <map-capital v-for="t in territories" :territory="t" :key="`${t.id}-capital`"/>
         <template v-if="!isProd">
             <div class="map-territories-coordinates" v-for="t in territories" :key="`${t.id}-coords`">
                 <div class="t-coordinates" v-for="(c, i) in t.coordinates" :key="`${t.id}-coords-${i}`" :style="coordinateStyle(t, c)">
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import MapCapital from '~/components/atoms/map/capital';
 import MapTerritory from '~/components/molecules/map/territory';
 
 export default {
@@ -21,6 +23,7 @@ export default {
     props: ['territories'],
 
     components: {
+        MapCapital,
         MapTerritory
     },
 

@@ -15,7 +15,7 @@ export default {
 
         style() {
             return {
-                fill: this.territory.planet.player.faction.colors['main'],
+                fill: this.territory.planet.player.faction.colors['mainLight'],
             };
         },
 
@@ -49,7 +49,7 @@ export default {
 
 <style lang="less" scoped>
     .territory{
-        fill-opacity: 0.6;
+        fill-opacity: 0.4;
         stroke: white;
         stroke-width: 3px;
     }
