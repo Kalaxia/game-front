@@ -121,21 +121,20 @@ export default {
                     parseFloat(this.price),
                     this.selectedResource
                 );
+                this.$store.commit('user/updateStorageResource', {
+                    resource: this.selectedResource,
+                    quantity: -this.quantity
+                });
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: false,
+                    content: `trade.notifications.${offer.operation}_offer_creation`
+                });
             } catch(err) {
                 this.$store.dispatch('user/addActionNotification', {
                     isError: true,
                     content: err
                 });
-                return;
             }
-            this.$store.commit('user/updateStorageResource', {
-                resource: this.selectedResource,
-                quantity: -this.quantity
-            });
-            this.$store.dispatch('user/addActionNotification', {
-                isError: false,
-                content: `trade.notifications.${offer.operation}_offer_creation`
-            });
         }
     }
 }
