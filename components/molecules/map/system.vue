@@ -63,7 +63,7 @@ export default {
             return {
                 top: (this.system.coord_y * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
                 left: (this.system.coord_x * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
-                borderColor: (this.isExpanded) ? 'white' : 'grey'
+                borderColor: (this.isExpanded) ? (this.system.faction) ? this.system.faction.colors['main'] : 'white' : 'grey'
             };
         },
 

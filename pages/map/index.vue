@@ -1,7 +1,7 @@
 <template>
     <div>
         <minimap :map="map" />
-        <starmap :map="map" :playerPlanets="playerPlanets" :fleets="fleets" />
+        <starmap :map="map" :territories="territories" :playerPlanets="playerPlanets" :fleets="fleets" />
         <journey-planer v-if="journey" />
     </div>
 </template>
@@ -19,11 +19,12 @@ export default {
     name: 'page-map',
 
     async asyncData ({ app, params }) {
-        const [ map, fleets ] = await Promise.all([
+        const [ map, territories, fleets ] = await Promise.all([
             app.$repositories.map.getMap(),
+            app.$repositories.map.getTerritories(),
             app.$repositories.fleet.getTravellingFleets()
         ]);
-        return { map, fleets };
+        return { map, territories, fleets };
     },
 
     components: {

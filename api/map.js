@@ -14,4 +14,8 @@ export default class MapRepository extends Repository {
     getSectorSystems(sector) {
         return this.call('GET', `/api/systems?sector=${sector}`);
     }
+
+    getTerritories() {
+        return this.call('GET', '/api/map/territories');
+    }
 };
