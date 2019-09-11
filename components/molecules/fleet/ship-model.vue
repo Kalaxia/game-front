@@ -2,7 +2,7 @@
     <div class="ship-model-container" :style="style" :class="{ disabled: model.maxAvailable === 0 }">
         <div class="ship-model" :style="style" :class="{ selected: isSelected }">
             <header>
-                <colored-picto class="type-picto" :src="`ships/${picto}`" :color="pictoColor" width="32" height="32" />
+                <ship-type :type="model.type" :color="pictoColor" :size="32" />
                 <h5>{{ $t(`ships.types.${model.type}`) }}</h5>
                 <h4>{{ model.name }}</h4>
             </header>
@@ -27,7 +27,9 @@
 
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
+import ShipType from '~/components/atoms/ship/type';
 import ColoredPicto from '~/components/atoms/colored-picto';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'ship-model',
@@ -36,19 +38,17 @@ export default {
 
     components: {
         ColoredPicto,
-        ResourceItem
+        ResourceItem,
+        ShipType
     },
 
     computed: {
-        picto() {
-            return {
-                bomber: 'S_Pc_Bb_BK_64px.png',
-                fighter: 'S_Pc_Ch_BK_64px.png',
-            }[this.model.type];
-        },
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        }),
 
         pictoColor() {
-            return (this.isSelected) ? 'black' : (this.model.maxAvailable === 0 ) ? '#4D4D4D' : 'white';
+            return this.factionColors[(this.isSelected) ? 'black' : (this.model.maxAvailable === 0 ) ? 'grey' : 'white'];
         },
 
         style() {

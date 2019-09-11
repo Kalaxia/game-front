@@ -1,5 +1,5 @@
 <template>
-    <colored-picto :src="`ships/${picto}`" :color="color" :width="size" :height="size" />
+    <colored-picto :src="`ships/types/${type}.svg`" :color="color" :width="size" :height="size" />
 </template>
 
 <script>
@@ -12,14 +12,6 @@ export default {
 
     components: {
         ColoredPicto
-    },
-
-    computed: {
-        picto () {
-            return {
-                fighter: 'S_Pc_Ch_BK_64px.png'
-            }[this.type];
-        }
     }
 }
 </script>

@@ -10,6 +10,14 @@
 @bgFreighter: rgba(0, 75, 0, 0.6);
 @bgFreighterHover: rgba(0, 100, 0, 0.6);
 
+@frigateColor: #003d60;
+@bgFrigate: rgba(0, 50, 100, 0.6);
+@bgFrigateHover: rgba(0, 75, 125, 0.6);
+
+@cruiserColor: #3a0060;
+@bgCruiser: rgba(50, 0, 100, 0.6);
+@bgCruiserHover: rgba(75, 0, 125, 0.6);
+
 .fighter {
     border: 1px solid @fighterColor;
     background-color: @bgFighter;
@@ -29,5 +37,19 @@
     background-color: @bgFreighter;
     &:hover {
         background-color: @bgFreighterHover;
+    }
+}
+.frigate {
+    border: 1px solid @frigateColor;
+    background-color: @bgFrigate;
+    &:hover {
+        background-color: @bgFrigateHover;
+    }
+}
+.cruiser {
+    border: 1px solid @cruiserColor;
+    background-color: @bgCruiser;
+    &:hover {
+        background-color: @bgCruiserHover;
     }
 }

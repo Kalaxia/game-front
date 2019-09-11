@@ -252,6 +252,7 @@
             "fighter": "Chasseur",
             "bomber": "Bombardier",
             "corvette": "Corvette",
+            "cruiser": "Croiseur",
             "frigate": "Frégate",
             "freighter": "Transport"
         }
