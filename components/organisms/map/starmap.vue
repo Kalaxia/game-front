@@ -69,9 +69,7 @@ export default {
     mounted() {
         document.onmousedown = this.startMapMove;
         document.onmouseup = this.stopMapMove;
-    },
-
-    updated() {
+        
         if (this.mapReady && this.centeredSystemId !== this.targetedSystemId && this.targetedSystemId !== null) {
             this.goToTargetedSystem();
         }
