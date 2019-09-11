@@ -6,7 +6,7 @@
         <section v-if="fleet.journey" class="journey">
             <journey-step :step="fleet.journey.currentStep" />
         </section>
-        <section v-else>
+        <section v-else-if="fleet.location">
             <planet-image :type="fleet.location.type" width="48" height="48" />
             <p>{{ $t('fleet.statuses.idle', { location: fleet.location.name }) }}</p>
         </section>

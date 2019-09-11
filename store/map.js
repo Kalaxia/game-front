@@ -92,8 +92,14 @@ export const mutations ={
 
     setFleet(state, fleet) {
         state.fleet = fleet;
-        if (fleet !== null) {
-            state.targetedSystemId = (fleet.location) ? fleet.location.system.id : fleet.journey.currentStep.startLocation.system.id;
+        if (fleet === null) {
+            return;
+        }
+        if (fleet.location !== null) {
+            state.targetedSystemId = fleet.location.system.id;
+        }
+        if (fleet.journey !== null && fleet.journey.currentStep !== null) {
+            state.targetedSystemId = fleet.journey.currentStep.startLocation.system.id;
         }
     },
 
@@ -121,7 +127,7 @@ export const mutations ={
         state.fleet.range = new FleetRange(range);
     },
 
-    fleetJourneySteps(state, steps) {
-        state.fleet.journey.steps = steps;
+    fleetJourney(state, journey) {
+        state.fleet.journey = journey;
     }
 };

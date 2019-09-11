@@ -2,7 +2,7 @@
     <div v-if="fleet.journey">
         
     </div>
-    <div v-else>
+    <div v-else-if="fleet.location">
         <planet-image :type="fleet.location.type" width="86" height="86" />
         <span>{{ $t('fleet.statuses.idle', { location: fleet.location.name }) }}</span>
     </div>

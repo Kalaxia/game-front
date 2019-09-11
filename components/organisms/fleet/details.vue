@@ -40,7 +40,7 @@
                     </transition-group>
                 </section>
             </div>
-            <div v-else class="journey">
+            <div v-else-if="fleet.journey" class="journey">
                 <header>
                     <h3>{{ $t('fleet.statuses.traveling') }}</h3>
                 </header>

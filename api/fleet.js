@@ -2,6 +2,7 @@ import Ship from '~/model/ship/ship';
 import ShipGroup from '~/model/ship/group';
 import Fleet from '~/model/fleet/fleet';
 import FleetRange from '~/model/fleet/range';
+import Journey from '~/model/fleet/journey';
 import Repository from '~/api/repository';
 
 export default class FleetRepository extends Repository {
@@ -89,7 +90,7 @@ export default class FleetRepository extends Repository {
         return new FleetRange(await this.call('GET', `/api/fleets/${fleet.id}/range`));
     }
 
-    sendOnJourney(fleet) {
-        return this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format());
+    async sendOnJourney(fleet) {
+        return new Journey(await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format()));
     }
 };

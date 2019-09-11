@@ -2,7 +2,7 @@
     <div>
         <minimap :map="map" />
         <starmap :map="map" :territories="territories" :playerPlanets="playerPlanets" :fleets="fleets" />
-        <journey-planer v-if="journey" />
+        <journey-planer v-if="journey" @sendFleet="onFleetDeparture()" />
     </div>
 </template>
 
@@ -106,6 +106,15 @@ export default {
     watch: {
         currentPlanet(planet) {
             this.$store.commit('map/setTargetedSystemId', planet.system.id);
+        }
+    },
+
+    methods: {
+        onFleetDeparture(fleet) {
+            console.log(this.$store.state.map.fleet);
+            this.fleets.push(this.$store.state.map.fleet);
+
+            this.$store.commit('map/setFleet', null);
         }
     }
 }

@@ -66,9 +66,9 @@ export default {
             if (this.$store.state.map.fleet.journey.steps.length === 0) {
                 return false;
             }
-            let steps;
+            let journey;
             try {
-                steps = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
+                journey = await this.$repositories.fleet.sendOnJourney(this.$store.state.map.fleet);
             } catch(err) {
                 this.$store.dispatch('user/addActionNotification', {
                     isError: true,
@@ -76,15 +76,14 @@ export default {
                 });
                 return;
             }
-            this.$store.commit('map/fleetJourneySteps', steps);
+            this.$store.commit('map/fleetJourney', journey);
             this.$store.commit('map/selectedPlanets', []);
 
             this.$store.dispatch('user/addActionNotification', {
                 isError: false,
                 content: `journey.sending_success`
             });
-
-            this.$router.push('/map');
+            this.$emit('sendFleet');
         },
 
         async addPointMap(event) {

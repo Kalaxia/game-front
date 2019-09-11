@@ -5,7 +5,7 @@
             <div id="journey-steps" v-if="journey" key="journey-steps">
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
             </div>
-            <journey-range v-if="fleet && fleet.location" key="journey-range" />
+            <journey-range v-if="fleet" key="journey-range" />
 
             <fleet-pin v-for="fleet in fleets" :key="fleet.id" :fleet="fleet" />
 
