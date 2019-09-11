@@ -79,7 +79,7 @@ export default {
 
     .line {
         position: absolute;
-        background-image: url('/images/map/line_step.png');
-        z-index:-1;
+        background-image: url('/images/picto/map/line_step.png');
+        z-index: -1;
     }
 </style>
