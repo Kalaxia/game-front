@@ -3,6 +3,12 @@
         <header>
             {{ $t('fleet.title', {fleet: fleet.id}) }}
         </header>
+        <section class="ship-summary" v-if="fleet.shipSummary">
+            <div v-for="ss in fleet.shipSummary" :key="ss.type">
+                <ship-type :type="ss.type" :color="factionColors['white']" :size="24" />
+                <span>{{ ss.nb_ships }}</span>
+            </div>
+        </section>
         <section v-if="fleet.journey" class="journey">
             <journey-step :step="fleet.journey.currentStep" />
         </section>
@@ -15,6 +21,7 @@
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
+import ShipType from '~/components/atoms/ship/type';
 import PlanetImage from '~/components/atoms/planet/image';
 import JourneyStep from '~/components/molecules/fleet/journey-step';
 import { mapGetters } from 'vuex';
@@ -27,7 +34,8 @@ export default {
     components: {
         ColoredPicto,
         PlanetImage,
-        JourneyStep
+        JourneyStep,
+        ShipType,
     },
 
     computed: {
@@ -43,7 +51,7 @@ export default {
 
     .fleet-card {
         width: 250px;
-        height: 120px;
+        height: 150px;
         padding: 10px;
         border-radius: 10px;
         border: 1px solid;
@@ -51,10 +59,24 @@ export default {
         margin: 5px;
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
 
         & > header {
             font-size: 1.2em;
             margin: 5px 0px;
+        }
+
+        & > .ship-summary {
+            margin: 5px 0px;
+            display: flex;
+            flex-wrap: wrap;
+
+            & > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 5px;
+            }
         }
 
         & > section {

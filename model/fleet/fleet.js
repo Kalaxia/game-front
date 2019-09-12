@@ -8,6 +8,7 @@ export default class Fleet {
         this.player = new Player(data.player);
         this.location = (data.location) ? new Planet(data.location) : null;
         this.journey = (data.journey !== null) ? new Journey(data.journey) : null;
+        this.shipSummary = (data.ship_summary) ? data.ship_summary : [];
         this.ships = new Array();
         this.shipGroups = new Array();
         this.range = null;
