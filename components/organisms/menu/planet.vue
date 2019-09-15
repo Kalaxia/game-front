@@ -5,6 +5,7 @@
             <population-points :planet="planet" class="module" />
             <constructing-building class="module" :building="constructingBuilding" />
             <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="currentPlanet.constructingShips" />
+            <produced-resources :planet="planet" class="module" />
         </div>
         <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />
@@ -25,6 +26,7 @@ import PlanetCoords from '~/components/atoms/planet/coords';
 import ConstructingBuilding from '~/components/molecules/menu/constructing-building';
 import ConstructingShips from '~/components/molecules/menu/constructing-ships';
 import PopulationPoints from '~/components/molecules/menu/population-points';
+import ProducedResources from '~/components/molecules/menu/produced-resources';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -46,7 +48,8 @@ export default {
         PlanetCoords,
         ConstructingBuilding,
         ConstructingShips,
-        PopulationPoints
+        PopulationPoints,
+        ProducedResources,
     },
 
     mounted() {

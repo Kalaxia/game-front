@@ -1,5 +1,5 @@
 .button {
-    background-color: black;
+    background-color: #2D2D2D;
     padding: 5px 30px 10px 30px;
     border: 2px solid white;
     border-radius: 50px;
@@ -9,6 +9,17 @@
     text-align: center;
     letter-spacing: 2px;
     cursor: pointer;
+    transition: background-color 0.2s ease-out;
+
+    &:hover {
+        background-color: black;
+    }
+
+    &.small {
+        padding: 2px 10px;
+        font-size: 0.6em;
+        border-width: 1px;
+    }
 
     & > .big {
         display: block;
