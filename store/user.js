@@ -20,6 +20,14 @@ export const mutations = {
         state.player.notifications[notification.type].push(notification);
     },
 
+    removeNotification(state, notification) {
+        const notifications = state.player.notifications[notification.type];
+        notifications.splice(notifications.indexOf(notification), 1);
+        if (notifications.length < 1) {
+            delete state.player.notifications[notification.type];
+        }
+    },
+
     addActionNotification: (state, notification) => state.actionNotifications.push(notification),
 
     removeActionNotification(state, notification) {

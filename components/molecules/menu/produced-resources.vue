@@ -68,7 +68,6 @@ export default {
         },
 
         storageLevel() {
-            console.log(this.resource, this.$resources.resources[this.resource]);
             return [{
                 color: this.$resources.resources[this.resource].color,
                 value: Math.floor(this.storedQuantity / this.planet.storage.capacity * 100)

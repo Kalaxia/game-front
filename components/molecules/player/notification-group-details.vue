@@ -1,6 +1,6 @@
 <template>
     <div class="notification-group-details" :style="{ borderColor: factionColors['white'], backgroundColor: factionColors['black'] }">
-        <notification v-for="notification in notifications"
+        <notification v-for="(notification, i) in notifications"
             :key="notification.id"
             :notification="notification"
             :style="{ borderColor: factionColors['grey'] }" />

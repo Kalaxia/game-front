@@ -19,4 +19,8 @@ export default class PlayerRepository extends Repository {
     async getCurrentPlayer() {
         return new Player(await this.call('GET', '/api/me'));
     }
+
+    deleteNotification(notification) {
+        return this.call('DELETE', `/api/me/notifications/${notification.id}`);
+    }
 };

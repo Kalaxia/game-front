@@ -9,7 +9,7 @@
                 :class="{ selected: selectedType === type }" />
         </transition-group>
         <transition appear>
-            <section class="details" v-if="selectedType">
+            <section class="details" v-if="selectedType && notifications[selectedType]">
                 <notification-group-details :notifications="notifications[selectedType]" />
             </section>
         </transition>

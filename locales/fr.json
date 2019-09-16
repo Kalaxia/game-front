@@ -56,8 +56,16 @@
             "creation_wording": "Vous pouvez créer une motion au sein de votre faction. Cette motion sera ensuite soumise au vote de l'ensemble des membres. Si elle est acceptée, alors la mesure proposée sera appliquée.",
             "currently_voting": "Une motion est déjà en cours à ce sujet",
             "list_link": "Toutes les motions",
-            "motion_results": "Une motion a été votée",
-            "new_motion": "Une motion vient d'être mise au vote",
+            "motion_results": {
+                "title": "Une motion a été votée",
+                "content": "",
+                "footer": ""
+            },
+            "new_motion": {
+                "title": "Une motion vient d'être mise au vote",
+                "content": "",
+                "footer": ""
+            },
             "rejected": "Rejetée le {date}",
             "send": "Lancer la motion",
             "success": "La motion a été créée avec succès !",
@@ -368,11 +376,28 @@
     },
     "notifications": {
         "military": {
-            "fleet_victory": "<header><h4>Victoire !</h4></header><section><p>La <span class='link' data-link='/fleets/{fleet__id}'>flotte {fleet__id}</span> a vaincu au combat une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span></p></section><footer><span class='link' data-link='/combats/{report__id}'>Voir le rapport</span></footer>",
-            "fleet_defeat": "<header><h4>Défaite !</h4></header><section><p>La flotte {fleet__id} a été vaincue au combat par une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span></p></section><footer><span class='link' data-link='/combats/{report__id}'>Voir le rapport</span></footer>"
+            "fleet_victory": {
+                "title": "Victoire !",
+                "content":"La <span class='link' data-link='/fleets/{fleet__id}'>flotte {fleet__id}</span> a vaincu au combat une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span>",
+                "footer": "<span class='link' data-link='/combats/{report__id}'>Voir le rapport</span></footer>"
+            },
+            "fleet_defeat": {
+                "title": "Défaite !",
+                "content": "La flotte {fleet__id} a été vaincue au combat par une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span>",
+                "footer": "<span class='link' data-link='/combats/{report__id}'>Voir le rapport</span>"
+            },
+            "planet_conquest": {
+                "title": "Conquête réussie !",
+                "content": "La flotte {fleet__id} a conquis la planète <span class='link' data-link='/planets/{planet__id}'>{planet__name}</span>",
+                "footer": ""
+            }
         },
         "trade": {
-            "accepted_offer": "<header><h4>Votre offre</h4></header><section><p>Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price}</p></section>"
+            "accepted_offer": {
+                "title": "Votre offre",
+                "content": "Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price}",
+                "footer": ""
+            }
         }
     },
     "player": {

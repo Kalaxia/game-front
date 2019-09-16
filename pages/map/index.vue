@@ -111,7 +111,6 @@ export default {
 
     methods: {
         onFleetDeparture(fleet) {
-            console.log(this.$store.state.map.fleet);
             this.fleets.push(this.$store.state.map.fleet);
 
             this.$store.commit('map/setFleet', null);
