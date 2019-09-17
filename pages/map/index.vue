@@ -1,8 +1,9 @@
 <template>
     <div>
         <minimap :map="map" />
-        <starmap :map="map" :territories="territories" :playerPlanets="playerPlanets" :fleets="fleets" />
+        <starmap :map="map" :territories="territories" :playerPlanets="playerPlanets" :fleets="fleets" @selectTerritory="selectedTerritory = $event" />
         <journey-planer v-if="journey" @sendFleet="onFleetDeparture()" />
+        <territory-panel v-if="selectedTerritory" :territory="selectedTerritory" @close="selectedTerritory = null" />
     </div>
 </template>
 
@@ -12,6 +13,7 @@ import Minimap from '~/components/molecules/map/minimap';
 import JourneyPlaner from '~/components/molecules/map/journey-planer';
 import JourneyStep from '~/components/molecules/map/journey-step';
 import JourneyRange from '~/components/molecules/map/journey-range';
+import TerritoryPanel from '~/components/organisms/map/territory-panel';
 
 import Journey from '~/model/fleet/journey';
 
@@ -27,12 +29,19 @@ export default {
         return { map, territories, fleets };
     },
 
+    data() {
+        return {
+            selectedTerritory: null
+        };
+    },
+
     components: {
         Starmap,
         Minimap,
         JourneyPlaner,
         JourneyStep,
-        JourneyRange
+        JourneyRange,
+        TerritoryPanel
     },
 
     beforeMount() {
@@ -143,6 +152,12 @@ export default {
         grid-row: ~"1/7";
         z-index: 3;
         .unselectable
+    }
+
+    .territory-panel {
+        grid-column: ~"8/11";
+        grid-row: ~"3/7";
+        z-index: 3;
     }
 
     .top-menu {

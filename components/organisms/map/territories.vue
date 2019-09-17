@@ -1,7 +1,7 @@
 <template>
     <div class="map-territories">
         <svg class="map-territories" :style="style">
-            <map-territory v-for="t in territories" :key="t.id" :territory="t" />
+            <map-territory v-for="t in territories" :key="t.id" :territory="t" @selectTerritory="$emit('selectTerritory', t)" />
         </svg>
         <map-capital v-for="t in territories" :territory="t" :key="`${t.id}-capital`"/>
         <template v-if="!isProd">
@@ -61,7 +61,7 @@ export default {
 
     .t-coordinates {
         position: absolute;
-        z-index: 100;
+        z-index: 2;
         width: 10px;
         height: 10px;
         border: 1px solid white;

@@ -271,6 +271,12 @@
             "map": "Retour à la carte"
         }
     },
+    "territory": {
+        "title": "Marches de {planet}",
+        "male_leader": "Dirigeant",
+        "female_leader": "Dirigeante",
+        "capital": "Capitale"
+    },
     "trade": {
         "authorized_factions": "Factions acceptées",
         "available_quantity": "%quantity% disponible",

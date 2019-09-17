@@ -1,5 +1,5 @@
 <template>
-    <polygon class="territory" :points="coordinates" :style="style" />
+    <polygon class="territory" :points="coordinates" :style="style" @click="$emit('selectTerritory', territory)" />
 </template>
 
 <script>
@@ -52,5 +52,11 @@ export default {
         fill-opacity: 0.4;
         stroke: white;
         stroke-width: 3px;
+        transition: fill-opacity 0.2s ease-out;
+        cursor: pointer;
+
+        &:hover {
+            fill-opacity: 0.6;
+        }
     }
 </style>

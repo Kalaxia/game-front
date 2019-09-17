@@ -1,7 +1,7 @@
 <template>
     <div id="starmap" :style="{ top: '20px', left: '20px' }" ref="starmap">
         <transition-group v-if="mapReady" name="system-list" tag="div">
-            <map-territories :territories="territories" key="territories" />
+            <map-territories :territories="territories" key="territories" @selectTerritory="$emit('selectTerritory', $event)" />
             <div id="journey-steps" v-if="journey" key="journey-steps">
                 <journey-step v-for="step in journey.steps" :key="step.id" :step="step" />
             </div>
