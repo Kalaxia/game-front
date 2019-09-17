@@ -1,6 +1,7 @@
 <template>
     <div class="territory-panel" :style="{ borderColor: factionColors['grey'], backgroundColor: factionColors['black'] }">
         <header>
+            <faction-banner :faction="territory.planet.player.faction" :width="48" :height="56" />
             <h3>{{ $t('territory.title', { planet: territory.planet.name }) }}</h3>
             <colored-picto src="close_cross.svg" :color="factionColors['grey']" :width="32" :height="32" @click.native="$emit('close')" />
         </header>
@@ -22,6 +23,7 @@
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
+import FactionBanner from '~/components/atoms/faction/banner';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlayerLink from '~/components/atoms/player/link';
 import { mapGetters } from 'vuex';
@@ -33,6 +35,7 @@ export default {
 
     components: {
         ColoredPicto,
+        FactionBanner,
         PlanetImage,
         PlayerLink
     },
@@ -47,6 +50,7 @@ export default {
 
 <style lang="less" scoped>
     .territory-panel {
+        position: relative;
         border: 2px solid;
         border-radius: 10px;
         margin-right: 15px;
@@ -56,6 +60,15 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            & > .faction-banner {
+                position: absolute;
+                top: 0px;
+            }
+
+            & > h3 {
+                padding-left: 60px;
+            }
         }
 
         & > section {
