@@ -31,7 +31,7 @@
             <section>
                 <div class="ship-indicator">
                     <span>{{ nbShips }}</span>
-                    <img :src="`/images/shipyard/frame/${model.frame.picture}`" :alt="model.name" />
+                    <ship-type :type="model.type" color="white" size="48" />
                 </div>
                 <colored-picto src="G_Pc_DblArr.png" color="white" :width="54" :height="22" />
                 <div class="ship-cost">
@@ -52,6 +52,7 @@
 
 <script>
 import ShipStat from '~/components/atoms/ship/stat';
+import ShipType from '~/components/atoms/ship/type';
 import ResourcePrice from '~/components/molecules/resource/price-gauge';
 import ResourcePicto from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
@@ -72,6 +73,7 @@ export default {
 
     components: {
         ShipStat,
+        ShipType,
         ResourcePrice,
         ResourcePicto,
         ColoredPicto,
@@ -219,6 +221,10 @@ export default {
                     align-items: center;
                     font-size: 2em;
                     font-weight: bold;
+
+                    & > .picto {
+                        margin-left: 5px;
+                    }
                 }
 
                 & > .ship-cost {
