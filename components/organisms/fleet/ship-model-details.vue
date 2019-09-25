@@ -8,11 +8,21 @@
                 <img :src="`/images/shipyard/frame/${model.frame.picture}`" :alt="model.name" />
             </section>
             <footer>
-                <ship-stat v-for="stat in ['armor', 'speed']" :key="`model-details-stat-${stat}`" :stat="stat" :frameStat="frameStat(stat)" :finalStat="model.stats[stat]" />
+                <template v-for="stat in ['armor', 'speed', 'size', 'power']">
+                    <ship-stat v-if="model.stats[stat] > 0"
+                        :key="`model-details-stat-${stat}`"
+                        :stat="stat" :frameStat="frameStat(stat)"
+                        :finalStat="model.stats[stat]" />
+                </template>
             </footer>
         </div>
         <div>
             <header>
+                <div class="modules">
+                    <div v-for="(slot, index) in model.slots" :key="`slot-recap-${index}`">
+                        <slot-recap v-if="slot.module" :shipSlot="slot" />
+                    </div>
+                </div>
                 <resource-price v-for="(price, index) in resourcePrices" :key="`price-resource-${index}`" :price="price" :coeff="nbShips" />
                 <template v-for="(price, index) in model.price">
                     <div v-if="price.type !== 'resource'" :key="`price-${index}`" class="price">
@@ -53,6 +63,7 @@
 <script>
 import ShipStat from '~/components/atoms/ship/stat';
 import ShipType from '~/components/atoms/ship/type';
+import SlotRecap from '~/components/molecules/fleet/slot-recap';
 import ResourcePrice from '~/components/molecules/resource/price-gauge';
 import ResourcePicto from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
@@ -74,6 +85,7 @@ export default {
     components: {
         ShipStat,
         ShipType,
+        SlotRecap,
         ResourcePrice,
         ResourcePicto,
         ColoredPicto,
@@ -168,6 +180,14 @@ export default {
             flex-grow: 1;
 
             & > header {
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+
+                & > .modules {
+                    overflow-y: auto;
+                }
+
                 & > .price {
                     display: flex;
                     align-items: center;

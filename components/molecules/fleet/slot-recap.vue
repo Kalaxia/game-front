@@ -1,19 +1,28 @@
 <template>
     <div :class="['slot-recap', { selected: isSelected }]">
-        <slot-shape :shipSlot="{ size: 'small', shape: shipSlot.module.shape }" :fill="true" />
-        <div class="stats">
-            <div v-for="(value, stat) in shipSlot.module.stats" :key="`model-recap-${shipSlot.module.slug}-${value}`">
-                <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
-                <stat-picto :stat="stat" :color="pictoColor(value)" size="22" />
+        <header>
+            <h5>{{ $t(`ships.modules.${shipSlot.module.slug}.name`) }}</h5>
+        </header>
+        <section>
+            <slot-shape :shipSlot="{ size: 'small', shape: shipSlot.module.shape }" :fill="true" />
+            <div class="stats">
+                <div v-for="(value, stat) in shipSlot.module.stats" :key="`model-recap-${shipSlot.module.slug}-${value}`">
+                    <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
+                    <stat-picto :stat="stat" :color="pictoColor(value)" size="22" />
+                </div>
+                <div v-for="(value, stat) in shipSlot.module.ship_stats" :key="`model-recap-${shipSlot.module.slug}-${value}`">
+                    <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
+                    <stat-picto :stat="stat" :color="pictoColor(value)" size="22" />
+                </div>
             </div>
-        </div>
-        <div class="price">
-            <div v-for="(price, index) in shipSlot.module.price" :key="`price-recap-${index}`">
-                <span>{{ price.amount }}</span>
-                <resource-item v-if="price.resource" :resource="{ name: price.resource }" width="22px" />
-                <colored-picto v-else :src="pricePicto(price)" color="white" width="22" height="22" />
+            <div class="price">
+                <div v-for="(price, index) in shipSlot.module.price" :key="`price-recap-${index}`">
+                    <span>{{ price.amount }}</span>
+                    <resource-item v-if="price.resource" :resource="{ name: price.resource }" width="22px" />
+                    <colored-picto v-else :src="pricePicto(price)" color="white" width="22" height="22" />
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 
@@ -49,42 +58,53 @@ export default {
 
 <style lang="less" scoped>
     .slot-recap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding: 10px;
         border-top: #242424 1px solid;
         border-bottom: #242424 1px solid;
 
-        & > .slot-shape {
-            width: 24px !important;
-            height: 24px !important;
+        & > header {
+            & > h5 {
+                margin: 0px;
+            }
         }
 
-        & > .stats {
-            & > div {
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                margin: 2px 0px;
+        & > section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-                & > span {
-                    margin-right: 5px;
+            & > .slot-shape {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            & > .stats {
+                & > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    margin: 2px 0px;
+
+                    & > span {
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            & > .price {
+                & > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    margin: 2px 0px;
+
+                    & > span {
+                        margin-right: 5px;
+                    }
                 }
             }
         }
 
-        & > .price {
-            & > div {
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                margin: 2px 0px;
-
-                & > span {
-                    margin-right: 5px;
-                }
-            }
-        }
+        
     }
 </style>

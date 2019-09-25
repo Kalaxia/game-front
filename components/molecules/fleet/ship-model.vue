@@ -67,7 +67,7 @@ export default {
         modelStats(model) {
             const stats = {};
             for (const stat in model.stats) {
-                if (stat === 'armor' || stat === 'speed' || stat === 'size') {
+                if (stat === 'armor' || stat === 'speed' || stat === 'size' || stat === 'power') {
                     stats[stat] = model.stats[stat];
                 }
             }

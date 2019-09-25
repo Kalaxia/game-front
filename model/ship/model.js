@@ -7,6 +7,7 @@ class ShipModel {
         this.slots = data.slots;
         this.stats = data.stats;
         this.price = data.price;
+        this.module = data.module;
     }
 
     format() {

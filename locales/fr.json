@@ -253,7 +253,7 @@
             "nb_shots": "Cadence",
             "damage": "Dégâts",
             "precision": "Précision",
-            "power": "Puissance"
+            "power": "Boucliers"
         },
         "type" : "Classe",
         "types": {

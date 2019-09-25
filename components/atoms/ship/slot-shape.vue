@@ -15,7 +15,7 @@ export default {
     computed: {
         shapeStyle() {
             return {
-                backgroundColor: (this.fill) ? 'white' : this.$store.state.user.player.faction.colors['main'] + `A0`
+                backgroundColor: (this.fill) ? 'grey' : this.$store.state.user.player.faction.colors['main'] + `A0`
             };
         }
     }
@@ -31,10 +31,10 @@ export default {
         }
 
         &.fill {
-            background-color: white !important;
+            background-color: grey !important;
 
             & > .slot-shape-content {
-                background-color: white;
+                background-color: grey;
             }
         }
 
