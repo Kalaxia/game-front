@@ -7,12 +7,12 @@
             <span v-if="modularStat !== 0">{{ modularStat }}</span>
         </span>
         <strong>{{ finalStat }}</strong>
-        <colored-picto color="white" :src="picto(stat)" :width="32" :height="32"/>
+        <stat-picto color="white" :stat="stat" :size="32" />
     </p>
 </template>
 
 <script>
-import ColoredPicto from '../colored-picto';
+import StatPicto from '~/components/atoms/ship/stat-picto';
 
 export default {
     name: 'ship-stat',
@@ -20,7 +20,7 @@ export default {
     props: ['stat', 'frameStat', 'finalStat'],
 
     components: {
-        ColoredPicto
+        StatPicto
     },
 
     computed: {
@@ -28,15 +28,6 @@ export default {
             return this.finalStat - this.frameStat;
         }
     },
-
-    methods: {
-        picto(stat) {
-            return {
-                armor: 'ships/Plating.png',
-                speed: 'ships/Dodge.png'
-            }[stat];
-        }
-    }
 }
 </script>
 

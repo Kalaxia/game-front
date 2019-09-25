@@ -4,7 +4,7 @@
         <div class="stats">
             <div v-for="(value, stat) in shipSlot.module.stats" :key="`model-recap-${shipSlot.module.slug}-${value}`">
                 <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
-                <colored-picto :src="statPicto(stat)" :color="pictoColor(value)" width="22" height="22" />
+                <stat-picto :stat="stat" :color="pictoColor(value)" size="22" />
             </div>
         </div>
         <div class="price">
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import StatPicto from '~/components/atoms/ship/stat-picto';
 import SlotShape from '~/components/atoms/ship/slot-shape';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import ResourceItem from '~/components/atoms/resource/item';
@@ -29,28 +30,14 @@ export default {
     
     components: {
         SlotShape,
+        StatPicto,
         ColoredPicto,
         ResourceItem
     },
 
     methods: {
-        statPicto(stat) {
-            return {
-                damage: 'ships/Attack.svg',
-                precision: 'ships/Precision.svg',
-                nb_shots: 'ships/Multiple-shots.svg',
-                armor: 'ships/Plating.svg',
-                speed: 'ships/Dodge.svg',
-                size: 'ships/Weight.svg',
-                power: 'ships/Shield.svg'
-            }[stat];
-        },
-
         pricePicto(price) {
-            if (price.type === 'credits') {
-                return 'G_P_Mon_64px.png';
-            }
-            return 'Pc_GenieMilitaire.png';
+            return (price.type === 'credits') ? 'G_P_Mon_64px.png' : 'Pc_GenieMilitaire.png';
         },
 
         pictoColor(stat) {

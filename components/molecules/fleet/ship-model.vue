@@ -9,7 +9,7 @@
             <section>
                 <div class="stats">
                     <div v-for="(value, stat) in modelStats(model)" :key="`model-${model.id}-${stat}`">
-                        <colored-picto :src="statPicto(stat)" :color="pictoColor" width="18" height="18" />
+                        <stat-picto :stat="stat" :color="pictoColor" size="18" />
                         <span>{{ value }}</span>
                     </div>
                 </div>
@@ -28,6 +28,7 @@
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
 import ShipType from '~/components/atoms/ship/type';
+import StatPicto from '~/components/atoms/ship/stat-picto';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import { mapGetters } from 'vuex';
 
@@ -37,6 +38,7 @@ export default {
     props: ['model', 'isSelected'],
 
     components: {
+        StatPicto,
         ColoredPicto,
         ResourceItem,
         ShipType
@@ -70,13 +72,6 @@ export default {
                 }
             }
             return stats;
-        },
-
-        statPicto(stat) {
-            return {
-                armor: 'ships/Plating.svg',
-                speed: 'ships/Dodge.svg'
-            }[stat];
         },
 
         pricePicto(price) {

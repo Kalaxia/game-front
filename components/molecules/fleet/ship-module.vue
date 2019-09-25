@@ -8,7 +8,7 @@
             <div class="stats">
                 <div v-for="(value, stat) in module.stats" :key="`model-${module.slug}-${stat}`">
                     <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
-                    <colored-picto :src="statPicto(stat)" :color="pictoColor(value)" width="18" height="18" />
+                    <stat-picto :stat="stat" :color="pictoColor(value)" size="18" />
                 </div>
             </div>
             <div class="price">
@@ -25,6 +25,7 @@
 <script>
 import ResourceItem from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
+import StatPicto from '~/components/atoms/ship/stat-picto';
 import SlotShape from '~/components/atoms/ship/slot-shape';
 
 export default {
@@ -34,6 +35,7 @@ export default {
 
     components: {
         SlotShape,
+        StatPicto,
         ColoredPicto,
         ResourceItem
     },
@@ -45,18 +47,6 @@ export default {
     },
 
     methods: {
-        statPicto(stat) {
-            return {
-                damage: 'ships/Attack.svg',
-                precision: 'ships/Precision.svg',
-                nb_shots: 'ships/Multiple-shots.svg',
-                armor: 'ships/Plating.svg',
-                speed: 'ships/Dodge.svg',
-                size: 'ships/Weight.svg',
-                power: 'ships/Shield.svg'
-            }[stat];
-        },
-
         pictoColor(stat) {
             return (stat < 0) ? '#E72367' : '#68BA82'
         },
