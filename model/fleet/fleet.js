@@ -11,6 +11,7 @@ export default class Fleet {
         this.shipSummary = (data.ship_summary) ? data.ship_summary : [];
         this.ships = new Array();
         this.shipGroups = new Array();
+        this.squadrons = new Array();
         this.range = null;
         this.map_pos_x = data.map_pos_x;
         this.map_pos_y = data.map_pos_y;

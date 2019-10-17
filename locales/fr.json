@@ -139,7 +139,7 @@
             "rocky": "Planète rocheuse",
             "volcanic": "Planète volcanique"
         },
-        "hangar" : "Hangar de %planet%",
+        "hangar" : "Hangar de {planet}",
         "storage": {
             "name" : "Stockage",
             "capacity" : "Capacité de stockage",
@@ -340,10 +340,10 @@
         "yourself": "Vous"
     },
     "fleet" :{
-        "own_fleets": "Flottes sous votre commandement",
+        "own_fleets": "Flottes",
         "not_found": "Cette flotte n'existe pas",
         "no_fleet": "Vous n'avez pas de flottes",
-        "create": "Créer une nouvelle flotte sur {planet}",
+        "create": "Créer flotte",
         "title": "Flotte {fleet}",
         "fleet_ships": "Vaisseaux dans la flotte",
         "hangar_ships": "Vaisseaux dans le hangar",

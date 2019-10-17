@@ -2,12 +2,13 @@
     <div class="planet" :style="{ borderColor: planet.player.faction.colors['main'] }">
         <planet-image :id="planet.id" :type="planet.type" width="96" height="96" @click.native="goToPlanet" />
         <h3>{{ planet.name }}</h3>
-        <production-link v-if="isCurrentPlayerPlanet" :planet="planet" />
+        <div v-if="isCurrentPlayerPlanet" class="button" @click="goToPlanetFleets()" :style="{ color: factionColors['main'] }">
+            Flottes
+        </div>
     </div>
 </template>
 
 <script>
-import ProductionLink from '~/components/atoms/resource/production-link';
 import PlanetImage from '~/components/atoms/planet/image';
 import { mapGetters } from 'vuex';
 
@@ -17,12 +18,12 @@ export default {
     props: ['planet'],
 
     components: {
-        ProductionLink,
         PlanetImage
     },
 
     computed: {
         ...mapGetters({
+            factionColors: 'user/factionColors',
             currentPlayer: 'user/currentPlayer'
         }),
 
@@ -37,12 +38,20 @@ export default {
                 await this.$store.dispatch('user/setCurrentPlanet', this.planet);
             }
             this.$router.push(`/planet/${this.planet.id}`);
+        },
+
+        async goToPlanetFleets() {
+            await this.$store.dispatch('user/setCurrentPlanet', this.planet);
+
+            this.$router.push(`/planet/${this.planet.id}/fleets`);
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+    @import '~less/atoms/button.less';
+
     .planet {
         display: flex;
         flex-direction: column;

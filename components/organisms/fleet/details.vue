@@ -26,28 +26,6 @@
                     </transition-group>
                 </section>
             </div>
-
-            <div class="ship-groups" v-if="fleet.location">
-                <header>
-                    <h3>{{ $t('fleet.hangar_ships') }}</h3>
-                </header>
-                <section>
-                    <transition-group name="list-complete" tag="div">
-                        <ship-group v-for="group in fleet.location.shipGroups"
-                            :group="group"
-                            :key="group.id"
-                            @click.native="transferShips(group, 1, $event);" />
-                    </transition-group>
-                </section>
-            </div>
-            <div v-else-if="fleet.journey" class="journey">
-                <header>
-                    <h3>{{ $t('fleet.statuses.traveling') }}</h3>
-                </header>
-                <section>
-                    <journey-step v-for="step in fleet.journey.steps" :key="step.id" :step="step" />
-                </section>
-            </div>
         </section>
     </div>
 </template>
@@ -68,6 +46,9 @@ export default {
         fleet: {
             required: true,
             validator: prop => prop instanceof Fleet || prop === null
+        },
+        fleets: {
+            required: true
         }
     },
 
@@ -86,10 +67,7 @@ export default {
     },
 
     mounted() {
-        this.$repositories.fleet.getFleetShipGroups(this.fleet);
-        if (this.fleet.location !== null) {
-            this.$repositories.planet.getHangarShipGroups(this.fleet.location);
-        }
+        this.$repositories.fleet.getSquadrons(this.fleet);
     },
 
     computed: {

@@ -11,9 +11,9 @@ export default class ShipRepository extends Repository
     }
 
     async getCurrentlyConstructingShips(planetId) {
-        const data = await this.call('GET', `/api/planets/${planetId}/ships/currently-constructing`);
+        const ships = await this.getConstructingShips(planetId);
         
-        return (data.model !== null) ? new ShipConstructionGroup(data): null;
+        return (ships.length > 0) ? ships[0]: null;
     }
 
     async getConstructingShips(planetId) {

@@ -1,7 +1,10 @@
 <template>
-    <nuxt-link class="fleet-card" :to="`/fleets/${fleet.id}`" :style="{ borderColor: factionColors['grey'], color: factionColors['white'] }">
+    <div class="fleet-card" :style="{ borderColor: factionColors['grey'], color: factionColors['white'] }">
         <header>
-            {{ $t('fleet.title', {fleet: fleet.id}) }}
+            <h5>
+                <colored-picto src="ships/Fleet.svg" :color="factionColors['white']" :width="28" :height="28" />
+                {{ $t('fleet.title', {fleet: fleet.id}) }}
+            </h5>
         </header>
         <section class="ship-summary" v-if="fleet.shipSummary">
             <div v-for="ss in fleet.shipSummary" :key="ss.type">
@@ -9,14 +12,7 @@
                 <span>{{ ss.nb_ships }}</span>
             </div>
         </section>
-        <section v-if="fleet.journey" class="journey">
-            <journey-step :step="fleet.journey.currentStep" />
-        </section>
-        <section v-else-if="fleet.location">
-            <planet-image :type="fleet.location.type" width="48" height="48" />
-            <p>{{ $t('fleet.statuses.idle', { location: fleet.location.name }) }}</p>
-        </section>
-    </nuxt-link>
+    </div>
 </template>
 
 <script>
@@ -50,8 +46,6 @@ export default {
     @import '~less/atoms/box.less';
 
     .fleet-card {
-        width: 250px;
-        height: 150px;
         padding: 10px;
         border-radius: 10px;
         border: 1px solid;
@@ -64,6 +58,15 @@ export default {
         & > header {
             font-size: 1.2em;
             margin: 5px 0px;
+            
+            & > h5 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0px;
+                font-weight: normal;
+                font-variant: small-caps;
+            }
         }
 
         & > .ship-summary {
