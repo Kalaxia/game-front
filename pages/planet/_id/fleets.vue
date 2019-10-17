@@ -22,6 +22,8 @@
         <fleet-details v-else
             :fleets="fleets"
             :fleet="selectedFleet"
+            :selectedPosition="selectedPosition"
+            @selectPosition="selectPosition($event)"
             @selectFleet="selectedFleet = $event" />
     </div>
 </template>
@@ -152,18 +154,18 @@ export default {
 
 <style lang="less" scoped>
     #hangar-details {
-        grid-column: ~"2/5";
+        grid-column: ~"2/4";
         grid-row: ~"2/9";
     }
 
     #fleet-composition {
-        grid-column: ~"5/8";
+        grid-column: ~"4/7";
         grid-row: ~"2/9"
     }
 
     #fleet-details,
     #fleets-list {
-        grid-column: ~"8/11";
+        grid-column: ~"7/10";
         grid-row: ~"2/9";
     }
 </style>

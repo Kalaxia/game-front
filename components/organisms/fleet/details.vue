@@ -1,5 +1,5 @@
 <template>
-    <div id="fleet-details">
+    <div id="fleet-details" :style="{ borderColor: factionColors['grey'] }">
         <header>
             <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
             <div class="toolbar">
@@ -11,19 +11,24 @@
             </div>
         </header>
         <section>
-            <fleet-data :fleet="fleet" />
-
-            <div class="ship-groups">
+            <div v-for="(g, t) in squadronGroups" :key="`group-${t}`" :style="{ borderColor: factionColors['white'] }">
                 <header>
-                    <h3>{{ $t('fleet.fleet_ships') }}</h3>
+                    <ship-type :type="t" :color="factionColors['white']" :size="36" />
+                    <span>
+                        x{{ g.quantity }}
+                    </span>
                 </header>
+
                 <section>
-                    <transition-group name="list-complete" tag="div">
-                        <ship-group v-for="group in fleet.shipGroups"
-                            :group="group"
-                            :key="group.id"
-                            @click.native="transferShips(group, -1, $event);" />
-                    </transition-group>
+                    <div v-for="(s, i) in g.squadrons"
+                        :key="`squadron-${t}-${i}`"
+                        :style="{ borderColor: factionColors[(isSelected(s) ? 'main' : 'grey')] }"
+                        @click="selectPosition(s)">
+                        <h6>{{ s.shipModel.name }}</h6>
+                        <span class="quantity">x{{ s.quantity }}</span>
+                        <gauge :levels="gaugeLevels(g, s)" :background="factionColors['black']" />
+                        <span class="percent">{{ Math.floor((s.quantity / g.quantity) * 100) }}%</span>
+                    </div>
                 </section>
             </div>
         </section>
@@ -31,26 +36,20 @@
 </template>
 
 <script>
+import Gauge from '~/components/atoms/gauge';
 import JourneyStep from '~/components/molecules/fleet/journey-step';
 import OrderPicto from '~/components/atoms/fleet/order-picto';
 import PlanetImage from '~/components/atoms/planet/image';
 import Fleet from '~/model/fleet/fleet';
 import FleetData from '~/components/molecules/fleet/data';
 import ShipGroup from '~/components/molecules/ship/group';
+import ShipType from '~/components/atoms/ship/type';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'fleet-details',
 
-    props: {
-        fleet: {
-            required: true,
-            validator: prop => prop instanceof Fleet || prop === null
-        },
-        fleets: {
-            required: true
-        }
-    },
+    props: ['fleets', 'fleet', 'selectedPosition'],
 
     data() {
         return {
@@ -59,11 +58,13 @@ export default {
     },
 
     components: {
+        Gauge,
         JourneyStep,
         OrderPicto,
         FleetData,
         PlanetImage,
-        ShipGroup
+        ShipGroup,
+        ShipType,
     },
 
     mounted() {
@@ -74,7 +75,21 @@ export default {
         ...mapGetters({
             factionColors: 'user/factionColors',
             currentPlayer: 'user/currentPlayer'
-        })
+        }),
+
+        squadronGroups() {
+            return this.fleet.squadrons.reduce((acc, v) => {
+                if (typeof acc[v.shipModel.type] === 'undefined') {
+                    acc[v.shipModel.type] = {
+                        squadrons: [],
+                        quantity: 0
+                    };
+                }
+                acc[v.shipModel.type].squadrons.push(v);
+                acc[v.shipModel.type].quantity += v.quantity;
+                return acc;
+            }, {});
+        }
     },
 
     methods: {
@@ -96,6 +111,25 @@ export default {
                 quantity *= 5;
             }
             this.$repositories.fleet.transferShips(this.fleet, shipGroup, quantity);
+        },
+
+        isSelected(squadron) {
+            return this.selectedPosition !== null && squadron.position.x === this.selectedPosition.x && squadron.position.y === this.selectedPosition.y;
+        },
+
+        gaugeLevels(group, squadron) {
+            return [
+                {
+                    value: (squadron.quantity / group.quantity) * 100,
+                    color: this.factionColors['main']
+                }
+            ];
+        },
+
+        selectPosition(squadron) {
+            if (squadron.position !== this.selectedPosition) {
+                this.$emit('selectPosition', squadron.position);
+            }
         }
     }
 }
@@ -104,56 +138,83 @@ export default {
 <style lang="less" scoped>
     @import '~less/atoms/button.less';
 
-    #fleet-details > header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    #fleet-details {
+        border: 2px solid;
+        border-radius: 10px;
+        padding: 10px 20px;
 
-        & > h3 {
-            margin-top: 0px;
+        & > header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & > h3 {
+                margin-top: 0px;
+            }
         }
-    }
-
-    .toolbar {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .ship-groups > section > div {
-        display: flex;
-        flex-wrap: wrap;
-
-        & > div {
-            margin: 5px;
-        }
-    }
-
-    .ship-group {
-        transition: all 1s;
-        display: inline-block;
-        margin-right: 10px;
-    }
-    .list-complete-enter, .list-complete-leave-to {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    .list-complete-leave-active {
-        position: absolute;
-    }
-
-
-    .journey {
 
         & > section {
             display: flex;
-            overflow-x: auto;
+            align-items: stretch;
+            overflow: auto;
 
-            & > .journey-step {
-                padding: 10px 20px;
-                border: 1px solid;
-                border-radius: 10px;
-                margin: 10px;
+            & > div {
+                width: 80px;
+                padding: 5px 10px;
+                border-right: 1px solid;
+
+                & > header {
+                    display: flex;
+                    align-items: center;
+
+                    & > .picto {
+                        margin-right: 5px;
+                    }
+                }
+
+                & > section {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 10px;
+
+                    & > div {
+                        width: 90%;
+                        margin: 5px 0px;
+                        padding: 5px;
+                        border: 1px solid;
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        & > h6 {
+                            margin: 0px;
+                            font-size: 0.5em;
+                        }
+
+                        & > .quantity {
+                            padding: 5px 0px;
+                            font-weight: bold;
+                            font-size: 0.8em;
+                        }
+
+                        & > .gauge {
+                            width: 90%;
+                            height: 4px;
+                        }
+
+                        & > .percent {
+                            padding-top: 10px;
+                            font-weight: bold;
+                            font-size: 0.7em;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
             }
         }
     }

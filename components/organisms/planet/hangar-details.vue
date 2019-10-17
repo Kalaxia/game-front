@@ -1,5 +1,5 @@
 <template>
-    <div id="hangar-details" :style="{ borderColor: factionColors['grey'], backgroundColor: factionColors['black'] }">
+    <div id="hangar-details" :style="{ borderColor: factionColors['grey'], }">
         <header>
             <h3>
                 {{ $t('planet.hangar', { planet: currentPlanet.name }) }}
