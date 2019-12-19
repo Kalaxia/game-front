@@ -11,7 +11,7 @@ class Faction {
         this.relations = data.relations;
         this.members = new Array();
         this.settings = {};
-        if (data.settings !== null) {
+        if (data.settings) {
             this.initSettings(data.settings);
         }
     }

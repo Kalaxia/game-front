@@ -1,6 +1,7 @@
 import FleetRange from '~/model/fleet/range';
 
 export const state = () => ({
+    isDragging: false,
     targetedSystemId: null,
     selectedPlanets: [],
     fleet: null,
@@ -23,10 +24,10 @@ export const getters = {
         const lastStep = getters.lastStep;
 
         return (lastStep !== null)
-            ? lastStep.endX
-            : (state.fleet.location !== null)
-                ? state.fleet.location.system.x
-                : state.fleet.map_pos_x;
+            ? lastStep.endPlace.coordinates.x
+            : (state.fleet.place.planet !== null)
+                ? state.fleet.place.planet.system.x
+                : state.fleet.place.coordinates.x;
     },
     
     previousY(state, getters) {
@@ -36,10 +37,10 @@ export const getters = {
         const lastStep = getters.lastStep;
 
         return (lastStep !== null)
-            ? lastStep.endY
-            : (state.fleet.location !== null)
-                ? state.fleet.location.system.y
-                : state.fleet.map_pos_y;
+            ? lastStep.endPlace.coordinates.y
+            : (state.fleet.place.planet !== null)
+                ? state.fleet.place.planet.system.y
+                : state.fleet.place.coordinates.y;
     },
     
     previousPlanet(state, getters) {
@@ -49,9 +50,9 @@ export const getters = {
         const lastStep = getters.lastStep;
         
         return (lastStep !== null)
-            ? lastStep.endLocation
-            : (state.fleet.location !== null)
-                ? state.fleet.location
+            ? (lastStep.endPlace.planet) ? lastStep.endPlace.planet : null
+            : (state.fleet.place.planet !== null)
+                ? state.fleet.place.planet
                 : null;
     },
 
@@ -77,7 +78,11 @@ export const getters = {
     fleet: state => state.fleet,
 };
 
-export const mutations ={
+export const mutations = {
+    drag(state, isDragging) {
+        state.isDragging = isDragging;
+    },
+
     setScale(state, scale) {
         state.scale = scale;
     },
@@ -95,18 +100,18 @@ export const mutations ={
         if (fleet === null) {
             return;
         }
-        if (fleet.location !== null) {
-            state.targetedSystemId = fleet.location.system.id;
+        if (fleet.place !== null && fleet.place.planet !== null) {
+            state.targetedSystemId = fleet.place.planet.system.id;
         }
-        if (fleet.journey !== null && fleet.journey.currentStep !== null) {
-            state.targetedSystemId = fleet.journey.currentStep.startLocation.system.id;
+        if (fleet.journey !== null && fleet.journey.currentStep !== null && fleet.journey.currentStep.startPlace.planet !== null) {
+            state.targetedSystemId = fleet.journey.currentStep.startPlace.planet.system.id;
         }
     },
 
     addStep(state, step) {
         state.fleet.journey.steps.push(step);
-        if (step.endLocation !== null) {
-            state.selectedPlanets.push(step.endLocation.id);
+        if (step.endPlace.planet !== null) {
+            state.selectedPlanets.push(step.endPlace.planet.id);
         }
     },
 

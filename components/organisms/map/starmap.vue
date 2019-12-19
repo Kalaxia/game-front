@@ -192,6 +192,9 @@ export default {
             if (!e) {
                 e = window.event;
             }
+            if (this.$store.state.map.isDragging === false) {
+                this.$store.commit('map/drag', true);
+            }
             const map = this.$refs.starmap;
 
             map.style.left = dragData.coordX + (e.clientX - dragData.offsetX) + 'px';

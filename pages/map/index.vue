@@ -1,9 +1,19 @@
 <template>
     <div>
         <minimap :map="map" />
-        <starmap :map="map" :territories="territories" :playerPlanets="playerPlanets" :fleets="fleets" @selectTerritory="selectedTerritory = $event" />
-        <journey-planer v-if="journey" @sendFleet="onFleetDeparture()" />
-        <territory-panel v-if="selectedTerritory" :territory="selectedTerritory" @close="selectedTerritory = null" />
+        
+        <starmap :map="map"
+            :territories="territories"
+            :playerPlanets="playerPlanets"
+            :fleets="fleets"
+            @selectTerritory="selectedTerritory = $event" />
+
+        <journey-planer v-if="journey"
+            @sendFleet="onFleetDeparture()" />
+
+        <territory-panel v-if="selectedTerritory"
+            :territory="selectedTerritory"
+            @close="selectedTerritory = null" />
     </div>
 </template>
 

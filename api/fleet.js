@@ -90,7 +90,7 @@ export default class FleetRepository extends Repository {
         });
 
         fleet.updateShipGroups(shipGroup, data.quantity);
-        fleet.location.updateShipGroups(shipGroup, -data.quantity);
+        fleet.place.planet.updateShipGroups(shipGroup, -data.quantity);
     }
 
     async createSquadron(fleet, modelId, position, quantity) {
