@@ -1,31 +1,31 @@
 <template>
     <div id="report-details">
-        <party :party="report.attacker" :ships="report.attackerShips" :losses="report.attackerLosses" />
         <div class="data">
             <colored-picto :src="isVictory ? 'Victory.svg' : 'Defeat.svg'" :width="64" :height="64" :color="factionColors['main']" />
         </div>
-        <party :party="report.defender" :ships="report.defenderShips" :losses="report.defenderLosses" />
+        <planet-summary :planet="report.place.planet" :reverse="true" />
     </div>
 </template>
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto'
 import Party from '~/components/molecules/combat-report/party';
+import PlanetSummary from '~/components/molecules/planet/summary';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'combat-report-details',
 
-    props: ['report'],
-
     components: {
         ColoredPicto,
-        Party
+        Party,
+        PlanetSummary
     },
 
     computed: {
         ...mapGetters({
             currentPlayer: 'user/currentPlayer',
+            report: 'combat/currentCombat',
             factionColors: 'user/factionColors'
         }),
 
@@ -43,7 +43,8 @@ export default {
 <style lang="less" scoped>
     #report-details {
         display: flex;
-        align-items: stretch;
+        flex-direction: column;
+        align-items: center;
         justify-content: space-between;
 
         & > .data {

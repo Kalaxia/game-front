@@ -1,7 +1,12 @@
 {
     "alerts": {
         "not_implemented": "Cette fonctionnalité n'est pas encore implémentée.",
-        "not_enough_money": "Vous n'avez pas assez d'argent"
+        "not_enough_money": "Vous n'avez pas assez d'argent",
+        "combat_start": {
+            "title": "Un combat est en cours",
+            "content": "La flotte {attacker__id} est au combat avec la flotte {defender__id}",
+            "footer": "<span class='link' data-link='/combats/{id}'>Voir le combat</span>"
+        }
     },
     "buildings": {
         "area": "Emplacement disponible",
@@ -340,7 +345,10 @@
         "yourself": "Vous"
     },
     "fleet" :{
-        "own_fleets": "Flottes",
+        "all_fleets": "Toutes les flottes",
+        "orbiting_fleets": "Flottes en orbite",
+        "coming_fleets": "Flottes en approche",
+        "leaving_fleets": "Flottes en mission",
         "not_found": "Cette flotte n'existe pas",
         "no_fleet": "Vous n'avez pas de flottes",
         "create": "Créer flotte",
@@ -395,6 +403,11 @@
             "planet_conquest": {
                 "title": "Conquête réussie !",
                 "content": "La flotte {fleet__id} a conquis la planète <span class='link' data-link='/planets/{planet__id}'>{planet__name}</span>",
+                "footer": ""
+            },
+            "planet_conquerred": {
+                "title": "Planète perdue !",
+                "content": "La flotte {fleet__id} a conquis votre planète <span class='link' data-link='/planets/{planet__id}'>{planet__name}</span>",
                 "footer": ""
             }
         },

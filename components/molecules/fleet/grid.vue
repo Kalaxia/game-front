@@ -5,8 +5,11 @@
                 :key="`position-${x}-${y}`"
                 :x="x"
                 :y="y"
+                :angle="angle"
                 :squadron="getSquadron(x, y)"
+                :colors="fleet.player.faction.colors"
                 :isSelected="selectedPosition && x === selectedPosition.x && y === selectedPosition.y"
+                :currentAction="currentAction"
                 @click.native="$emit('selectPosition', { x, y })" />
         </div>
     </div>
@@ -18,7 +21,7 @@ import FleetPosition from '~/components/atoms/fleet/position';
 export default {
     name: 'fleet-grid',
     
-    props: ['fleet', 'selectedPosition'],
+    props: ['fleet', 'selectedPosition', 'currentAction', 'angle'],
 
     components: {
         FleetPosition
