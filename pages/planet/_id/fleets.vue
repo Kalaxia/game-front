@@ -5,26 +5,42 @@
             :selectedGroup="selectedGroup"
             @selectGroup="selectGroup($event)" />
 
-        <fleet-composition v-if="selectedFleet"
-            :fleet="selectedFleet"
-            :selectedPosition="selectedPosition"
-            :selectedGroup="selectedGroup"
-            @selectPosition="selectPosition($event)"
-            @assignShips="assignShips($event)"
-            @validateQuantity="validateQuantity($event)" />
-
-        <fleet-list v-if="!selectedFleet"
-            :fleets="fleets"
-            :selectedFleet="selectedFleet"
-            @selectFleet="selectedFleet = $event"
-            @createFleet="fleets.push($event)" />
-
-        <fleet-details v-else
-            :fleets="fleets"
-            :fleet="selectedFleet"
-            :selectedPosition="selectedPosition"
-            @selectPosition="selectPosition($event)"
-            @selectFleet="selectedFleet = $event" />
+        <template v-if="!selectedFleet">
+            <div id="fleets-list">
+                <fleet-list
+                    type="orbiting"
+                    :fleets="fleets"
+                    @selectFleet="selectedFleet = $event"
+                    @createFleet="fleets.push($event)" />
+                <fleet-list v-if="comingFleets.length > 0"
+                    type="coming"
+                    :fleets="comingFleets"
+                    @selectFleet="selectedFleet = $event" />
+                <fleet-list v-if="leavingFleets.length > 0"
+                    type="leaving"
+                    :fleets="leavingFleets"
+                    @selectFleet="selectedFleet = $event" />
+            </div>
+        </template>
+        <template v-else>
+            <div v-if="selectedFleet.journey" id="fleet-journey-details">
+                <fleet-journey-step :step="selectedFleet.journey.currentStep" />
+            </div>
+            <fleet-composition
+                :fleet="selectedFleet"
+                :selectedPosition="selectedPosition"
+                :selectedGroup="selectedGroup"
+                @selectPosition="selectPosition($event)"
+                @assignShips="assignShips($event)"
+                @validateQuantity="validateQuantity($event)" />
+            <fleet-details
+                :fleets="fleets"
+                :fleet="selectedFleet"
+                :selectedPosition="selectedPosition"
+                @selectPosition="selectPosition($event)"
+                @selectFleet="selectedFleet = $event"
+                @unselect="selectedFleet = null" />
+        </template>
     </div>
 </template>
 
@@ -32,6 +48,7 @@
 import HangarDetails from '~/components/organisms/planet/hangar-details';
 import FleetComposition from '~/components/organisms/fleet/composition';
 import FleetDetails from '~/components/organisms/fleet/details';
+import FleetJourneyStep from '~/components/molecules/fleet/journey-step';
 import FleetList from '~/components/organisms/fleet/list';
 import { mapGetters } from 'vuex';
 
@@ -41,6 +58,7 @@ export default {
     components: {
         FleetComposition,
         FleetDetails,
+        FleetJourneyStep,
         FleetList,
         HangarDetails,
     },
@@ -54,11 +72,13 @@ export default {
     },
 
     async asyncData({ app, store }) {
-        const [ fleets, groups ] = await Promise.all([
+        const [ fleets, comingFleets, leavingFleets, groups ] = await Promise.all([
             app.$repositories.fleet.getPlanetFleets(store.state.user.currentPlanet.id),
+            app.$repositories.fleet.getComingFleets(store.state.user.currentPlanet.id),
+            app.$repositories.fleet.getLeavingFleets(store.state.user.currentPlanet.id),
             app.$repositories.planet.getHangarGroups(store.state.user.currentPlanet)
         ])
-        return { fleets, groups };
+        return { fleets, comingFleets, leavingFleets, groups };
     },
 
     computed: {
@@ -158,14 +178,26 @@ export default {
         grid-row: ~"2/9";
     }
 
+    #fleet-journey-details {
+        grid-column: ~"4/7";
+        grid-row: ~"2/5";
+        margin: auto;
+    }
+
     #fleet-composition {
         grid-column: ~"4/7";
-        grid-row: ~"2/9"
+        grid-row: ~"5/9";
     }
 
     #fleet-details,
     #fleets-list {
         grid-column: ~"7/10";
         grid-row: ~"2/9";
+    }
+
+    #fleets-list {
+        & > .fleets-list {
+            margin-top: 10px;
+        }
     }
 </style>

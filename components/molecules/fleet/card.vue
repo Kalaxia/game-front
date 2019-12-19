@@ -1,25 +1,22 @@
 <template>
     <div class="fleet-card" :style="{ borderColor: factionColors['grey'], color: factionColors['white'] }">
         <header>
+            <player-avatar v-if="fleet.player.faction" :player="fleet.player" :width="38" :height="38" />
+            <faction-banner v-if="fleet.player.faction" :faction="fleet.player.faction" :width="32" :height="32" />
+        </header>
+        <section>
             <h5>
                 <colored-picto src="ships/Fleet.svg" :color="factionColors['white']" :width="28" :height="28" />
                 {{ $t('fleet.title', {fleet: fleet.id}) }}
             </h5>
-        </header>
-        <section class="ship-summary" v-if="fleet.shipSummary">
-            <div v-for="ss in fleet.shipSummary" :key="ss.type">
-                <ship-type :type="ss.type" :color="factionColors['white']" :size="24" />
-                <span>{{ ss.nb_ships }}</span>
-            </div>
         </section>
     </div>
 </template>
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
-import ShipType from '~/components/atoms/ship/type';
-import PlanetImage from '~/components/atoms/planet/image';
-import JourneyStep from '~/components/molecules/fleet/journey-step';
+import FactionBanner from '~/components/atoms/faction/banner';
+import PlayerAvatar from '~/components/atoms/player/avatar';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -29,14 +26,14 @@ export default {
 
     components: {
         ColoredPicto,
-        PlanetImage,
-        JourneyStep,
-        ShipType,
+        FactionBanner,
+        PlayerAvatar,
     },
 
     computed: {
         ...mapGetters({
-            factionColors: 'user/factionColors'
+            factionColors: 'user/factionColors',
+            user: 'user/user'
         })
     }
 }
@@ -46,19 +43,40 @@ export default {
     @import '~less/atoms/box.less';
 
     .fleet-card {
-        padding: 10px;
+        min-width: 120px;
+        min-height: 100px;
         border-radius: 10px;
         border: 1px solid;
         text-decoration: none;
         margin: 5px;
         display: flex;
         flex-direction: column;
-        overflow-y: auto;
 
         & > header {
+            position: relative;
+            
+            & > .avatar {
+                position: absolute;
+                top: -10px;
+                left: 10px;
+            }
+
+            & > .faction-banner {
+                position: absolute;
+                top: 0px;
+                right: 10px;
+            }
+        }
+
+        & > section {
+            padding: 10px;
+            flex-grow: 1;
             font-size: 1.2em;
             margin: 5px 0px;
-            
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
             & > h5 {
                 display: flex;
                 flex-direction: column;
@@ -67,24 +85,6 @@ export default {
                 font-weight: normal;
                 font-variant: small-caps;
             }
-        }
-
-        & > .ship-summary {
-            margin: 5px 0px;
-            display: flex;
-            flex-wrap: wrap;
-
-            & > div {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 5px;
-            }
-        }
-
-        & > section {
-            display: flex;
-            flex-grow: 1;
         }
     }
 

@@ -35,6 +35,12 @@ body, #__nuxt, #__layout {
     z-index: 3;
 }
 
+.alerts-list {
+    grid-column: ~"2/10";
+    grid-row: 2;
+    z-index: 4;
+}
+
 #player-menu {
     grid-column: ~"1/4";
     grid-row: 10;
@@ -98,4 +104,66 @@ body, #__nuxt, #__layout {
     grid-row: ~"2/6";
     height: 0px;
     z-index: 10;
+}
+
+@keyframes fleetCombatLoss {
+    from {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    to {
+        left: -50px;
+        opacity: 0;
+    }
+}
+
+@keyframes squadronShaking {
+    from {
+        margin-left: 0px;
+    }
+
+    10% {
+        margin-left: -10px;
+    }
+
+    20% {
+        margin-left: 10px;
+    }
+
+    30% {
+        margin-left: -10px;
+    }
+
+    40% {
+        margin-left: 10px;
+    }
+
+    50% {
+        margin-left: -10px;
+    }
+
+    60% {
+        margin-left: 10px;
+    }
+
+    70% {
+        margin-left: -10px;
+    }
+
+    80% {
+        margin-left: 10px;
+    }
+
+    90% {
+        margin-left: -10px;
+    }
+
+    to {
+        margin-left: 0px;
+    }
 }

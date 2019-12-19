@@ -1,6 +1,6 @@
 <template>
     <div>
-        <fleets-list :fleets="fleets" />
+        <fleets-list :fleets="fleets" type="all" />
         <combat-reports :reports="reports" />
     </div>
 </template>
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    #fleets-list {
+    .fleets-list {
         grid-row: ~"3/8";
         grid-column: ~"2/7";
     }

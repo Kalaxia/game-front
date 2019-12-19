@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link id="menu-moving-fleets" to="/fleets" class="module">
+    <nuxt-link id="menu-moving-fleets" :to="`/planet/${currentPlanet.id}/fleets`" class="module">
         <header>
             <div :class="{ alert: (coming.length > 0) }">
                 <colored-picto src="Combat.svg" :color="factionColors[(coming.length > 0) ? 'black' : 'white']" :width="18" :height="18" />
@@ -31,6 +31,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            currentPlanet: 'user/currentPlanet',
             factionColors: 'user/factionColors'
         })
     }
