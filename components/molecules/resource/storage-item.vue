@@ -47,10 +47,8 @@ export default {
                     
                     return acc + b.compartments.reduce((acc, c) => {
                         const plan = this.$resources.buildings[b.name].compartments.filter(c =>[c.name]).shift();
-                        const modifierFilter = m => m.type === 'resource' && m.resource === this.resource
-                        const bonus = plan.bonuses.filter(modifierFilter);
-                        const malus = plan.maluses.filter(modifierFilter);
-                        const percent = (bonus.length > 0 ? bonus.shift().percent : 0) - (malus.length > 0 ? malus.shift().percent : 0);
+                        const modifier = plan.modifiers.filter(m => m.type === 'resource' && m.resource === this.resource);
+                        const percent = modifier.length > 0 ? modifier.shift().percent : 0;
                         const compartmentQuantity = Math.floor(baseQuantity * Math.abs(percent) / 100);
 
                         return acc + ((percent > 0) ? compartmentQuantity : -compartmentQuantity); 
@@ -72,7 +70,7 @@ export default {
 
         fullCapacityAt() {
             return (this.capacity !== this.quantity)
-                ? "-" + Math.floor((this.capacity - this.quantity) / this.hourlyProduction()) +
+                ? "-" + Math.floor((this.capacity - this.quantity) / this.hourlyProduction) +
                   "h" + (60 - (new Date()).getMinutes()) + "min"
                 : this.$i18n.t('planet.storage.full')
             ;

@@ -10,11 +10,8 @@
                     <h4>{{ $t('planet.buildings.effects') }}</h4>
                 </header>
                 <section>
-                    <div class="bonuses">
-                        <modifier v-for="(b, i) in plan.bonuses" :key="`bonus-${i}`" :modifier="b" :isBonus="true" />
-                    </div>
-                    <div class="maluses">
-                        <modifier v-for="(m, i) in plan.maluses" :key="`malus-${i}`" :modifier="m" :isBonus="false" />
+                    <div class="modifiers">
+                        <modifier v-for="(m, i) in plan.modifiers" :key="`modifier-${i}`" :modifier="b" />
                     </div>
                 </section>
             </div>
