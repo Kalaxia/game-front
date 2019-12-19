@@ -7,8 +7,7 @@ export default class BuildingCompartment
         this.picture = data.picture;
         this.building = building;
         this.constructionState = data.construction_state;
-        this.bonuses = data.bonuses;
-        this.maluses = data.maluses;
+        this.modifiers = data.modifiers;
         this.createdAt = new Date(data.created_at);
         this.updatedAt = (data.updated_at) ? new Date(data.updated_at) : null;
     }

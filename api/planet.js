@@ -18,13 +18,14 @@ export default class PlanetRepository extends Repository
         return planets;
     }
 
-    async getHangarShipGroups(planet) {
-        const data = await this.call('GET', `/api/planets/${planet.id}/ships/groups`);
+    async getHangarGroups(planet) {
+        const data = await this.call('GET', `/api/planets/${planet.id}/ships`);
         
-        planet.shipGroups = new Array();
+        const shipGroups = new Array();
         for (const groupData of data) {
-            planet.shipGroups.push(new ShipGroup(groupData));
+            shipGroups.push(new ShipGroup(groupData));
         }
+        return shipGroups
     }
 
     async getFactionPlanetChoices(faction) {

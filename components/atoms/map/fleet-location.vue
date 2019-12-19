@@ -13,20 +13,20 @@ export default {
 
     props: ['fleet', 'scale'],
 
-    data: function() {
+    data() {
         return {
             width: 30
         };
     },
 
     computed: {
-        top: function() {
-            return (this.fleet.location !== null)
+        top() {
+            return (this.fleet.place !== null)
             ? (this.fleet.location.system.coord_y * this.scale + OFFSET_SIZE_TARGET)
             : (this.fleet.map_pos_y * this.scale - this.width / 2);
         },
 
-        left: function() {
+        left() {
             return (this.fleet.location !== null)
                 ? (this.fleet.location.system.coord_x * this.scale + OFFSET_SIZE_TARGET)
                 : (this.fleet.map_pos_x * this.scale - this.width / 2) ;

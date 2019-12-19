@@ -29,14 +29,34 @@ export default {
             return (currentTime / totalTime) * 100;
         },
 
+        currentStep() {
+            return this.fleet.journey.currentStep;
+        },
+
+        startX() {
+            return (this.currentStep.startPlace.planet !== null) ? this.currentStep.startPlace.planet.system.coord_x : this.currentStep.startPlace.coordinates.x;
+        },
+
+        startY() {
+            return (this.currentStep.startPlace.planet !== null) ? this.currentStep.startPlace.planet.system.coord_y : this.currentStep.startPlace.coordinates.y;
+        },
+
+        endX() {
+            return (this.currentStep.endPlace.planet !== null) ? this.currentStep.endPlace.planet.system.coord_x : this.currentStep.endPlace.coordinates.x;
+        },
+
+        endY() {
+            return (this.currentStep.endPlace.planet !== null) ? this.currentStep.endPlace.planet.system.coord_y : this.currentStep.endPlace.coordinates.y;
+        },
+
         posX() {
-            const distance = this.fleet.journey.currentStep.endX - this.fleet.journey.currentStep.startX;
+            const distance = this.endX - this.startX;
 
             return (distance / 100) * this.percent;
         },
 
         posY() {
-            const distance = this.fleet.journey.currentStep.endY - this.fleet.journey.currentStep.startY;
+            const distance = this.endY - this.startY;
 
             return (distance / 100) * this.percent;
         },
@@ -45,8 +65,8 @@ export default {
             const scale = this.$store.state.map.scale;
 
             return {
-                top: (((this.fleet.journey.currentStep.startY + this.posY) * scale) - 14) + 'px',
-                left: (((this.fleet.journey.currentStep.startX + this.posX) * scale) - 14) + 'px',
+                top: (((this.startY + this.posY) * scale) - 14) + 'px',
+                left: (((this.startX + this.posX) * scale) - 14) + 'px',
                 borderColor: this.fleet.player.faction.colors['main'],
                 backgroundColor: this.factionColors['black']
             };

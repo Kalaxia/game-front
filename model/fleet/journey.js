@@ -21,9 +21,9 @@ export default class Journey {
         };
         for (const step of this.steps) {
             data.steps.push({
-                x: step.endX,
-                y: step.endY,
-                planetId: (step.endLocation !== null) ? step.endLocation.id : 0,
+                x: step.endPlace.coordinates.x,
+                y: step.endPlace.coordinates.y,
+                planetId: (step.endPlace.planet !== null) ? step.endPlace.planet.id : 0,
                 order: step.order
             })
         }

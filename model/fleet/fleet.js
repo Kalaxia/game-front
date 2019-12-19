@@ -1,19 +1,18 @@
-import Player from '../player.js';
-import Planet from '../planet.js';
-import Journey from './journey.js';
+import Player from '~/model/player.js';
+import Place from '~/model/map/place.js';
+import Journey from '~/model/fleet/journey.js';
 
 export default class Fleet {
     constructor(data) {
         this.id = data.id;
-        this.player = new Player(data.player);
-        this.location = (data.location) ? new Planet(data.location) : null;
+        this.player = (data.player) ? new Player(data.player) : null;
+        this.place = (data.place) ? new Place(data.place) : null;
         this.journey = (data.journey !== null) ? new Journey(data.journey) : null;
         this.shipSummary = (data.ship_summary) ? data.ship_summary : [];
         this.ships = new Array();
         this.shipGroups = new Array();
+        this.squadrons = new Array();
         this.range = null;
-        this.map_pos_x = data.map_pos_x;
-        this.map_pos_y = data.map_pos_y;
     };
 
     updateShipGroups(shipGroup, nbShips) {

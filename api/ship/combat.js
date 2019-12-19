@@ -16,4 +16,8 @@ export default class CombatRepository extends Repository
         }
         return results;
     }
+
+    getRound(combatId, roundId) {
+        return this.call('GET', `/api/combats/${combatId}/rounds/${roundId}`);
+    }
 }

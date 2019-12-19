@@ -1,4 +1,5 @@
 import ResourceOffer from '~/model/trade/resource_offer';
+import Combat from '~/model/fleet/combat';
 
 export default async ({ env, store }, inject) => {
     if (process.server) {
@@ -29,6 +30,12 @@ export default async ({ env, store }, inject) => {
                 break;
             case 'cancelTradeOffer':
                 store.dispatch('trade/removeOffer', new ResourceOffer(message.data));
+                break;
+            case 'combat_start':
+                store.dispatch('combat/addCombat', new Combat(message.data));
+                break;
+            case 'combat_round':
+                store.dispatch('combat/addCombatRound', message.data);
                 break;
             default:
                 console.log(message);

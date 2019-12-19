@@ -1,5 +1,6 @@
 import Ship from '~/model/ship/ship';
 import ShipGroup from '~/model/ship/group';
+import Squadron from '~/model/fleet/squadron';
 import Fleet from '~/model/fleet/fleet';
 import FleetRange from '~/model/fleet/range';
 import Journey from '~/model/fleet/journey';
@@ -16,6 +17,16 @@ export default class FleetRepository extends Repository {
 
     async getTravellingFleets() {
         const data = await this.call('GET', '/api/fleets/travelling');
+        
+        const fleets = new Array();
+        for (const fleet of data) {
+            fleets.push(new Fleet(fleet));
+        }
+        return fleets;
+    }
+
+    async getPlanetFleets(planetId) {
+        const data = await this.call('GET', `/api/planets/${planetId}/fleets`);
         
         const fleets = new Array();
         for (const fleet of data) {
@@ -75,11 +86,33 @@ export default class FleetRepository extends Repository {
     async transferShips(fleet, shipGroup, quantity) {
         const data = await this.call('PATCH', `/api/fleets/${fleet.id}/ships`, {
             'model-id': shipGroup.id,
-            quantity: quantity
+            quantity
         });
 
         fleet.updateShipGroups(shipGroup, data.quantity);
-        fleet.location.updateShipGroups(shipGroup, -data.quantity);
+        fleet.place.planet.updateShipGroups(shipGroup, -data.quantity);
+    }
+
+    async createSquadron(fleet, modelId, position, quantity) {
+        const data = await this.call('POST', `/api/fleets/${fleet.id}/squadrons`, {
+            'ship_model_id': modelId,
+            position,
+            quantity
+        });
+        return new Squadron(data);
+    }
+
+    async updateSquadron(fleet, squadron) {
+        await this.call('PATCH', `/api/fleets/${fleet.id}/squadrons/${squadron.id}`, {
+            quantity: squadron.quantity
+        });
+        return squadron;
+    }
+
+    async getSquadrons(fleet) {
+        const data = await this.call('GET', `/api/fleets/${fleet.id}/squadrons`);
+
+        fleet.squadrons = data.map(s => new Squadron(s));
     }
 
     async removeFleet(fleet) {

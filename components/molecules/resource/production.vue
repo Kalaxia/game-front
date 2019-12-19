@@ -36,14 +36,12 @@ export default {
         },
 
         bonus() {
-            return this.building.compartments.reduce((acc, c) => {
-                const plan = this.$resources.buildings[this.building.name].compartments.filter(c =>[c.name]).shift();
-                const modifierFilter = m => m.type === 'resource' && m.resource === this.resource.name
-                const bonus = plan.bonuses.filter(modifierFilter);
-                const malus = plan.maluses.filter(modifierFilter);
+            return (this.building.status) ? this.building.compartments.reduce((acc, c) => {
+                const plan = this.$resources.buildings[this.building.name].compartments.filter(c => [c.name]).shift();
+                const modifiers = plan.modifiers.filter(m => m.type === 'resource' && m.resource === this.resource.name);
 
-                return acc + (bonus.length > 0 ? bonus.shift().percent : 0) - (malus.length > 0 ? malus.shift().percent : 0); 
-            }, 0);
+                return acc + (modifiers.length > 0 ? modifiers.shift().percent : 0); 
+            }, 0) : 0;
         }
     }
 }
