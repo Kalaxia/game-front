@@ -90,6 +90,10 @@ export default {
             if (event.type === 'click') {
                 event.preventDefault();
             }
+            if (this.$store.state.map.isDragging === true) {
+                this.$store.commit('map/drag', false);
+                return false;
+            }
             if (!event.target.classList.contains('range')) {
                 return false;
             }
@@ -102,15 +106,19 @@ export default {
             
             const stepData = {
                 id: this.$store.state.map.fleet.journey.steps.length,
-                map_pos_x_start: this.$store.getters['map/previousX'],
-                map_pos_y_start: this.$store.getters['map/previousY'],
-                planet_final: null,
-                map_pos_x_final: x,
-                map_pos_y_final: y,
+                start_place: {
+                    coordinates: {
+                        x: this.$store.getters['map/previousX'],
+                        y: this.$store.getters['map/previousY']
+                    }
+                },
+                end_place: {
+                    coordinates: { x, y }
+                },
                 order: ORDER_PASS
             };
             
-            const distance = Math.sqrt(Math.pow(x - stepData.map_pos_x_start, 2) + Math.pow(y - stepData.map_pos_y_start, 2));
+            const distance = Math.sqrt(Math.pow(x - stepData.start_place.coordinates.x, 2) + Math.pow(y - stepData.start_place.coordinates.y, 2));
             
             if (distance > this.$store.getters['map/range'](x, y, null)) {
                 // TODO

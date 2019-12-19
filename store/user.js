@@ -1,4 +1,5 @@
 export const state = () => ({
+    alerts: new Array(),
     actionNotifications: new Array(),
     player: null,
     planets: new Array(),
@@ -14,6 +15,14 @@ export const mutations = {
     screenDimensions(state, dimensions) {
         state.screen.width = dimensions.width;
         state.screen.height = dimensions.height;
+    },
+
+    addAlert(state, alert) {
+        state.alerts.push(alert);
+    },
+
+    removeAlert(state, alert) {
+        state.alerts.splice(state.alerts.indexOf(alert), 1);
     },
 
     addNotification(state, notification) {
