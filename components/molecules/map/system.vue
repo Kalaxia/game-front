@@ -87,12 +87,20 @@ export default {
             }
             this.$store.commit('map/addStep', new JourneyStep({
                 id: this.$store.state.map.fleet.journey.steps.length,
-                map_pos_x_start: previousX,
-                map_pos_y_start: previousY,
-                planet_start: this.$store.getters['map/previousPlanet'],
-                map_pos_x_final: this.system.coord_x,
-                map_pos_y_final: this.system.coord_y,
-                planet_final: planet,
+                start_place: {
+                    planet: this.$store.getters['map/previousPlanet'],
+                    coordinates: {
+                        x: previousX,
+                        y: previousY
+                    }
+                },
+                end_place: {
+                    planet,
+                    coordinates: {
+                        x: this.system.coord_x,
+                        y: this.system.coord_y
+                    }
+                },
                 order: ORDER_PASS
             }));
         },

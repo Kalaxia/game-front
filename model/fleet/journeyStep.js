@@ -1,4 +1,4 @@
-import Planet from '~/model/planet';
+import Place from '~/model/map/place';
 
 export const ORDER_PASS = 'pass';
 export const ORDER_CONQUER = 'conquer';
@@ -6,12 +6,8 @@ export const ORDER_CONQUER = 'conquer';
 export default class JourneyStep {
     constructor(data) {
         this.id = data.id;
-        this.startLocation = (data.planet_start !== null) ? new Planet(data.planet_start) : null;
-        this.startX = data.map_pos_x_start;
-        this.startY = data.map_pos_y_start;
-        this.endLocation = (data.planet_final !== null) ? new Planet(data.planet_final) : null;
-        this.endX = data.map_pos_x_final;
-        this.endY = data.map_pos_y_final;
+        this.startPlace = (data.start_place !== null) ? (data.start_place instanceof Place) ? data.start_place : new Place(data.start_place) : null;
+        this.endPlace = (data.end_place !== null) ? (data.end_place instanceof Place) ? data.end_place : new Place(data.end_place) : null;
         this.startedAt = new Date(data.time_start);
         this.arrivesAt = new Date(data.time_arrival);
         this.restTime = data.time_jump;

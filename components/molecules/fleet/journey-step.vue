@@ -1,12 +1,12 @@
 <template>
     <div class="journey-step" :style="{ borderColor: factionColors['grey'] }">
          <div class="location">
-            <template v-if="step.startLocation">
-                <planet-image :type="step.startLocation.type" width="32px" height="32px" />
-                <h5>{{ step.startLocation.name }}</h5>
+            <template v-if="step.startPlace.planet">
+                <planet-image :type="step.startPlace.planet.type" width="32px" height="32px" />
+                <h5>{{ step.startPlace.planet.name }}</h5>
             </template>
             <template v-else>
-                {{ step.startX }} - {{ step.startY }}
+                {{ step.startPlace.coordinates.x }} - {{ step.startPlace.coordinates.y }}
             </template>
         </div>
         <div class="trip">
@@ -22,12 +22,12 @@
             </footer>
         </div>
         <div class="location">
-            <template v-if="step.endLocation">
-                <planet-image :type="step.endLocation.type" width="32px" height="32px" />
-                <h5>{{ step.endLocation.name }}</h5>
+            <template v-if="step.endPlace.planet">
+                <planet-image :type="step.endPlace.planet.type" width="32px" height="32px" />
+                <h5>{{ step.endPlace.planet.name }}</h5>
             </template>
             <template v-else>
-                {{ step.finalX }} - {{ step.finalY }}
+                {{ step.endPlace.coordinates.x }} - {{ step.endPlace.coordinates.y }}
             </template>
         </div>
     </div>

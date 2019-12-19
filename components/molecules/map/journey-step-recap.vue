@@ -1,9 +1,9 @@
 <template>
     <div  class="journey-step-recap">
-        <template v-if="step.endLocation !== null">
+        <template v-if="step.endPlace.planet !== null">
             <div class="location">
-                <planet-picto :type="step.endLocation.type" :width="24" :height="24" />
-                <span>{{ step.endLocation.name }}</span>
+                <planet-picto :type="step.endPlace.planet.type" :width="24" :height="24" />
+                <span>{{ step.endPlace.planet.name }}</span>
             </div>
             <div class="order" @click="$emit('selectStepOrder')" :style="{ borderColor: factionColors['white'] }">
                 <order-picto :order="step.order" :color="factionColors['main']" :size="32" />
@@ -11,7 +11,7 @@
         </template>
         <template v-else>
             <div class="location">
-                <span>{{ step.endX }} - {{ step.endY }}</span>
+                <span>{{ step.endPlace.coordinates.x }} - {{ step.endPlace.coordinates.y }}</span>
             </div>
             <order-picto order="pass" :color="factionColors['white']" :size="32" />
         </template>

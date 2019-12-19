@@ -3,7 +3,7 @@
         <div :style="{ backgroundColor: factionColors['grey'] }" @click.stop>
             <header>
                 <h3 :style="{ color: factionColors['main'] }">
-                    {{ $t('journey.planet_order', { order: $t(`journey.orders.${order}.title`), planet: step.endLocation.name }) }}
+                    {{ $t('journey.planet_order', { order: $t(`journey.orders.${order}.title`), planet: step.endPlace.planet.name }) }}
                 </h3>
             </header>
             <section>
