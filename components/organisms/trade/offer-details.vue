@@ -1,45 +1,14 @@
 <template>
     <div id="offer-details" :style="{ borderColor: factionColors['main'] }">
         <div>
-            <div class="offer-owner border-bottom">
-                <div class="player">
-                    <player-avatar :player="offer.location.player" :width="48" :height="48" :disableBorder="true" />
-                    <em>{{ $t(`trade.${offer.location.player.gender}_seller`) }}</em>
-                    <strong :style="{ color: offer.location.player.faction.colors['main'] }">{{ playerPseudo(offer.location.player) }}</strong>
-                </div>
-                <div class="planet">
-                    <planet-picto :type="offer.location.type" :width="48" :height="48" />
-                    <em>{{ $t('trade.planet') }}</em>
-                    <strong>{{ offer.location.name }}</strong>
-                    <strong><planet-coords :planet="offer.location" /></strong>
-                </div>
-            </div>
-            <div class="planet">
-                <planet-image :type="offer.location.type" :width="48" :height="48" />
-            </div>
+            <planet-summary class="offer-owner border-bottom" :planet="offer.location" />
             <div class="line"></div>
             <div class="lots-picto">
                 <colored-picto src="trade/Lots.svg" color="white" width="18" height="18" />
             </div>
             <div class="line"></div>
             <template v-if="currentPlayer.id !== offer.location.player.id">
-
-                <div class="planet">
-                    <planet-image :type="currentPlanet.type" :width="48" :height="48" />
-                </div>
-                <div class="offer-owner border-top">
-                    <div class="player">
-                        <player-avatar :player="currentPlayer" :width="48" :height="48" :disableBorder="true" />
-                        <em>{{ $t(`trade.${currentPlayer.gender}_buyer`) }}</em>
-                        <strong :style="{ color: currentPlayer.faction.colors['main'] }">{{ playerPseudo(currentPlayer) }}</strong>
-                    </div>
-                    <div class="planet">
-                        <planet-picto :type="currentPlanet.type" :width="48" :height="48" />
-                        <em>{{ $t('trade.planet') }}</em>
-                        <strong>{{ currentPlanet.name }}</strong>
-                        <strong><planet-coords :planet="currentPlanet" /></strong>
-                    </div>
-                </div>
+                <planet-summary class="offer-owner border-top" :planet="currentPlanet" :reverse="true" />
             </template>
         </div>
         <div>
@@ -90,10 +59,7 @@
 import ColoredPicto from '~/components/atoms/colored-picto';
 import Gauge from '~/components/atoms/gauge';
 import GaugeSelector from '~/components/atoms/gauge-selector';
-import PlayerAvatar from '~/components/atoms/player/avatar';
-import PlanetPicto from '~/components/atoms/planet/picto';
-import PlanetImage from '~/components/atoms/planet/image';
-import PlanetCoords from '~/components/atoms/planet/coords';
+import PlanetSummary from '~/components/molecules/planet/summary';
 import ResourceItem from '~/components/atoms/resource/item';
 import { shadeColor } from '~/lib/colors';
 import { mapGetters } from 'vuex';
@@ -113,10 +79,7 @@ export default {
         ColoredPicto,
         Gauge,
         GaugeSelector,
-        PlayerAvatar,
-        PlanetCoords,
-        PlanetImage,
-        PlanetPicto,
+        PlanetSummary,
         ResourceItem,
     },
 
@@ -152,12 +115,6 @@ export default {
         isExcessing() {
             return  (this.nbLots * this.offer.lotQuantity) + this.getStoredResource(this.offer.resource) > this.currentPlanet.storage.capacity;
         }
-    },
-
-    methods: {
-        playerPseudo(player) {
-            return (player.id === this.currentPlayer.id) ? this.$i18n.t('trade.yourself') : player.pseudo;
-        }
     }
 }
 </script>
@@ -179,39 +136,6 @@ export default {
             align-items: center;
 
             &:first-child {
-                & > .offer-owner {
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: space-between;
-
-                    &.border-bottom {
-                        border-bottom: 2px solid white;
-                        border-radius: 0px 0px 20px 20px;
-                        padding: 0px 10px 10px 10px;
-                        margin-bottom: 10px;
-                    }
-
-                    &.border-top {
-                        border-top: 2px solid white;
-                        border-radius: 20px 20px 0px 0px;
-                        padding: 10px 10px 0px 10px;
-                        margin-top: 10px;
-                    }
-
-                    & > .player,
-                    & > .planet {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                }
-
-                & > .planet {
-                    border: 2px solid white;
-                    border-radius: 50%;
-                    max-height: 48px;
-                }
-
                 & > .lots-picto {
                     border: 1px solid white;
                     padding: 5px;
