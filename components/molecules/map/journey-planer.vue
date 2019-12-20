@@ -54,6 +54,10 @@ export default {
         document.querySelector('body').addEventListener('click', this.addPointMap);
     },
 
+    destroyed() {
+        document.querySelector('body').removeEventListener('click', this.addPointMap);
+    },
+
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors',
