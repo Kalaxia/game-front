@@ -91,6 +91,10 @@ export default {
         },
 
         checkQuantity() {
+            if (this.quantity < 100) {
+                this.quantity = 100;
+                return;
+            }
             while (this.quantity % this.lotQuantity > 0) {
                 this.quantity--;
             }
