@@ -3,7 +3,7 @@
         <header>
             <h3>{{ $t('fleet.title', { fleet: fleet.id }) }}</h3>
             <div class="toolbar">
-                <button class="button" v-if="fleet.place && fleet.place.planet && fleet.place.planet.player && fleet.place.planet.player.id == currentPlayer.id" :style="{ color: factionColors['main'] }" @click="remove">{{ $t('fleet.remove') }}</button>
+                <button class="button" v-if="fleet.place && fleet.place.planet && fleet.player && fleet.player.id == currentPlayer.id" :style="{ color: factionColors['main'] }" @click="remove">{{ $t('fleet.remove') }}</button>
                 <button class="button" v-if="fleet.place && fleet.place.planet && fleet.shipGroups.length > 0" :style="{ color: factionColors['main'] }" @click="move">{{ $t('fleet.move') }}</button>
                 <nuxt-link :to="`/map/?id=${fleet.id}`" class="button" :style="{ color: factionColors['main'] }">
                     Voir sur la carte
@@ -146,11 +146,21 @@ export default {
 
         & > header {
             display: flex;
+            flex-direction: column-reverse;
             justify-content: space-between;
-            align-items: center;
 
             & > h3 {
                 margin-top: 0px;
+            }
+
+            & > .toolbar {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+
+                & > .button {
+                    margin: 5px;
+                }
             }
         }
 
