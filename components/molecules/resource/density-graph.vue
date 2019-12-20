@@ -15,7 +15,6 @@
 <script>
 import Chart from 'chart.js';
 import ResourceItem from '~/components/atoms/resource/item';
-import { mapState } from 'vuex';
 
 export default {
     name: 'resource-density-graph',
@@ -34,7 +33,7 @@ export default {
 
         const myChart = new Chart(ctx, {
             type: 'polarArea',
-            data: this.getDensityDatasets(),
+            data: this.datasets,
             options: {
                 responsive: false,
                 legend: {
@@ -66,10 +65,36 @@ export default {
     },
 
     computed: {
-        ...mapState('user', ['screen']),
-
         pictoSize() {
             return Math.floor(this.size * 0.08);
+        },
+
+        labels() {
+            return this.resources.map(r => this.$i18n.t(`resources.${r.name}`));
+        },
+
+        datasets() {
+            const dataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: (this.size > 200) ? 20 : 5 };
+            let added = 0;
+            const numberOfResources = 6;
+            for (const key in this.resources) {
+                const resource = Object.assign({}, this.resources[key], this.$resources.resources[this.resources[key].name]);
+                
+                dataset.data.push(resource.density);
+                dataset.backgroundColor.push(resource.color);
+                dataset.borderColor.push('#090A0A');
+                added++;
+            }
+            while (added < numberOfResources) {
+                dataset.data.push(0);
+                dataset.backgroundColor.push('red');
+                dataset.borderColor.push('#E12024');
+                added++;
+            }
+            return {
+                datasets: [ dataset ],
+                labels: this.labels
+            };
         }
     },
 
@@ -94,29 +119,6 @@ export default {
              * 32: picto size / 2
              */
             return (this.size / 2) - 10 - (this.pictoSize / 2) + (Math.sin(this.getPictoAngle(index)) * (this.size / 2)) + 'px';
-        },
-
-        getDensityDatasets() {
-            const dataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: (this.screen.width > 500) ? 20 : 5 };
-            let added = 0;
-            const numberOfResources = 6;
-            for (const key in this.resources) {
-                const resource = Object.assign({}, this.resources[key], this.$resources.resources[this.resources[key].name]);
-
-                dataset.data.push(resource.density);
-                dataset.backgroundColor.push(resource.color);
-                dataset.borderColor.push('#090A0A');
-                added++;
-            }
-            while (added < numberOfResources) {
-                dataset.data.push(0);
-                dataset.backgroundColor.push('red');
-                dataset.borderColor.push('#E12024');
-                added++;
-            }
-            return {
-                datasets: [ dataset ],
-            };
         }
     }
 }
