@@ -15,6 +15,7 @@
 <script>
 import Chart from 'chart.js';
 import ResourceItem from '~/components/atoms/resource/item';
+import { mapState } from 'vuex';
 
 export default {
     name: 'resource-density-graph',
@@ -65,8 +66,10 @@ export default {
     },
 
     computed: {
+        ...mapState('user', ['screen']),
+
         pictoSize() {
-            return Math.floor(this.size * 0.07);
+            return Math.floor(this.size * 0.08);
         }
     },
 
@@ -94,7 +97,7 @@ export default {
         },
 
         getDensityDatasets() {
-            const dataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: 20 };
+            const dataset = { data: [], backgroundColor: [], borderColor: [], borderWidth: (this.screen.width > 500) ? 20 : 5 };
             let added = 0;
             const numberOfResources = 6;
             for (const key in this.resources) {
