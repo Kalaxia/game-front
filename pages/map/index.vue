@@ -54,13 +54,6 @@ export default {
         TerritoryPanel
     },
 
-    beforeMount() {
-        this.$store.commit('user/screenDimensions', {
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-    },
-
     async mounted() {
         this.$store.commit('map/setSize', this.map.size);
 

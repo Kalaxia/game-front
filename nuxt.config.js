@@ -52,6 +52,7 @@ module.exports = {
     '~/plugins/resources.js',
     '~/plugins/favicon.js',
     '~/plugins/websocket.js',
+    '~/plugins/screen.client.js'
   ],
 
   /*
