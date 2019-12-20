@@ -16,23 +16,11 @@
             </div>
             <div class="quantity">
                 <h5>Quantité</h5>
-                <gauge-selector
-                    :min="100"
-                    :initialValue="100"
-                    :color="resourceColor"
-                    :max="currentResourceAvailable"
-                    @change="quantity = $event"
-                    @stop="checkQuantity" />
+                <input type="number" v-model="quantity" min="100" :max="currentResourceAvailable" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkQuantity" />
             </div>
             <div class="lot-quantity">
                 <h5>Quantité par lot</h5>
-                <gauge-selector
-                    :min="1"
-                    :initialValue="quantity"
-                    :color="resourceColor"
-                    :max="quantity"
-                    @change="lotQuantity = $event"
-                    @stop="checkLotQuantity" />
+                <input v-model="lotQuantity" type="number" min="1" :max="quantity" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkLotQuantity" />
             </div>
             <div class="price">
                 <h5>Prix</h5>
@@ -55,7 +43,6 @@
 <script>
 import { OPERATION_SELL, GOOD_TYPE_RESOURCES } from '~/model/trade/offer';
 import ResourceOffer from '~/model/trade/resource_offer';
-import GaugeSelector from '~/components/atoms/gauge-selector';
 import ResourceItem from '~/components/atoms/resource/item';
 import { mapGetters } from 'vuex';
 
@@ -63,7 +50,6 @@ export default {
     name: 'offer-creation',
 
     components: {
-        GaugeSelector,
         ResourceItem
     },
 
@@ -99,9 +85,9 @@ export default {
     
     methods: {
         checkLotQuantity() {
-            this.lotQuantity = Math.floor(this.quantity / this.nbLots);
-
-            this.checkQuantity();
+            while (this.quantity % this.lotQuantity > 0) {
+                this.lotQuantity--;
+            }
         },
 
         checkQuantity() {
