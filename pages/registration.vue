@@ -3,7 +3,7 @@
         <factions-choice v-if="step === 1" @selectFaction="selectFaction" />
         <character-form v-if="step === 2" @createCharacter="createCharacter" />
         <template v-if="step === 3 && planetChoices.length > 0">
-            <starmap :map="map" :playerPlanets="planetChoices" />
+            <starmap v-if="screen.width >= 800" :map="map" :playerPlanets="planetChoices" />
             <planets-choice :planets="planetChoices" @confirmPlanet="confirmPlanet" />
         </template>
     </div>
@@ -14,6 +14,7 @@ import CharacterForm from '~/components/organisms/registration/character-form';
 import Starmap from '~/components/organisms/map/starmap';
 import FactionsChoice from '~/components/organisms/registration/factions-choice';
 import PlanetsChoice from '~/components/organisms/registration/planets-choice';
+import { mapState } from 'vuex';
 
 export default {
     name: 'registration',
@@ -24,7 +25,8 @@ export default {
             faction: null,
             planet: null,
             planetChoices: [],
-            data: null
+            data: null,
+            map: null
         };
     },
 
@@ -36,10 +38,14 @@ export default {
     },
 
     async mounted() {
-        this.map = await this.$repositories.map.getMap();
+        if (this.screen.width >= 800) {
+            this.map = await this.$repositories.map.getMap();
+        }
     },
 
     computed: {
+        ...mapState('user', ['screen']),
+
         selectedSystem() {
             return (this.planet !== null) ? this.planet.system : null;
         }

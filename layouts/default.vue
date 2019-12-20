@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-        <top-menu v-if="currentPlayer.faction" :faction="currentPlayer.faction" />
+        <top-menu v-if="player.faction" :faction="player.faction" />
         <alerts-list />
         <logout-button id="logout" />
         <nuxt id="wrapper" />
-        <player-menu v-if="currentPlayer.avatar" :player="currentPlayer" />
+        <player-menu v-if="player.avatar" :player="player" />
         <planet-menu v-if="currentPlanet" :planet="currentPlanet" />
-        <notifications-list v-if="currentPlayer.isActive" :notifications="currentPlayer.notifications" />
+        <notifications-list v-if="player.isActive" :notifications="player.notifications" />
         <action-notifications :notifications="actionNotifications" />
     </div>
 </template>
@@ -19,6 +19,7 @@ import NotificationsList from '~/components/organisms/player/notifications';
 import LogoutButton from '~/components/atoms/player/logout-button';
 import PlayerMenu from '~/components/organisms/menu/player';
 import PlanetMenu from '~/components/organisms/menu/planet';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -32,17 +33,7 @@ export default {
     },
 
     computed: {
-        currentPlayer() {
-            return this.$store.state.user.player;
-        },
-
-        currentPlanet() {
-            return this.$store.state.user.currentPlanet;
-        },
-
-        actionNotifications() {
-            return this.$store.state.user.actionNotifications;
-        }
+        ...mapState('user', ['player', 'currentPlanet', 'actionNotifications'])
     }
 }
 </script>

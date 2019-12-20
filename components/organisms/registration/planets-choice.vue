@@ -96,4 +96,18 @@ export default {
             }
         }
     }
+
+    @media (max-width: 500px) {
+        #planets-choice {
+            & > header {
+                & > h1 {
+                    font-size: 1.4em;
+                }
+            }
+
+            & > section {
+                flex-direction: column;
+            }
+        }
+    }
 </style>

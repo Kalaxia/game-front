@@ -6,7 +6,7 @@
         </header>
         <section>
             <nuxt-link :to="`/player/${player.id}`" class="profile-link">
-                <Avatar :player="player" width="126" height="126" />
+                <avatar :player="player" width="126" height="126" />
             </nuxt-link>
             <div class="player-info">
                 <h4>{{ player.pseudo }}</h4>
@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     #player-menu {
         display: flex;
         flex-direction: column;
@@ -55,44 +55,64 @@ export default {
         & > section {
             display: flex;
             align-items: center;
+
+            
+            & > .profile-link {
+                z-index: 2;
+
+                .avatar {
+                    background-color: #000;
+                    border-radius: 70px;
+
+                    img {
+                        width: 126px;
+                        height: 126px;
+                        border-radius: 50%;
+                        border: 3px solid #EFEFEF;
+                    }
+                }
+            }
+
+            & > .player-info {
+                min-width: 180px;
+                margin-left: -20px;
+                padding: 5px 30px 5px 10%;
+                background-color: #312B29;
+                clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+
+                & > h4, & > h5 {
+                    margin: 0px;
+                    text-align: center;
+                }
+
+                & > h4 {
+                    padding-bottom: 5px;
+                    border-bottom: 2px solid #EFEFEF;
+                }
+
+                & > h5 {
+                    padding-top: 5px;
+                }
+            }
         }
     }
 
-    .profile-link {
-        z-index: 2;
-    }
+    @media (max-width: 500px) {
+        #player-menu {
+            & > section {
+                & > .profile-link {
+                    & >  .avatar {
+                        img {
+                            width: 64px !important;
+                            height: 64px !important;
+                        }
+                    }
+                }
 
-    .avatar {
-        background-color: #000;
-        border-radius: 70px;
-
-        img {
-            width: 126px;
-            height: 126px;
-            border-radius: 70px;
-            border: 3px solid #EFEFEF;
-        }
-    }
-
-    .player-info {
-        min-width: 180px;
-        margin-left: -20px;
-        padding: 5px 30px 5px 10%;
-        background-color: #312B29;
-        clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
-
-        & > h4, & > h5 {
-            margin: 0px;
-            text-align: center;
-        }
-
-        & > h4 {
-            padding-bottom: 5px;
-            border-bottom: 2px solid #EFEFEF;
-        }
-
-        & > h5 {
-            padding-top: 5px;
+                & > .player-info {
+                    display: none;
+                }
+            }
         }
     }
 </style>

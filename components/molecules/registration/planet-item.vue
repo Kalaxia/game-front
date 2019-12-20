@@ -2,10 +2,12 @@
     <div class="planet-item" :style="style" @click="$emit('selectPlanet', planet)">
         <header>
             <planet-image :type="planet.type" width="96px" height="96px" />
-            <planet-picto :type="planet.type" :width="32" :height="32" />
         </header>
         <section>
-            <h3 :style="{ color: planetColor }">{{ planet.name }}</h3>
+            <h3 :style="{ color: planetColor }">
+                <planet-picto :type="planet.type" :width="32" :height="32" />
+                {{ planet.name }}
+            </h3>
             <planet-coords :planet="planet" />
         </section>
         <footer>
@@ -78,6 +80,9 @@ export default {
             font-size: 1.2em;
 
             & > h3 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin: 0px;
             }
         }
@@ -100,6 +105,36 @@ export default {
 
             & > footer {
                 flex-direction: column;
+            }
+        }
+    }
+
+    @media (max-width: 500px) {
+        .planet-item {
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 0px;
+            margin: 5px;
+
+            & > header {
+                & > .planet-image {
+                    width: 48px !important;
+                    height: 48px !important;
+                }
+            }
+
+            & > section {
+                flex-grow: 1;
+                justify-content: flex-end;
+                font-size: 0.8em;
+            }
+
+            & > footer {
+                margin-top: 5px;
+                flex-grow: 1;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
             }
         }
     }
