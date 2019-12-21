@@ -99,11 +99,12 @@ export default {
             }
 
             this.removeOffer(this.selectedOffer);
-
-            this.$store.commit('user/updateStorageResource', {
-                resource: this.selectedOffer.resource,
-                quantity: this.selectedOffer.quantity
-            });
+            if (this.selectedOffer.location.id === this.currentPlanet.id) {
+                this.$store.commit('user/updateStorageResource', {
+                    resource: this.selectedOffer.resource,
+                    quantity: this.selectedOffer.quantity
+                });
+            }
             this.$store.dispatch('user/addActionNotification', {
                 isError: false,
                 content: `trade.notifications.${this.selectedOffer.operation}_offer_cancel`
