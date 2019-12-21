@@ -15,7 +15,7 @@ export default class MapRepository extends Repository {
         return this.call('GET', `/api/systems?sector=${sector}`);
     }
 
-    getTerritories() {
-        return this.call('GET', '/api/map/territories');
+    async getTerritories() {
+        return Object.values(await this.call('GET', '/api/map/territories')).map(t => JSON.parse(t));
     }
 };

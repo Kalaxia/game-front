@@ -1,62 +1,45 @@
 <template>
-    <polygon class="territory" :points="coordinates" :style="style" @click="$emit('selectTerritory', territory)" />
+    <svg class="territory">
+        <circle class="system-territory"
+            v-for="st in territory.systems"
+            :key="`territory-${territory.id}-system-${st.system.id}`"
+            :cx="st.system.coord_x * scale"
+            :cy="st.system.coord_y * scale"
+            :r="st.radius * scale"
+            :style="style"
+            @click="$emit('selectTerritory', territory)" />
+    </svg>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'map-territory',
 
     props: ['territory'],
 
     computed: {
-        coordinates() {
-            return this.convexHull.map(c => `${Math.floor(c.x * this.$store.state.map.scale)},${Math.floor(c.y * this.$store.state.map.scale)}`).join(' ');
-        },
+        ...mapState('map', ['scale']),
 
         style() {
             return {
                 fill: this.territory.planet.player.faction.colors['mainLight'],
             };
         },
-
-        convexHull() {
-            this.territory.coordinates.sort((a, b) => a.x != b.x ? a.x - b.x : a.y - b.y);
-
-            const n = this.territory.coordinates.length;
-            const hull = [];
-
-            for (let i = 0; i < 2 * n; i++) {
-                let j = i < n ? i : 2 * n - 1 - i;
-                while (hull.length >= 2 && this.removeMiddle(hull[hull.length - 2], hull[hull.length - 1], this.territory.coordinates[j])) {
-                    hull.pop();
-                }
-                hull.push(this.territory.coordinates[j]);
-            }
-            hull.pop();
-            return hull;
-        },
-    },
-
-    methods: {
-        removeMiddle(a, b, c) {
-            var cross = (a.x - b.x) * (c.y - b.y) - (a.y - b.y) * (c.x - b.x);
-            var dot = (a.x - b.x) * (c.x - b.x) + (a.y - b.y) * (c.y - b.y);
-            return cross < 0 || cross == 0 && dot <= 0;
-        }
     }
 }
 </script>
 
 <style lang="less" scoped>
-    .territory{
-        fill-opacity: 0.4;
-        stroke: white;
-        stroke-width: 3px;
-        transition: fill-opacity 0.2s ease-out;
+    .territory {
+        opacity: 0.4;
+        transition: opacity 0.2s ease-out;
         cursor: pointer;
 
         &:hover {
-            fill-opacity: 0.6;
+            opacity: 0.6;
         }
     }
+    
 </style>
