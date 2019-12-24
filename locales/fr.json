@@ -415,7 +415,7 @@
         "trade": {
             "accepted_offer": {
                 "title": "Votre offre",
-                "content": "Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price} crédits",
+                "content": "Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price} crédits hors taxes",
                 "footer": ""
             }
         }
