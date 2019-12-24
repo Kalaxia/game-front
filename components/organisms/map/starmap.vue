@@ -1,5 +1,5 @@
 <template>
-    <div id="starmap" :style="{ top: '20px', left: '20px' }" ref="starmap">
+    <div id="starmap" :style="style">
         <transition-group v-if="mapReady" name="system-list" tag="div">
             <map-territories :territories="territories" key="territories" @selectTerritory="$emit('selectTerritory', $event)" />
             <div id="journey-steps" v-if="journey" key="journey-steps">
@@ -12,8 +12,7 @@
             <system v-for="system in map.systems"
                 :key="`system-${system.id}`"
                 :system="system"
-                @dblclick.native="redirectToSystem(system.id)"
-                :isPlayerSystem="playerSystems.indexOf(system.id) > -1"/>
+                @dblclick.native="redirectToSystem(system.id)"/>
 
         </transition-group>
         <map-loader v-else />
@@ -41,7 +40,7 @@ const dragData = {
 export default {
     name: 'starmap',
 
-    props: ['map', 'territories', 'playerPlanets', 'fleets'],
+    props: ['map', 'territories', 'playerPlanets', 'fleets', 'posX', 'posY'],
 
     data() {
         return {
@@ -62,10 +61,6 @@ export default {
         JourneyStep
     },
 
-    created() {
-        this.processPlayerPlanets();
-    },
-
     mounted() {
         document.onmousedown = this.startMapMove;
         document.onmouseup = this.stopMapMove;
@@ -83,57 +78,49 @@ export default {
 
     computed: {
         ...mapState('user', ['screen']),
-        ...mapState('map', ['fleet']),
+        ...mapState('map', ['fleet', 'scale', 'selectedSystemId', 'targetedSystemId']),
 
         mapReady() {
-            return this.map !== null && this.playerSystems.length > 0;
+            return this.map !== null;
         },
 
         journey() {
-            return (this.$store.state.map.fleet !== null) ? this.$store.state.map.fleet.journey : null;
+            return (this.fleet !== null) ? this.fleet.journey : null;
         },
 
-        selectedSystemId() {
-            return this.$store.state.map.selectedSystemId;
-        },
-
-        targetedSystemId() {
-            return this.$store.state.map.targetedSystemId;
+        style() {
+            return {
+                top: `${(this.screen.height / 2) - (this.posY * this.scale)}px`,
+                left: `${(this.screen.width / 2) - (this.posX * this.scale)}px`
+            }
         }
     },
 
     watch: {
-        playerPlanets(playerPlanets) {
-            this.processPlayerPlanets();
-        },
-
         targetedSystemId(systemId) {
             if (systemId === null || !this.mapReady) {
                 return;
             }
             Vue.nextTick(this.goToTargetedSystem);
+        },
+
+        posX(posX) {
+            this.expandSystems();
         }
     },
 
     methods: {
         expandSystems() {
-            const map = this.$refs.starmap;
-
-            const coordX = parseInt(map.style.left);
-            const coordY = parseInt(map.style.top);
-
-            const mapScale = this.$store.state.map.scale;
-
             const coords = {
-                startX: Math.abs(coordX / mapScale),
-                startY: Math.abs(coordY / this.map.size),
-                finalX: (Math.abs(coordX) + this.screen.width) / mapScale,
-                finalY: (Math.abs(coordY) + this.screen.height) / this.map.size
+                startX: this.posX,
+                startY: this.posY,
+                finalX: this.posX + (this.screen.width / this.scale),
+                finalY: this.posY + (this.screen.height / this.scale)
             };
             const sectors = {};
 
             for (const key in coords) {
-                sectors[key] = Math[(key === 'startY') ? 'floor' : 'ceil'](coords[key] / this.sectorSize);
+                sectors[key] = Math[(key === 'startY' || key === 'startX') ? 'floor' : 'ceil'](coords[key] / this.sectorSize);
             }
             const sectorsPerLine = this.map.size / this.sectorSize;
             
@@ -160,24 +147,17 @@ export default {
             }
         },
 
-        processPlayerPlanets() {
-            for (const planet of this.playerPlanets) {
-                this.playerSystems.push(planet.system.id);
-            }
-        },
-
         startMapMove(e) {
             // only left click
             if (e.button !== 0) {
                 return false;
             }
-            const map = this.$refs.starmap;
             
             dragData.offsetX = e.clientX;
             dragData.offsetY = e.clientY;
 
-            dragData.coordX = parseInt(map.style.left);
-            dragData.coordY = parseInt(map.style.top);
+            dragData.coordX = this.posX;
+            dragData.coordY = this.posY;
             dragData.drag = true;
             
             document.onmousemove = this.dragMap;
@@ -193,21 +173,12 @@ export default {
             if (this.$store.state.map.isDragging === false) {
                 this.$store.commit('map/drag', true);
             }
-            this.moveMap(
-                dragData.coordX + (e.clientX - dragData.offsetX),
-                dragData.coordY + (e.clientY - dragData.offsetY)
-            );
-
-            this.expandSystems();
+            this.$emit('updatePosition', {
+                x: dragData.coordX - (e.clientX - dragData.offsetX) / this.scale,
+                y: dragData.coordY - (e.clientY - dragData.offsetY) / this.scale
+            });
 
             return false;
-        },
-
-        moveMap(x, y) {
-            const map = this.$refs.starmap;
-
-            map.style.left = `${x}px`;
-            map.style.top = `${y}px`;
         },
 
         stopMapMove() {
@@ -221,17 +192,13 @@ export default {
 
         goToTargetedSystem() {
             const system = document.querySelector(`#system-${this.targetedSystemId}`);
-            const systemX = parseInt(system.style.left);
-            const systemY = parseInt(system.style.top);
 
-            this.moveMap(
-                this.screen.width / 2 - systemX,
-                this.screen.height / 2 - systemY
-            );
+            this.$emit('updatePosition', {
+                x: parseInt(system.style.left) / this.scale,
+                y: parseInt(system.style.top) / this.scale
+            });
 
             this.centeredSystemId = this.targetedSystemId;
-
-            this.expandSystems();
         }
     }
 }

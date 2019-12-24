@@ -1,15 +1,20 @@
 <template>
     <div>
         <minimap :map="map"
+            :posX="posX"
+            :posY="posY"
             :territories="territories"
             :scale="minimapScale"
-            @moveTo="moveTo($event)" />
+            @moveTo="updatePosition($event)" />
         
         <starmap ref="starmap"
             :map="map"
+            :posX="posX"
+            :posY="posY"
             :territories="territories"
             :playerPlanets="planets"
             :fleets="fleets"
+            @updatePosition="updatePosition($event)"
             @selectTerritory="selectedTerritory = $event" />
 
         <journey-planer v-if="journey"
@@ -48,7 +53,9 @@ export default {
     data() {
         return {
             minimapScale: 2,
-            selectedTerritory: null
+            selectedTerritory: null,
+            posX: 0,
+            posY: 0
         };
     },
 
@@ -109,7 +116,7 @@ export default {
     },
 
     computed: {
-        ...mapState('user', ['screen', 'planets', 'currentPlanet']),
+        ...mapState('user', ['planets', 'currentPlanet']),
         ...mapState('map', ['fleet', 'scale']),
 
         journey() {
@@ -130,11 +137,9 @@ export default {
             this.$store.commit('map/setFleet', null);
         },
 
-        moveTo(coords) {
-            this.$refs.starmap.moveMap(
-                (this.screen.width / 2) - (coords.x * this.scale / this.minimapScale),
-                (this.screen.height / 2) - (coords.y * this.scale / this.minimapScale)
-            );
+        updatePosition(coords) {
+            this.posX = coords.x;
+            this.posY = coords.y;
         }
     }
 }

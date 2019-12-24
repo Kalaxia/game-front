@@ -1,6 +1,7 @@
 <template>
     <div class="minimap">
-        <section :style="style" @click="$emit('moveTo', { x: $event.layerX, y: $event.layerY })">
+        <section :style="style" @click="$emit('moveTo', { x: $event.layerX / scale, y: $event.layerY / scale })">
+            <div class="window" :style="windowStyle"></div>
             <div class="system" v-for="s in map.systems" :key="`system-${s.id}`" :style="systemStyle(s)"></div>
             <svg>
                 <svg v-for="t in territories" :key="t.id">
@@ -18,14 +19,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'minimap',
 
-    props: ['map', 'territories', 'scale'],
+    props: ['map', 'territories', 'scale', 'posX', 'posY'],
 
     computed: {
+        ...mapState('user', ['screen']),
+
         ...mapGetters({
             factionColors: 'user/factionColors'
         }),
@@ -47,14 +50,22 @@ export default {
                 borderColor: this.factionColors['white'],
                 backgroundColor: this.factionColors['black']
             };
+        },
+
+        windowStyle() {
+            const width = this.screen.width / (this.$store.state.map.scale / this.scale);
+            const height = this.screen.height / (this.$store.state.map.scale / this.scale);
+            return {
+                top: `${(this.posY * this.scale) - height / 2}px`,
+                left: `${(this.posX * this.scale) - width / 2}px`,
+                width: `${width}px`,
+                height: `${height}px`,
+                borderColor: this.factionColors['main'],
+            };
         }
     },
 
     methods: {
-        moveTo(event) {
-            console.log(event);
-        },
-
         systemStyle(s) {
             return {
                 top: `${((s.coord_y - this.scale / 2) * this.scale) + this.padding}px`,
@@ -75,9 +86,11 @@ export default {
         position: relative;
         border-radius: 10px;
         border: 1px solid;
+        overflow: hidden;
 
         & > .system {
             position: absolute;
+            border-radius: 50%;
         }
 
         & > svg {
@@ -90,6 +103,12 @@ export default {
                     fill-opacity: 0.6;
                 }
             }
+        }
+
+        & > .window {
+            position: absolute;
+            border: 1px solid;
+            border-radius: 5px;
         }
     }
 }

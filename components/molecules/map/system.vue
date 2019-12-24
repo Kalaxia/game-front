@@ -1,6 +1,6 @@
 <template>
     <div :id="`system-${system.id}`"
-        :class="['system', {mine: isPlayerSystem, expanded: system.planets}]"
+        :class="['system', { expanded: system.planets }]"
         :style="style">
         <section v-if="isExpanded">
             <div v-for="(planet, index) in system.planets"
@@ -35,12 +35,12 @@ import PlanetPicto from '~/components/atoms/planet/picto';
 import PlayerAvatar from '~/components/atoms/player/avatar';
 import JourneyStep, { ORDER_PASS } from '~/model/fleet/journeyStep';
 import { shadeColor } from '~/lib/colors';
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'map-system',
 
-    props: ['system', 'isPlayerSystem'],
+    props: ['system'],
 
     data() {
         return {
@@ -54,15 +54,20 @@ export default {
     },
 
     computed: {
+        ...mapState('map', ['scale', 'fleet', 'selectedPlanets']),
+
         ...mapGetters({
             factionColors: 'user/factionColors',
-            selectedPlanets: 'map/selectedPlanets'
+            previousX: 'map/previousX',
+            previousY: 'map/previousY',
+            previousPlanet: 'map/previousPlanet',
+            range: 'map/range'
         }),
 
         style() {
             return {
-                top: (this.system.coord_y * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
-                left: (this.system.coord_x * this.$store.state.map.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
+                top: (this.system.coord_y * this.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
+                left: (this.system.coord_x * this.scale) - (this.isExpanded ? 20 : 10 ) + 'px',
                 borderColor: (this.isExpanded) ? (this.system.faction) ? this.system.faction.colors['main'] : 'white' : 'grey'
             };
         },
@@ -74,24 +79,22 @@ export default {
 
     methods: {
         selectPlanet(planet) {
-            if (this.$store.state.map.fleet === null) {
+            if (this.fleet === null) {
                 this.$router.push(`/planet/${planet.id}`);
             }
-            const previousX = this.$store.getters['map/previousX'];
-            const previousY = this.$store.getters['map/previousY'];
-            const distance = Math.sqrt(Math.pow(this.system.x - previousX, 2) + Math.pow(this.system.y - previousY, 2));
+            const distance = Math.sqrt(Math.pow(this.system.x - this.previousX, 2) + Math.pow(this.system.y - this.previousY, 2));
             
             if (distance > this.$store.getters['map/range'](this.system.x, this.system.y, planet.id)) {
                 // TODO
                 throw 'out of range';
             }
             this.$store.commit('map/addStep', new JourneyStep({
-                id: this.$store.state.map.fleet.journey.steps.length,
+                id: this.fleet.journey.steps.length,
                 start_place: {
-                    planet: this.$store.getters['map/previousPlanet'],
+                    planet: this.previousPlanet,
                     coordinates: {
-                        x: previousX,
-                        y: previousY
+                        x: this.previousX,
+                        y: this.previousY
                     }
                 },
                 end_place: {
@@ -131,10 +134,6 @@ export default {
         border-radius: 50%;
         border: 1px solid #FFF;
         background-color: #EFEFEF;
-
-        &.mine {
-            background-color: red;
-        }
 
         &.expanded {
             width: 40px;
