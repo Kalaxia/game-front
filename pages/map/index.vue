@@ -1,6 +1,8 @@
 <template>
     <div>
-        <minimap :map="map" />
+        <minimap :map="map"
+            :territories="territories"
+            :scale="2" />
         
         <starmap :map="map"
             :territories="territories"
@@ -19,7 +21,7 @@
 
 <script>
 import Starmap from '~/components/organisms/map/starmap';
-import Minimap from '~/components/molecules/map/minimap';
+import Minimap from '~/components/organisms/map/minimap';
 import JourneyPlaner from '~/components/molecules/map/journey-planer';
 import JourneyStep from '~/components/molecules/map/journey-step';
 import JourneyRange from '~/components/molecules/map/journey-range';
@@ -140,9 +142,10 @@ export default {
         .unselectable
     }
 
-    #minimap {
+    .minimap {
         grid-column: ~"1/3";
         grid-row: ~"1/3";
+        z-index: 3;
     }
 
     #starmap {
