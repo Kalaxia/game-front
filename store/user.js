@@ -26,6 +26,9 @@ export const mutations = {
     },
 
     addNotification(state, notification) {
+        if (typeof state.player.notifications[notification.type === 'undefined']) {
+            state.player.notifications[notification.type] = new Array();
+        }
         state.player.notifications[notification.type].push(notification);
     },
 
