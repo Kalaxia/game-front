@@ -12,7 +12,7 @@ export default {
         style() {
             return {
                 width: `${this.width}px`,
-                height: `${this.height}px`,
+                minHeight: `${this.height}px`,
                 maskImage: `url('/images/picto/${this.src}')`,
                 maskSize: 'cover',
                 backgroundColor: this.color
