@@ -1,11 +1,20 @@
 <template>
     <div>
-        <minimap :map="map" />
-        
-        <starmap :map="map"
+        <minimap :map="map"
+            :posX="posX"
+            :posY="posY"
             :territories="territories"
-            :playerPlanets="playerPlanets"
+            :scale="minimapScale"
+            @moveTo="updatePosition($event)" />
+        
+        <starmap ref="starmap"
+            :map="map"
+            :posX="posX"
+            :posY="posY"
+            :territories="territories"
+            :playerPlanets="planets"
             :fleets="fleets"
+            @updatePosition="updatePosition($event)"
             @selectTerritory="selectedTerritory = $event" />
 
         <journey-planer v-if="journey"
@@ -19,13 +28,15 @@
 
 <script>
 import Starmap from '~/components/organisms/map/starmap';
-import Minimap from '~/components/molecules/map/minimap';
+import Minimap from '~/components/organisms/map/minimap';
 import JourneyPlaner from '~/components/molecules/map/journey-planer';
 import JourneyStep from '~/components/molecules/map/journey-step';
 import JourneyRange from '~/components/molecules/map/journey-range';
 import TerritoryPanel from '~/components/organisms/map/territory-panel';
 
 import Journey from '~/model/fleet/journey';
+
+import { mapState } from 'vuex';
 
 export default {
     name: 'page-map',
@@ -41,7 +52,10 @@ export default {
 
     data() {
         return {
-            selectedTerritory: null
+            minimapScale: 2,
+            selectedTerritory: null,
+            posX: 0,
+            posY: 0
         };
     },
 
@@ -102,17 +116,12 @@ export default {
     },
 
     computed: {
+        ...mapState('user', ['planets', 'currentPlanet']),
+        ...mapState('map', ['fleet', 'scale']),
+
         journey() {
-            return (this.$store.state.map.fleet !== null) ? this.$store.state.map.fleet.journey : null;
+            return (this.fleet !== null) ? this.fleet.journey : null;
         },
-
-        playerPlanets() {
-            return this.$store.state.user.planets;
-        },
-
-        currentPlanet() {
-            return this.$store.state.user.currentPlanet;
-        }
     },
 
     watch: {
@@ -123,9 +132,14 @@ export default {
 
     methods: {
         onFleetDeparture(fleet) {
-            this.fleets.push(this.$store.state.map.fleet);
+            this.fleets.push(this.fleet);
 
             this.$store.commit('map/setFleet', null);
+        },
+
+        updatePosition(coords) {
+            this.posX = coords.x;
+            this.posY = coords.y;
         }
     }
 }
@@ -140,9 +154,10 @@ export default {
         .unselectable
     }
 
-    #minimap {
+    .minimap {
         grid-column: ~"1/3";
         grid-row: ~"1/3";
+        z-index: 3;
     }
 
     #starmap {
