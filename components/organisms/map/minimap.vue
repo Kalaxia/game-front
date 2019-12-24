@@ -1,6 +1,6 @@
 <template>
     <div class="minimap">
-        <section :style="style">
+        <section :style="style" @click="$emit('moveTo', { x: $event.layerX, y: $event.layerY })">
             <div class="system" v-for="s in map.systems" :key="`system-${s.id}`" :style="systemStyle(s)"></div>
             <svg>
                 <svg v-for="t in territories" :key="t.id">
@@ -51,6 +51,10 @@ export default {
     },
 
     methods: {
+        moveTo(event) {
+            console.log(event);
+        },
+
         systemStyle(s) {
             return {
                 top: `${((s.coord_y - this.scale / 2) * this.scale) + this.padding}px`,

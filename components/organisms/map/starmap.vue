@@ -28,7 +28,7 @@ import MapLoader from '~/components/atoms/map/loader';
 import JourneyRange from '~/components/molecules/map/journey-range';
 import JourneyStep from '~/components/molecules/map/journey-step';
 import MapTerritories from '~/components/organisms/map/territories';
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 const dragData = {
     drag: false,
@@ -82,10 +82,8 @@ export default {
     },
 
     computed: {
-        ...mapGetters({
-            screenDimensions: 'user/screenDimensions',
-            fleet: 'map/fleet'
-        }),
+        ...mapState('user', ['screen']),
+        ...mapState('map', ['fleet']),
 
         mapReady() {
             return this.map !== null && this.playerSystems.length > 0;
@@ -129,8 +127,8 @@ export default {
             const coords = {
                 startX: Math.abs(coordX / mapScale),
                 startY: Math.abs(coordY / this.map.size),
-                finalX: (Math.abs(coordX) + this.screenDimensions.width) / mapScale,
-                finalY: (Math.abs(coordY) + this.screenDimensions.height) / this.map.size
+                finalX: (Math.abs(coordX) + this.screen.width) / mapScale,
+                finalY: (Math.abs(coordY) + this.screen.height) / this.map.size
             };
             const sectors = {};
 
@@ -182,10 +180,10 @@ export default {
             dragData.coordY = parseInt(map.style.top);
             dragData.drag = true;
             
-            document.onmousemove = this.moveMap;
+            document.onmousemove = this.dragMap;
         },
 
-        moveMap(e) {
+        dragMap(e) {
             if (!dragData.drag) {
                 return;
             }
@@ -195,14 +193,21 @@ export default {
             if (this.$store.state.map.isDragging === false) {
                 this.$store.commit('map/drag', true);
             }
-            const map = this.$refs.starmap;
-
-            map.style.left = dragData.coordX + (e.clientX - dragData.offsetX) + 'px';
-            map.style.top = dragData.coordY + (e.clientY - dragData.offsetY) + 'px';
+            this.moveMap(
+                dragData.coordX + (e.clientX - dragData.offsetX),
+                dragData.coordY + (e.clientY - dragData.offsetY)
+            );
 
             this.expandSystems();
 
             return false;
+        },
+
+        moveMap(x, y) {
+            const map = this.$refs.starmap;
+
+            map.style.left = `${x}px`;
+            map.style.top = `${y}px`;
         },
 
         stopMapMove() {
@@ -215,13 +220,14 @@ export default {
         },
 
         goToTargetedSystem() {
-            const starmap = this.$refs.starmap;
             const system = document.querySelector(`#system-${this.targetedSystemId}`);
             const systemX = parseInt(system.style.left);
             const systemY = parseInt(system.style.top);
 
-            starmap.style.top = parseInt(window.innerHeight) / 2 - systemY + 'px';
-            starmap.style.left = parseInt(window.innerWidth) / 2 - systemX + 'px';
+            this.moveMap(
+                this.screen.width / 2 - systemX,
+                this.screen.height / 2 - systemY
+            );
 
             this.centeredSystemId = this.targetedSystemId;
 

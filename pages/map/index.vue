@@ -2,11 +2,13 @@
     <div>
         <minimap :map="map"
             :territories="territories"
-            :scale="2" />
+            :scale="minimapScale"
+            @moveTo="moveTo($event)" />
         
-        <starmap :map="map"
+        <starmap ref="starmap"
+            :map="map"
             :territories="territories"
-            :playerPlanets="playerPlanets"
+            :playerPlanets="planets"
             :fleets="fleets"
             @selectTerritory="selectedTerritory = $event" />
 
@@ -29,6 +31,8 @@ import TerritoryPanel from '~/components/organisms/map/territory-panel';
 
 import Journey from '~/model/fleet/journey';
 
+import { mapState } from 'vuex';
+
 export default {
     name: 'page-map',
 
@@ -43,6 +47,7 @@ export default {
 
     data() {
         return {
+            minimapScale: 2,
             selectedTerritory: null
         };
     },
@@ -104,17 +109,12 @@ export default {
     },
 
     computed: {
+        ...mapState('user', ['screen', 'planets', 'currentPlanet']),
+        ...mapState('map', ['fleet', 'scale']),
+
         journey() {
-            return (this.$store.state.map.fleet !== null) ? this.$store.state.map.fleet.journey : null;
+            return (this.fleet !== null) ? this.fleet.journey : null;
         },
-
-        playerPlanets() {
-            return this.$store.state.user.planets;
-        },
-
-        currentPlanet() {
-            return this.$store.state.user.currentPlanet;
-        }
     },
 
     watch: {
@@ -125,9 +125,16 @@ export default {
 
     methods: {
         onFleetDeparture(fleet) {
-            this.fleets.push(this.$store.state.map.fleet);
+            this.fleets.push(this.fleet);
 
             this.$store.commit('map/setFleet', null);
+        },
+
+        moveTo(coords) {
+            this.$refs.starmap.moveMap(
+                (this.screen.width / 2) - (coords.x * this.scale / this.minimapScale),
+                (this.screen.height / 2) - (coords.y * this.scale / this.minimapScale)
+            );
         }
     }
 }
