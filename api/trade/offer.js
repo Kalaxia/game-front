@@ -22,7 +22,7 @@ export default class OfferRepository extends Repository {
     }
 
     async getAll(operation) {
-        const data = await this.call('POST', '/api/offers', { operation });
+        const data = await this.call('POST', '/api/offers/search', { operation });
 
         const offers = new Array();
         for (const offer of data) {

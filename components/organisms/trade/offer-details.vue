@@ -43,9 +43,18 @@
                     <resource-item :resource="{ name: offer.resource }" width="18px" height="18px" />
                 </div>
                 <div class="price">
-                    <span>{{ nbLots * offer.lotQuantity * offer.price }}</span>
+                    <span>{{ price }}</span>
                     <colored-picto src="G_P_Mon_64px.png" color="white" :width="26" :height="26" />
                 </div>
+                <template v-if="currentPlayer.id !== offer.location.player.id">
+                    <div class="faction-tax">
+                        <span>+ {{ factionTax }}%</span>
+                    </div>
+                    <div class="final-price">
+                        <span>{{ finalPrice }}</span>
+                        <colored-picto src="G_P_Mon_64px.png" color="white" :width="26" :height="26" />
+                    </div>
+                </template>
             </div>
             <div class="actions">
                 <button v-if="currentPlayer.id === offer.location.player.id" @click="$emit('cancelOffer')" class="button big" :style="{ color: factionColors['main'] }">{{ $t('trade.cancel_offer') }}</button>
@@ -67,7 +76,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'offer-details',
     
-    props: ['offer'],
+    props: ['offer', "faction"],
 
     data() {
         return {
@@ -114,6 +123,21 @@ export default {
 
         isExcessing() {
             return  (this.nbLots * this.offer.lotQuantity) + this.getStoredResource(this.offer.resource) > this.currentPlanet.storage.capacity;
+        },
+
+        price() {
+            return this.nbLots * this.offer.lotQuantity * this.offer.price;
+        },
+
+        factionTax() {
+            if (this.offer.location.player.faction.id !== this.faction.id) {
+                return this.faction.relations.filter(r => r.faction.id === this.offer.location.player.faction.id).shift().purchase_trade_tax;
+            }
+            return this.faction.settings["purchase_taxes"].value;
+        },
+
+        finalPrice() {
+            return this.price + (this.price * (this.factionTax / 100));
         }
     }
 }
@@ -210,7 +234,9 @@ export default {
                     margin-top: 10px;
 
                     & > .quantity,
-                    & > .price {
+                    & > .price,
+                    & > .faction-tax,
+                    & > .final-price {
                         display: flex;
                         align-items: center;
                         justify-content: flex-end;

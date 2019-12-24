@@ -7,7 +7,12 @@
                 <span>{{ $t('trade.trading_post') }}</span>
             </h1>
         </div>
-        <offer-details v-if="selectedOffer" :offer="selectedOffer" :key="selectedOffer.id" @acceptOffer="acceptOffer" @cancelOffer="cancelOffer" />
+        <offer-details v-if="selectedOffer"
+            :offer="selectedOffer"
+            :faction="faction"
+            :key="selectedOffer.id"
+            @acceptOffer="acceptOffer"
+            @cancelOffer="cancelOffer" />
         <offer-creation v-else-if="!isStorageEmpty" />
     </div>
 </template>
@@ -36,8 +41,14 @@ export default {
         }
     },
 
-    async created() {
-        this.$store.commit('trade/offers', await this.$repositories.trade.offer.getAll(OPERATION_SELL));
+    async asyncData({ app, store }) {
+        return {
+            faction: await app.$repositories.faction.getFaction(store.state.user.player.faction.id)
+        };
+    },
+
+    async fetch({ app, store }) {
+        store.commit('trade/offers', await app.$repositories.trade.offer.getAll(OPERATION_SELL));
     },
 
     destroyed() {
