@@ -149,7 +149,7 @@ export default {
                 const squadronIndex = this.selectedFleet.squadrons.indexOf(this.selectedSquadron);
                 this.selectedFleet.squadrons[squadronIndex] = squadron;
             } catch(err) {
-                this.$store.dispatch('user/addNotification', {
+                this.$store.dispatch('user/addActionNotification', {
                     type: 'error',
                     message: err
                 });
