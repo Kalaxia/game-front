@@ -34,7 +34,8 @@
 <script>
 import RegimeForm from '~/components/molecules/faction/motion/form/regime';
 import PlanetTaxesForm from '~/components/molecules/faction/motion/form/planet_taxes';
-import { mapGetters } from 'vuex';
+import WarDeclarationForm from '~/components/molecules/faction/motion/form/war_declaration';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'new-faction-motion',
@@ -52,7 +53,15 @@ export default {
         };
     },
 
+    beforeMount() {
+        if (this.player.faction.id !== this.faction.id) {
+            this.$router.push(`/faction/${this.player.faction.id}/motions/new`);
+        }
+    },
+
     computed: {
+        ...mapState('user', ['player']),
+
         ...mapGetters({
             factionColors: 'user/factionColors',
         }),
@@ -64,7 +73,8 @@ export default {
         motionForm() {
             return {
                 regime: RegimeForm,
-                planet_taxes: PlanetTaxesForm
+                planet_taxes: PlanetTaxesForm,
+                war_declaration: WarDeclarationForm
             }[this.type];
         }
     },
