@@ -10,7 +10,7 @@
                 <h1>{{ $t(`faction.motions.types.${motion.type}.title`) }}</h1>
                 <player-link :player="motion.author" :width="56" />
             </header>
-            <section class="description" v-html="$t(`faction.motions.types.${motion.type}.description`, motion.data)"></section>
+            <section class="description" v-html="$t(`faction.motions.types.${motion.type}.description`, data)"></section>
             <section>
                 <template v-if="!motion.isProcessed">
                     <div class="remaining-time">
@@ -65,6 +65,7 @@
 import Gauge from '~/components/atoms/gauge';
 import Timer from '~/components/atoms/timer';
 import PlayerLink from '~/components/atoms/player/link';
+import { formatData } from '~/lib/notifications.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -129,6 +130,10 @@ export default {
                     color: this.factionColors['grey']
                 }
             ];
+        },
+
+        data() {
+            return formatData(this.motion.data);
         }
     },
 

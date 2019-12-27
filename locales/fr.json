@@ -90,7 +90,8 @@
                 },
                 "peace_treaty_sending": {
                     "title": "Demander la paix",
-                    "description": "<p>La guerre fait rage avec la faction {faction__name}.</p><p>Cette motion vise l'envoi d'une proposition de traité de paix. Si elle est acceptée, nos ennemis recevront cette demande et pourront décider à leur tour de mettre un terme aux hostilités.</p>"
+                    "description": "<p>La guerre fait rage avec la faction {faction__name}.</p><p>Cette motion vise l'envoi d'une proposition de traité de paix. Si elle est acceptée, nos ennemis recevront cette demande et pourront décider à leur tour de mettre un terme aux hostilités.</p>",
+                    "not_in_war": "Nos factions ne sont pas en guerre"
                 },
                 "peace_treaty_response": {
                     "title": "Accepter une offre de paix",

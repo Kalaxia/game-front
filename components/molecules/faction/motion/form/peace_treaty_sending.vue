@@ -1,7 +1,7 @@
 <template>
-    <div class="war-declaration-motion-form">
+    <div class="peace-treaty-sending-motion-form">
         <header>
-            <div v-html="$t('faction.motions.types.war_declaration.description', { faction__name: (target) ? target.name : null })"></div>
+            <div v-html="$t('faction.motions.types.peace_treaty_sending.description', { faction__name: (target) ? target.name : null })"></div>
         </header>
         <section>
             <select v-model="target" @change="$emit('input', { faction: target })">
@@ -38,7 +38,7 @@ export default {
         }),
 
         validFactions() {
-            return this.faction.relations.filter(r => r.state !== 'hostile').map(r => r.faction);
+            return this.faction.relations.filter(r => r.state === 'hostile').map(r => r.faction);
         }
     },
 }

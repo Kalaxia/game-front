@@ -13,7 +13,7 @@
                         </label>
                         <div>
                             <select v-model="type">
-                                <option v-for="t in motionTypes" :key="t" :value="t">
+                                <option v-for="t in Object.keys(motionTypes)" :key="t" :value="t">
                                     {{ $t(`faction.motions.types.${t}.title`) }}
                                 </option>
                             </select>
@@ -34,6 +34,7 @@
 <script>
 import RegimeForm from '~/components/molecules/faction/motion/form/regime';
 import PlanetTaxesForm from '~/components/molecules/faction/motion/form/planet_taxes';
+import PeaceTreatySendingForm from '~/components/molecules/faction/motion/form/peace_treaty_sending';
 import WarDeclarationForm from '~/components/molecules/faction/motion/form/war_declaration';
 import { mapState, mapGetters } from 'vuex';
 
@@ -67,15 +68,16 @@ export default {
         }),
 
         motionTypes() {
-            return this.$resources.faction_motion_types;
+            return {
+                //regime: RegimeForm,
+                planet_taxes: PlanetTaxesForm,
+                peace_treaty_sending: PeaceTreatySendingForm,
+                war_declaration: WarDeclarationForm
+            };
         },
 
         motionForm() {
-            return {
-                regime: RegimeForm,
-                planet_taxes: PlanetTaxesForm,
-                war_declaration: WarDeclarationForm
-            }[this.type];
+            return this.motionTypes[this.type];
         }
     },
 
