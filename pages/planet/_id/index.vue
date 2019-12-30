@@ -1,6 +1,6 @@
 <template>
     <div>
-        <planet-shape v-if="planet" :id="planet.id" :type="planet.type" width="300" height="300" />
+        <planet-image v-if="planet" :id="planet.id" :type="planet.type" width="300" height="300" />
         <planet-relations v-if="planet" :planet="planet" width="300" height="300" />
     </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
 import Planet from '~/model/planet';
 
-import PlanetShape from '~/components/atoms/planet/shape';
+import PlanetImage from '~/components/atoms/planet/image';
 import PlanetRelations from '~/components/molecules/planet/relations';
 
 export default {
@@ -21,7 +21,7 @@ export default {
     },
 
     components: {
-        PlanetShape,
+        PlanetImage,
         PlanetRelations
     },
 
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    .shape {
+    .planet-image {
         position: absolute !important;
         top: calc(50% - 150px);
         left: calc(50% - 150px);

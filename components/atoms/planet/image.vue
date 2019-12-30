@@ -1,5 +1,5 @@
 <template>
-    <img class="planet-image" :src="`/images/picto/${image}`" :width="width" :height="height" :alt="type" />  
+    <img class="planet-image" :src="`/images/planet/${image}`" :width="width" :height="height" :alt="type" />  
 </template>
 
 <script>
@@ -11,13 +11,13 @@ export default {
     computed: {
         image() {
             return {
-                arctic: 'PL_Ice_200px.png',
-                desert: 'PL_Gaz_200px.png',
-                oceanic: 'PL_Wate_200px.png',
-                temperate: 'PL_Temp_200px.png',
-                tropical: 'PL_Trop_200px.png',
-                rocky: 'PL_Rock_200px.png',
-                volcanic: 'PL_Volc_200px.png'
+                arctic: 'Ice.png',
+                desert: 'Gaz.png',
+                oceanic: 'Ocean.png',
+                temperate: 'Tempered.png',
+                tropical: 'Tropical.png',
+                rocky: 'Mountain.png',
+                volcanic: 'Lava.png'
             }[this.type];
         }
     }

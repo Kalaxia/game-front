@@ -10,7 +10,7 @@
                 <h1>{{ $t(`faction.motions.types.${motion.type}.title`) }}</h1>
                 <player-link :player="motion.author" :width="56" />
             </header>
-            <section class="description" v-html="$t(`faction.motions.types.${motion.type}.description`, motion.data)"></section>
+            <section class="description" v-html="$t(`faction.motions.types.${motion.type}.description`, data)"></section>
             <section>
                 <template v-if="!motion.isProcessed">
                     <div class="remaining-time">
@@ -65,25 +65,26 @@
 import Gauge from '~/components/atoms/gauge';
 import Timer from '~/components/atoms/timer';
 import PlayerLink from '~/components/atoms/player/link';
+import { formatData } from '~/lib/notifications.js';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'motion-details',
 
     async asyncData({ app, params, store }) {
-        const motion = await app.$repositories.faction.getMotion(params.id, params.motion_id);
+        const motion = await app.$repositories.faction.faction.getMotion(params.id, params.motion_id);
         let vote, votes;
 
         if (!motion.isProcessed) {
             try {
-                vote = await app.$repositories.faction.getVote(params.id, params.motion_id);
+                vote = await app.$repositories.faction.faction.getVote(params.id, params.motion_id);
             } catch(err) {
                 vote = null;
             }
             votes = [];
         } else {
             vote = null;
-            votes = await app.$repositories.faction.getVotes(params.id, params.motion_id);
+            votes = await app.$repositories.faction.faction.getVotes(params.id, params.motion_id);
         }
         return { motion, vote, votes };
     },
@@ -129,12 +130,16 @@ export default {
                     color: this.factionColors['grey']
                 }
             ];
+        },
+
+        data() {
+            return formatData(this.motion.data);
         }
     },
 
     methods: {
         async sendVote(option) {
-            this.vote = await this.$repositories.faction.vote(this.motion.faction.id, this.motion.id, option);
+            this.vote = await this.$repositories.faction.faction.vote(this.motion.faction.id, this.motion.id, option);
         }
     }
 }

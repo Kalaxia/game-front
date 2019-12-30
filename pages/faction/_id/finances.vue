@@ -38,7 +38,7 @@ export default {
 
     async asyncData({ app, params }) {
         return {
-            faction: await app.$repositories.faction.getFaction(params.id)
+            faction: await app.$repositories.faction.faction.getFaction(params.id)
         };
     },
 

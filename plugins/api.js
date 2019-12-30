@@ -8,12 +8,16 @@ import ShipRepository from '~/api/ship/ship';
 import ShipModelRepository from '~/api/ship/model';
 import OfferRepository from '~/api/trade/offer';
 import Repository from '~/api/repository';
-import BuildingRepository from '../api/building';
+import BuildingRepository from '~/api/building';
+import FactionWarRepository from '~/api/faction/war';
 
 export default ({ store }, inject) => {
     inject('repositories', {
         building: new BuildingRepository(store),
-        faction: new FactionRepository(store),
+        faction: {
+            faction: new FactionRepository(store),
+            war: new FactionWarRepository(store),
+        },
         fleet: new FleetRepository(store),
         map: new MapRepository(store),
         planet: new PlanetRepository(store),

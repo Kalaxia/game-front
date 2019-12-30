@@ -76,14 +76,41 @@
             "success": "La motion a été créée avec succès !",
             "type": "Sujet de la motion",
             "types": {
+                "alliance_break": {
+                    "title": "Rompre une alliance",
+                    "description": "<p>L'alliance avec la faction {faction__name} est remise en question. Si cette motion est approuvée, l'alliance sera immédiatemment dissoute.</p>"
+                },
+                "alliance_proposal_sending": {
+                    "title": "Proposition d'alliance",
+                    "description": "<p>Une alliance est un moyen diplomatique sûr de nous assurer du soutien d'une puissance étrangère.</p><p>Cette motion vise à envoyer une proposition d'alliance à la faction {faction__name}. Ils devront ensuite décider s'ils l'acceptent ou non.</p>"
+                },
+                "alliance_proposal_response": {
+                    "title": "Proposition d'alliance",
+                    "description": "<p>Nous avons reçus une proposition d'alliance de la part de la faction {faction__name}</p><p>Si cette motion est acceptée, l'alliance sera déclarée entre nos deux factions.</p>"
+                },
+                "peace_treaty_sending": {
+                    "title": "Demander la paix",
+                    "description": "<p>La guerre fait rage avec la faction {faction__name}.</p><p>Cette motion vise l'envoi d'une proposition de traité de paix. Si elle est acceptée, nos ennemis recevront cette demande et pourront décider à leur tour de mettre un terme aux hostilités.</p>",
+                    "not_in_war": "Nos factions ne sont pas en guerre"
+                },
+                "peace_treaty_response": {
+                    "title": "Accepter une offre de paix",
+                    "description": "<p>La faction {faction__name} nous a fait parvenir une demande de paix.</p><p>Si cette motion est acceptée, nous serons officiellement en paix. Si non, la guerre poursuivra son cours.</p>"
+                },
+                "war_declaration": {
+                    "title": "Déclarer la guerre",
+                    "description": "<p>Il nous faut déclarer la guerre à la faction {faction__name} !</p><p>Si cette motion est acceptée, nous serons officiellement en guerre contre eux.</p>",
+                    "already_in_war": "Nos factions sont déjà en guerre"
+                },
                 "planet_taxes": {
                     "title": "Taxes planétaires",
-                    "description": "<p>Les impôts de faction sont une précieuse source de revenus, permettant de financer le fonctionnement de la faction etl'application des mesures prises.</p><p>Cette motion vise à ajuster le niveau de prélèvements par rotation stellaire à <strong>{taxes} crédits</strong>.</p>",
+                    "description": "<p>Les impôts de faction sont une précieuse source de revenus, permettant de financer le fonctionnement de la faction et l'application des mesures prises.</p><p>Cette motion vise à ajuster le niveau de prélèvements par rotation stellaire à <strong>{taxes} crédits</strong>.</p>",
                     "same_value": "La taxe planétaire est déjà fixée à ce montant",
                     "invalid_value": "La taxe planétaire ne peut être négative"
                 },
                 "regime": {
-                    "title": "Régime politique"
+                    "title": "Régime politique",
+                    "description": ""
                 }
             },
             "voted_list": "Motions votées",
@@ -97,6 +124,25 @@
         "treasury": "Trésorerie",
         "relations": {
             "title": "Relations Diplomatiques"
+        },
+        "war": {
+            "war_declared": {
+                "title": "La guerre est déclarée !",
+                "content": "Notre faction vient d'entrer en guerre contre {enemy__name}.",
+                "footer": ""
+            },
+            "war_ended": {
+                "title": "La guerre est terminée !",
+                "content": "Le conflit avec {enemy__name} s'est enfin achevé ! La paix est revenue entre nos deux factions !",
+                "footer": ""
+            },
+            "casus_belli": {
+                "types": {
+                    "plunder": "a pillé la planète",
+                    "combat": "a combattu une flotte de",
+                    "conquest": "a conquis la planète"
+                }
+            }
         }
     },
     "menu": {

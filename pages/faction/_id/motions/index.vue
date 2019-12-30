@@ -14,8 +14,8 @@ export default {
     
     async asyncData({ app, params }) {
         const [ currentMotions, previousMotions ] = await Promise.all([
-            app.$repositories.faction.getFactionMotions(params.id),
-            app.$repositories.faction.getPreviousMotions(params.id)
+            app.$repositories.faction.faction.getFactionMotions(params.id),
+            app.$repositories.faction.faction.getPreviousMotions(params.id)
         ]);
         return { currentMotions, previousMotions };
     },

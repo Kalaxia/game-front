@@ -13,7 +13,7 @@
                         </label>
                         <div>
                             <select v-model="type">
-                                <option v-for="t in motionTypes" :key="t" :value="t">
+                                <option v-for="t in Object.keys(motionTypes)" :key="t" :value="t">
                                     {{ $t(`faction.motions.types.${t}.title`) }}
                                 </option>
                             </select>
@@ -34,7 +34,9 @@
 <script>
 import RegimeForm from '~/components/molecules/faction/motion/form/regime';
 import PlanetTaxesForm from '~/components/molecules/faction/motion/form/planet_taxes';
-import { mapGetters } from 'vuex';
+import PeaceTreatySendingForm from '~/components/molecules/faction/motion/form/peace_treaty_sending';
+import WarDeclarationForm from '~/components/molecules/faction/motion/form/war_declaration';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'new-faction-motion',
@@ -48,31 +50,41 @@ export default {
 
     async asyncData({ app, params }) {
         return {
-            faction: await app.$repositories.faction.getFaction(params.id)
+            faction: await app.$repositories.faction.faction.getFaction(params.id)
         };
     },
 
+    beforeMount() {
+        if (this.player.faction.id !== this.faction.id) {
+            this.$router.push(`/faction/${this.player.faction.id}/motions/new`);
+        }
+    },
+
     computed: {
+        ...mapState('user', ['player']),
+
         ...mapGetters({
             factionColors: 'user/factionColors',
         }),
 
         motionTypes() {
-            return this.$resources.faction_motion_types;
+            return {
+                //regime: RegimeForm,
+                planet_taxes: PlanetTaxesForm,
+                peace_treaty_sending: PeaceTreatySendingForm,
+                war_declaration: WarDeclarationForm
+            };
         },
 
         motionForm() {
-            return {
-                regime: RegimeForm,
-                planet_taxes: PlanetTaxesForm
-            }[this.type];
+            return this.motionTypes[this.type];
         }
     },
 
     methods: {
         async createMotion() {
             try {
-                const motion = await this.$repositories.faction.createMotion(this.faction, this.type, this.extraData);
+                const motion = await this.$repositories.faction.faction.createMotion(this.faction, this.type, this.extraData);
 
                 this.$store.dispatch('user/addActionNotification', {
                     isError: false,

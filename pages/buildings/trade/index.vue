@@ -43,7 +43,7 @@ export default {
 
     async asyncData({ app, store }) {
         return {
-            faction: await app.$repositories.faction.getFaction(store.state.user.player.faction.id)
+            faction: await app.$repositories.faction.faction.getFaction(store.state.user.player.faction.id)
         };
     },
 
