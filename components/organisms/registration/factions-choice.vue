@@ -38,7 +38,7 @@ export default {
     },
 
     async mounted() {
-        this.factions = await this.$repositories.faction.getFactions();
+        this.factions = await this.$repositories.faction.faction.getFactions();
     },
 
     computed: {

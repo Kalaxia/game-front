@@ -27,10 +27,10 @@ export default {
 
     async asyncData({ app, params, store }) {
         const promises = [
-            app.$repositories.faction.getFaction(params.id)
+            app.$repositories.faction.faction.getFaction(params.id)
         ];
         if (store.state.user.player.faction.id == params.id) {
-            promises.push(app.$repositories.faction.getFactionMotions(params.id));
+            promises.push(app.$repositories.faction.faction.getFactionMotions(params.id));
         }
         const [ faction, motions ] = await Promise.all(promises);
         return { faction, motions };

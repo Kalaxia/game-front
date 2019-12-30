@@ -124,6 +124,25 @@
         "treasury": "Trésorerie",
         "relations": {
             "title": "Relations Diplomatiques"
+        },
+        "war": {
+            "war_declared": {
+                "title": "La guerre est déclarée !",
+                "content": "Notre faction vient d'entrer en guerre contre {enemy__name}.",
+                "footer": ""
+            },
+            "war_ended": {
+                "title": "La guerre est terminée !",
+                "content": "Le conflit avec {enemy__name} s'est enfin achevé ! La paix est revenue entre nos deux factions !",
+                "footer": ""
+            },
+            "casus_belli": {
+                "types": {
+                    "plunder": "a pillé la planète",
+                    "combat": "a combattu une flotte de",
+                    "conquest": "a conquis la planète"
+                }
+            }
         }
     },
     "menu": {

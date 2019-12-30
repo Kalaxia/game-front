@@ -50,7 +50,7 @@ export default {
 
     async asyncData({ app, params }) {
         return {
-            faction: await app.$repositories.faction.getFaction(params.id)
+            faction: await app.$repositories.faction.faction.getFaction(params.id)
         };
     },
 
@@ -84,7 +84,7 @@ export default {
     methods: {
         async createMotion() {
             try {
-                const motion = await this.$repositories.faction.createMotion(this.faction, this.type, this.extraData);
+                const motion = await this.$repositories.faction.faction.createMotion(this.faction, this.type, this.extraData);
 
                 this.$store.dispatch('user/addActionNotification', {
                     isError: false,

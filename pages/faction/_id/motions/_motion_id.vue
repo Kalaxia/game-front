@@ -72,19 +72,19 @@ export default {
     name: 'motion-details',
 
     async asyncData({ app, params, store }) {
-        const motion = await app.$repositories.faction.getMotion(params.id, params.motion_id);
+        const motion = await app.$repositories.faction.faction.getMotion(params.id, params.motion_id);
         let vote, votes;
 
         if (!motion.isProcessed) {
             try {
-                vote = await app.$repositories.faction.getVote(params.id, params.motion_id);
+                vote = await app.$repositories.faction.faction.getVote(params.id, params.motion_id);
             } catch(err) {
                 vote = null;
             }
             votes = [];
         } else {
             vote = null;
-            votes = await app.$repositories.faction.getVotes(params.id, params.motion_id);
+            votes = await app.$repositories.faction.faction.getVotes(params.id, params.motion_id);
         }
         return { motion, vote, votes };
     },
@@ -139,7 +139,7 @@ export default {
 
     methods: {
         async sendVote(option) {
-            this.vote = await this.$repositories.faction.vote(this.motion.faction.id, this.motion.id, option);
+            this.vote = await this.$repositories.faction.faction.vote(this.motion.faction.id, this.motion.id, option);
         }
     }
 }

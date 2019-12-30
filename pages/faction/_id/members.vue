@@ -14,8 +14,8 @@ export default {
     
     async asyncData({ app, params }) {
         const [ faction, members ] = await Promise.all([
-            app.$repositories.faction.getFaction(params.id),
-            app.$repositories.faction.getFactionMembers({ id: params.id })
+            app.$repositories.faction.faction.getFaction(params.id),
+            app.$repositories.faction.faction.getFactionMembers({ id: params.id })
         ]);
         return { faction, members };
     },
