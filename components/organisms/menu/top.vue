@@ -20,7 +20,7 @@
             <divider :color="faction.colors['main']" />
             <Item link="/map" image="G_P_Map_64px.png" :color="faction.colors['main']" />
             <divider :color="faction.colors['main']" />
-            <Item image="G_P_Rank_64px.png" :color="faction.colors['main']" />
+            <Item link="/rankings" image="G_P_Rank_64px.png" :color="faction.colors['main']" />
             <div class="delimiter" :style="{ backgroundColor: faction.colors['main'] }"></div>
         </template>
     </div>

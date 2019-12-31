@@ -10,6 +10,7 @@ import OfferRepository from '~/api/trade/offer';
 import Repository from '~/api/repository';
 import BuildingRepository from '~/api/building';
 import FactionWarRepository from '~/api/faction/war';
+import RankingRepository from '~/api/ranking';
 
 export default ({ store }, inject) => {
     inject('repositories', {
@@ -30,6 +31,7 @@ export default ({ store }, inject) => {
         trade: {
             offer: new OfferRepository(store),
         },
+        ranking: new RankingRepository(store),
         repository: new Repository(store)
     });
 };
