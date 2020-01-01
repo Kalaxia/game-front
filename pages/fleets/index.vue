@@ -1,6 +1,6 @@
 <template>
     <div>
-        <fleets-list :fleets="fleets" type="all" @selectFleet="selectedFleet = $event" />
+        <fleets-list :fleets="fleets" type="all" @selectFleet="selectFleet($event)" />
         <combat-reports v-if="!selectedFleet" :reports="reports" />
         <template v-else>
             <div v-if="selectedFleet.journey" id="fleet-journey-details">
@@ -14,7 +14,7 @@
             <fleet-details
                 :fleets="fleets"
                 :fleet="selectedFleet"
-                @selectFleet="selectedFleet = $event"
+                @selectFleet="selectFleet($event)"
                 @unselect="selectedFleet = null" />
         </template>
     </div>
@@ -28,6 +28,7 @@ import CombatReports from '~/components/organisms/combat-report/list';
 import FleetComposition from '~/components/organisms/fleet/composition';
 import FleetDetails from '~/components/organisms/fleet/details';
 import FleetJourneyStep from '~/components/molecules/fleet/journey-step';
+import { mapState } from 'vuex';
 
 export default {
     name: 'page-fleets',
@@ -55,11 +56,22 @@ export default {
         CombatReports
     },
 
+    computed: {
+        ...mapState('user', ['player']),
+    },
+
     methods: {
         async goToPlanet (planet) {
             await this.$store.dispatch('user/setCurrentPlanet', planet);
-            
+
             this.$router.push(`/planet/${planet.id}`);
+        },
+
+        async selectFleet(fleet) {
+            if (fleet.squadrons.length === 0 && fleet.player.id === this.player.id) {
+                await this.$repositories.fleet.getSquadrons(fleet);
+            }
+            this.selectedFleet = fleet;
         },
     }
 };

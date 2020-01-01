@@ -10,16 +10,16 @@
                 <fleet-list
                     type="orbiting"
                     :fleets="fleets"
-                    @selectFleet="selectedFleet = $event"
+                    @selectFleet="selectFleet($event)"
                     @createFleet="fleets.push($event)" />
                 <fleet-list v-if="comingFleets.length > 0"
                     type="coming"
                     :fleets="comingFleets"
-                    @selectFleet="selectedFleet = $event" />
+                    @selectFleet="selectFleet($event)" />
                 <fleet-list v-if="leavingFleets.length > 0"
                     type="leaving"
                     :fleets="leavingFleets"
-                    @selectFleet="selectedFleet = $event" />
+                    @selectFleet="selectFleet($event)" />
             </div>
         </template>
         <template v-else>
@@ -38,7 +38,7 @@
                 :fleet="selectedFleet"
                 :selectedPosition="selectedPosition"
                 @selectPosition="selectPosition($event)"
-                @selectFleet="selectedFleet = $event"
+                @selectFleet="selectFleet($event)"
                 @unselect="selectedFleet = null" />
         </template>
     </div>
@@ -83,6 +83,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            currentPlayer: 'user/currentPlayer',
             currentPlanet: 'user/currentPlanet'
         }),
 
@@ -132,6 +133,13 @@ export default {
             }
             this.selectedGroup = Object.assign({}, this.selectedSquadron.shipModel, { quantity: 0 });
             this.groups.push(this.selectedGroup);
+        },
+
+        async selectFleet(fleet) {
+            if (fleet.squadrons.length === 0 && fleet.player.id === this.currentPlayer.id) {
+                await this.$repositories.fleet.getSquadrons(fleet);
+            }
+            this.selectedFleet = fleet;
         },
 
         assignShips(quantity) {

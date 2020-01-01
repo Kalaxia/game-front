@@ -68,10 +68,6 @@ export default {
         ShipType,
     },
 
-    mounted() {
-        this.$repositories.fleet.getSquadrons(this.fleet);
-    },
-
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors',
