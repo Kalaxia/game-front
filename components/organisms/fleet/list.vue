@@ -72,7 +72,6 @@ export default {
         }
 
         & > section {
-            flex-grow: 1;
             display: flex;
             align-items: flex-start;
             flex-wrap: wrap;

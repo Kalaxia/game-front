@@ -115,7 +115,7 @@ export default {
         },
 
         isSelected(squadron) {
-            return this.selectedPosition !== null && squadron.position.x === this.selectedPosition.x && squadron.position.y === this.selectedPosition.y;
+            return this.selectedPosition && squadron.position.x === this.selectedPosition.x && squadron.position.y === this.selectedPosition.y;
         },
 
         gaugeLevels(group, squadron) {

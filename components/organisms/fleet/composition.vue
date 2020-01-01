@@ -25,7 +25,7 @@ export default {
 
     computed: {
         selectedSquadron() {
-            if (this.selectedPosition === null) {
+            if (!this.selectedPosition) {
                 return null;
             }
             for (const s of this.fleet.squadrons) {
