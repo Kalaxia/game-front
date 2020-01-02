@@ -1,7 +1,7 @@
 <template>
     <div ref="notification" class="notification">
         <header>
-            <h4>{{ $t(`${notification.content}.title`, data) }}</h4>
+            <h4 v-html="$t(`${notification.content}.title`, data)"></h4>
             <colored-picto src="close_cross.svg" :color="factionColors['grey']" :width="28" :height="28" @click.native="deleteNotification()" />
         </header>
         <section>

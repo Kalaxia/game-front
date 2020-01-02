@@ -170,7 +170,19 @@
             "extracted_resources": "Ressources extraites",
             "price": "Coût de construction",
             "total_points": "Total",
-            "remaining_points": "Restant"
+            "remaining_points": "Restant",
+            "notifications": {
+                "construction_success": {
+                    "title": "Construction terminée",
+                    "content": "Le bâtiment <span class='translate'>buildings.{building_name}</span> vient d'être terminé sur la planète {planet_name}",
+                    "footer": "<span class='link' data-link='/planet/{planet_id}/buildings'>Voir</span>"
+                },
+                "compartment_success": {
+                    "title": "Construction terminée",
+                    "content": "Le compartiment <span class='translate'>compartments.{compartment_name}.title</span> du bâtiment {building_name} vient d'être terminé sur la planète {planet_name}",
+                    "footer": "<span class='link' data-link='/planet/{planet_id}/buildings'>Voir</span>"
+                }
+            }
         },
         "resources": "Ressources",
         "relations": "Relations diplomatiques",
@@ -292,6 +304,13 @@
             "laser-canon-barrage": {
                 "name": "Canon laser Barrage",
                 "description": "Ce canon laser à tir de barrage écrasera les masses compactes de vaisseaux ennemis"
+            }
+        },
+        "notifications": {
+            "construction_success": {
+                "title": "<span class='translate'>ships.types.{model_type}</span>s produits",
+                "content": "{quantity} nouveaux vaisseaux de modèle {model_name} ont été produits sur votre planète {planet_name}",
+                "footer": "<span class='link' data-link='/planet/{planet_id}/fleets'>Aller au hangar</span>"
             }
         },
         "price": "Prix",

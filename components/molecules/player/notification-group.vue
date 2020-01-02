@@ -33,7 +33,9 @@ export default {
             return {
                 trade: 'B_Merc_64px.png',
                 military: 'Combat.svg',
-                faction: 'trade/Faction.svg'
+                faction: 'trade/Faction.svg',
+                building: 'G_P_B_64px.png',
+                shipyard: 'Shipyard_64px.png'
             }[this.type];
         },
 
