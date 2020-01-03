@@ -24,7 +24,8 @@ export default class Journey {
                 x: step.endPlace.coordinates.x,
                 y: step.endPlace.coordinates.y,
                 planetId: (step.endPlace.planet !== null) ? step.endPlace.planet.id : 0,
-                order: step.order
+                order: step.order,
+                data: step.data
             })
         }
         return data;

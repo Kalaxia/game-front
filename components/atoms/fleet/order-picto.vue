@@ -4,7 +4,7 @@
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
-import { ORDER_PASS, ORDER_CONQUER } from '~/model/fleet/journeyStep';
+import { ORDER_PASS, ORDER_CONQUER, ORDER_DELIVER } from '~/model/fleet/journeyStep';
 
 export default {
     name: 'order-picto',
@@ -20,6 +20,7 @@ export default {
             return {
                 [ORDER_PASS]: 'ships/Fleet.svg',
                 [ORDER_CONQUER]: 'ships/Attack.svg',
+                [ORDER_DELIVER]: 'trade/Lots.svg'
             }[this.order];
         },
     }

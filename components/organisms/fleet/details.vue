@@ -20,11 +20,12 @@
                     <strong>{{ cargoCapacity }}</strong>
                 </div>
             </header>
-            <div>
+            <section>
                 <div v-for="(quantity, r) in fleet.cargo" :key="r">
                     <resource-item :resource="{ name: r }" />
+                    {{ quantity }}
                 </div>
-            </div>
+            </section>
         </section>
         <section class="ships">
             <h4>Escadrilles</h4>
@@ -195,6 +196,25 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+            }
+
+            & > section {
+                display: flex;
+                flex-wrap: wrap;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 10px;
+                    font-size: 0.8em;
+
+                    & > .resource-item {
+                        width: 36px;
+                        height: 36px;
+                        margin-bottom: 5px;
+                    }
+                }
             }
         }
 

@@ -522,6 +522,10 @@
             "conquer": {
                 "title": "Conquéte",
                 "description": "La flotte combat pour s'emparer de la planète, et attaquera toute flotte désirant l'en empêcher. La conquête militaire détériorera grandement vos rapports avec la population de cette planète, et aussi avec les propriétaires des flottes l'ayant défendue, surtout si elles étaient neutres vis-à-vis de vous."
+            },
+            "deliver": {
+                "title": "Livraison",
+                "description": "La flotte effectue une livraison de matériel sur la planète indiquée. La flotte n'attaquera pas d'autres flottes hostiles si elle en croise sur son chemin."
             }
         },
         "planer" : {

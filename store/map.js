@@ -118,7 +118,18 @@ export const mutations = {
     selectedPlanets: (state, planets) => { state.planets = planets; }, 
 
     stepOrder (state, payload) {
-        state.fleet.journey.steps[state.fleet.journey.steps.indexOf(payload.step)].order = payload.order;
+        const index = state.fleet.journey.steps.findIndex(s => s.id === payload.step.id);
+        if (typeof payload.step.data !== 'undefined') {
+            state.fleet.journey.steps[index].data = payload.step.data;
+        }
+        state.fleet.journey.steps[index].order = payload.order;
+    },
+
+    updateStepDataResource (state, payload) {
+        const index = state.fleet.journey.steps.findIndex(s => s.id === payload.step.id);
+        if (typeof payload.step.data !== 'undefined') {
+            state.fleet.journey.steps[index].data.resources[payload.index].quantity = parseInt(payload.quantity);
+        }
     },
 
     removeLastStep(state) {

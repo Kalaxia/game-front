@@ -2,6 +2,7 @@ import Place from '~/model/map/place';
 
 export const ORDER_PASS = 'pass';
 export const ORDER_CONQUER = 'conquer';
+export const ORDER_DELIVER = 'deliver';
 
 export default class JourneyStep {
     constructor(data) {
@@ -13,5 +14,6 @@ export default class JourneyStep {
         this.restTime = data.time_jump;
         this.number = data.step_number;
         this.order = data.order;
+        this.data = data.data;
     }
 }

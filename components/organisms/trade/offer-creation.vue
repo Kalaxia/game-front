@@ -16,15 +16,15 @@
             </div>
             <div class="quantity">
                 <h5>Quantité</h5>
-                <input type="number" v-model="quantity" min="100" :max="currentResourceAvailable" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkQuantity" />
+                <input class="input" type="number" v-model="quantity" min="100" :max="currentResourceAvailable" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkQuantity" />
             </div>
             <div class="lot-quantity">
                 <h5>Quantité par lot</h5>
-                <input v-model="lotQuantity" type="number" min="1" :max="quantity" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkLotQuantity" />
+                <input class="input" v-model="lotQuantity" type="number" min="1" :max="quantity" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkLotQuantity" />
             </div>
             <div class="price">
                 <h5>Prix</h5>
-                <input type="number" v-model="price" min="1" max="1000" :style="{ color: resourceColor, borderColor: resourceColor }" />
+                <input class="input" type="number" v-model="price" min="1" max="1000" :style="{ color: resourceColor, borderColor: resourceColor }" />
             </div>
             <div class="recap">
                 <p>Quantité totale : <strong>{{ quantity }}</strong></p>

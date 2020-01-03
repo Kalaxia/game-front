@@ -6,18 +6,21 @@
                     {{ $t('journey.planet_order', { order: $t(`journey.orders.${order}.title`), planet: step.endPlace.planet.name }) }}
                 </h3>
             </header>
-            <section>
+            <section class="order-choice">
                 <div v-for="o in orders" :key="o" :style="{ borderColor: factionColors[(o === order) ? 'main' : 'white'] }" @click="order = o">
-                    <order-picto :order="o" :size="84" :color="factionColors['white']" />
+                    <order-picto :order="o" :size="64" :color="factionColors['white']" />
                 </div>
             </section>
-            <footer>
+            <section class="order-details">
                 <p>{{ $t(`journey.orders.${order}.description`) }}</p>
+                <component v-if="extension !== null" :is="extension" :step="step" @selectOrder="selectOrder($event)" @unselectStep="$emit('unselectStep')" />
+            </section>
+            <footer v-if="extension === null">
                 <div>
                     <button class="button" @click="$emit('unselectStep')" :style="{ color: factionColors['white'] }">
                         {{ $t('journey.planer.cancel_order') }}
                     </button>
-                    <button class="button" @click="selectOrder" :style="{ color: factionColors['main'] }">
+                    <button class="button" @click="selectOrder({})" :style="{ color: factionColors['main'] }">
                         {{ $t('journey.planer.confirm_order') }}
                     </button>
                 </div>
@@ -28,7 +31,8 @@
 
 <script>
 import OrderPicto from '~/components/atoms/fleet/order-picto';
-import { ORDER_PASS, ORDER_CONQUER } from '~/model/fleet/journeyStep';
+import DeliveryOrder from '~/components/molecules/fleet/order/delivery';
+import { ORDER_PASS, ORDER_CONQUER, ORDER_DELIVER } from '~/model/fleet/journeyStep';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -41,7 +45,8 @@ export default {
             order: this.step.order,
             orders: [
                 ORDER_PASS,
-                ORDER_CONQUER
+                ORDER_CONQUER,
+                ORDER_DELIVER
             ]
         }
     },
@@ -53,13 +58,20 @@ export default {
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors'
-        })
+        }),
+
+        extension() {
+            const extensions = {
+                [ORDER_DELIVER]: DeliveryOrder
+            };
+            return (typeof extensions[this.order] !== 'undefined') ? extensions[this.order] : null;
+        }
     },
 
     methods: {
-        selectOrder () {
+        selectOrder (data) {
             this.$store.commit('map/stepOrder', {
-                step: this.step,
+                step: { ...this.step, ...{ data }},
                 order: this.order
             });
 
@@ -93,7 +105,7 @@ export default {
                 text-align: center;
             }
 
-            & > section {
+            & > .order-choice {
                 margin: 10px;
                 display: flex;
                 justify-content: space-around;
@@ -103,6 +115,7 @@ export default {
                 & > div {
                     border: 2px solid;
                     border-radius: 50%;
+                    padding: 10px;
                     cursor: pointer;
                 }
             }
