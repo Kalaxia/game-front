@@ -11,26 +11,44 @@
                 <button class="button" @click="$emit('unselect')" :style="{ color: factionColors['main'] }">Déselectionner</button>
             </div>
         </header>
-        <section>
-            <div v-for="(g, t) in squadronGroups" :key="`group-${t}`" :style="{ borderColor: factionColors['white'] }">
-                <header>
-                    <ship-type :type="t" :color="factionColors['white']" :size="36" />
-                    <span>
-                        x{{ g.quantity }}
-                    </span>
-                </header>
+        <section class="cargo" v-if="cargoCapacity > 0">
+            <header>
+                <h4>Cargo</h4>
+                <div>
+                    <em>{{ cargoLoad }}</em>
+                    /
+                    <strong>{{ cargoCapacity }}</strong>
+                </div>
+            </header>
+            <div>
+                <div v-for="(quantity, r) in fleet.cargo" :key="r">
+                    <resource-item :resource="{ name: r }" />
+                </div>
+            </div>
+        </section>
+        <section class="ships">
+            <h4>Escadrilles</h4>
+            <div>
+                <div v-for="(g, t) in squadronGroups" :key="`group-${t}`" :style="{ borderColor: factionColors['white'] }">
+                    <header>
+                        <ship-type :type="t" :color="factionColors['white']" :size="36" />
+                        <span>
+                            x{{ g.quantity }}
+                        </span>
+                    </header>
 
-                <section>
-                    <div v-for="(s, i) in g.squadrons"
-                        :key="`squadron-${t}-${i}`"
-                        :style="{ borderColor: factionColors[(isSelected(s) ? 'main' : 'grey')] }"
-                        @click="selectPosition(s)">
-                        <h6>{{ s.shipModel.name }}</h6>
-                        <span class="quantity">x{{ s.quantity }}</span>
-                        <gauge :levels="gaugeLevels(g, s)" :background="factionColors['black']" />
-                        <span class="percent">{{ Math.floor((s.quantity / g.quantity) * 100) }}%</span>
-                    </div>
-                </section>
+                    <section>
+                        <div v-for="(s, i) in g.squadrons"
+                            :key="`squadron-${t}-${i}`"
+                            :style="{ borderColor: factionColors[(isSelected(s) ? 'main' : 'grey')] }"
+                            @click="selectPosition(s)">
+                            <h6>{{ s.shipModel.name }}</h6>
+                            <span class="quantity">x{{ s.quantity }}</span>
+                            <gauge :levels="gaugeLevels(g, s)" :background="factionColors['black']" />
+                            <span class="percent">{{ Math.floor((s.quantity / g.quantity) * 100) }}%</span>
+                        </div>
+                    </section>
+                </div>
             </div>
         </section>
     </div>
@@ -45,6 +63,7 @@ import Fleet from '~/model/fleet/fleet';
 import FleetData from '~/components/molecules/fleet/data';
 import ShipGroup from '~/components/molecules/ship/group';
 import ShipType from '~/components/atoms/ship/type';
+import ResourceItem from '~/components/atoms/resource/item';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -66,6 +85,7 @@ export default {
         PlanetImage,
         ShipGroup,
         ShipType,
+        ResourceItem,
     },
 
     computed: {
@@ -73,6 +93,16 @@ export default {
             factionColors: 'user/factionColors',
             currentPlayer: 'user/currentPlayer'
         }),
+
+        cargoLoad() {
+            return Object.values(this.fleet.cargo).reduce((acc, q) => acc + q, 0);
+        },
+
+        cargoCapacity() {
+            return this.fleet.squadrons.reduce(
+                (acc, s) => (s.shipModel !== null && typeof s.shipModel.stats['size'] !== 'undefined') ? acc + (s.shipModel.stats['size'] * s.quantity) : acc
+            , 0);
+        },
 
         squadronGroups() {
             return this.fleet.squadrons.reduce((acc, v) => {
@@ -146,7 +176,7 @@ export default {
             justify-content: space-between;
 
             & > h3 {
-                margin-top: 0px;
+                margin: 0px;
             }
 
             & > .toolbar {
@@ -160,67 +190,77 @@ export default {
             }
         }
 
-        & > section {
-            display: flex;
-            align-items: stretch;
-            overflow: auto;
+        & > .cargo {
+            & > header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
 
+        & > .ships {
             & > div {
-                width: 80px;
-                padding: 5px 10px;
-                border-right: 1px solid;
+                display: flex;
+                align-items: stretch;
+                overflow: auto;
 
-                & > header {
-                    display: flex;
-                    align-items: center;
+                & > div {
+                    width: 80px;
+                    padding: 5px 10px;
+                    border-right: 1px solid;
 
-                    & > .picto {
-                        margin-right: 5px;
+                    & > header {
+                        display: flex;
+                        align-items: center;
+
+                        & > .picto {
+                            margin-right: 5px;
+                        }
                     }
-                }
 
-                & > section {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    margin-top: 10px;
-
-                    & > div {
-                        width: 90%;
-                        margin: 5px 0px;
-                        padding: 5px;
-                        border: 1px solid;
-                        border-radius: 5px;
+                    & > section {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
+                        margin-top: 10px;
 
-                        & > h6 {
-                            margin: 0px;
-                            font-size: 0.5em;
-                        }
-
-                        & > .quantity {
-                            padding: 5px 0px;
-                            font-weight: bold;
-                            font-size: 0.8em;
-                        }
-
-                        & > .gauge {
+                        & > div {
                             width: 90%;
-                            height: 4px;
-                        }
+                            margin: 5px 0px;
+                            padding: 5px;
+                            border: 1px solid;
+                            border-radius: 5px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
 
-                        & > .percent {
-                            padding-top: 10px;
-                            font-weight: bold;
-                            font-size: 0.7em;
+                            & > h6 {
+                                margin: 0px;
+                                font-size: 0.5em;
+                            }
+
+                            & > .quantity {
+                                padding: 5px 0px;
+                                font-weight: bold;
+                                font-size: 0.8em;
+                            }
+
+                            & > .gauge {
+                                width: 90%;
+                                height: 4px;
+                            }
+
+                            & > .percent {
+                                padding-top: 10px;
+                                font-weight: bold;
+                                font-size: 0.7em;
+                            }
                         }
                     }
-                }
 
-                &:last-child {
-                    border-right: none;
+                    &:last-child {
+                        border-right: none;
+                    }
                 }
             }
         }

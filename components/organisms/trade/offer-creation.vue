@@ -132,6 +132,7 @@ export default {
 
 <style lang="less" scoped>
     @import '~less/atoms/button.less';
+    @import '~less/atoms/input.less';
 
     #offer-creation {
         display: flex;
@@ -163,15 +164,6 @@ export default {
 
                 & > .gauge-selector {
                     flex-grow: 1;
-                }
-
-                & > input {
-                    flex-grow: 1;
-                    border: 1px solid;
-                    border-radius: 10px;
-                    padding: 5px 10px;
-                    background-color: #242424;
-                    font-weight: bold;
                 }
             }
 

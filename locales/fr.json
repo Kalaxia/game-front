@@ -208,7 +208,8 @@
             "capacity" : "Capacité de stockage",
             "unit" : "mètres cubes",
             "full_in" : "Plein dans ",
-            "full": "Plein"
+            "full": "Plein",
+            "not_enough_resources": "Pas assez de ressources en stock"
         },
         "production" : "Production"
     },
@@ -412,6 +413,23 @@
     },
     "fleet" :{
         "all_fleets": "Toutes les flottes",
+        "delivery": {
+            "cargo_overload": "Les soutes ne peuvent contenir ces ressources supplémentaires",
+            "missing_resource": "Les soutes ne contiennent pas ces ressources",
+            "not_enough_resources": "Les soutes ne contiennent pas cette quantité de ressources",
+            "send_to_planet": "Envoi à la planète",
+            "send_to_fleet": "Envoi à la flotte",
+            "success": {
+                "title": "Livraison réussie",
+                "content": "La flotte {fleet_name} a bien livré {quantity} ressources sur la planète {planet_name}",
+                "footer": ""
+            },
+            "received": {
+                "title": "Livraison reçue",
+                "content": "La flotte {fleet_name} de {owner_name} a livré {quantity} ressources sur votre planète {planet_name}",
+                "footer": ""
+            }
+        },
         "orbiting_fleets": "Flottes en orbite",
         "coming_fleets": "Flottes en approche",
         "leaving_fleets": "Flottes en mission",

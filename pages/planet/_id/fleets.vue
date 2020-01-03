@@ -26,7 +26,13 @@
             <div v-if="selectedFleet.journey" id="fleet-journey-details">
                 <fleet-journey-step :step="selectedFleet.journey.currentStep" />
             </div>
+            <div v-else-if="selectedFleet.place.planet" id="fleet-location">
+                <h4>{{ $t('fleet.statuses.idle', { location: selectedFleet.place.planet.name }) }}</h4>
+                <planet-image :type="selectedFleet.place.planet.type" :width="64" :height="64" @click.native="goToPlanet(selectedFleet.place.planet)" />
+                <fleet-cargo-manager v-if="cargoCapacity > 0 && !selectedGroup" :fleet="selectedFleet" :cargo="selectedFleet.cargo" @sendResources="sendResources($event)" @expandResourceForm="expandResourceForm = $event" />
+            </div>
             <fleet-composition
+                v-if="!expandResourceForm"
                 :fleet="selectedFleet"
                 :selectedPosition="selectedPosition"
                 :selectedGroup="selectedGroup"
@@ -46,29 +52,34 @@
 
 <script>
 import HangarDetails from '~/components/organisms/planet/hangar-details';
+import PlanetImage from '~/components/atoms/planet/image';
 import FleetComposition from '~/components/organisms/fleet/composition';
 import FleetDetails from '~/components/organisms/fleet/details';
 import FleetJourneyStep from '~/components/molecules/fleet/journey-step';
 import FleetList from '~/components/organisms/fleet/list';
+import FleetCargoManager from '~/components/organisms/fleet/cargo-manager';
 import { mapGetters } from 'vuex';
 
 export default {
     name: 'page-planet-fleets',
 
     components: {
+        FleetCargoManager,
         FleetComposition,
         FleetDetails,
         FleetJourneyStep,
         FleetList,
         HangarDetails,
+        PlanetImage
     },
 
     data() {
         return {
             selectedFleet: null,
             selectedGroup: null,
-            selectedPosition: null
-        }
+            selectedPosition: null,
+            expandResourceForm: false,
+        };
     },
 
     async asyncData({ app, store }) {
@@ -84,7 +95,10 @@ export default {
     computed: {
         ...mapGetters({
             currentPlayer: 'user/currentPlayer',
-            currentPlanet: 'user/currentPlanet'
+            currentPlanet: 'user/currentPlanet',
+            factionColors: 'user/factionColors',
+            storedResources: 'user/storedResources',
+            storedResource: 'user/getStoredResource'
         }),
 
         selectedSquadron() {
@@ -97,7 +111,13 @@ export default {
                 }
             }
             return null;
-        }
+        },
+
+        cargoCapacity() {
+            return this.selectedFleet.squadrons.reduce(
+                (acc, s) => (typeof s.shipModel.stats['size'] !== 'undefined') ? acc + (s.shipModel.stats['size'] * s.quantity) : acc
+            , 0);
+        },
     },
 
     methods: {
@@ -158,7 +178,7 @@ export default {
                 this.selectedFleet.squadrons[squadronIndex] = squadron;
             } catch(err) {
                 this.$store.dispatch('user/addActionNotification', {
-                    type: 'error',
+                    isError: true,
                     message: err
                 });
             }
@@ -175,6 +195,32 @@ export default {
 
         updateSquadron() {
             return this.$repositories.fleet.updateSquadron(this.selectedFleet, this.selectedSquadron);
+        },
+
+        async sendResources(data) {
+            try {
+                await this.$repositories.fleet[(data.planetToFleet === true) ? 'loadCargo' : 'unloadCargo'](this.selectedFleet, {
+                    planet: this.currentPlanet,
+                    resource: data.resource,
+                    quantity: data.quantity
+                });
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    message: err
+                });
+            }
+            this.$store.commit('user/updateStorageResource', {
+                resource: data.resource,
+                quantity: (data.planetToFleet === true) ? -data.quantity : data.quantity
+            });
+            if (typeof this.selectedFleet.cargo[data.resource] === 'undefined') {
+                this.selectedFleet.cargo[data.resource] = 0;
+            }
+            this.selectedFleet.cargo[data.resource] += (data.planetToFleet === true) ? data.quantity : -data.quantity
+            if (this.selectedFleet.cargo[data.resource] === 0) {
+                delete this.selectedFleet.cargo[data.resource];
+            }
         }
     }
 };
@@ -186,10 +232,17 @@ export default {
         grid-row: ~"2/9";
     }
 
-    #fleet-journey-details {
+    #fleet-journey-details,
+    #fleet-location {
         grid-column: ~"4/7";
         grid-row: ~"2/5";
         margin: auto;
+    }
+
+    #fleet-location {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #fleet-composition {

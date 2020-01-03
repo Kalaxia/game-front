@@ -126,4 +126,20 @@ export default class FleetRepository extends Repository {
     async sendOnJourney(fleet) {
         return new Journey(await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format()));
     }
+
+    loadCargo(fleet, data) {
+        return this.call('PATCH', `/api/fleets/${fleet.id}/load-cargo`, {
+            planet_id: parseInt(data.planet.id),
+            resource: data.resource,
+            quantity: parseInt(data.quantity)
+        });
+    }
+
+    unloadCargo(fleet, data) {
+        return this.call('PATCH', `/api/fleets/${fleet.id}/unload-cargo`, {
+            planet_id: parseInt(data.planet.id),
+            resource: data.resource,
+            quantity: parseInt(data.quantity)
+        });
+    }
 };

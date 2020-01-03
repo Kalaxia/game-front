@@ -6,6 +6,7 @@ export default class ShipGroup {
         this.name = data.model.name;
         this.type = data.model.type;
         this.frame = data.model.frame;
+        this.stats = data.model.stats;
         this.quantity = data.quantity;
     }
 };

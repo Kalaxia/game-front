@@ -13,6 +13,7 @@ export default class Fleet {
         this.shipGroups = new Array();
         this.squadrons = new Array();
         this.range = null;
+        this.cargo = data.cargo ? data.cargo : {};
     };
 
     updateShipGroups(shipGroup, nbShips) {
