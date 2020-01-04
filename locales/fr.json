@@ -492,6 +492,11 @@
             },
             "planet_conquest": {
                 "title": "Conquête réussie !",
+                "content": "La flotte {fleet_id} a conquis la planète <span class='link' data-link='/planet/{planet_id}'>{planet_name}</span>",
+                "footer": ""
+            },
+            "player_planet_conquest": {
+                "title": "Conquête réussie !",
                 "content": "La flotte {fleet_id} a conquis la planète <span class='link' data-link='/planet/{planet_id}'>{planet_name}</span> appartenant à <span class='link' data-link='/player/{opponent_id}'>{opponent_pseudo}</span>",
                 "footer": ""
             },
