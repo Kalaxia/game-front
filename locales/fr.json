@@ -63,12 +63,12 @@
             "list_link": "Toutes les motions",
             "motion_results": {
                 "title": "Une motion a été votée",
-                "content": "",
+                "content": "Les résultats de la motion <span class='link' data-link='/faction/{faction_id}/motions/{motion_id}'><em>\"<span class='translate'>faction.motions.types.{motion_type}.title</span>\"</em></span> sont disponibles",
                 "footer": ""
             },
             "new_motion": {
                 "title": "Une motion vient d'être mise au vote",
-                "content": "",
+                "content": "Vous pouvez voter pour la motion <span class='link' data-link='/faction/{faction_id}/motions/{motion_id}'><em>\"<span class='translate'>faction.motions.types.{motion_type}.title</span>\"</em></span>",
                 "footer": ""
             },
             "rejected": "Rejetée le {date}",
@@ -128,12 +128,12 @@
         "war": {
             "war_declared": {
                 "title": "La guerre est déclarée !",
-                "content": "Notre faction vient d'entrer en guerre contre {enemy__name}.",
+                "content": "Notre faction vient d'entrer en guerre contre {enemy_name}.",
                 "footer": ""
             },
             "war_ended": {
                 "title": "La guerre est terminée !",
-                "content": "Le conflit avec {enemy__name} s'est enfin achevé ! La paix est revenue entre nos deux factions !",
+                "content": "Le conflit avec {enemy_name} s'est enfin achevé ! La paix est revenue entre nos deux factions !",
                 "footer": ""
             },
             "casus_belli": {
@@ -473,32 +473,38 @@
         "faction": "Faction"
     },
     "notifications": {
+        "diplomacy": {
+            "relocated": {
+                "title": "Nouvelle planète",
+                "content": "Suite à la perte de votre dernière planète, votre faction vous a placé à la tête de la planète {planet_name}."
+            }
+        },
         "military": {
             "fleet_victory": {
                 "title": "Victoire !",
-                "content":"La <span class='link' data-link='/fleets/{fleet__id}'>flotte {fleet__id}</span> a vaincu au combat une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span>",
-                "footer": "<span class='link' data-link='/combats/{report__id}'>Voir le rapport</span></footer>"
+                "content":"La <span class='link' data-link='/fleets/{fleet_id}'>flotte {fleet_id}</span> a vaincu au combat une flotte de <span class='link' data-link='/player/{opponent_id}'>{opponent_pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent_faction_id}'>{opponent_faction_name}</span>",
+                "footer": "<span class='link' data-link='/combats/{report_id}'>Voir le rapport</span></footer>"
             },
             "fleet_defeat": {
                 "title": "Défaite !",
-                "content": "La flotte {fleet__id} a été vaincue au combat par une flotte de <span class='link' data-link='/player/{opponent__player__id}'>{opponent__player__pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent__player__faction__id}'>{opponent__player__faction__name}</span>",
-                "footer": "<span class='link' data-link='/combats/{report__id}'>Voir le rapport</span>"
+                "content": "La flotte {fleet_id} a été vaincue au combat par une flotte de <span class='link' data-link='/player/{opponent_id}'>{opponent_pseudo}</span> de la faction <span class='link' data-link='/faction/{opponent_faction_id}'>{opponent_faction_name}</span>",
+                "footer": "<span class='link' data-link='/combats/{report_id}'>Voir le rapport</span>"
             },
             "planet_conquest": {
                 "title": "Conquête réussie !",
-                "content": "La flotte {fleet__id} a conquis la planète <span class='link' data-link='/planets/{planet__id}'>{planet__name}</span>",
+                "content": "La flotte {fleet_id} a conquis la planète <span class='link' data-link='/planet/{planet_id}'>{planet_name}</span> appartenant à <span class='link' data-link='/player/{opponent_id}'>{opponent_pseudo}</span>",
                 "footer": ""
             },
             "planet_conquerred": {
                 "title": "Planète perdue !",
-                "content": "La flotte {fleet__id} a conquis votre planète <span class='link' data-link='/planets/{planet__id}'>{planet__name}</span>",
+                "content": "La flotte {fleet_id} de <span class='link' data-link='/player/{opponent_id}'>{opponent_pseudo}</span> a conquis votre planète <span class='link' data-link='/planet/{planet_id}'>{planet_name}</span>",
                 "footer": ""
             }
         },
         "trade": {
             "accepted_offer": {
                 "title": "Votre offre",
-                "content": "Le gouverneur <span class='link' data-link='/player/{player__id}'>{player__pseudo}</span> de la faction <span class='link' data-link='/faction/{player__faction__id}'>{player__faction__name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer__resource}</span> pour un prix de {price} crédits hors taxes",
+                "content": "Le gouverneur <span class='link' data-link='/player/{player_id}'>{player_pseudo}</span> de la faction <span class='link' data-link='/faction/{player_faction_id}'>{player_faction_name}</span> vous a acheté {quantity} unités de <span class='translate'>resources.{offer_resource}</span> pour un prix de {price} crédits hors taxes",
                 "footer": ""
             }
         }
