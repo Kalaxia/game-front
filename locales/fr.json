@@ -531,7 +531,7 @@
                 "description": "La flotte effectue le refroidissement de ses propulseurs avant de repartir ou de stationner aux coordonnées indiquées. Si une flotte ennemie est présente, le combat sera livré. La flotte n'adoptera pas de comportement offensif envers les flottes neutres."
             },
             "conquer": {
-                "title": "Conquéte",
+                "title": "Conquête",
                 "description": "La flotte combat pour s'emparer de la planète, et attaquera toute flotte désirant l'en empêcher. La conquête militaire détériorera grandement vos rapports avec la population de cette planète, et aussi avec les propriétaires des flottes l'ayant défendue, surtout si elles étaient neutres vis-à-vis de vous."
             },
             "deliver": {
