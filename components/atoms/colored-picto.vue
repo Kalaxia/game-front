@@ -11,7 +11,7 @@ export default {
     computed: {
         style() {
             return {
-                width: `${this.width}px`,
+                minWidth: `${this.width}px`,
                 minHeight: `${this.height}px`,
                 maskImage: `url('/images/picto/${this.src}')`,
                 maskSize: 'cover',
