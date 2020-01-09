@@ -31,6 +31,12 @@ export default {
         };
     },
 
+    watch: {
+        initialValue() {
+            this.value = this.initialValue;
+        }
+    },
+
     computed: {
         width() {
             return `${ this.value / this.max * 100 }%`;

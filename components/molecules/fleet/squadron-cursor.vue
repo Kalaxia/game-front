@@ -5,7 +5,8 @@
         </hexagon>
         <gauge-selector
             :color="factionColors['main']"
-            :min="0" :max="maxQuantity"
+            :min="0"
+            :max="maxQuantity"
             :initialValue="squadron.quantity"
             @change="$emit('assignShips', $event)"
             @stop="$emit('validateQuantity', $event)" />
