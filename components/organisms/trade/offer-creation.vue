@@ -16,15 +16,15 @@
             </div>
             <div class="quantity">
                 <h5>Quantité</h5>
-                <input class="input" type="number" v-model="quantity" min="100" :max="currentResourceAvailable" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkQuantity" />
+                <input class="input" type="number" v-model="quantity" min="100" :max="currentResourceAvailable" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkQuantity()" />
             </div>
             <div class="lot-quantity">
                 <h5>Quantité par lot</h5>
-                <input class="input" v-model="lotQuantity" type="number" min="1" :max="quantity" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkLotQuantity" />
+                <input class="input" v-model="lotQuantity" type="number" min="1" :max="quantity" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkLotQuantity()" />
             </div>
             <div class="price">
                 <h5>Prix</h5>
-                <input class="input" type="number" v-model="price" min="1" max="1000" :style="{ color: resourceColor, borderColor: resourceColor }" />
+                <input class="input" type="number" v-model="price" min="1" max="100" :style="{ color: resourceColor, borderColor: resourceColor }" @change="checkPrice()" />
             </div>
             <div class="recap">
                 <p>Quantité totale : <strong>{{ quantity }}</strong></p>
@@ -85,6 +85,9 @@ export default {
     
     methods: {
         checkLotQuantity() {
+            if (this.lotQuantity > this.quantity) {
+                this.lotQuantity = this.quantity;
+            }
             while (this.quantity % this.lotQuantity > 0) {
                 this.lotQuantity--;
             }
@@ -95,12 +98,27 @@ export default {
                 this.quantity = 100;
                 return;
             }
+            if (this.quantity > this.currentResourceAvailable) {
+                this.quantity = this.currentResourceAvailable;
+            }
             while (this.quantity % this.lotQuantity > 0) {
                 this.quantity--;
             }
         },
 
+        checkPrice() {
+            if (this.price > 100) {
+                this.price = 100;
+            }
+            if (this.price < 1) {
+                this.price = 1;
+            }
+        },
+
         async create() {
+            this.checkQuantity();
+            this.checkLotQuantity();
+            this.checkPrice();
             try {
                 const offer = await this.$repositories.trade.offer.create(
                     this.operation,
@@ -119,6 +137,9 @@ export default {
                     isError: false,
                     content: `trade.notifications.${offer.operation}_offer_creation`
                 });
+                // We adapt the offer max quantity to the remaining resources
+                this.checkQuantity();
+                this.checkLotQuantity();
             } catch(err) {
                 this.$store.dispatch('user/addActionNotification', {
                     isError: true,
