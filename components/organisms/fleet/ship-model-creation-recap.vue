@@ -92,8 +92,8 @@ export default {
                 if (!slot.module) {
                     continue;
                 }
-                for (const stat in slot.module.stats) {
-                    stats[stat] = slot.module.stats[stat];
+                for (const stat in slot.module.ship_stats) {
+                    stats[stat] = slot.module.ship_stats[stat];
                 }
             }
             return stats;

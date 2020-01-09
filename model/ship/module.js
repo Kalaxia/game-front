@@ -12,8 +12,8 @@ class ShipModule {
         this.size = data.size;
         this.shape = data.shape;
         this.scores = data.scores;
-        this.stats = data.stats;
-        this.ship_stats = data.ship_stats;
+        this.stats = (data.stats) ? data.stats : {};
+        this.ship_stats = (data.ship_stats) ? data.ship_stats : {};
         this.price = data.price;
     }
 

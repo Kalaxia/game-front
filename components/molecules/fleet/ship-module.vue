@@ -6,7 +6,7 @@
         </header>
         <section>
             <div class="stats">
-                <div v-for="(value, stat) in module.stats" :key="`model-${module.slug}-${stat}`">
+                <div v-for="(value, stat) in stats" :key="`model-${module.slug}-${stat}`">
                     <span :style="{ color: (stat < 0) ? '#E72367' : '#68BA82' }">{{ value }}</span>
                     <stat-picto :stat="stat" :color="pictoColor(value)" size="18" />
                 </div>
@@ -44,6 +44,10 @@ export default {
         moduleName() {
             return this.$i18n.t(`ships.modules.${this.module.slug}.name`)
         },
+
+        stats() {
+            return { ...this.module.stats, ...this.module.ship_stats };
+        }
     },
 
     methods: {
