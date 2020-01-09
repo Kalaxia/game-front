@@ -30,7 +30,7 @@
         <section class="ships">
             <h4>Escadrilles</h4>
             <div>
-                <div v-for="(g, t) in squadronGroups" :key="`group-${t}`" :style="{ borderColor: factionColors['white'] }">
+                <div v-for="(g, t) in typeGroups" :key="`group-${t}`" :style="{ borderColor: factionColors['white'] }">
                     <header>
                         <ship-type :type="t" :color="factionColors['white']" :size="36" />
                         <span>
@@ -39,14 +39,11 @@
                     </header>
 
                     <section>
-                        <div v-for="(s, i) in g.squadrons"
-                            :key="`squadron-${t}-${i}`"
-                            :style="{ borderColor: factionColors[(isSelected(s) ? 'main' : 'grey')] }"
-                            @click="selectPosition(s)">
-                            <h6>{{ s.shipModel.name }}</h6>
-                            <span class="quantity">x{{ s.quantity }}</span>
-                            <gauge :levels="gaugeLevels(g, s)" :background="factionColors['black']" />
-                            <span class="percent">{{ Math.floor((s.quantity / g.quantity) * 100) }}%</span>
+                        <div v-for="(m, i) in g.models" :key="`squadron-${t}-${i}`" :style="{ borderColor: factionColors['grey'] }">
+                            <h6>{{ m.name }}</h6>
+                            <span class="quantity">x{{ m.quantity }}</span>
+                            <gauge :levels="gaugeLevels(g, m)" :background="factionColors['black']" />
+                            <span class="percent">{{ (g.quantity > 0) ? Math.floor((m.quantity / g.quantity) * 100) : 0 }}%</span>
                         </div>
                     </section>
                 </div>
@@ -105,16 +102,22 @@ export default {
             , 0);
         },
 
-        squadronGroups() {
-            return this.fleet.squadrons.reduce((acc, v) => {
-                if (typeof acc[v.shipModel.type] === 'undefined') {
-                    acc[v.shipModel.type] = {
-                        squadrons: [],
+        typeGroups() {
+            return this.fleet.squadrons.reduce((acc, s) => {
+                const type = s.shipModel.type;
+                if (typeof acc[type] === 'undefined') {
+                    acc[type] = {
+                        models: [],
                         quantity: 0
                     };
                 }
-                acc[v.shipModel.type].squadrons.push(v);
-                acc[v.shipModel.type].quantity += v.quantity;
+                const model = acc[type].models.find(m => m.id === s.shipModel.id);
+                if (model) {
+                    model.quantity += s.quantity;
+                } else {
+                    acc[type].models.push({ ...s.shipModel, quantity: s.quantity });
+                }
+                acc[type].quantity += s.quantity;
                 return acc;
             }, {});
         }
@@ -145,10 +148,10 @@ export default {
             return this.selectedPosition && squadron.position.x === this.selectedPosition.x && squadron.position.y === this.selectedPosition.y;
         },
 
-        gaugeLevels(group, squadron) {
+        gaugeLevels(group, model) {
             return [
                 {
-                    value: (squadron.quantity / group.quantity) * 100,
+                    value: (group.quantity > 0) ? (model.quantity / group.quantity) * 100 : 0,
                     color: this.factionColors['main']
                 }
             ];
