@@ -173,6 +173,9 @@ export default {
             this.assignShips(quantity);
 
             try {
+                if (this.selectedSquadron.quantity === 0) {
+                    return;
+                }
                 const squadron = await ((typeof this.selectedSquadron.id === 'undefined') ? this.createSquadron() : this.updateSquadron());
                 const squadronIndex = this.selectedFleet.squadrons.indexOf(this.selectedSquadron);
                 this.selectedFleet.squadrons[squadronIndex] = squadron;
