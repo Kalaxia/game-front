@@ -55,48 +55,33 @@ export default {
         }),
 
         totalPrice() {
-            const prices = new Array();
-
-            for (const price of this.frame.price) {
-                prices.push(Object.assign({}, price));
-            }
-
-            for (const slot of this.frame.slots) {
-                if (!slot.module) {
-                    continue;
-                }
-                for (const price of slot.module.price) {
-                    let found = false;
-
-                    for (const i in prices) {
-                        const p = prices[i];
-                        if (p.type === price.type && (!p.resource || p.resource === price.resource)) {
-                            p.amount += price.amount;
-                            found = true;
-                            break;
-                        }
+            return this.frame.slots.reduce((acc1, slot) => {
+                // For each module, we add its price to the final price array
+                return (slot.module) ? slot.module.price.reduce((acc2, price) => {
+                    const index = acc2.findIndex((p) => p.type === price.type && (!p.resource || p.resource === price.resource));
+                    if (index > -1) {
+                        acc2[index].amount += price.amount;
+                    } else {
+                        acc2.push({ ...price });
                     }
-
-                    if (!found) {
-                        prices.push(price);
-                    }
-                }
-            }
-            return prices;
+                    return acc2;
+                }, acc1) : acc1
+            }, Array.from(this.frame.price, p => ({ ...p }))); // This is required to cut all references to the frame object
         },
 
         totalStats() {
-            const stats = Object.assign({}, this.frame.stats);
-
-            for (const slot of this.frame.slots) {
-                if (!slot.module) {
-                    continue;
-                }
-                for (const stat in slot.module.ship_stats) {
-                    stats[stat] = slot.module.ship_stats[stat];
-                }
-            }
-            return stats;
+            return this.frame.slots.reduce(
+                // The second reducer iterates through the ship stats of each slot module
+                (acc1, slot) => (slot.module && slot.module.ship_stats) ? Object.keys(slot.module.ship_stats).reduce(
+                    (acc2, stat) => {
+                        if (!acc2[stat]) {
+                            acc2[stat] = 0;
+                        }
+                        acc2[stat] += slot.module.ship_stats[stat];
+                        return acc2;
+                    }, acc1)
+                : acc1
+            , { ...this.frame.stats }); // We initialize the reducer with a copy of the frame stats to avoid frame data modification
         }
     },
 

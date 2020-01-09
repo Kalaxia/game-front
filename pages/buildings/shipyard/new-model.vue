@@ -4,11 +4,11 @@
             <ship-frames :frames="frames" @selectFrame="selectedFrame = $event" />
         </div>
         <div id="new-model" v-else>
-            <ship-modules :modules="modules" :sizeFilter="moduleSizeFilter" :shapeFilter="moduleShapeFilter" @selectModule="selectModule" />
+            <ship-modules :modules="modules" :sizeFilter="moduleSizeFilter" :shapeFilter="moduleShapeFilter" @selectModule="selectModule($event)" />
 
-            <ship-frame :frame="selectedFrame" :selectedSlot="selectedSlot" :name="name" @selectSlot="selectedSlot = $event" @backToFrames="backToFrames"/>
+            <ship-frame :frame="selectedFrame" :selectedSlot="selectedSlot" :name="name" @selectSlot="selectedSlot = $event" @backToFrames="backToFrames()"/>
 
-            <ship-model-creation-recap :frame="selectedFrame" :selectedSlot="selectedSlot" :key="recapKey" @createModel="createModel" />
+            <ship-model-creation-recap :frame="selectedFrame" :selectedSlot="selectedSlot" :key="recapKey" @createModel="createModel()" />
         </div>
     </div>
 </template>

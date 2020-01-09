@@ -2,7 +2,7 @@
      <div class="ship-module">
         <header>
             <slot-shape :shipSlot="{ size: 'small', shape: module.shape }" :fill="true" />
-            <h5>{{ moduleName }}</h5>
+            <h5>{{ $t(`ships.modules.${module.slug}.name`) }}</h5>
         </header>
         <section>
             <div class="stats">
@@ -27,6 +27,7 @@ import ResourceItem from '~/components/atoms/resource/item';
 import ColoredPicto from '~/components/atoms/colored-picto';
 import StatPicto from '~/components/atoms/ship/stat-picto';
 import SlotShape from '~/components/atoms/ship/slot-shape';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'ship-module',
@@ -41,9 +42,11 @@ export default {
     },
 
     computed: {
-        moduleName() {
-            return this.$i18n.t(`ships.modules.${this.module.slug}.name`)
-        },
+        ...mapState('user', ['player']),
+
+        ...mapGetters({
+            getStoredResource: 'user/getStoredResource'
+        }),
 
         stats() {
             return { ...this.module.stats, ...this.module.ship_stats };
@@ -63,12 +66,8 @@ export default {
         },
 
         isMissingPrice(price) {
-            if (price.type === 'resource' && this.$store.getters['user/getStoredResource'](price.resource) < price.amount) {
-                return true;
-            } else if (price.type === 'credits' && this.$store.state.user.player.wallet < price.amount) {
-                return true;
-            }
-            return false;
+            return (price.type === 'resource' && this.getStoredResource(price.resource) < price.amount) ||
+                (price.type === 'credits' && this.player.wallet < price.amount);
         }
     }
 }

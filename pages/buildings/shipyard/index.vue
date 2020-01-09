@@ -1,6 +1,6 @@
 <template>
     <div id="shipyard" v-if="constructingShips">
-        <ship-models :selectedModel="selectedModel" @selectModel="selectModel" ref="list" />
+        <ship-models :selectedModel="selectedModel" @selectModel="selectModel()" ref="list" />
         <ship-model-details v-if="selectedModel" :model="selectedModel" @build="build" />
         <constructing-ships v-if="!selectedModel && constructingShips.length > 0" :constructingShips="constructingShips" />
     </div>
