@@ -173,7 +173,7 @@ export default {
             this.assignShips(quantity);
 
             try {
-                if (this.selectedSquadron.quantity === 0) {
+                if (typeof this.selectedSquadron.id === 'undefined' && this.selectedSquadron.quantity === 0) {
                     return;
                 }
                 const squadron = await ((typeof this.selectedSquadron.id === 'undefined') ? this.createSquadron() : this.updateSquadron());
