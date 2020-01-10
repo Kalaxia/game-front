@@ -373,7 +373,6 @@
         "excessing_resource": "Excédent de ressource",
         "faction": "Faction",
         "good": "Bien",
-        "invalid_lot_quantity": "il ne peut y avoir de reste",
         "lot_contents": "Contenu d'un lot",
         "lot_price": "Prix d'un lot",
         "lot_quantity": "Quantité minimale par lot",
@@ -382,6 +381,7 @@
         "max_lots": "%nb_lots% lots max",
         "offer": "Offre",
         "offers": {
+            "invalid_lot_quantity": "La quantité par lot doit être entre 1 et la quantité totale",
             "invalid_quantity": "La quantité doit être positive",
             "invalid_price": "Le prix doit être entre 1 et 1000 crédits à l'unité"
         },

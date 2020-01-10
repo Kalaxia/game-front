@@ -85,6 +85,9 @@ export default {
     
     methods: {
         checkLotQuantity() {
+            if (this.lotQuantity < 1) {
+                this.lotQuantity = 1;
+            }
             if (this.lotQuantity > this.quantity) {
                 this.lotQuantity = this.quantity;
             }
