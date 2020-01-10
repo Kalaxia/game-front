@@ -1,7 +1,7 @@
 <template>
     <div class="minimap">
         <section :style="style" @click="$emit('moveTo', { x: $event.layerX / scale, y: $event.layerY / scale })">
-            <div class="window" :style="windowStyle"></div>
+            <div class="window" :style="windowStyle" @click.prevent.stop></div>
             <div class="system" v-for="s in map.systems" :key="`system-${s.id}`" :style="systemStyle(s)"></div>
             <svg>
                 <svg v-for="t in territories" :key="t.id">
