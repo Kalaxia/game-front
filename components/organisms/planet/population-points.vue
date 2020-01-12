@@ -62,7 +62,7 @@ export default {
         },
 
         population() {
-            return Math.floor(this.planet.population / 100000);
+            return Math.floor(this.planet.population / 1000000);
         },
 
         ...mapGetters({

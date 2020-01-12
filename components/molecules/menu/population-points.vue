@@ -36,7 +36,7 @@ export default {
 
     computed: {
         population() {
-            return Math.floor(this.planet.population / 100000);
+            return Math.floor(this.planet.population / 1000000);
         }
     },
 
