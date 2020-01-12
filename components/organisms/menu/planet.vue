@@ -5,7 +5,7 @@
             <population-points :planet="planet" class="module" />
             <constructing-building class="module" :building="constructingBuilding" />
             <constructing-ships v-if="hasBuilding('shipyard')" class="module" :constructingShips="currentPlanet.constructingShips" />
-            <produced-resources :planet="planet" class="module" />
+            <produced-resources v-if="planet.storage.resources.length > 0" :planet="planet" class="module" />
         </div>
         <div class="column">
             <planet-picto class="planet-picto" :type="planet.type" :width="36" :height="36" />

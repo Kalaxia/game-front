@@ -7,7 +7,7 @@
                 :id="`planet-${planet.id}`"
                 :key="`system-${system.id}-planet-${planet.id}`"
                 @click="selectPlanet(planet)"
-                class="system-planet"
+                :class="['system-planet', { selected: isSelectedPlanet(planet), inhabited: planet.population > 0, hasPlayer: planet.player }]"
                 :style="{ transform: `rotate(${45 * (index + 1)}deg)`, backgroundColor: planetColor(planet), zIndex: index }"
                 @mouseenter="setHoveredPlanet(planet)"
                 @mouseleave="setHoveredPlanet(null)">
@@ -115,7 +115,7 @@ export default {
         },
 
         planetColor(planet) {
-            return shadeColor((!planet.player) ? this.factionColors['grey'] : planet.player.faction.colors['main'], (this.isSelectedPlanet(planet)) ? 0.2 : 0);
+            return (!planet.player) ? this.factionColors[(planet.population > 0) ? 'white' : 'grey'] : planet.player.faction.colors['main'];
         },
 
         isSelectedPlanet(planet) {
@@ -159,11 +159,24 @@ export default {
                 border: 2px solid black;
                 transform-origin: bottom right;
                 clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+                transition: filter 0.2s ease-out;
 
                 &.padding {
                     width: 16px;
                     height: 12px;
                     background-color: black;
+                }
+
+                &.inhabited:not(.hasPlayer) {
+                    filter: brightness(50%);
+                }
+
+                &.selected {
+                    filter: brightness(120%);
+
+                    &.inhabited:not(.hasPlayer) {
+                        filter: brightness(80%);
+                    }
                 }
             }
         }
