@@ -156,6 +156,26 @@
     "planet": {
         "demography": "Démographie de %planet%",
         "fleet": "Flottes de %planet%",
+        "public_order": {
+            "title": "Ordre public",
+            "levels": {
+                "rebellious": "Rébellion",
+                "unrest": "Agitation",
+                "stable": "Stable",
+                "good": "Bon",
+                "perfect": "Parfait"
+            }
+        },
+        "tax_rate": {
+            "title": "Taux d'imposition",
+            "levels": {
+                "very_low": "Très faible",
+                "low": "Faible",
+                "normal": "Normal",
+                "high": "Élevé",
+                "very_high": "Très élevé"
+            }
+        },
         "population": "%population% habitants",
         "population_points": "%points% points",
         "points_configuration": "Répartition des points",

@@ -2,12 +2,16 @@ import Player from './player.js';
 import System from './system.js';
 import Building from './building.js';
 import ResourceProduction from './resource_production.js';
+import Faction from './faction.js';
 
 export default class Planet {
     constructor(data) {
         this.id = data.id;
         this.name = data.name;
         this.type = data.type;
+        this.publicOrder = data.public_order;
+        this.taxRate = data.tax_rate;
+        this.faction = (data.faction) ? new Faction(data.faction) : null;
         this.player = (data.player) ? new Player(data.player) : null;
         this.system = (data.system) ? new System(data.system) : null;
         this.population = data.population;
