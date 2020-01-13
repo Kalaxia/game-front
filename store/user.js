@@ -151,6 +151,10 @@ export const mutations = {
         if (state.currentPlanet.storage.resources[data.resource] > state.currentPlanet.storage.capacity) {
             state.currentPlanet.storage.resources[data.resource] = state.currentPlanet.storage.capacity;
         }
+    },
+
+    updateTaxRate(state, taxRate) {
+        state.currentPlanet.taxRate = taxRate;
     }
 };
 

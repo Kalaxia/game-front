@@ -47,4 +47,8 @@ export default class PlanetRepository extends Repository
     updateSettings(planet) {
         return this.call('PUT', `/api/planets/${planet.id}/settings`, planet.settings);
     }
+
+    updateTaxRate(planet) {
+        return this.call('PATCH', `/api/planets/${planet.id}/tax-rate`, { tax_rate: planet.taxRate });
+    }
 };

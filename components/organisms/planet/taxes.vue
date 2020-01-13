@@ -4,7 +4,12 @@
             <h3>{{ $t('planet.tax_rate.title') }}</h3>
         </header>
         <section>
-            {{ $t(`planet.tax_rate.levels.${level}`) }}
+            <p>{{ $t('planet.tax_rate.level') }}</p>
+            <select v-model="taxRate" @change="updateTaxRate()">
+                <option v-for="l in levels" :key="l" :value="l">
+                    {{ $t(`planet.tax_rate.levels.${l}`) }}
+                </option>
+            </select>
         </section>
     </div>
 </template>
@@ -15,6 +20,16 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     name: 'planet-taxes',
 
+    data() {
+        return {
+            taxRate: ''
+        };
+    },
+
+    beforeMount() {
+        this.taxRate = this.level;
+    },
+
     computed: {
         ...mapState('user', ['currentPlanet']),
 
@@ -23,7 +38,33 @@ export default {
         }),
 
         level() {
-            return ['very_low', 'low', 'normal', 'high', 'very_high'][this.currentPlanet.taxRate - 1];
+            return this.levels[this.currentPlanet.taxRate - 1];
+        },
+
+        levels() {
+            return ['very_low', 'low', 'normal', 'high', 'very_high'];
+        }
+    },
+
+    methods: {
+        async updateTaxRate() {
+            const rate = this.levels.indexOf(this.taxRate);
+            if (rate === -1) {
+                return;
+            }
+            try {
+                this.$store.commit('user/updateTaxRate', rate + 1);
+                await this.$repositories.planet.updateTaxRate(this.currentPlanet);
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: false,
+                    content: `planet.tax_rate.update_success`
+                });
+            } catch(err) {
+                this.$store.dispatch('user/addActionNotification', {
+                    isError: true,
+                    content: err
+                });
+            }
         }
     }
 }

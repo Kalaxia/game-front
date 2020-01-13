@@ -164,17 +164,20 @@
                 "stable": "Stable",
                 "good": "Bon",
                 "perfect": "Parfait"
-            }
+            },
+            "satisfaction": "Taux de satisfaction"
         },
         "tax_rate": {
             "title": "Taux d'imposition",
+            "level": "Régler le taux",
             "levels": {
                 "very_low": "Très faible",
                 "low": "Faible",
                 "normal": "Normal",
                 "high": "Élevé",
                 "very_high": "Très élevé"
-            }
+            },
+            "update_success": "Le taux d'imposition a été mis à jour"
         },
         "population": "%population% habitants",
         "population_points": "%points% points",

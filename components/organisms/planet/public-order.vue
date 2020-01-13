@@ -2,9 +2,10 @@
     <div class="public-order" :style="{ borderColor: factionColors['grey'] }">
         <header>
             <h3>{{ $t('planet.public_order.title') }}</h3>
+            <p>{{ $t(`planet.public_order.levels.${level}`) }}</p>
         </header>
         <section>
-            {{ $t(`planet.public_order.levels.${level}`) }}
+            <p><strong>{{ $t('planet.public_order.satisfaction') }}:</strong> 60%</p>
         </section>
     </div>
 </template>
