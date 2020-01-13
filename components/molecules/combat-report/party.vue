@@ -8,13 +8,12 @@
             </div>
         </header>
         <section>
-            <div v-for="(number, shipType) in ships" :key="shipType">
-                <ship-type :type="shipType" :color="factionColors['white']" :size="24" />
-                <span :style="{ color: party.player.faction.colors['main'] }">{{ number }}</span>
-                <span :style="{ color: factionColors['white'] }">{{ losses[shipType] }}</span>
+            <div v-for="ship in partyShips" :key="ship.type">
+                <ship-type :type="ship.type" :color="factionColors['white']" :size="24" />
+                <span :style="{ color: party.player.faction.colors['main'] }">{{ ship.quantity }}</span>
+                <span :style="{ color: factionColors['white'] }">{{ ship.loss }}</span>
             </div>
         </section>
-
     </div>
 </template>
 
@@ -36,7 +35,15 @@ export default {
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors'
-        })
+        }),
+    
+        partyShips() {
+            return Object.keys(this.ships).map(t => ({
+                type: t,
+                quantity: this.ships[t],
+                loss: typeof this.losses[t] !== 'undefined' ? this.losses[t] : 0
+            }));
+        }
     }
 }
 </script>

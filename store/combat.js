@@ -7,6 +7,7 @@ export const state = () => ({
     currentAction: null,
     currentActionIndex: 0,
     actionDuration: 1000,
+    isCombatEnded: false,
     timer: null,
 });
 
@@ -59,13 +60,19 @@ export const mutations = {
 
     setCurrentActionIndex(state, index) {
         state.currentActionIndex = index;
+    },
+
+    combatEnding(state, isEnded) {
+        state.isCombatEnded = isEnded;
     }
 };
 
 export const actions = {
     initCombat({ commit, dispatch }, combat) {
+        commit('clearTimer');
         commit('addCombat', combat);
         commit('setCurrentCombatId', combat.id);
+        commit('combatEnding', false);
         dispatch('selectRound', combat.rounds[0]);
     },
 
@@ -103,10 +110,8 @@ export const actions = {
         commit('setTimer', () => {
             const newIndex = state.currentActionIndex + 1;
             if (newIndex === getters.actions.length) {
-                console.log('next round')
                 return dispatch('playNextRound');
             }
-            console.log('next action');
             commit('setCurrentActionIndex', newIndex);
             dispatch('playNextAction');
         });
@@ -114,7 +119,7 @@ export const actions = {
 
     playNextRound({ getters, commit, dispatch}) {
         if (getters.currentRoundIndex + 1 === getters.currentCombat.rounds.length) {
-            console.log('combat ending');
+            commit('combatEnding', true);
             return commit('setCurrentActionIndex', -1);
         }
         dispatch('selectRound', getters.currentCombat.rounds[getters.currentRoundIndex + 1]);

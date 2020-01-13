@@ -16,6 +16,8 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'combat-report-details',
 
+    props: ['report'],
+
     components: {
         ColoredPicto,
         Party,
@@ -25,7 +27,6 @@ export default {
     computed: {
         ...mapGetters({
             currentPlayer: 'user/currentPlayer',
-            report: 'combat/currentCombat',
             factionColors: 'user/factionColors'
         }),
 

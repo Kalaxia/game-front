@@ -434,6 +434,12 @@
         "unit_short": "u",
         "yourself": "Vous"
     },
+    "combat": {
+        "report": "Rapport",
+        "show_report": "Voir le rapport",
+        "visualize": "Visualiser",
+        "visualization": "Déroulement"
+    },
     "fleet" :{
         "all_fleets": "Toutes les flottes",
         "delivery": {

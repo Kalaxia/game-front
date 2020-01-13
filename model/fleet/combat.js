@@ -13,7 +13,8 @@ export default class Combat {
         this.defenderLosses = (data.defender_losses !== null) ? data.defender_losses : [];
         this.rounds = data.rounds;
         this.squadrons = new Array();
-        this.createdAt = new Date(data.created_at);
+        this.createdAt = new Date(data.begin_at);
+        this.endedAt = data.end_at ? new Date(data.end_at) : null;
     }
 
     formatNotificationData() {
