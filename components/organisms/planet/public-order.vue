@@ -5,7 +5,11 @@
             <p>{{ $t(`planet.public_order.levels.${level}`) }}</p>
         </header>
         <section>
-            <p><strong>{{ $t('planet.public_order.satisfaction') }}:</strong> 60%</p>
+            <p>
+                <strong>{{ $t('planet.public_order.satisfaction') }}:</strong>
+                <span>{{ currentPlanet.publicOrder }}%</span>
+                <span>( {{ currentPlanet.publicOrderGrowth }} / h )</span>
+            </p>
         </section>
     </div>
 </template>

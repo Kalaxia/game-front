@@ -10,6 +10,7 @@ export default class Planet {
         this.name = data.name;
         this.type = data.type;
         this.publicOrder = data.public_order;
+        this.publicOrderGrowth = data.public_order_growth;
         this.taxRate = data.tax_rate;
         this.faction = (data.faction) ? new Faction(data.faction) : null;
         this.player = (data.player) ? new Player(data.player) : null;
