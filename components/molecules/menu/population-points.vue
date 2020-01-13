@@ -14,9 +14,27 @@
             </div>
             <div class="population">
                 <div>
-                    <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="16" :height="16" />
+                    <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="12" :height="12" />
                     <span>x{{ population }}</span>
                 </div>
+                <div>
+                    <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="12" :height="12" />
+                    <span>{{ unaffectedPoints }}</span>
+                </div>
+                <div>
+                    <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="12" :height="12" />
+                    <span>{{ growth }}%</span>
+                </div>
+            </div>
+            <div class="public-order">
+                <header>
+                    <colored-picto src="G_P_Char_BK_64px.png" color="#E0E0E0" :width="16" :height="16" />
+                </header>
+                <section>
+                    <div class="gauge" :style="{ borderColor: factionColors['white'] }">
+                        <div :style="{ flexBasis: `${planet.publicOrder}%`, backgroundColor: publicOrderColor }"></div>
+                    </div>
+                </section>
             </div>
         </section>
     </nuxt-link>
@@ -24,6 +42,7 @@
 
 <script>
 import ColoredPicto from '~/components/atoms/colored-picto';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'menu-population-points',
@@ -35,8 +54,24 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        }),
+
         population() {
             return Math.floor(this.planet.population / 1000000);
+        },
+
+        growth() {
+            return (this.planet.populationGrowth * 100).toFixed(1);
+        },
+
+        unaffectedPoints() {
+            return this.population - Object.values(this.planet.settings).reduce((acc, v) => acc + v, 0);
+        },
+
+        publicOrderColor() {
+            return '#68BB82';
         }
     },
 
@@ -84,9 +119,35 @@ export default {
                     align-items: center;
 
                     & > span {
-                        font-size: 0.8em;
+                        font-size: 0.7em;
                         padding-left: 5px;
                     }
+                }
+            }
+
+            & > .public-order {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                align-self: stretch;
+                margin-left: 15px;
+                margin-bottom: 5px;
+
+                & > section {
+                    flex-grow: 1;
+                    margin-top: 2px;
+
+                    & > .gauge {
+                        width: 10px;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        border: 1px solid white;
+                        border-radius: 5px;
+                        overflow: hidden;
+                    }
+
                 }
             }
         }

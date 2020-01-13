@@ -15,6 +15,7 @@ export default class Planet {
         this.player = (data.player) ? new Player(data.player) : null;
         this.system = (data.system) ? new System(data.system) : null;
         this.population = data.population;
+        this.populationGrowth = data.population_growth;
         this.buildings = (data.buildings) ? data.buildings.map(b => new Building(b)): [];
         this.nbBuildings = data.nb_buildings;
         this.orbit = data.orbit;

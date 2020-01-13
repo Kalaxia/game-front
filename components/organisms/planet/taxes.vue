@@ -23,7 +23,7 @@ export default {
         }),
 
         level() {
-            return ['very_low', 'low', 'normal', 'high', 'very_high'][this.currentPlanet.taxRate + 1];
+            return ['very_low', 'low', 'normal', 'high', 'very_high'][this.currentPlanet.taxRate - 1];
         }
     }
 }
