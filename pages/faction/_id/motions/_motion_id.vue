@@ -49,9 +49,9 @@
                         <gauge :levels="resultLevels" :background="factionColors['black']" />
                         <div class="details">
                             <ul>
-                                <li>Oui : {{ votes[1] }} <em>({{ votes[1] / nbVotes * 100}}%)</em></li>
-                                <li>Non : {{ votes[2] }} <em>({{ votes[2] / nbVotes * 100}}%)</em></li>
-                                <li>Ne se prononce pas : {{ votes[3] }} <em>({{ votes[3] / nbVotes * 100}}%)</em></li>
+                                <li>Oui : {{ votes[1] }} <em>({{ votePercent(1) }}%)</em></li>
+                                <li>Non : {{ votes[2] }} <em>({{ votePercent(2) }}%)</em></li>
+                                <li>Ne se prononce pas : {{ votes[3] }} <em>({{ votePercent(3) }}%)</em></li>
                             </ul>
                         </div>
                     </div>
@@ -138,6 +138,10 @@ export default {
     },
 
     methods: {
+        votePercent(index) {
+            return (this.votes[index] / this.nbVotes * 100).toFixed(2);
+        },
+
         async sendVote(option) {
             this.vote = await this.$repositories.faction.faction.vote(this.motion.faction.id, this.motion.id, option);
         }
