@@ -35,7 +35,7 @@ export default {
         },
 
         isVictory () {
-            return (this.isAttacker && this.report.is_victory) || (!this.isAttacker && !this.report.is_victory);
+            return (this.isAttacker && this.report.isVictory) || (!this.isAttacker && !this.report.isVictory);
         }
     }
 }

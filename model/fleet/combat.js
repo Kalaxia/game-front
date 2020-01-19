@@ -7,6 +7,7 @@ export default class Combat {
         this.attacker = (data.attacker) ? new Fleet(data.attacker) : null;
         this.defender = (data.defender) ? new Fleet(data.defender) : null;
         this.place = (data.place) ? new Place(data.place) : null;
+        this.isVictory = data.is_victory;
         this.attackerShips = data.attacker_ships;
         this.defenderShips = data.defender_ships;
         this.attackerLosses = (data.attacker_losses !== null) ? data.attacker_losses : [];
