@@ -3,7 +3,7 @@
         <div class="data">
             <colored-picto :src="isVictory ? 'Victory.svg' : 'Defeat.svg'" :width="64" :height="64" :color="factionColors['main']" />
         </div>
-        <planet-summary :planet="report.place.planet" :reverse="true" />
+        <planet-summary playerLabel="combat.defender" :planet="report.place.planet" :reverse="true" />
     </div>
 </template>
 

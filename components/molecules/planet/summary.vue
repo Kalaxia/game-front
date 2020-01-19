@@ -3,7 +3,7 @@
         <header>
             <div class="player" v-if="planet.player">
                 <player-avatar :player="planet.player" :width="48" :height="48" :disableBorder="true" />
-                <em>{{ $t(`trade.${planet.player.gender}_seller`) }}</em>
+                <em>{{ $t(`${playerLabel}_${planet.player.gender}`) }}</em>
                 <strong :style="{ color: planet.player.faction.colors['main'] }">{{ playerPseudo }}</strong>
             </div>
             <div class="planet">
@@ -24,12 +24,12 @@ import PlayerAvatar from '~/components/atoms/player/avatar';
 import PlanetCoords from '~/components/atoms/planet/coords';
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetPicto from '~/components/atoms/planet/picto';
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     name: 'planet-summary',
 
-    props: ['planet', 'reverse'],
+    props: ['planet', 'playerLabel', 'reverse'],
 
     components: {
         PlayerAvatar,
@@ -39,12 +39,10 @@ export default {
     },
 
     computed: {
-        ...mapGetters({
-            currentPlayer: 'user/currentPlayer'
-        }),
+        ...mapState('user', ['player']),
 
         playerPseudo() {
-            return (this.planet.player.id === this.currentPlayer.id) ? this.$i18n.t('trade.yourself') : this.planet.player.pseudo;
+            return (this.planet.player.id === this.player.id) ? this.$i18n.t('trade.yourself') : this.planet.player.pseudo;
         }
     }
 }

@@ -1,14 +1,14 @@
 <template>
     <div id="offer-details" :style="{ borderColor: factionColors['main'] }">
         <div>
-            <planet-summary class="offer-owner border-bottom" :planet="offer.location" />
+            <planet-summary class="offer-owner border-bottom" playerLabel="trade.seller" :planet="offer.location" />
             <div class="line"></div>
             <div class="lots-picto">
                 <colored-picto src="trade/Lots.svg" color="white" width="18" height="18" />
             </div>
             <div class="line"></div>
             <template v-if="currentPlayer.id !== offer.location.player.id">
-                <planet-summary class="offer-owner border-top" :planet="currentPlanet" :reverse="true" />
+                <planet-summary class="offer-owner border-top" playerLabel="trade.buyer" :planet="currentPlanet" :reverse="true" />
             </template>
         </div>
         <div>
