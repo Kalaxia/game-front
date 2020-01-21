@@ -3,7 +3,7 @@
         <resource-item v-if="modifier.resource" :resource="{ name: modifier.resource }" />
         <span>
             <template v-if="isBonus">+</template><template v-else>-</template>
-            {{ modifier.percent }} %
+            {{ Math.abs(modifier.percent) }} %
         </span>
     </div>
 </template>
@@ -14,10 +14,16 @@ import ResourceItem from '~/components/atoms/resource/item';
 export default {
     name: 'modifier',
 
-    props: ['modifier', 'isBonus'],
+    props: ['modifier'],
 
     components: {
         ResourceItem
+    },
+
+    computed: {
+        isBonus() {
+            return this.modifier.percent > 0;
+        }
     }
 }
 </script>
