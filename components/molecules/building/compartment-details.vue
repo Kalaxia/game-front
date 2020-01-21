@@ -11,7 +11,7 @@
                 </header>
                 <section>
                     <div class="modifiers">
-                        <modifier v-for="(m, i) in plan.modifiers" :key="`modifier-${i}`" :modifier="b" />
+                        <modifier v-for="(m, i) in plan.modifiers" :key="`modifier-${i}`" :modifier="m" />
                     </div>
                 </section>
             </div>

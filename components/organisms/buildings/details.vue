@@ -9,7 +9,7 @@
                 @showAvailableCompartments="$emit('showAvailableCompartments')" />
         </header>
         <section :style="{ borderColor: factionColors['white'] }">
-            <h4 :style="{ color: factionColors['main'] }">{{ $t('buildings')[building.name] }}</h4>
+            <h4 :style="{ color: factionColors['main'] }">{{ $t(`buildings.${building.name}.title`) }}</h4>
 
             <compartment-details
                 v-if="selectedCompartment"
@@ -22,6 +22,15 @@
                     </header>
                     <section>
                         <resource-production v-for="r in presentResources" :key="r.name" :building="building" :resource="{name: r}" />
+                    </section>
+                </div>
+
+                <div class="description">
+                    <header>
+                        <h4>{{ $t('planet.buildings.description') }}</h4>
+                    </header>
+                    <section>
+                        <p>{{ $t(`buildings.${building.name}.description`) }}</p>
                     </section>
                 </div>
 

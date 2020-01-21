@@ -63,6 +63,12 @@ export default {
 .building-header {
     width: 100%;
 
+    & > .preview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     & > .compartments {
         display: flex;
         flex-wrap: wrap;

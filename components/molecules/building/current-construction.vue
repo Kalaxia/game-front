@@ -63,12 +63,12 @@ export default {
         },
 
         name() {
-            return this.$i18n.t(this.isCompartment ? `compartments.${this.construction.name}.title` : `buildings.${this.construction.name}`);
+            return this.$i18n.t(`${this.isCompartment ? 'compartments': 'buildings'}.${this.construction.name}.title`);
         },
 
         label() {
             return (this.isCompartment
-                ? this.$i18n.t('planet.buildings.compartment', { building: this.$i18n.t(`buildings.${this.construction.building.name}`) })
+                ? this.$i18n.t('planet.buildings.compartment', { building: this.$i18n.t(`buildings.${this.construction.building.name}.title`) })
                 : this.$i18n.t('planet.building'));
         },
 

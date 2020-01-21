@@ -16,14 +16,38 @@
         "title": "Bâtiments de {planet}",
         "available_buildings": "Bâtiments disponibles",
         "launch_success": "La construction a été lancée avec succès !",
-        "hypodronic-farm": "Ferme à vaporisateurs",
-        "ore-mine": "Mine de Lithium",
-        "cristal-synthetiser": "Synthétiseur de cristaux",
-        "governor-palace": "Palais du gouverneur",
-        "shipyard": "Usine de chasseurs",
-        "spatial-shipyard": "Chantier naval",
-        "technolab": "Laboratoire expérimental",
-        "trade-post": "Comptoir commercial"
+        "hypodronic-farm": {
+            "title": "Ferme à vaporisateurs",
+            "description": "Produit différents liquides en récoltant les vapeurs puis en les distillant"
+        },
+        "ore-mine": {
+            "title": "Mine de Lithium",
+            "description": "Galeries permettant d'extraire différents filons de minerais"
+        },
+        "cristal-synthetiser": {
+            "title": "Synthétiseur de cristaux",
+            "description": "Les minerais sont ici purifiés et transformés en cristaux"
+        },
+        "governor-palace": {
+            "title": "Palais du gouverneur",
+            "description": "Le palais du gouverneur permet d'affirmer votre pouvoir et ainsi créer un territoire régional autour de votre planète"
+        },
+        "shipyard": {
+            "title": "Usine de chasseurs",
+            "description": "L'usine de chasseurs permet de produire quelques vaisseaux de petite taille"
+        },
+        "spatial-shipyard": {
+            "title": "Chantier naval",
+            "description": "Le chantier naval est une usine plus conséquente, permettant de travailler sur des modèles de vaisseaux plus lourds"
+        },
+        "technolab": {
+            "title": "Laboratoire expérimental",
+            "description": "Vos chercheurs tenteront ici de découvrir de nouvelles avancées technologiques"
+        },
+        "trade-post": {
+            "title": "Comptoir commercial",
+            "description": "Indispensable pour les transactions commerciales, le comptoir vous permettra de démarrer les échanges avec d'autres planètes"
+        }
     },
     "compartments": {
         "ore-well": {
@@ -189,6 +213,7 @@
             "available_compartments": "Extensions disponibles",
             "compartment": "Compartiment : {building}",
             "constructing": "En cours de construction",
+            "description": "Description",
             "effects": "Effets",
             "extracted_resources": "Ressources extraites",
             "price": "Coût de construction",

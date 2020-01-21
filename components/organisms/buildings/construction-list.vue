@@ -7,7 +7,7 @@
                         <div class="compartment-image" :style="`mask-image: url('/images/buildings/${compartmentPicture(c)}'); background-color: ${factionColors['grey']}`"></div>
                         <div class="info">
                             <h5>
-                                {{ $t('planet.buildings.compartment', { building: $t(`buildings.${c.building.name}`) }) }}
+                                {{ $t('planet.buildings.compartment', { building: $t(`buildings.${c.building.name}.title`) }) }}
                             </h5>
                             <h4>{{ $t(`compartments.${c.name}.title`) }}</h4>
                         </div>
@@ -20,7 +20,7 @@
                         <building-image :building="c" :disableConstructionPicto="true" width="48px" :color="factionColors['grey']" />
                         <div class="info">
                             <h5>{{ $t('planet.building') }}</h5>
-                            <h4>{{ $t(`buildings.${c.name}`) }}</h4>
+                            <h4>{{ $t(`buildings.${c.name}.title`) }}</h4>
                         </div>
                         <div class="cost">
                             {{ c.constructionState.points }}
