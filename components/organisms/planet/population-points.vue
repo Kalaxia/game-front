@@ -10,17 +10,23 @@
         </header>
         <section>
             <div v-for="(value, setting) in planet.settings" :key="setting" >
-                <gauge-selector :min="0"
-                    :max="population"
-                    :initialValue="value"
-                    :available="availablePoints"
-                    :color="factionColors['main']"
-                    @change="changeSetting(setting, $event)"
-                    @stop="updateSetting(setting, $event)"/>
-                <div>
-                    <span :style="{ color: factionColors['main'] }">{{ value }}</span>
-                    <colored-picto :src="settingsPicto(setting)" color="white" :width="32" :height="32" />
-                </div>
+                <header>
+                    <h5>{{ $t(`planet.settings.${setting}.title`) }}</h5>
+                    <p>{{ $t(`planet.settings.${setting}.description`) }}</p>
+                </header>
+                <section>
+                    <gauge-selector :min="0"
+                        :max="population"
+                        :initialValue="value"
+                        :available="availablePoints"
+                        :color="factionColors['main']"
+                        @change="changeSetting(setting, $event)"
+                        @stop="updateSetting(setting, $event)"/>
+                    <div>
+                        <span :style="{ color: factionColors['main'] }">{{ value }}</span>
+                        <colored-picto :src="settingsPicto(setting)" color="white" :width="32" :height="32" />
+                    </div>
+                </section>
             </div>
         </section>
         <footer>
@@ -98,33 +104,57 @@ export default {
         display: flex;
         flex-direction: column;
         padding: 10px 20px;
-        border: 1px solid #2D2D2D;
+        border: 1px solid #2d2d2d;
         border-radius: 10px;
+        overflow-y: auto;
 
         & > header {
             color: grey;
             text-align: justify;
+
+            & > h3 {
+                margin-top: 0px;
+            }
+
+            & > p {
+                margin: 0px;
+            }
         }
 
         & > section {
             & > div {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-end;
+                & > header {
+                    & > h5 {
+                        margin: 0px;
+                        margin-top: 10px;
+                    }
 
-                & > div:first-child {
-                    flex-grow: 1;
-                    margin-right: 30px;
+                    & > p {
+                        margin: 0px;
+                        margin-top: 5px;
+                        color: grey;
+                    }
                 }
 
-                & > div:last-child {
+                & > section {
                     display: flex;
-                    align-items: center;
+                    justify-content: space-between;
+                    align-items: flex-end;
 
-                    & > span {
-                        font-size: 1.2em;
-                        font-weight: bold;
-                        padding-right: 10px;
+                    & > div:first-child {
+                        flex-grow: 1;
+                        margin-right: 30px;
+                    }
+
+                    & > div:last-child {
+                        display: flex;
+                        align-items: center;
+
+                        & > span {
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            padding-right: 10px;
+                        }
                     }
                 }
             }

@@ -210,10 +210,22 @@
         "resources": "Ressources",
         "relations": "Relations diplomatiques",
         "settings": {
-            "services": "Service",
-            "building": "Génie Civil",
-            "military": "Génie Militaire",
-            "research": "Recherche"
+            "services_points": {
+                "title": "Service",
+                "description": "Les services produisent de l'argent."
+            },
+            "building_points": {
+                "title": "Génie Civil",
+                "description": "Le génie civil est en charge de la construction des bâtiments ainsi que de leurs compartiments."
+            },
+            "military_points": {
+                "title": "Génie Militaire",
+                "description": "Le génie militaire produit les commandes de vaisseaux passées au chantier naval."
+            },
+            "research_points": {
+                "title": "Recherche",
+                "description": "Les chercheurs s'occupent de découvrir de nouvelles technologies."
+            }
         },
         "system": "Système",
         "type": {
