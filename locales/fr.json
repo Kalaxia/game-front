@@ -222,7 +222,7 @@
             "notifications": {
                 "construction_success": {
                     "title": "Construction terminée",
-                    "content": "Le bâtiment <span class='translate'>buildings.{building_name}</span> vient d'être terminé sur la planète {planet_name}",
+                    "content": "Le bâtiment <span class='translate'>buildings.{building_name}.title</span> vient d'être terminé sur la planète {planet_name}",
                     "footer": "<span class='link' data-link='/planet/{planet_id}/buildings'>Voir</span>"
                 },
                 "compartment_success": {
