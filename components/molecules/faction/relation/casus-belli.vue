@@ -2,7 +2,7 @@
     <div class="casus-belli" :style="{ borderColor: faction.colors['grey'] }">
         <header>
             <player-avatar :player="player" :width="48" :height="48" />
-            <h4>{{ player.pseudo }}</h4>
+            <span>{{ player.pseudo }}</span>
         </header>
 
         <section class="type">
@@ -47,17 +47,19 @@ export default {
 
 <style lang="less">
 .casus-belli {
-    padding: 10px 20px;
-    border: 2px solid;
-    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 5px;
+    padding: 10px 0px;
 
     & > header {
         display: flex;
+        flex-direction: column;
         align-items: center;
 
-        & > h4 {
-            margin-left: 10px;
+        & > span {
+            padding-top: 5px;
         }
     }
 
@@ -66,7 +68,6 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 5px;
 
         & > span {
             padding-top: 5px;

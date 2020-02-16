@@ -58,7 +58,15 @@ export default {
 
     & > section {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+
+        & > .casus-belli {
+            border-top: 1px solid grey;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
     }
 }
 
