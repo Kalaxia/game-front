@@ -20,8 +20,7 @@
                         :initialValue="value"
                         :available="availablePoints"
                         :color="factionColors['main']"
-                        @change="changeSetting(setting, $event)"
-                        @stop="updateSetting(setting, $event)"/>
+                        @change="updateSetting(setting, $event)"/>
                     <div>
                         <span :style="{ color: factionColors['main'] }">{{ value }}</span>
                         <colored-picto :src="settingsPicto(setting)" color="white" :width="32" :height="32" />
@@ -86,12 +85,13 @@ export default {
             }[setting];
         },
 
-        changeSetting(setting, value) {
-            this.$store.commit('user/setPlanetSetting', { setting, value });
-        },
-
         async updateSetting(setting, value) {
-            this.changeSetting(setting, value);
+            const max = this.availablePoints + this.planet.settings[setting];
+            
+            if (value > max) {
+                value = max;
+            }
+            this.$store.commit('user/setPlanetSetting', { setting, value });
 
             await this.$repositories.planet.updateSettings(this.planet);
         }

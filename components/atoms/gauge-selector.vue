@@ -4,9 +4,9 @@
             <span>{{ min }}</span>
             <span>{{ max }}</span>
         </header>
-        <section :style="{ borderColor: color }" ref="container">
+        <section :style="{ borderColor: color }" ref="container" @click="move">
             <div :style="{ width: width, backgroundColor: color }" ref="gauge">
-                <div  draggable="true" @dragstart="drag" :style="{ borderColor: color }">
+                <div :style="{ borderColor: color }">
 
                 </div>
             </div>
@@ -15,10 +15,6 @@
 </template>
 
 <script>
-const dragData = {
-    start: null,
-    gaugeWidth: null
-};
 
 export default {
     name: 'gauge-selector',
@@ -44,36 +40,14 @@ export default {
     },
 
     methods: {
-        drag(event) {
-            dragData.start = event.clientX;
-            dragData.gaugeWidth = this.$refs.gauge.offsetWidth;
-
-            document.onmousemove = this.move;
-            document.onmouseup = this.stop;
-        },
-
         move(event) {
-            const width = event.clientX - dragData.start + dragData.gaugeWidth;
-
-            const newValue = Math.floor(this.max * width / this.$refs.container.offsetWidth);
-
-            if (newValue < this.min || newValue > this.max || (this.available !== null && newValue > this.value && (newValue - this.value) > this.available)) {
-                return;
+            let percent = event.layerX / this.$refs.container.offsetWidth;
+            if (percent > 1) {
+                percent = 1;
             }
+            const value = Math.floor(Math.round(this.max) * (percent));
 
-            this.value = newValue;
-
-            this.$emit('change', newValue);
-        },
-
-        stop(event) {
-            dragData.start = null;
-            dragData.gaugeWidth = null;
-
-            document.onmousemove = null;
-            document.onmouseup = null;
-
-            this.$emit('stop', this.value);
+            this.$emit('change', value);
         }
     }
 }
@@ -98,6 +72,7 @@ export default {
             border-style: solid;
             border-radius: 10px;
             overflow:hidden;
+            cursor: pointer;
 
             & > div {
                 min-width: 20px;
