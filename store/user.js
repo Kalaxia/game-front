@@ -155,6 +155,10 @@ export const mutations = {
 
     updateTaxRate(state, taxRate) {
         state.currentPlanet.taxRate = taxRate;
+    },
+
+    updatePopulation(state, quantity) {
+        state.currentPlanet.population += quantity;
     }
 };
 

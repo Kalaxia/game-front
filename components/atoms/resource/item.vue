@@ -9,11 +9,11 @@ export default {
     props: ['resource'],
     
     computed: {
-        resourcePicto: function() {
+        resourcePicto() {
             return `/images/resources/${this.$resources.resources[this.resource.name].picto}`;
         },
 
-        resourceName: function() {
+        resourceName() {
             return this.$i18n.t('planet.resources')[this.resource.name];
         }
     }

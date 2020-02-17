@@ -213,10 +213,14 @@ export default {
                     message: err
                 });
             }
-            this.$store.commit('user/updateStorageResource', {
-                resource: data.resource,
-                quantity: (data.planetToFleet === true) ? -data.quantity : data.quantity
-            });
+            if (data.resource !== 'passengers') {
+                this.$store.commit('user/updateStorageResource', {
+                    resource: data.resource,
+                    quantity: (data.planetToFleet === true) ? -data.quantity : data.quantity
+                });
+            } else {
+                this.$store.commit('user/updatePopulation', ((data.planetToFleet === true) ? -data.quantity : data.quantity) * 1000);
+            }
             if (typeof this.selectedFleet.cargo[data.resource] === 'undefined') {
                 this.selectedFleet.cargo[data.resource] = 0;
             }

@@ -21,10 +21,12 @@
                 </div>
             </header>
             <section>
-                <div v-for="(quantity, r) in fleet.cargo" :key="r">
-                    <resource-item :resource="{ name: r }" />
-                    {{ quantity }}
-                </div>
+                <template v-for="(quantity, r) in fleet.cargo">
+                    <div v-if="r != 'passengers'" :key="r">
+                        <resource-item :resource="{ name: r }" />
+                        {{ quantity }}
+                    </div>
+                </template>
             </section>
         </section>
         <section class="ships">
