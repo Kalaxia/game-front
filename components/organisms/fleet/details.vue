@@ -26,6 +26,10 @@
                         <resource-item :resource="{ name: r }" />
                         {{ quantity }}
                     </div>
+                    <div v-else :key="r">
+                        <colored-picto src="G_P_Char_BK_64px.png" :color="factionColors['grey']" :width="36" :height="36" />
+                        {{ quantity }}
+                    </div>
                 </template>
             </section>
         </section>
@@ -55,6 +59,7 @@
 </template>
 
 <script>
+import ColoredPicto from '~/components/atoms/colored-picto';
 import Gauge from '~/components/atoms/gauge';
 import JourneyStep from '~/components/molecules/fleet/journey-step';
 import OrderPicto from '~/components/atoms/fleet/order-picto';
@@ -78,6 +83,7 @@ export default {
     },
 
     components: {
+        ColoredPicto,
         Gauge,
         JourneyStep,
         OrderPicto,
@@ -214,7 +220,8 @@ export default {
                     margin: 10px;
                     font-size: 0.8em;
 
-                    & > .resource-item {
+                    & > .resource-item,
+                    & > .picto {
                         width: 36px;
                         height: 36px;
                         margin-bottom: 5px;
