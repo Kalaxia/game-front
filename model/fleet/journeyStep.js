@@ -1,6 +1,7 @@
 import Place from '~/model/map/place';
 
 export const ORDER_PASS = 'pass';
+export const ORDER_COLONIZE = 'colonize';
 export const ORDER_CONQUER = 'conquer';
 export const ORDER_DELIVER = 'deliver';
 

@@ -31,8 +31,9 @@
 
 <script>
 import OrderPicto from '~/components/atoms/fleet/order-picto';
+import ColonizeOrder from '~/components/molecules/fleet/order/colonize';
 import DeliveryOrder from '~/components/molecules/fleet/order/delivery';
-import { ORDER_PASS, ORDER_CONQUER, ORDER_DELIVER } from '~/model/fleet/journeyStep';
+import { ORDER_PASS, ORDER_COLONIZE, ORDER_CONQUER, ORDER_DELIVER } from '~/model/fleet/journeyStep';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -43,11 +44,6 @@ export default {
     data () {
         return {
             order: this.step.order,
-            orders: [
-                ORDER_PASS,
-                ORDER_CONQUER,
-                ORDER_DELIVER
-            ]
         }
     },
 
@@ -60,8 +56,21 @@ export default {
             factionColors: 'user/factionColors'
         }),
 
+        orders() {
+            const orders = [
+                ORDER_PASS,
+            ];
+            if (this.step.endPlace.planet.population > 0) {
+                orders.push(ORDER_CONQUER, ORDER_DELIVER);
+            } else {
+                orders.push(ORDER_COLONIZE);
+            }
+            return orders;
+        },
+
         extension() {
             const extensions = {
+                [ORDER_COLONIZE]: ColonizeOrder,
                 [ORDER_DELIVER]: DeliveryOrder
             };
             return (typeof extensions[this.order] !== 'undefined') ? extensions[this.order] : null;
