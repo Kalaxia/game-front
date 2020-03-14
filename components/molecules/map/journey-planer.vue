@@ -13,7 +13,7 @@
         <footer>
             <div>
                 <strong>{{ $t('journey.planer.estimated_time') }}</strong>
-                <span class="time">{{ $t('journey.planer.no_time') }}</span>
+                <span class="time">{{ travelTime }}</span>
             </div>
             <button class="button" :style="{ color: factionColors['white'] }" @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
         </footer>
@@ -58,11 +58,34 @@ export default {
         document.querySelector('body').removeEventListener('click', this.addPointMap);
     },
 
+    watch: {
+        fleet: {
+            handler() {
+                this.fleet.journey.steps.map(async (s, i) => {
+                    if (typeof s.restTime === 'undefined') {
+                        const data = await this.$repositories.fleet.calculateFleetTravelDuration(this.fleet, s);
+                        this.$store.commit('map/updateStepTime', {
+                            id: s.id,
+                            restTime: data.warm / 1000000000,
+                            travelTime: data.travel / 1000000000
+                        });
+                    }
+                    return s;
+                });
+            },
+            deep: true
+        }
+    },
+
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors',
             fleet: 'map/fleet'
-        })
+        }),
+
+        travelTime() {
+            return (this.fleet.journey.steps.reduce((acc, s) => acc + s.restTime + s.travelTime, 0) / 60).toFixed(2).replace('.', ':');
+        }
     },
 
     methods: {

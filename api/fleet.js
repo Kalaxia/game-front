@@ -15,6 +15,10 @@ export default class FleetRepository extends Repository {
         return new Fleet(await this.call('GET', `/api/fleets/${id}`));
     }
 
+    async calculateFleetTravelDuration(fleet, step) {
+        return this.call('POST', `/api/fleets/${fleet.id}/travel-duration`, { ...step });
+    }
+
     async getTravellingFleets() {
         const data = await this.call('GET', '/api/fleets/travelling');
         
