@@ -165,6 +165,8 @@ export default {
     @import '~less/atoms/button.less';
 
     #journey-planer {
+        display: flex;
+        flex-direction: column;
         background-color: rgba(0,0,0,0.6);
         padding: 10px 20px;
 
@@ -175,8 +177,9 @@ export default {
         }
 
         & > section {
+            flex-grow: 1;
             border-bottom: 1px solid grey;
-
+            overflow-y: auto;
         }
 
         & > footer {
