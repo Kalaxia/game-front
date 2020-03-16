@@ -8,8 +8,7 @@
             :min="0"
             :max="maxQuantity"
             :initialValue="squadron.quantity"
-            @change="$emit('assignShips', $event)"
-            @stop="$emit('validateQuantity', $event)" />
+            @change="$emit('validateQuantity', $event)" />
         <hexagon :borderColor="factionColors['main']" :backgroundColor="factionColors['black']" :size="64" :borderSize="2">
             <ship-type :type="squadron.shipModel.type" :color="factionColors['main']" :size="36" />
         </hexagon>
