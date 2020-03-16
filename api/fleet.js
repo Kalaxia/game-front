@@ -2,7 +2,6 @@ import Ship from '~/model/ship/ship';
 import ShipGroup from '~/model/ship/group';
 import Squadron from '~/model/fleet/squadron';
 import Fleet from '~/model/fleet/fleet';
-import FleetRange from '~/model/fleet/range';
 import Journey from '~/model/fleet/journey';
 import Repository from '~/api/repository';
 
@@ -15,8 +14,12 @@ export default class FleetRepository extends Repository {
         return new Fleet(await this.call('GET', `/api/fleets/${id}`));
     }
 
-    async calculateFleetTravelDuration(fleet, step) {
+    calculateTravelDuration(fleet, step) {
         return this.call('POST', `/api/fleets/${fleet.id}/travel-duration`, { ...step });
+    }
+
+    calculateRange(fleet) {
+        return this.call('POST', `/api/fleets/${fleet.id}/range`);
     }
 
     async getTravellingFleets() {
@@ -123,12 +126,8 @@ export default class FleetRepository extends Repository {
         await this.call('DELETE', `/api/fleets/${fleet.id}`);
     }
 
-    async getFleetRange(fleet) {
-        return new FleetRange(await this.call('GET', `/api/fleets/${fleet.id}/range`));
-    }
-
     async sendOnJourney(fleet) {
-        return new Journey(await this.call('POST', `/api/fleets/${fleet.id}/journey`, fleet.journey.format()));
+        return new Journey(await this.call('POST', `/api/fleets/${fleet.id}/journey`, { steps: fleet.journey.steps }));
     }
 
     loadCargo(fleet, data) {

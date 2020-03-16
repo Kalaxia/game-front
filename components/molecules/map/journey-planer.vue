@@ -44,9 +44,7 @@ export default {
     },
 
     async mounted() {
-        //const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
-        const range = this.$resources.journey_range;
-        this.$store.commit('map/fleetRange', range);
+        this.$store.commit('map/fleetRange', (await this.$repositories.fleet.calculateRange(this.$store.state.map.fleet)));
 
         if (this.$store.state.map.fleet.isOnJourney()) {
             return false;
@@ -63,7 +61,7 @@ export default {
             handler() {
                 this.fleet.journey.steps.map(async (s, i) => {
                     if (typeof s.restTime === 'undefined') {
-                        const data = await this.$repositories.fleet.calculateFleetTravelDuration(this.fleet, s);
+                        const data = await this.$repositories.fleet.calculateTravelDuration(this.fleet, s);
                         this.$store.commit('map/updateStepTime', {
                             id: s.id,
                             restTime: data.warm / 1000000000,
