@@ -166,8 +166,8 @@ export default {
     }
 
     #journey-planer {
-        grid-column: ~"1/3";
-        grid-row: ~"1/7";
+        grid-column: ~"9/11";
+        grid-row: ~"2/8";
         z-index: 3;
         .unselectable
     }
