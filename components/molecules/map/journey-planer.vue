@@ -13,7 +13,7 @@
         <footer>
             <div>
                 <strong>{{ $t('journey.planer.estimated_time') }}</strong>
-                <span class="time">{{ $t('journey.planer.no_time') }}</span>
+                <span class="time">{{ travelTime }}</span>
             </div>
             <button class="button" :style="{ color: factionColors['white'] }" @click="removeLastStep">{{ $t('journey.planer.remove_last_step') }}</button>
         </footer>
@@ -44,9 +44,7 @@ export default {
     },
 
     async mounted() {
-        //const range = await this.$repositories.fleet.getFleetRange(this.$store.state.map.fleet);
-        const range = this.$resources.journey_range;
-        this.$store.commit('map/fleetRange', range);
+        this.$store.commit('map/fleetRange', (await this.$repositories.fleet.calculateRange(this.$store.state.map.fleet)));
 
         if (this.$store.state.map.fleet.isOnJourney()) {
             return false;
@@ -58,11 +56,34 @@ export default {
         document.querySelector('body').removeEventListener('click', this.addPointMap);
     },
 
+    watch: {
+        fleet: {
+            handler() {
+                this.fleet.journey.steps.map(async (s, i) => {
+                    if (typeof s.restTime === 'undefined') {
+                        const data = await this.$repositories.fleet.calculateTravelDuration(this.fleet, s);
+                        this.$store.commit('map/updateStepTime', {
+                            id: s.id,
+                            restTime: data.warm / 1000000000,
+                            travelTime: data.travel / 1000000000
+                        });
+                    }
+                    return s;
+                });
+            },
+            deep: true
+        }
+    },
+
     computed: {
         ...mapGetters({
             factionColors: 'user/factionColors',
             fleet: 'map/fleet'
-        })
+        }),
+
+        travelTime() {
+            return (this.fleet.journey.steps.reduce((acc, s) => acc + s.restTime + s.travelTime, 0) / 60).toFixed(2).replace('.', ':');
+        }
     },
 
     methods: {
@@ -142,6 +163,8 @@ export default {
     @import '~less/atoms/button.less';
 
     #journey-planer {
+        display: flex;
+        flex-direction: column;
         background-color: rgba(0,0,0,0.6);
         padding: 10px 20px;
 
@@ -152,8 +175,9 @@ export default {
         }
 
         & > section {
+            flex-grow: 1;
             border-bottom: 1px solid grey;
-
+            overflow-y: auto;
         }
 
         & > footer {

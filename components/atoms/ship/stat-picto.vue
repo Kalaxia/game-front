@@ -17,6 +17,7 @@ export default {
     computed: {
         picto() {
             return {
+                cooldown: 'map/HourGlass.svg',
                 damage: 'ships/Attack.svg',
                 precision: 'ships/Precision.svg',
                 nb_shots: 'ships/Multiple-shots.svg',

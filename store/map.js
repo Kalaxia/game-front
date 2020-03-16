@@ -132,6 +132,12 @@ export const mutations = {
         }
     },
 
+    updateStepTime(state, payload) {
+        const index = state.fleet.journey.steps.findIndex(s => s.id === payload.id);
+        state.fleet.journey.steps[index].restTime = payload.restTime;
+        state.fleet.journey.steps[index].travelTime = payload.travelTime;
+    },
+
     removeLastStep(state) {
         if (state.fleet === null || state.fleet.journey === null || state.fleet.journey.steps.length === 0) {
             return;

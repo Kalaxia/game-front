@@ -12,6 +12,7 @@ export default class JourneyStep {
         this.endPlace = (data.end_place !== null) ? (data.end_place instanceof Place) ? data.end_place : new Place(data.end_place) : null;
         this.startedAt = new Date(data.time_start);
         this.arrivesAt = new Date(data.time_arrival);
+        this.travelTime = 0;
         this.restTime = data.time_jump;
         this.number = data.step_number;
         this.order = data.order;
