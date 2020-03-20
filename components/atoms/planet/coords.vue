@@ -1,17 +1,20 @@
 <template>
-    <router-link :to="`/map/systems/${planet.system.id}`">
+    <nuxt-link class="planet-coords" v-if="!disableLink" :to="`/map/systems/${planet.system.id}`">
         {{ planetCoords }}
-    </router-link>
+    </nuxt-link>
+    <span class="planet-coords" v-else>
+        {{ planetCoords }}
+    </span>
 </template>
 
 <script>
 export default {
     name: 'planet-coords',
 
-    props: ['planet'],
+    props: ['planet', 'disableLink'],
 
     computed: {
-        planetCoords: function() {
+        planetCoords() {
             return `[${this.planet.system.x}.${this.planet.system.y}.${this.planet.id % 100}]`;
         }
     }
@@ -19,7 +22,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    a {
+    .planet-coords {
         text-decoration: none;
         color: #EFEFEF;
         font-size: 0.9em;

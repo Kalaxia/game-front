@@ -1,7 +1,7 @@
 <template>
     <div class="minimap">
         <section :style="style" @click="$emit('moveTo', { x: $event.layerX / scale, y: $event.layerY / scale })">
-            <div class="window" :style="windowStyle" @click.prevent.stop></div>
+            <div class="window" v-if="posX && posY" :style="windowStyle" @click.prevent.stop></div>
             <div class="system" v-for="s in map.systems" :key="`system-${s.id}`" :style="systemStyle(s)"></div>
             <svg>
                 <svg v-for="t in territories" :key="t.id">
@@ -24,7 +24,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     name: 'minimap',
 
-    props: ['map', 'territories', 'scale', 'posX', 'posY'],
+    props: ['map', 'territories', 'scale', 'playerPlanets', 'selectedPlanet', 'posX', 'posY'],
 
     computed: {
         ...mapState('user', ['screen']),
@@ -67,12 +67,14 @@ export default {
 
     methods: {
         systemStyle(s) {
+            const size = this.scale * ((this.playerPlanets.map(p => p.system.id).indexOf(s.id) > -1) ? 4 : 1);
             return {
-                top: `${((s.coord_y - this.scale / 2) * this.scale) + this.padding}px`,
-                left: `${((s.coord_x - this.scale / 2) * this.scale) + this.padding}px`,
-                width: `${this.scale}px`,
-                height: `${this.scale}px`,
-                backgroundColor: (s.faction) ? s.faction.colors['main'] : '#EFEFEF'
+                top: `${((s.coord_y - size / 2) * this.scale) + this.padding}px`,
+                left: `${((s.coord_x - size / 2) * this.scale) + this.padding}px`,
+                width: `${size}px`,
+                height: `${size}px`,
+                backgroundColor: (this.selectedPlanet !== null && this.selectedPlanet.system.id == s.id) ? this.factionColors['main'] : (s.faction) ? s.faction.colors['main'] : '#EFEFEF',
+                boxShadow: (this.selectedPlanet !== null && this.selectedPlanet.system.id == s.id) ? `0px 0px ${this.scale * 5}px ${this.factionColors['main']}`: null,
             }
         }
     }
@@ -91,6 +93,7 @@ export default {
         & > .system {
             position: absolute;
             border-radius: 50%;
+            transition: box-shadow 0.2s, background-color 0.2s;
         }
 
         & > svg {

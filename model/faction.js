@@ -4,6 +4,7 @@ class Faction {
     constructor(data) {
         this.id = data.id
         this.name = data.name;
+        this.slug = data.slug;
         this.description = data.description;
         this.banner = data.banner;
         this.colors = data.colors;

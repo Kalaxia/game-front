@@ -73,6 +73,11 @@
         }
     },
     "faction": {
+        "backgrounds": {
+            "les-kalankars": "<h3>Coutumes et moeurs</h3><p>Ils sont très très réduits</p>",
+            "lascendance-valkar": "<h3>Coutumes et moeurs</h3><p>Ils sont très très forts</p>",
+            "les-adranites": "<h3>Coutumes et moeurs</h3><p>Ils sont très très méchants</p>"
+        },
         "regimes": {
             "1": "République à Démocratie Directe"
         },

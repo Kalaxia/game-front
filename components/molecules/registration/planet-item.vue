@@ -1,19 +1,15 @@
 <template>
-    <div class="planet-item" :style="style" @click="$emit('selectPlanet', planet)">
+    <div :class="['planet-item', { selected: isSelected }]" @click="$emit('selectPlanet', planet)">
         <header>
-            <planet-image :type="planet.type" width="96px" height="96px" />
+            <planet-image :type="planet.type" width="64px" height="64px" />
         </header>
         <section>
             <h3 :style="{ color: planetColor }">
                 <planet-picto :type="planet.type" :width="32" :height="32" />
                 {{ planet.name }}
             </h3>
-            <planet-coords :planet="planet" />
+            <planet-coords :planet="planet" :disableLink="true" />
         </section>
-        <footer>
-            <planet-relations :planet="planet" width="100px" height="100px" />
-            <resources-density-graph :id="planet.id" :resources="planet.resources" :size="100" />
-        </footer>
     </div>
 </template>
 
@@ -21,8 +17,6 @@
 import PlanetImage from '~/components/atoms/planet/image';
 import PlanetPicto from '~/components/atoms/planet/picto';
 import PlanetCoords from '~/components/atoms/planet/coords';
-import PlanetRelations from '../planet/relations';
-import ResourcesDensityGraph from '../resource/density-graph';
 
 export default {
     name: 'planet-item',
@@ -33,18 +27,9 @@ export default {
         PlanetImage,
         PlanetPicto,
         PlanetCoords,
-        PlanetRelations,
-        ResourcesDensityGraph
     },
 
     computed: {
-        style() {
-            return {
-                borderWidth: (this.isSelected) ? '5px' : '2px',
-                borderColor: this.planetColor,
-            };
-        },
-
         planetColor() {
             return {
                 arctic: '#35C3DE',
@@ -62,20 +47,27 @@ export default {
 
 <style lang="less" scoped>
     .planet-item {
-        border-style: solid;
-        border-radius: 10px;
-        padding: 10px 20px;
-        transition: border-width 0.2s ease-out;
+        display: flex;
+        padding: 5px 10px;
         background-color: #242424;
+        border-bottom: 2px solid grey;
+        background-color: #242424;
+        transition: background-color 0.2s;
+        cursor: pointer;
+
+        &:hover,
+        &.selected {
+            background-color: black;
+        }
 
         & > header {
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 20px;
         }
 
         & > section {
-            text-align: center;
             padding: 10px 0px;
             font-size: 1.2em;
 
@@ -84,6 +76,14 @@ export default {
                 justify-content: center;
                 align-items: center;
                 margin: 0px;
+
+                & > .planet-picto {
+                    margin-right: 10px;
+                }
+            }
+
+            & > .planet-coords {
+                padding-left: 42px;
             }
         }
 
