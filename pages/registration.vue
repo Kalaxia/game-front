@@ -64,6 +64,7 @@ export default {
             this.step = 3;
 
             this.$store.commit('user/setGender', data.gender);
+            this.$store.commit('user/setClass', data.class);
             this.$store.commit('user/setAvatar', data.avatar);
             this.$store.commit('user/setPseudo', data.pseudo);
         },
@@ -98,8 +99,8 @@ export default {
     }
 
     #character-form {
-        grid-column: ~"3/9";
-        grid-row: ~"3/9";
+        grid-column: ~"2/10";
+        grid-row: ~"2/11";
     }
 
     @media (max-width: 800px) {

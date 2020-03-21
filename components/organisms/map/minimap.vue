@@ -67,14 +67,14 @@ export default {
 
     methods: {
         systemStyle(s) {
-            const size = this.scale * ((this.playerPlanets.map(p => p.system.id).indexOf(s.id) > -1) ? 4 : 1);
+            const size = this.scale * (typeof this.playerPlanets !== 'undefined' && (this.playerPlanets.map(p => p.system.id).indexOf(s.id) > -1) ? 4 : 1);
             return {
                 top: `${((s.coord_y - size / 2) * this.scale) + this.padding}px`,
                 left: `${((s.coord_x - size / 2) * this.scale) + this.padding}px`,
                 width: `${size}px`,
                 height: `${size}px`,
-                backgroundColor: (this.selectedPlanet !== null && this.selectedPlanet.system.id == s.id) ? this.factionColors['main'] : (s.faction) ? s.faction.colors['main'] : '#EFEFEF',
-                boxShadow: (this.selectedPlanet !== null && this.selectedPlanet.system.id == s.id) ? `0px 0px ${this.scale * 5}px ${this.factionColors['main']}`: null,
+                backgroundColor: (this.selectedPlanet && this.selectedPlanet.system.id == s.id) ? this.factionColors['main'] : (s.faction) ? s.faction.colors['main'] : '#EFEFEF',
+                boxShadow: (this.selectedPlanet && this.selectedPlanet.system.id == s.id) ? `0px 0px ${this.scale * 5}px ${this.factionColors['main']}`: null,
             }
         }
     }

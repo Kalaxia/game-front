@@ -590,6 +590,12 @@
         }
     },
     "player": {
+        "classes": {
+            "industrialist": "Industriel",
+            "politician": "Politicien",
+            "strategist": "Stratège",
+            "trader": "Marchand"
+        },
         "titles": {
             "governor": "Gouverneur"
         }
