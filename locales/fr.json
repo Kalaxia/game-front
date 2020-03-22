@@ -596,6 +596,23 @@
             "strategist": "Stratège",
             "trader": "Marchand"
         },
+        "skill": {
+            "combat": {
+                "title": "Stratégie"
+            },
+            "excavation": {
+                "title": "Excavation"
+            },
+            "industry": {
+                "title": "Industrie"
+            },
+            "politics": {
+                "title": "Politique"
+            },
+            "trade": {
+                "title": "Commerce"
+            }
+        },
         "titles": {
             "governor": "Gouverneur"
         }
