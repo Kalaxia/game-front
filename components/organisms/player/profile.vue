@@ -12,7 +12,7 @@
                 </div>
             </header>
             <section>
-                <div v-for="s in ['combat', 'industry', 'excavation', 'trade', 'politics']" :key="s">
+                <div v-for="s in ['combat', 'industry', 'production', 'trade', 'politics']" :key="s">
                     <h4>{{ $t(`player.skill.${s}.title`) }}</h4>
                     <gauge :levels="gaugeLevels(s)" :background="factionColors['black']" />
                 </div>
