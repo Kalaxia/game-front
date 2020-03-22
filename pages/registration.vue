@@ -1,17 +1,17 @@
 <template>
     <div>
-        <factions-choice v-if="step === 1" @selectFaction="selectFaction" />
+        <factions-choice v-if="step === 1" @selectFaction="selectFaction" :factions="factions" />
         <character-form v-if="step === 2" @createCharacter="createCharacter" />
-        <template v-if="step === 3 && planetChoices.length > 0">
-            <starmap v-if="screen.width >= 800" :map="map" :playerPlanets="planetChoices" />
-            <planets-choice :planets="planetChoices" @confirmPlanet="confirmPlanet" />
-        </template>
+        <planets-choice v-if="step === 3 && planetChoices.length > 0"
+            :planets="planetChoices"
+            :map="map"
+            :territories="territories"
+            @confirmPlanet="confirmPlanet" />
     </div>
 </template>
 
 <script>
 import CharacterForm from '~/components/organisms/registration/character-form';
-import Starmap from '~/components/organisms/map/starmap';
 import FactionsChoice from '~/components/organisms/registration/factions-choice';
 import PlanetsChoice from '~/components/organisms/registration/planets-choice';
 import { mapState } from 'vuex';
@@ -26,21 +26,22 @@ export default {
             planet: null,
             planetChoices: [],
             data: null,
-            map: null
         };
+    },
+
+    async asyncData({ app }) {
+        const [ map, territories, factions ] = await Promise.all([
+            app.$repositories.map.getMap(),
+            app.$repositories.map.getTerritories(),
+            app.$repositories.faction.faction.getFactions(),
+        ]);
+        return { map, territories, factions };
     },
 
     components: {
         CharacterForm,
         FactionsChoice,
-        PlanetsChoice,
-        Starmap
-    },
-
-    async mounted() {
-        if (this.screen.width >= 800) {
-            this.map = await this.$repositories.map.getMap();
-        }
+        PlanetsChoice
     },
 
     computed: {
@@ -63,6 +64,7 @@ export default {
             this.step = 3;
 
             this.$store.commit('user/setGender', data.gender);
+            this.$store.commit('user/setClass', data.class);
             this.$store.commit('user/setAvatar', data.avatar);
             this.$store.commit('user/setPseudo', data.pseudo);
         },
@@ -82,23 +84,23 @@ export default {
 
 <style lang="less" scoped>
     #factions-choice {
-        grid-column: ~"3/9";
-        grid-row: ~"3/9";
+        grid-column: ~"1/11";
+        grid-row: ~"1/11";
     }
 
-    #starmap {
-        grid-column: ~"1/11";
-        grid-row: ~"1∕11";
+    .minimap {
+        grid-column: ~"2/8";
+        grid-row: ~"2∕4";
     }
 
     #planets-choice {
-        grid-column: ~"3/9";
-        grid-row: ~"6/10";
+        grid-column: ~"1/11";
+        grid-row: ~"1/11";
     }
 
     #character-form {
-        grid-column: ~"3/9";
-        grid-row: ~"3/9";
+        grid-column: ~"2/10";
+        grid-row: ~"2/11";
     }
 
     @media (max-width: 800px) {

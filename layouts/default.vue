@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <top-menu v-if="player.faction" :faction="player.faction" />
+        <top-menu v-if="player.isActive" :faction="player.faction" />
         <alerts-list />
         <logout-button id="logout" />
         <nuxt id="wrapper" />
-        <player-menu v-if="player.avatar" :player="player" />
+        <player-menu v-if="player.isActive" :player="player" />
         <planet-menu v-if="currentPlanet" :planet="currentPlanet" />
         <notifications-list v-if="player.isActive" :notifications="player.notifications" />
         <action-notifications :notifications="actionNotifications" />

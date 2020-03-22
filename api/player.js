@@ -4,6 +4,7 @@ import Player from '~/model/player';
 export default class PlayerRepository extends Repository {
     async createPlayer(player, planetId) {
         await this.call('POST', `/api/players`, {
+            class: player.class,
             gender: player.gender,
             avatar: player.avatar,
             pseudo: player.pseudo,

@@ -84,6 +84,10 @@ export const mutations = {
         state.player = player;
     },
 
+    setClass(state, c) {
+        state.player.class = c;
+    },
+
     setGender(state, gender) {
         state.player.gender = gender;
     },

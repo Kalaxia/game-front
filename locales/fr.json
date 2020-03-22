@@ -73,6 +73,11 @@
         }
     },
     "faction": {
+        "backgrounds": {
+            "les-kalankars": "<h3>Coutumes et moeurs</h3><p>Ils sont très très réduits</p>",
+            "lascendance-valkar": "<h3>Coutumes et moeurs</h3><p>Ils sont très très forts</p>",
+            "les-adranites": "<h3>Coutumes et moeurs</h3><p>Ils sont très très méchants</p>"
+        },
         "regimes": {
             "1": "République à Démocratie Directe"
         },
@@ -585,6 +590,29 @@
         }
     },
     "player": {
+        "classes": {
+            "industrialist": "Industriel",
+            "politician": "Politicien",
+            "strategist": "Stratège",
+            "trader": "Marchand"
+        },
+        "skill": {
+            "combat": {
+                "title": "Stratégie"
+            },
+            "production": {
+                "title": "Excavation"
+            },
+            "industry": {
+                "title": "Industrie"
+            },
+            "politics": {
+                "title": "Politique"
+            },
+            "trade": {
+                "title": "Commerce"
+            }
+        },
         "titles": {
             "governor": "Gouverneur"
         }

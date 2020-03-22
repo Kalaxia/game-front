@@ -11,12 +11,19 @@
                     <faction-banner :faction="player.faction" :width="64" :height="96" />
                 </div>
             </header>
+            <section v-if="player.skills">
+                <div v-for="s in ['combat', 'industry', 'production', 'trade', 'politics']" :key="s">
+                    <h4>{{ $t(`player.skill.${s}.title`) }}</h4>
+                    <gauge :levels="gaugeLevels(s)" :background="factionColors['black']" />
+                </div>
+            </section>
         </div>
         <planet-list :planets="planets" :style="{ borderColor: factionColors['grey'] }" />
     </div>
 </template>
 
 <script>
+import Gauge from '~/components/atoms/gauge';
 import PlayerAvatar from '~/components/atoms/player/avatar';
 import FactionBanner from '~/components/atoms/faction/banner';
 import PlanetList from '~/components/organisms/planet/list';
@@ -29,6 +36,7 @@ export default {
 
     components: {
         FactionBanner,
+        Gauge,
         PlayerAvatar,
         PlanetList
     },
@@ -37,6 +45,17 @@ export default {
         ...mapGetters({
             factionColors: 'user/factionColors'
         })
+    },
+
+    methods: {
+        gaugeLevels (skill) {
+            return [
+                {
+                    value: (this.player.skills[skill] / 500) * 100,
+                    color: this.factionColors['main']
+                }
+            ];
+        }
     }
 }
 </script>
@@ -82,6 +101,19 @@ export default {
                     flex-grow: 1;
                     display: flex;
                     justify-content: flex-end;
+                }
+            }
+
+            & > section {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+
+                & > div {
+                    & > .gauge {
+                        width: 100%;
+                        height: 20px;
+                    }
                 }
             }
         }

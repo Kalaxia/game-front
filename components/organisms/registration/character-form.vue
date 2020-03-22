@@ -11,14 +11,26 @@
                     <img :src="`/images/avatars/${data.gender}/${data.avatar}.png`" :alt="`${data.avatar}`" />
             </div>
         </section>
-        <section class="pseudo" v-if="selectedAvatar">
+        <section class="class" v-if="selectedAvatar">
+            <header>
+                <h2>Choisir une classe</h2>
+                <p></p>
+            </header>
+            <section>
+                <div v-for="c in classes" :key="c" :style="{ color: factionColors['main'] }" @click="selectedClass = c" :class="{ selected: selectedClass === c }">
+                    <colored-picto :src="classesData[c]" :color="factionColors['white']" :width="48" :height="48" />
+                    <span>{{ $t(`player.classes.${c}`) }}</span>
+                </div>
+            </section>
+        </section>
+        <section class="pseudo" v-if="selectedClass">
             <h2>Entrez votre pseudo</h2>
             <input v-model="pseudo" type="text" :style="{ borderColor: factionColors['main'] }" />
         </section>
         <footer v-if="pseudo.length > 3">
             <button 
                 :style="{ borderColor: factionColors['main'] }"
-                @click="$emit('createCharacter', { avatar: selectedAvatar, gender, pseudo })">
+                @click="$emit('createCharacter', { avatar: selectedAvatar, class: selectedClass, gender, pseudo })">
                     Confirmer
             </button>
         </footer>
@@ -26,6 +38,7 @@
 </template>
 
 <script>
+import ColoredPicto from '~/components/atoms/colored-picto';
 import { shadeColor } from '~/lib/colors';
 import { shuffle } from '~/lib/array';
 import { mapGetters } from 'vuex';
@@ -36,12 +49,34 @@ export default {
     data() {
         return {
             pseudo: '',
+            selectedClass: null,
             selectedAvatar: null,
             gender: null
         };
     },
 
+    components: {
+        ColoredPicto,
+    },
+
     computed: {
+        ...mapGetters({
+            factionColors: 'user/factionColors'
+        }),
+
+        classesData() {
+            return {
+                strategist: 'Victory.svg',
+                industrialist: 'Pc_Services.png',
+                politician: 'G_P_Ov_64px.png',
+                trader: 'B_Merc_64px.png'
+            };
+        },
+
+        classes() {
+            return shuffle(Object.keys(this.classesData));
+        },
+
         avatars() {
             const avatars = [];
 
@@ -56,9 +91,6 @@ export default {
             return shuffle(avatars);
         },
 
-        ...mapGetters({
-            factionColors: 'user/factionColors'
-        })
     },
 
     methods: {
@@ -111,6 +143,40 @@ export default {
                     & > img {
                         width: 118px;
                         height: 118px;
+                    }
+                }
+            }
+        }
+
+        .class {
+            width: 60%;
+            margin: auto;
+
+            & > header {
+                & > h2 {
+                    text-align: center;
+                }
+            }
+
+            & > section {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 50px;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    transition: color 0.2s;
+                    cursor: pointer;
+
+                    &:not(.selected):not(:hover) {
+                        color: white !important;
+                    }
+
+                    & > span {
+                        padding-top: 10px;
+                        font-variant: small-caps;
                     }
                 }
             }
