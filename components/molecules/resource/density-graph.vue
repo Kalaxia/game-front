@@ -1,7 +1,7 @@
 <template>
-    <div :id="`resource-${id}-production`" class="resource-density-graph">
+    <div class="resource-density-graph">
         <section :style="{ width: `${size}px`, height: `${size}px` }">
-            <canvas></canvas>
+            <canvas ref="graph"></canvas>
             <div class="density-picto"
                 v-for="(resource, index) in resources"
                 :key="resource.name"
@@ -26,42 +26,15 @@ export default {
     },
 
     mounted() {
-        const ctx = document.querySelector(`#resource-${this.id}-production > section > canvas`);
+        this.loadChart();
+    },
 
-        ctx.style.height = `${this.size}px`;
-        ctx.style.width = `${this.size}px`;
-
-        const myChart = new Chart(ctx, {
-            type: 'polarArea',
-            data: this.datasets,
-            options: {
-                responsive: false,
-                legend: {
-                    display: false,
-                },
-                scale: {
-                    gridLines: {
-                        color: '#090A0A',
-                        lineWidth: 1,
-                    },
-                    ticks: {
-                        display: false,
-                        beginAtZero: true,
-                        min: 0,
-                        max: 100,
-                        stepSize: 25,
-                        showLabelBackdrop: false,
-                    },
-                    tooltips: {
-                        enabled: false,
-                    },
-                    hover: {
-                        display: false,
-                        mode: null,
-                    },
-                },
+    watch: {
+        id(newId, oldId) {
+            if (newId !== oldId) {
+                this.loadChart();
             }
-        });
+        }
     },
 
     computed: {
@@ -119,6 +92,45 @@ export default {
              * 32: picto size / 2
              */
             return (this.size / 2) - 10 - (this.pictoSize / 2) + (Math.sin(this.getPictoAngle(index)) * (this.size / 2)) + 'px';
+        },
+
+        loadChart() {
+            const ctx = this.$refs['graph'];
+
+            ctx.style.height = `${this.size}px`;
+            ctx.style.width = `${this.size}px`;
+
+            const myChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: this.datasets,
+                options: {
+                    responsive: false,
+                    legend: {
+                        display: false,
+                    },
+                    scale: {
+                        gridLines: {
+                            color: '#090A0A',
+                            lineWidth: 1,
+                        },
+                        ticks: {
+                            display: false,
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100,
+                            stepSize: 25,
+                            showLabelBackdrop: false,
+                        },
+                        tooltips: {
+                            enabled: false,
+                        },
+                        hover: {
+                            display: false,
+                            mode: null,
+                        },
+                    },
+                }
+            });
         }
     }
 }
