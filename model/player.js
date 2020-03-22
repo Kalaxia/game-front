@@ -12,7 +12,7 @@ export default class Player {
         this.faction = (data.faction !== null) ? new Faction(data.faction) : null;
         this.currentPlanet = (data.current_planet !== null) ? new Planet(data.current_planet) : null;
         this.notifications = (data.notifications !== null) ? this.formatNotifications(data.notifications) : {};
-        this.skills = (data.skills) ? data.skills : [];
+        this.skills = (data.skills) ? data.skills : null;
         this.createdAt = data.created_at;
         this.updatedAt = data.updated_at;
     }

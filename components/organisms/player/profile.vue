@@ -11,7 +11,7 @@
                     <faction-banner :faction="player.faction" :width="64" :height="96" />
                 </div>
             </header>
-            <section>
+            <section v-if="player.skills">
                 <div v-for="s in ['combat', 'industry', 'production', 'trade', 'politics']" :key="s">
                     <h4>{{ $t(`player.skill.${s}.title`) }}</h4>
                     <gauge :levels="gaugeLevels(s)" :background="factionColors['black']" />
