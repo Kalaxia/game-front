@@ -17,8 +17,8 @@
                 <p></p>
             </header>
             <section>
-                <div v-for="(picto, c) in classesData" :key="c" :style="{ color: factionColors['main'] }" @click="selectedClass = c" :class="{ selected: selectedClass === c }">
-                    <colored-picto :src="picto" :color="factionColors['white']" :width="48" :height="48" />
+                <div v-for="c in classes" :key="c" :style="{ color: factionColors['main'] }" @click="selectedClass = c" :class="{ selected: selectedClass === c }">
+                    <colored-picto :src="classesData[c]" :color="factionColors['white']" :width="48" :height="48" />
                     <span>{{ $t(`player.classes.${c}`) }}</span>
                 </div>
             </section>
@@ -71,6 +71,10 @@ export default {
                 politician: 'G_P_Ov_64px.png',
                 trader: 'B_Merc_64px.png'
             };
+        },
+
+        classes() {
+            return shuffle(Object.keys(this.classesData));
         },
 
         avatars() {
